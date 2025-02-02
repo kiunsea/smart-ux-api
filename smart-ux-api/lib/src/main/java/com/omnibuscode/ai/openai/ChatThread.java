@@ -24,19 +24,14 @@ public class ChatThread implements ChatRoom {
 	private String threadId = null; // thread id
 	private Map messages = null; // 대화방에서의 대화 목록
 
-	public ChatThread() {
+	public ChatThread(String assistantId, String apiKey) {
 		
-	    String apiKey = "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";
-	    String assistantId = "asst_hsP6560JM3JiFi0HlU4gR8hZ";
-	    String baseUrl = "https://api.openai.com/v1";
-		
-		conn = new Connection(apiKey, assistantId, baseUrl);
+		conn = new Connection(assistantId, apiKey);
 		try {
-			String threadId = conn.createThread();
+			this.threadId = conn.createThread();
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-		this.threadId = threadId;
 		
 		this.messages = new HashMap<String, ChatMessage>();
 	}

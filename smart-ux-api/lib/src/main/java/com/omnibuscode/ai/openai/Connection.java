@@ -18,16 +18,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Connection {
 	
-    private String apiKey = null;
+	private String BASE_URL = "https://api.openai.com/v1";
+	
     private String assistantId = null;
-    private String baseUrl = null;
+    private String apiKey = null;
     
     private ObjectMapper mapper = null;
     
-    public Connection(String apiKey, String assistantId, String baseUrl) {
-    	this.apiKey = apiKey;
+    public Connection(String assistantId, String apiKey) {
     	this.assistantId = assistantId;
-    	this.baseUrl = baseUrl;
+    	this.apiKey = apiKey;
     	
     	this.mapper = new ObjectMapper();
     }
@@ -39,7 +39,7 @@ public class Connection {
      * @throws ParseException
      */
     public String createThread() throws IOException, ParseException {
-        String url = String.format("%s/threads", this.baseUrl);
+        String url = String.format("%s/threads", this.BASE_URL);
 
         System.out.println("Request url: "+url);
         String response = sendRequest(url, "POST", null);
@@ -52,7 +52,7 @@ public class Connection {
     }
     
     public String deleteThread(String threadId) throws IOException, ParseException {
-    	String url = String.format("%s/threads/%s", this.baseUrl, threadId);
+    	String url = String.format("%s/threads/%s", this.BASE_URL, threadId);
         String response = sendRequest(url, "DELETE", null);
         System.out.println("Response of sendRequest(): "+response);
         JsonNode resInfo = this.mapper.readTree(response);
@@ -61,7 +61,7 @@ public class Connection {
     }
     
     public String createMessage(String threadId, String content) throws IOException, ParseException {
-        String url = String.format("%s/threads/%s/messages", this.baseUrl, threadId);
+        String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
         System.out.println("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
@@ -78,7 +78,7 @@ public class Connection {
     }
     
     public String createRun(String threadId) throws IOException, ParseException {
-        String url = String.format("%s/threads/%s/runs", this.baseUrl, threadId);
+        String url = String.format("%s/threads/%s/runs", this.BASE_URL, threadId);
         System.out.println("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
@@ -98,7 +98,7 @@ public class Connection {
     }
     
 	public JsonNode retrieveRun(String threadId, String runId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/runs/%s", this.baseUrl, threadId, runId);
+		String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
 		System.out.println("Request url: " + url);
 
 		String response = sendRequest(url, "GET", null);
@@ -110,7 +110,7 @@ public class Connection {
 	}
 	
 	public JsonNode listMessages(String threadId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/messages", this.baseUrl, threadId);
+		String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
 		System.out.println("Request url: " + url);
 
 		String response = sendRequest(url, "GET", null);
@@ -123,7 +123,7 @@ public class Connection {
 	}
 	
 	public boolean submitToolOutputs(JsonNode toolCalls, String threadId, String runId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/runs/%s/submit_tool_outputs", this.baseUrl, threadId, runId);
+		String url = String.format("%s/threads/%s/runs/%s/submit_tool_outputs", this.BASE_URL, threadId, runId);
 
 		JSONObject bodyJson = new JSONObject();
 		if (toolCalls != null && toolCalls.isArray()) {
