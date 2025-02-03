@@ -1,11 +1,15 @@
 package com.omnibuscode.ai;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+
+import com.omnibuscode.ai.openai.Assistant;
 
 public class ChatManager {
 
@@ -14,48 +18,44 @@ public class ChatManager {
 	public static String AINAME_OPENAI = "OPENAI";
 	public static String AINAME_GEMINI = "GEMINI";
 	
-	private ChatRoom chatRoom = null;
+	private Assistant assistInfo = null;
+	private ChatRoom chatRoom = null; //채팅 스레드
+	
+	public void setAssistInfo(Assistant aiInfo) {
+		this.assistInfo = aiInfo;
+	}
 	
 	/**
 	 * 채팅방 생성
 	 * @param aiName : openai or gemini
-	 * @param aiInfo
-	 * @return
+	 * @return 실행 결과
 	 */
-	public JSONObject createChatRoom(String aiName, JSONObject aiInfo) {
+	public JSONObject createChatRoom(String aiName) {
 		
 		JSONObject rtnInfo = new JSONObject();
 		
 		if (ChatManager.AINAME_OPENAI.equals(aiName)) {
 			
-			//TODO id와 key는 사용자가 소유해야하고 api에서의 기본값은 null 로 초기화 되어 있어야 한다. (테스트이므로 임시로 설정해놓음)
-		    String assistantId = "asst_hsP6560JM3JiFi0HlU4gR8hZ";
-		    String apiKey = "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";
-
 		    /**
 		     * validation
 		     */
-		    if (aiInfo == null) {
-		    	rtnInfo.put("message", "접속 정보가 필요합니다.");
-		    	rtnInfo.put("result", "false");
-		    	return rtnInfo;
-		    }
-		    if (aiInfo.containsKey("assistant_id")) {
-		    	assistantId = aiInfo.get("assistant_id").toString();
-		    } else {
+			if (this.assistInfo == null) {
+				rtnInfo.put("message", "접속 정보(Assistants info)가 필요합니다.");
+				rtnInfo.put("result", "false");
+				return rtnInfo;
+			}
+		    if (this.assistInfo.getAssistantId() == null) {
 		    	rtnInfo.put("message", "assistant_id 가 필요합니다.");
 		    	rtnInfo.put("result", "false");
 		    	return rtnInfo;
 		    }
-		    if (aiInfo.containsKey("api_key")) {
-		    	apiKey = aiInfo.get("api_key").toString();
-		    } else {
+		    if (this.assistInfo.getApiKey() == null) {
 		    	rtnInfo.put("message", "api_key 가 필요합니다.");
 		    	rtnInfo.put("result", "false");
 		    	return rtnInfo;
 		    }
 		    
-			this.chatRoom = new com.omnibuscode.ai.openai.ChatThread(assistantId, apiKey);
+			this.chatRoom = new com.omnibuscode.ai.openai.ChatThread(this.assistInfo);
 			rtnInfo.put("result", "true");
 			return rtnInfo;
 		}
@@ -84,12 +84,17 @@ public class ChatManager {
 			e.printStackTrace();
 		}
 		
+		return resMsg;
+	}
+	
+	public boolean closeChatRoom() {
+		boolean closed = false;
 		try {
-			this.chatRoom.closeChat();
+			closed = this.chatRoom.closeChat();
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-		
-		return resMsg;
+		return closed;
 	}
+
 }

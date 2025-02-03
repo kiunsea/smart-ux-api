@@ -10,30 +10,39 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatRoom;
+import com.omnibuscode.ai.UserFunction;
+import com.omnibuscode.ai.openai.connection.ChatConnection;
 
 /**
- * 대화방 클래스
- * ChatGPT에서는 Thread
+ * ChatGPT의 Thread
  */
 public class ChatThread implements ChatRoom {
 	
 	private Logger log = LogManager.getLogger(ChatThread.class);
+	ObjectMapper objMapper = new ObjectMapper();
 	
-	private Connection conn = null;
+	private Assistant assistInfo = null;
+	private ChatConnection conn = null;
 	private String threadId = null; // thread id
-	private Map messages = null; // 대화방에서의 대화 목록
+	private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록
 
-	public ChatThread(String assistantId, String apiKey) {
+	public ChatThread(Assistant assistInfo) {
 		
-		conn = new Connection(assistantId, apiKey);
+		this.assistInfo = assistInfo;
+		this.conn = new ChatConnection(assistInfo);
 		try {
-			this.threadId = conn.createThread();
+			this.threadId = this.conn.createThread();
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
 		
-		this.messages = new HashMap<String, ChatMessage>();
+		this.messages = new HashMap<String, JsonNode>();
+	}
+	
+	public void setFunctionMap(Map usrFuncs) {
+		//TODO
 	}
 
 	/**
@@ -45,8 +54,8 @@ public class ChatThread implements ChatRoom {
 	 */
 	public String sendMessage(String userMsg) throws IOException, ParseException {
 		
-		String msgId = conn.createMessage(this.threadId, userMsg);
-		String runId = conn.createRun(threadId);
+		String msgId = this.conn.createMessage(this.threadId, userMsg);
+		String runId = this.conn.createRun(threadId);
 		
 		Map<String, String> onboardLinkMap = new HashMap<String, String>();
 		String runStatus = null;
@@ -56,26 +65,28 @@ public class ChatThread implements ChatRoom {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			JsonNode runInfo = conn.retrieveRun(this.threadId, runId);
+			JsonNode runInfo = this.conn.retrieveRun(this.threadId, runId);
 			runStatus = runInfo.get("status").asText();
 			if ("requires_action".equals(runStatus)) {
 				JsonNode toolCalls = runInfo.get("required_action").get("submit_tool_outputs").get("tool_calls");
 				for (JsonNode tc : toolCalls) {
 					if ("function".equals(tc.get("type").asText())) {
 						JsonNode fJson = tc.get("function");
-						//TODO tool call 처리 로직은 기본과 사용자 두가지로 추후 처리
-//						String onboardName = fJson.get("name").asText();
-//						String args = fJson.get("arguments").asText();
-//						
-//						String userCodePath = OnboardingUtil.createUsrOnboarding(seqUser, onboardName, JSONUtil.parseJsonNode(args));
-//						onboardLinkMap.put(onboardName, userCodePath);
+						String fName = fJson.get("name").asText();
+						String args = fJson.get("arguments").asText();
+						
+						Map<String, UserFunction> usrFuncMap = this.assistInfo.getFunctions();
+						if (usrFuncMap.containsKey(fName)) {
+							UserFunction usrFunc = usrFuncMap.get(fName);
+							usrFunc.execFunction(this.objMapper.readTree(args));
+						}
 					}
 				}
-				conn.submitToolOutputs(toolCalls, this.threadId, runId);
+				this.conn.submitToolOutputs(toolCalls, this.threadId, runId);
 			}
 		} while (runStatus == null || !"completed".equals(runStatus));
 
-		JsonNode msgArr = conn.listMessages(this.threadId);
+		JsonNode msgArr = this.conn.listMessages(this.threadId);
 		
 		String resMsg = null;
 		// 배열 노드 확인
@@ -118,9 +129,10 @@ public class ChatThread implements ChatRoom {
 	 * @throws ParseException
 	 * @throws IOException 
 	 */
-	public void closeChat() throws IOException, ParseException {
-		String deleted = conn.deleteThread(threadId);
+	public boolean closeChat() throws IOException, ParseException {
+		boolean deleted = this.conn.deleteThread(threadId);
 		log.debug("delete thread [" + threadId + "] - " + deleted);
+		return deleted;
 	}
 	
 	/**

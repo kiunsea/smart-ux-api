@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai;
+package com.omnibuscode.ai.openai.connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,21 +15,20 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omnibuscode.ai.openai.Assistant;
 
-public class Connection {
+/**
+ * openai api에 적용한다
+ */
+public class ChatConnection {
 	
 	private String BASE_URL = "https://api.openai.com/v1";
 	
-    private String assistantId = null;
-    private String apiKey = null;
+    private Assistant assistInfo = null;
+    private ObjectMapper objMapper = new ObjectMapper();
     
-    private ObjectMapper mapper = null;
-    
-    public Connection(String assistantId, String apiKey) {
-    	this.assistantId = assistantId;
-    	this.apiKey = apiKey;
-    	
-    	this.mapper = new ObjectMapper();
+    public ChatConnection(Assistant assistInfo) {
+    	this.assistInfo = assistInfo;
     }
     
     /**
@@ -46,18 +45,18 @@ public class Connection {
         System.out.println("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
-        JsonNode threadInfo = this.mapper.readTree(response);
+        JsonNode threadInfo = this.objMapper.readTree(response);
         String threadId = threadInfo.get("id").asText();
         return threadId;
     }
     
-    public String deleteThread(String threadId) throws IOException, ParseException {
+    public boolean deleteThread(String threadId) throws IOException, ParseException {
     	String url = String.format("%s/threads/%s", this.BASE_URL, threadId);
         String response = sendRequest(url, "DELETE", null);
         System.out.println("Response of sendRequest(): "+response);
-        JsonNode resInfo = this.mapper.readTree(response);
-        String deleted = resInfo.get("deleted").asText();
-        return deleted;
+        JsonNode resInfo = this.objMapper.readTree(response);
+        JsonNode rtnVal = resInfo.get("deleted");
+        return rtnVal != null ? rtnVal.asBoolean() : false;
     }
     
     public String createMessage(String threadId, String content) throws IOException, ParseException {
@@ -72,7 +71,7 @@ public class Connection {
         System.out.println("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
-        JsonNode msgInfo = this.mapper.readTree(response);
+        JsonNode msgInfo = this.objMapper.readTree(response);
         String msgId = msgInfo.get("id").asText();
         return msgId;
     }
@@ -82,12 +81,12 @@ public class Connection {
         System.out.println("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
-        bodyJson.put("assistant_id", this.assistantId);
+        bodyJson.put("assistant_id", this.assistInfo.getAssistantId());
         String response = sendRequest(url, "POST", bodyJson.toJSONString());
         System.out.println("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
-        JsonNode runInfo = this.mapper.readTree(response);
+        JsonNode runInfo = this.objMapper.readTree(response);
         String runId = runInfo.get("id").asText();
         return runId;
     }
@@ -105,7 +104,7 @@ public class Connection {
 		System.out.println("Response of sendRequest(): " + response);
 
 		// JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
-        JsonNode runInfo = this.mapper.readTree(response);
+        JsonNode runInfo = this.objMapper.readTree(response);
 		return runInfo;
 	}
 	
@@ -116,7 +115,7 @@ public class Connection {
 		String response = sendRequest(url, "GET", null);
 		System.out.println("Response of sendRequest(): " + response);
 
-        JsonNode resJson = this.mapper.readTree(response);
+        JsonNode resJson = this.objMapper.readTree(response);
 		JsonNode messages = resJson.get("data");
 
 		return messages;
@@ -146,7 +145,7 @@ public class Connection {
 		}
 
 		String response = sendRequest(url, "POST", bodyJson.toJSONString());
-        JsonNode runInfo = this.mapper.readTree(response);
+        JsonNode runInfo = this.objMapper.readTree(response);
 		String status = runInfo.get("status").asText();
 		return (status != null && "queued".equals(status));
 	}
@@ -155,7 +154,7 @@ public class Connection {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod(methodType != null ? methodType : "POST");
-        connection.setRequestProperty("Authorization", "Bearer " + this.apiKey);
+        connection.setRequestProperty("Authorization", "Bearer " + this.assistInfo.getApiKey());
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("OpenAI-Beta", "assistants=v2");
         connection.setDoOutput(true);

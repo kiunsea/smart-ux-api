@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+/**
+ * 대화방
+ */
 public interface ChatRoom {
 
 	/**
@@ -14,10 +17,10 @@ public interface ChatRoom {
 	public String sendMessage(String userMsg) throws IOException, ParseException;
 	
 	/**
-	 * 대화방 나가기
+	 * 대화방 나가기 (openai 에서는 thread 삭제)
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public void closeChat() throws IOException, ParseException;
+	public boolean closeChat() throws IOException, ParseException;
 	
 }
