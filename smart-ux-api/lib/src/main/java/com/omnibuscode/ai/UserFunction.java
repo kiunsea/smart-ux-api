@@ -1,5 +1,7 @@
 package com.omnibuscode.ai;
 
+import org.json.simple.JSONObject;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
@@ -11,7 +13,7 @@ public interface UserFunction {
 	 * function 을 실행
 	 * @param funcName
 	 * @param argsJson
-	 * @return
+	 * @return 실행결과를 ChatRoom.sendMessage()의 반환값(JSONObject)에 "userFunctionsResult"에 저장
 	 */
-	public boolean execFunction(JsonNode argsJson);
+	public JSONObject execFunction(JsonNode argsJson);
 }

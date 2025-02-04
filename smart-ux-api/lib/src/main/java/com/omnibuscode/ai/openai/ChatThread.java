@@ -2,11 +2,11 @@ package com.omnibuscode.ai.openai;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -28,6 +28,10 @@ public class ChatThread implements ChatRoom {
 	private String threadId = null; // thread id
 	private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록
 
+	public String getId() {
+		return this.threadId;
+	}
+	
 	public ChatThread(Assistant assistInfo) {
 		
 		this.assistInfo = assistInfo;
@@ -48,16 +52,17 @@ public class ChatThread implements ChatRoom {
 	/**
 	 * 입력한 사용자 메세지를 thread 에 추가하고 run 한다
 	 * @param userMsg
-	 * @return assistant message
+	 * @return assistant message - {"message":String, "userFunctionsResult":JSONObject}
 	 * @throws ParseException 
 	 * @throws IOException 
 	 */
-	public String sendMessage(String userMsg) throws IOException, ParseException {
+	public JSONObject sendMessage(String userMsg) throws IOException, ParseException {
+
+		JSONObject resJson = new JSONObject();
 		
 		String msgId = this.conn.createMessage(this.threadId, userMsg);
 		String runId = this.conn.createRun(threadId);
 		
-		Map<String, String> onboardLinkMap = new HashMap<String, String>();
 		String runStatus = null;
 		do {
 			try {
@@ -69,6 +74,7 @@ public class ChatThread implements ChatRoom {
 			runStatus = runInfo.get("status").asText();
 			if ("requires_action".equals(runStatus)) {
 				JsonNode toolCalls = runInfo.get("required_action").get("submit_tool_outputs").get("tool_calls");
+				JSONObject usrFuncsRst = null;
 				for (JsonNode tc : toolCalls) {
 					if ("function".equals(tc.get("type").asText())) {
 						JsonNode fJson = tc.get("function");
@@ -78,7 +84,11 @@ public class ChatThread implements ChatRoom {
 						Map<String, UserFunction> usrFuncMap = this.assistInfo.getFunctions();
 						if (usrFuncMap.containsKey(fName)) {
 							UserFunction usrFunc = usrFuncMap.get(fName);
-							usrFunc.execFunction(this.objMapper.readTree(args));
+							JSONObject result = usrFunc.execFunction(this.objMapper.readTree(args));
+							
+							if (usrFuncsRst == null) usrFuncsRst = new JSONObject();
+							usrFuncsRst.put(fName, result);
+							resJson.put("userFunctionsResult", usrFuncsRst);
 						}
 					}
 				}
@@ -107,21 +117,12 @@ public class ChatThread implements ChatRoom {
 			log.error("배열 형식이 아닙니다.");
 		}
 		
-		//onbording 태그 추가
-		if (onboardLinkMap.size() > 0) {
-			Iterator<String> keyIter = onboardLinkMap.keySet().iterator();
-			while (keyIter.hasNext()) {
-				String key = keyIter.next().toString();
-				String link = "/jbs/onboarding?usr_scenario=" + onboardLinkMap.get(key).toString();
-				resMsg += "\n- 온보딩 가이드 : <a href=\"#\" onclick=\"userOnboarding('" + java.net.URLEncoder.encode(link, "UTF-8") + "')\">" + key + "</a>";
-			}
-		}
-		
 		//html tag로 변환
 		resMsg = resMsg.replaceAll("\\r\\n|\\r|\\n", "<br>");
 		resMsg = this.convertAsterisksToBoldTags(resMsg);
+		resJson.put("message", resMsg);
 		
-		return resMsg;
+		return resJson;
 	}
 	
 	/**

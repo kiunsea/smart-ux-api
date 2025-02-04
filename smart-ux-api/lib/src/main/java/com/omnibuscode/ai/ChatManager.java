@@ -28,7 +28,7 @@ public class ChatManager {
 	/**
 	 * 채팅방 생성
 	 * @param aiName : openai or gemini
-	 * @return 실행 결과
+	 * @return {result:실행결과, message:결과메세지, instance:ChatRoom}
 	 */
 	public JSONObject createChatRoom(String aiName) {
 		
@@ -40,7 +40,7 @@ public class ChatManager {
 		     * validation
 		     */
 			if (this.assistInfo == null) {
-				rtnInfo.put("message", "접속 정보(Assistants info)가 필요합니다.");
+				rtnInfo.put("message", "접속 정보(Assistants info)가 필요합니다. Assistant instance를 설정해 주세요.");
 				rtnInfo.put("result", "false");
 				return rtnInfo;
 			}
@@ -57,6 +57,7 @@ public class ChatManager {
 		    
 			this.chatRoom = new com.omnibuscode.ai.openai.ChatThread(this.assistInfo);
 			rtnInfo.put("result", "true");
+			rtnInfo.put("instance", this.chatRoom);
 			return rtnInfo;
 		}
 		
@@ -68,25 +69,34 @@ public class ChatManager {
 	 * @param userMsg
 	 * @return
 	 */
-	public String sendMessage(String userMsg) {
+	public JSONObject sendMessage(String userMsg) {
+		JSONObject resJson = null;
+		
 		if (userMsg == null || userMsg.trim().length() < 1) {
-			return "사용자 메세지가 없습니다.";
+			resJson = new JSONObject();
+			resJson.put("message", "사용자 메세지가 없습니다.");
+			return resJson;
 		}
 		
 		if (this.chatRoom == null) {
-			return "ai가 선택되어야 합니다.";
+			resJson = new JSONObject();
+			resJson.put("message", "ai가 선택되어야 합니다.");
+			return resJson;
 		}
 		
-		String resMsg = null;
 		try {
-			resMsg = this.chatRoom.sendMessage(userMsg);
+			resJson = this.chatRoom.sendMessage(userMsg);
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
 		
-		return resMsg;
+		return resJson;
 	}
 	
+	/**
+	 * 채팅방 닫기
+	 * @return
+	 */
 	public boolean closeChatRoom() {
 		boolean closed = false;
 		try {

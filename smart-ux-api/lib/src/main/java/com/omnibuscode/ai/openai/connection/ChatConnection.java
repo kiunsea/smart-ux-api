@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -16,12 +18,14 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.openai.Assistant;
+import com.omnibuscode.ai.openai.ChatThread;
 
 /**
  * openai api에 적용한다
  */
 public class ChatConnection {
 	
+	private Logger log = LogManager.getLogger(ChatConnection.class);
 	private String BASE_URL = "https://api.openai.com/v1";
 	
     private Assistant assistInfo = null;
@@ -40,9 +44,9 @@ public class ChatConnection {
     public String createThread() throws IOException, ParseException {
         String url = String.format("%s/threads", this.BASE_URL);
 
-        System.out.println("Request url: "+url);
+        log.debug("Request url: "+url);
         String response = sendRequest(url, "POST", null);
-        System.out.println("Response of sendRequest(): "+response);
+        log.debug("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode threadInfo = this.objMapper.readTree(response);
@@ -53,7 +57,7 @@ public class ChatConnection {
     public boolean deleteThread(String threadId) throws IOException, ParseException {
     	String url = String.format("%s/threads/%s", this.BASE_URL, threadId);
         String response = sendRequest(url, "DELETE", null);
-        System.out.println("Response of sendRequest(): "+response);
+        log.debug("Response of sendRequest(): "+response);
         JsonNode resInfo = this.objMapper.readTree(response);
         JsonNode rtnVal = resInfo.get("deleted");
         return rtnVal != null ? rtnVal.asBoolean() : false;
@@ -61,14 +65,14 @@ public class ChatConnection {
     
     public String createMessage(String threadId, String content) throws IOException, ParseException {
         String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
-        System.out.println("Request url: "+url);
+        log.debug("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
         bodyJson.put("role", "user");
         bodyJson.put("content", content);
         
         String response = sendRequest(url, "POST", bodyJson.toJSONString());
-        System.out.println("Response of sendRequest(): "+response);
+        log.debug("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode msgInfo = this.objMapper.readTree(response);
@@ -78,12 +82,12 @@ public class ChatConnection {
     
     public String createRun(String threadId) throws IOException, ParseException {
         String url = String.format("%s/threads/%s/runs", this.BASE_URL, threadId);
-        System.out.println("Request url: "+url);
+        log.debug("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
         bodyJson.put("assistant_id", this.assistInfo.getAssistantId());
         String response = sendRequest(url, "POST", bodyJson.toJSONString());
-        System.out.println("Response of sendRequest(): "+response);
+        log.debug("Response of sendRequest(): "+response);
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode runInfo = this.objMapper.readTree(response);
@@ -98,10 +102,10 @@ public class ChatConnection {
     
 	public JsonNode retrieveRun(String threadId, String runId) throws IOException, ParseException {
 		String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
-		System.out.println("Request url: " + url);
+		log.debug("Request url: " + url);
 
 		String response = sendRequest(url, "GET", null);
-		System.out.println("Response of sendRequest(): " + response);
+		log.debug("Response of sendRequest(): " + response);
 
 		// JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode runInfo = this.objMapper.readTree(response);
@@ -110,10 +114,10 @@ public class ChatConnection {
 	
 	public JsonNode listMessages(String threadId) throws IOException, ParseException {
 		String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
-		System.out.println("Request url: " + url);
+		log.debug("Request url: " + url);
 
 		String response = sendRequest(url, "GET", null);
-		System.out.println("Response of sendRequest(): " + response);
+		log.debug("Response of sendRequest(): " + response);
 
         JsonNode resJson = this.objMapper.readTree(response);
 		JsonNode messages = resJson.get("data");
@@ -136,12 +140,12 @@ public class ChatConnection {
 
 		        if ("function".equals(element.get("type").asText())) {
 		            String fName = element.get("function").get("name").asText();
-		            System.out.println(" > [" + fName + "] function called!!");//function 처리에 대해서만 로깅
+		            log.debug(" > Processing complete: [" + fName + "] function called");//function 처리 결과
 		        }
 		    }
 		    bodyJson.put("tool_outputs", callArr);
 		} else {
-		    System.out.println("'data' is not an array or is missing.");
+		    log.debug("'data' is not an array or is missing.");
 		}
 
 		String response = sendRequest(url, "POST", bodyJson.toJSONString());
