@@ -18,7 +18,6 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.openai.Assistant;
-import com.omnibuscode.ai.openai.ChatThread;
 
 /**
  * openai api에 적용한다

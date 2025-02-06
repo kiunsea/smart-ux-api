@@ -84,7 +84,7 @@ public class ChatThread implements ChatRoom {
 						Map<String, UserFunction> usrFuncMap = this.assistInfo.getFunctions();
 						if (usrFuncMap.containsKey(fName)) {
 							UserFunction usrFunc = usrFuncMap.get(fName);
-							JSONObject result = usrFunc.execFunction(this.objMapper.readTree(args));
+							JSONObject result = usrFunc.execFunction(fName, this.objMapper.readTree(args));
 							
 							if (usrFuncsRst == null) usrFuncsRst = new JSONObject();
 							usrFuncsRst.put(fName, result);

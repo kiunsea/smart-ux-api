@@ -15,5 +15,5 @@ public interface UserFunction {
 	 * @param argsJson
 	 * @return 실행결과를 ChatRoom.sendMessage()의 반환값(JSONObject)에 "userFunctionsResult"에 저장
 	 */
-	public JSONObject execFunction(JsonNode argsJson);
+	public JSONObject execFunction(String funcName, JsonNode argsJson);
 }
