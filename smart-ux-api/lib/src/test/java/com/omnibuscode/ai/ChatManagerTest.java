@@ -6,20 +6,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.omnibuscode.ai.openai.Assistant;
 
 public class ChatManagerTest {
 
 	@Test
-	public void test() throws IOException, ParseException {
+	public void test() throws Exception {
 //		fail("Not yet implemented");
 		ChatManager cm = new ChatManager();
 		Assistant assist = new Assistant();
+		DummyUserFunction dumUsrFunc = new DummyUserFunction();
+		assist.putFunction("on_jangbogo", dumUsrFunc);
 		cm.setAssistInfo(assist);
 
-		JSONObject jo = cm.createChatRoom(cm.AINAME_OPENAI);
+		JSONObject jo = cm.createChatRoom(cm.AI_NAME_OPENAI);
 		ChatRoom cr = (ChatRoom) jo.get("instance");
-		System.out.println("* [" + cr.getId() + "] 채팅방 생성 결과: " + jo.toJSONString());
+		System.out.println("* [" + cr.getId() + "] 채팅방 생성 결과: " + jo.toString());
 
 		this.sendMsg(cr, "넌 누구니?");
 		this.sendMsg(cr, "너의 이름은?");
@@ -30,8 +33,15 @@ public class ChatManagerTest {
 	}
 
 	private void sendMsg(ChatRoom cr, String usrQ) throws IOException, ParseException {
-		System.out.println("* USER: " + usrQ);
-		System.out.println("* AI: " + cr.sendMessage(usrQ).get("message"));
+		System.out.println("* USER msg: " + usrQ);
+		JSONObject resJson = cr.sendMessage(usrQ);
+		System.out.println("* AI msg: " + resJson.get("message"));
+		Object usrFuncRst = resJson.get(ChatManager.USER_FUNCTIONS_RESULT);
+		if (usrFuncRst != null) {
+			Object onJbgRst = ((JSONObject) usrFuncRst).get("on_jangbogo");
+			if (onJbgRst != null)
+				System.out.println("* AI user_link: " + ((JSONObject) onJbgRst).get("user_link"));
+		}
 	}
 
 }

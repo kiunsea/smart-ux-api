@@ -45,3 +45,15 @@ java {
 tasks.jar {
     archiveFileName.set("${rootProject.name}-${project.version}.jar")
 }
+tasks.register("copyJar") {
+    doLast {
+        copy {
+            from("${buildDir}/libs/${rootProject.name}-${project.version}.jar")
+            into("D:/SVN/boxes/jiniebox/output/server/java/jiniebox-1.0/src/main/webapp/WEB-INF/lib")
+            include("*.jar")
+        }
+    }
+}
+tasks.named("build") {
+    finalizedBy("copyJar")
+}

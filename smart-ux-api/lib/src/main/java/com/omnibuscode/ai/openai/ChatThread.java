@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omnibuscode.ai.ChatManager;
 import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.UserFunction;
 import com.omnibuscode.ai.openai.connection.ChatConnection;
@@ -88,7 +89,7 @@ public class ChatThread implements ChatRoom {
 							
 							if (usrFuncsRst == null) usrFuncsRst = new JSONObject();
 							usrFuncsRst.put(fName, result);
-							resJson.put("userFunctionsResult", usrFuncsRst);
+							resJson.put(ChatManager.USER_FUNCTIONS_RESULT, usrFuncsRst);
 						}
 					}
 				}
@@ -117,9 +118,9 @@ public class ChatThread implements ChatRoom {
 			log.error("배열 형식이 아닙니다.");
 		}
 		
-		//html tag로 변환
-		resMsg = resMsg.replaceAll("\\r\\n|\\r|\\n", "<br>");
-		resMsg = this.convertAsterisksToBoldTags(resMsg);
+//		//html tag로 변환
+//		resMsg = resMsg.replaceAll("\\r\\n|\\r|\\n", "<br>");
+//		resMsg = this.convertAsterisksToBoldTags(resMsg);
 		resJson.put("message", resMsg);
 		
 		return resJson;
