@@ -20,6 +20,10 @@ public class ChatManager {
 	private Assistant assistInfo = null;
 	private ChatRoom chatRoom = null; //채팅 스레드
 	
+	/**
+	 * OpenAI Assistants API 접속시 필요한 정보 객체(Assistant)를 설정한다.
+	 * @param aiInfo
+	 */
 	public void setAssistInfo(Assistant aiInfo) {
 		this.assistInfo = aiInfo;
 	}
