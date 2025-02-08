@@ -18,6 +18,8 @@ public class ChatManagerTest {
 		Assistant assist = new Assistant();
 		DummyUserFunction dumUsrFunc = new DummyUserFunction();
 		assist.putFunction("on_jangbogo", dumUsrFunc);
+		assist.setApiKey("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");
+		assist.setAssistantId("asst_hsP6560JM3JiFi0HlU4gR8hZ");
 		cm.setAssistInfo(assist);
 
 		JSONObject jo = cm.createChatRoom(cm.AI_NAME_OPENAI);
