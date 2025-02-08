@@ -6,7 +6,7 @@ import java.util.Map;
 import com.omnibuscode.ai.openai.Assistant;
 
 /**
- * Assistant 목록을 관리하고 openai api에 적용한다
+ * Assistant 목록을 관리하고 openai api에 연결한다
  */
 public class AssistantConnection {
 

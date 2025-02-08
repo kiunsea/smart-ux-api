@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.openai.Assistant;
 
 /**
- * openai api에 적용한다
+ * openai api에 연결한다.
  */
 public class ChatConnection {
 	

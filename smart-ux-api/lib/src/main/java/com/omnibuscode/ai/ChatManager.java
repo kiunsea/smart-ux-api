@@ -9,6 +9,9 @@ import org.json.simple.parser.ParseException;
 
 import com.omnibuscode.ai.openai.Assistant;
 
+/**
+ * AI 를 선택하여 Chatting Room 을 개설하고 AI 와 대화하는 인터페이스를 제공한다.
+ */
 public class ChatManager {
 
 	private Logger log = LogManager.getLogger(ChatManager.class);
@@ -21,7 +24,7 @@ public class ChatManager {
 	private ChatRoom chatRoom = null; //채팅 스레드
 	
 	/**
-	 * OpenAI Assistants API 접속시 필요한 정보 객체(Assistant)를 설정한다.
+	 * OpenAI Assistants API 접속시 필요한 정보 객체(Assistant)를 저장한다.
 	 * @param aiInfo
 	 */
 	public void setAssistInfo(Assistant aiInfo) {

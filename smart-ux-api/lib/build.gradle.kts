@@ -28,6 +28,8 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
     
+    implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
+    
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     
