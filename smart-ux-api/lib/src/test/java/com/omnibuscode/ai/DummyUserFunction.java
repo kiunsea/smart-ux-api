@@ -22,4 +22,9 @@ public class DummyUserFunction implements UserFunction {
 		return null;
 	}
 
+	@Override
+	public JSONObject getFunctionJson() {
+		return null;
+	}
+
 }
