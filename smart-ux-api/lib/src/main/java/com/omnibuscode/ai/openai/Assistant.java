@@ -40,6 +40,9 @@ public class Assistant {
 		JSONObject usrFuncJson = usrFunc.getFunctionJson();
 		// TODO user function name 을 assistant 에서 조회하고 이미 있는 경우는 overwrite 할지 확인후 user function 의 내용을 등록하게 해야 한다.
 		// usrFuncJson 이 null 이 아니면 usrFuncJson 내용을 assistant 에 반영해야 함
+		if (usrFuncJson != null) {
+			
+		}
 		
 		this.usrFuncs.put(funcName, usrFunc);
 	}

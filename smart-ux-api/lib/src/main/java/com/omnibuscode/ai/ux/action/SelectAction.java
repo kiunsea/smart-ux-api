@@ -4,4 +4,9 @@ import com.omnibuscode.ai.ux.Action;
 
 public class SelectAction implements Action {
 
+	@Override
+	public String getActionType() {
+		return this.ACTION_TYPE_SELECT;
+	}
+
 }

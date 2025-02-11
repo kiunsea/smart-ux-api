@@ -1,0 +1,44 @@
+[
+	{
+		"page_name": "메인화면",
+		"page_url": "main.jsp",
+		"elements": [
+			{
+				"name": "홈버튼",
+				"element": "#btn_home",
+				"popover": {
+					"title": "처음 화면으로 돌아갑니다",
+					"description": "모든 주문을 취소합니다"
+				}
+			},
+			{
+				"name": "메뉴버튼",
+				"element": "#btn_menu",
+				"popover": {
+					"title": "메뉴 화면으로 이동합니다"
+				}
+			}
+		]
+	},
+	{
+		"page_name": "메뉴화면",
+		"page_url": "menu.jsp",
+		"elements": [
+			{
+				"name": "아이템 목록",
+				"element": "#div_items",
+				"popover": {
+					"title": "메뉴를 선택합니다"
+				}
+			},
+			{
+				"name": "결재 버튼",
+				"element": "#btn_order",
+				"popover": {
+					"title": "결재 버튼입니다",
+					"description": "메뉴 선택이 끝났다면 결재 버튼을 누릅니다"
+				}
+			}
+		]
+	}
+]

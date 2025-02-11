@@ -6,7 +6,8 @@ import java.util.Map;
 import com.omnibuscode.ai.openai.Assistant;
 
 /**
- * Assistant 목록을 관리하고 openai api에 연결한다
+ * Assistant 를 관리하고 openai api에 연결한다.<br/>
+ * 2025.02.10 현재는 미사용으로 곧 file search 와 functions 를 사용해야 해서 이 클래스를 완성해야 한다.
  */
 public class AssistantConnection {
 
