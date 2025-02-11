@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import com.omnibuscode.ai.UserFunction;
+import com.omnibuscode.ai.BehaviorFunction;
 
 /**
  * 접속 정보를 관리한다.<br/>
@@ -15,7 +15,7 @@ public class Assistant {
     private String apiKey = null;
     private String assistantId = null;
     
-	private Map<String, UserFunction> usrFuncs = new HashMap<String, UserFunction>(); //function call 수행을 위한 사용자 정의 인스턴스
+	private Map<String, BehaviorFunction> usrFuncs = new HashMap<String, BehaviorFunction>(); //function call 수행을 위한 사용자 정의 인스턴스
 	
     public String getAssistantId() {
 		return this.assistantId;
@@ -35,7 +35,7 @@ public class Assistant {
 	 * assistants/tools/functions 목록을 확인하고 신규 추가 또는 기존 내용을 수정한다.
 	 * @param funcName
 	 */
-	public void putFunction(String funcName, UserFunction usrFunc) {
+	public void putFunction(String funcName, BehaviorFunction usrFunc) {
 		
 		JSONObject usrFuncJson = usrFunc.getFunctionJson();
 		// TODO user function name 을 assistant 에서 조회하고 이미 있는 경우는 overwrite 할지 확인후 user function 의 내용을 등록하게 해야 한다.

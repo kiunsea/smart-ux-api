@@ -5,10 +5,10 @@ import org.json.simple.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
- * 사용자 정의 함수 인터페이스<br/>
+ * 사용자 정의용 함수 인터페이스<br/>
  * function 을 assistants/tools/functions 에 등록하고 ai가 사용자 질의 해석시 필요에 따라 function 을 호출하면 su-api 에서 해당 함수를 실행하게 한다.
  */
-public interface UserFunction {
+public interface BehaviorFunction {
 
 	/**
 	 * function 을 실행

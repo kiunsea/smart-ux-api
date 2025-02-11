@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatManager;
 import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.UserFunction;
+import com.omnibuscode.ai.BehaviorFunction;
 import com.omnibuscode.ai.openai.connection.ChatConnection;
 
 /**
@@ -82,9 +82,9 @@ public class ChatThread implements ChatRoom {
 						String fName = fJson.get("name").asText();
 						String args = fJson.get("arguments").asText();
 						
-						Map<String, UserFunction> usrFuncMap = this.assistInfo.getFunctions();
+						Map<String, BehaviorFunction> usrFuncMap = this.assistInfo.getFunctions();
 						if (usrFuncMap.containsKey(fName)) {
-							UserFunction usrFunc = usrFuncMap.get(fName);
+							BehaviorFunction usrFunc = usrFuncMap.get(fName);
 							JSONObject result = usrFunc.execFunction(fName, this.objMapper.readTree(args));
 							
 							if (usrFuncsRst == null) usrFuncsRst = new JSONObject();
