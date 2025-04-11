@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class DummyUserFunction implements BehaviorFunction {
+public class DummyUserFunction implements ProcessFunction {
 
 	@Override
 	public JSONObject execFunction(String funcName, JsonNode argsJson) {

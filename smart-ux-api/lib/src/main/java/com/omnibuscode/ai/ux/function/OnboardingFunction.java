@@ -2,15 +2,15 @@ package com.omnibuscode.ai.ux.function;
 
 import org.json.simple.JSONObject;
 
-import com.omnibuscode.ai.BehaviorFunction;
+import com.omnibuscode.ai.ProcessFunction;
 
 /**
- * UserFunction 의 기능과 더불어 ai로부터 전달받은 user behavior scenario 를 action 목록으로 세션에 저장하고 온보딩 실행을 위한 driver.js 실행 파일도 생성한다.<br/>
+ * ProcessFunction 의 기능과 더불어 ai로부터 전달받은 user process scenario 를 action 목록으로 세션에 저장하고 온보딩 실행을 위한 driver.js 실행 파일도 생성한다.<br/>
  * 이 클래스를 상속받은 클래스에서는 getOnboardingJson()과 execFunction() 함수를 구현하여<br/>
  * getOnboardingJson()으로는 user onboarding definition 이 Assistant 의 file search 에 등록하게 하고<br/>
  * execFunction()로는 AI가 함수 호출시 가이드를 위한 준비 작업을 해야 한다.
  */
-public abstract class OnboardingFunction implements BehaviorFunction {
+public abstract class OnboardingFunction implements ProcessFunction {
 
 	public static String FILE_NAME = "onboarding.json"; //assist 의 file search 에 등록하는 file 이름
 	
@@ -32,7 +32,7 @@ public abstract class OnboardingFunction implements BehaviorFunction {
 	}
 	
 	/**
-	 * behavior 내용을 json object 로 반환한다.
+	 * process 내용을 json object 로 반환한다.
 	 * @return Actions Processing
 	 */
 	public abstract JSONObject getOnboardingJson();

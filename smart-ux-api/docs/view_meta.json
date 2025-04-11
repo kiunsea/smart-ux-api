@@ -1,44 +1,45 @@
 [
-	{
-		"page_name": "메인화면",
-		"page_url": "main.jsp",
-		"elements": [
-			{
-				"name": "홈버튼",
-				"element": "#btn_home",
-				"popover": {
-					"title": "처음 화면으로 돌아갑니다",
-					"description": "모든 주문을 취소합니다"
-				}
-			},
-			{
-				"name": "메뉴버튼",
-				"element": "#btn_menu",
-				"popover": {
-					"title": "메뉴 화면으로 이동합니다"
-				}
-			}
-		]
-	},
-	{
-		"page_name": "메뉴화면",
-		"page_url": "menu.jsp",
-		"elements": [
-			{
-				"name": "아이템 목록",
-				"element": "#div_items",
-				"popover": {
-					"title": "메뉴를 선택합니다"
-				}
-			},
-			{
-				"name": "결재 버튼",
-				"element": "#btn_order",
-				"popover": {
-					"title": "결재 버튼입니다",
-					"description": "메뉴 선택이 끝났다면 결재 버튼을 누릅니다"
-				}
-			}
-		]
-	}
+    {
+        "page_name": "메인화면",
+        "page_url": "mega.html",
+        "elements": [
+            {
+                "name": "시작화면",
+                "element": {
+                    "xpath" : "//*[@id=\"mega_start_btn\"]"
+                },
+                "popover": {
+                    "title": "메뉴 화면으로 이동합니다",
+                    "description": "메뉴 화면으로 이동합니다"
+                }
+            },
+            {
+                "name": "음료 선택창",
+                "element": {
+                    "xpath" : "//*[@id=\"mega_menu_table\"]"
+                },
+                "popover": {
+                    "title": "음료를 선택하세요"
+                }
+            },
+            {
+                "name": "아이스 커피",
+                "element": {
+                    "xpath" : "//*[@id=\"ice_아메리카노\"]"
+                },
+                "popover": {
+                    "title": "차가운 커피"
+                }
+            },
+            {
+                "name": "커피프라페",
+                "element": {
+                    "xpath" : "//*[@id=\"커피프라페\"]"
+                },
+                "popover": {
+                    "title": "커피프라페"
+                }
+            }
+        ]
+    }
 ]

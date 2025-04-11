@@ -19,7 +19,7 @@ public interface ChatRoom {
 	/**
 	 * 사용자 메세지를 전달후 응답메세지를 반환한다.
 	 * @param userMsg
-	 * @return {"message":String, "userFunctionsResult":JSONObject}
+	 * @return {"message":String, ChatManager.USER_FUNCTIONS_RESULT:JSONObject}
 	 */
 	public JSONObject sendMessage(String userMsg) throws IOException, ParseException;
 	

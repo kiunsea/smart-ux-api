@@ -27,7 +27,7 @@ public class ChatManager {
 	 * OpenAI Assistants API 접속시 필요한 정보 객체(Assistant)를 저장한다.
 	 * @param aiInfo
 	 */
-	public void setAssistInfo(Assistant aiInfo) {
+	public void setAssistant(Assistant aiInfo) {
 		this.assistInfo = aiInfo;
 	}
 	

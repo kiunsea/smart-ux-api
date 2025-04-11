@@ -2,11 +2,14 @@ package com.omnibuscode.ai.ux.action;
 
 import com.omnibuscode.ai.ux.Action;
 
-public class AutofillAction implements Action {
+/**
+ * 입력폼에 값을 입력
+ */
+public class InputValAction implements Action {
 
 	@Override
 	public String getActionType() {
-		return this.ACTION_TYPE_AUTOFILL;
+		return this.ACTION_TYPE_INPUTVAL;
 	}
 
 	

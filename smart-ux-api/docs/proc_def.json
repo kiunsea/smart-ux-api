@@ -1,0 +1,8 @@
+{
+  "주문 화면으로 이동" : [
+	{
+	  "action_type" : "navigate",
+	  "topage" : "menu.html"
+	}  
+  ]
+}
