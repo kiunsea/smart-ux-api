@@ -124,6 +124,15 @@ public class ChatConnection {
 		return messages;
 	}
 	
+	/**
+	 * function call 처리 결과를 응답으로 전송
+	 * @param toolCalls
+	 * @param threadId
+	 * @param runId
+	 * @return
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public boolean submitToolOutputs(JsonNode toolCalls, String threadId, String runId) throws IOException, ParseException {
 		String url = String.format("%s/threads/%s/runs/%s/submit_tool_outputs", this.BASE_URL, threadId, runId);
 

@@ -9,6 +9,17 @@
 				"type": "click"
 			}
 		},
+		"gotoMenu": {
+			"description": "메뉴 화면으로 이동한다",
+			"startAction": {
+				"id": "mega_top_bar_home",
+				"type": "click"
+			},
+			"endAction": {
+				"id": "mega_start_btn",
+				"type": "click"
+			}
+		},
 		"order": {
 			"description": "메뉴를 정하고 주문한다",
 			"actionQueue": [
@@ -17,7 +28,7 @@
 					"type": "click"
 				}
 			],
-			"lastAction": {
+			"endAction": {
 				"id": "total_price",
 				"type": "click"
 			}

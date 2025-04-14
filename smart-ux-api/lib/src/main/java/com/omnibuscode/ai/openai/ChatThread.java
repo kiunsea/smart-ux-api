@@ -19,7 +19,7 @@ import com.omnibuscode.ai.openai.connection.ChatConnection;
 /**
  * ChatGPT의 Thread
  */
-public class ChatThread implements ChatRoom {
+public class ChatThread extends ChatRoom {
 	
 	private Logger log = LogManager.getLogger(ChatThread.class);
 	ObjectMapper objMapper = new ObjectMapper();
