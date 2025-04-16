@@ -91,8 +91,10 @@ public class ChatManager {
 			resJson.put("message", "ai가 선택되어야 합니다.");
 			return resJson;
 		}
+		
+		Chatting chat = this.chatRoom.createChatting();
 
-		return this.chatRoom.sendMessage(userMsg);
+		return chat.sendMessage(userMsg);
 	}
 	
 	/**

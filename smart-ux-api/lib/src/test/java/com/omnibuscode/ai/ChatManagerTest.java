@@ -25,17 +25,19 @@ public class ChatManagerTest {
 		ChatRoom cr = (ChatRoom) jo.get("instance");
 		System.out.println("* [" + cr.getId() + "] 채팅방 생성 결과: " + jo.toString());
 
-		this.sendMsg(cr, "넌 누구니?");
-		this.sendMsg(cr, "너의 이름은?");
-		this.sendMsg(cr, "장보고 온보딩");
+		Chatting chat = cr.createChatting();
+		
+		this.sendMsg(chat, "넌 누구니?");
+		this.sendMsg(chat, "너의 이름은?");
+		this.sendMsg(chat, "장보고 온보딩");
 
 		if (cm.closeChatRoom())
 			System.out.println("* [" + cr.getId() + "] 채팅방 삭제 완료");
 	}
 
-	private void sendMsg(ChatRoom cr, String usrQ) throws IOException, ParseException {
+	private void sendMsg(Chatting chat, String usrQ) throws IOException, ParseException {
 		System.out.println("* USER msg: " + usrQ);
-		JSONObject resJson = cr.sendMessage(usrQ);
+		JSONObject resJson = chat.sendMessage(usrQ);
 		System.out.println("* AI msg: " + resJson.get("message"));
 		Object usrFuncRst = resJson.get(ChatManager.USER_FUNCTIONS_RESULT);
 		if (usrFuncRst != null) {

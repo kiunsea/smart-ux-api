@@ -92,13 +92,13 @@ public class ChatServletBack extends HttpServlet {
 
 			String userMsg = req.getParameter("user_msg");
 			String assistMsg = null;
-			JSONObject resJson;
-			try {
-				resJson = this.cr.sendMessage((userMsg != null ? userMsg : ""));
-				assistMsg = resJson.get("message").toString();
-			} catch (IOException | ParseException e) {
-				e.printStackTrace();
-			} // 메세지 전송
+//			JSONObject resJson;
+//			try {
+//				resJson = this.cr.sendMessage((userMsg != null ? userMsg : ""));
+//				assistMsg = resJson.get("message").toString();
+//			} catch (IOException | ParseException e) {
+//				e.printStackTrace();
+//			} // 메세지 전송
 
 			resObj.put("assist_msg", assistMsg);
 		}
