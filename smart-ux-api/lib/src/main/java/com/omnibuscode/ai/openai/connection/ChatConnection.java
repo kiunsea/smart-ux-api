@@ -62,6 +62,14 @@ public class ChatConnection {
         return rtnVal != null ? rtnVal.asBoolean() : false;
     }
     
+    /**
+     * openai 에 사용자 메세지를 전달하고 아이디를 받는다.
+     * @param threadId
+     * @param content
+     * @return 메세지 아이디
+     * @throws IOException
+     * @throws ParseException
+     */
     public String createMessage(String threadId, String content) throws IOException, ParseException {
         String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
         log.debug("Request url: "+url);
@@ -79,6 +87,13 @@ public class ChatConnection {
         return msgId;
     }
     
+    /**
+     * 사용자 메세지를 분석 실행시키고 실행 아이디를 받는다.
+     * @param threadId
+     * @return 실행 아이디
+     * @throws IOException
+     * @throws ParseException
+     */
     public String createRun(String threadId) throws IOException, ParseException {
         String url = String.format("%s/threads/%s/runs", this.BASE_URL, threadId);
         log.debug("Request url: "+url);

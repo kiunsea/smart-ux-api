@@ -38,8 +38,8 @@ public class ChatBuddyOpenAI extends ChatBuddy {
 
 		JSONObject resJson = new JSONObject();
 		
-		String msgId = this.conn.createMessage(this.threadId, userMsg);
-		String runId = this.conn.createRun(this.threadId);
+		this.conn.createMessage(this.threadId, userMsg); //메세지 전달
+		String runId = this.conn.createRun(this.threadId); //메세지 분석
 		
 		String runStatus = null;
 		do {
@@ -98,7 +98,6 @@ public class ChatBuddyOpenAI extends ChatBuddy {
 		resJson.put("message", resMsg);
 		
 		return resJson;
-		
 	}
 
 }

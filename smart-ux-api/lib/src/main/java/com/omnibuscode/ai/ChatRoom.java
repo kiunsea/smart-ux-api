@@ -10,8 +10,6 @@ import org.json.simple.parser.ParseException;
  */
 public abstract class ChatRoom {
 	
-	protected int chatmode = 0; //0:ChatBuddy, 1:ChatAction
-	
 	/**
 	 * 채팅방 아이디
 	 * @return
@@ -26,14 +24,19 @@ public abstract class ChatRoom {
 	public abstract boolean closeChat() throws IOException, ParseException;
 
 	/**
-	 * 0:ChatBuddy, 1:ChatAction
-	 * @param mode
+	 * 기본 채팅
+	 * @return
 	 */
-	public void setChatmode(int mode) {
-		this.chatmode = mode;
+	public Chatting createChatting() {
+		return this.createChatting(0);
 	}
+	/**
+	 * 0:ChatBuddy, 1:ChatAction
+	 * @param chatmode
+	 * @return
+	 */
+	public abstract Chatting createChatting(int chatmode);
 	
-	public abstract Chatting createChatting();
 	
 	
 	

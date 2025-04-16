@@ -39,11 +39,11 @@ public class ChatThread extends ChatRoom {
 		}
 	}
 	
-	public Chatting createChatting() {
+	public Chatting createChatting(int chatmode) {
 		
 		Chatting chat = null;
 		
-		if (this.chatmode == 1) {
+		if (chatmode == 1) {
 			chat = new ChatActionOpenAI(this.assistInfo, this.conn, this.threadId);
 		} else {
 			chat = new ChatBuddyOpenAI(this.assistInfo, this.conn, this.threadId);
