@@ -6,15 +6,17 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatAction;
-import com.omnibuscode.ai.ChatManager;
 import com.omnibuscode.ai.ProcessFunction;
+import com.omnibuscode.ai.manager.ChatManager;
 import com.omnibuscode.ai.openai.connection.ChatConnection;
+import com.omnibuscode.utils.JSONUtil;
 
 public class ChatActionOpenAI extends ChatAction {
 
@@ -99,9 +101,38 @@ public class ChatActionOpenAI extends ChatAction {
 			log.error("배열 형식이 아닙니다.");
 		}
 		
+		if (resMsg != null) {
+			JSONObject jObj = this.findJsonBlock(resMsg);
+			JSONArray aqArr = (JSONArray) jObj.get("actionQueue");
+			resJson.put("actionQueue", aqArr);
+		}
+		
 		resJson.put("message", resMsg);
 		
 		return resJson;
+	}
+	
+	private JSONObject findJsonBlock(String paragraph) {
+		
+		JSONObject resObj = null;
+		
+		// JSON 문자열의 시작과 끝을 탐색
+        int start = paragraph.indexOf("{");
+        int end = paragraph.lastIndexOf("}");
+
+        if (start != -1 && end != -1 && end > start) {
+            String jsonString = paragraph.substring(start, end + 1);
+            try {
+            	resObj = JSONUtil.parseJSONObject(jsonString);
+            	log.debug("추출된 JSON 객체: " + resObj);
+            } catch (Exception e) {
+            	log.debug("유효한 JSON이 아닙니다: " + e.getMessage());
+            }
+        } else {
+        	log.info("JSON 형식을 찾을 수 없습니다.");
+        }
+        
+        return resObj;
 	}
 
 }

@@ -12,8 +12,8 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatBuddy;
-import com.omnibuscode.ai.ChatManager;
 import com.omnibuscode.ai.ProcessFunction;
+import com.omnibuscode.ai.manager.ChatManager;
 import com.omnibuscode.ai.openai.connection.ChatConnection;
 
 public class ChatBuddyOpenAI extends ChatBuddy {

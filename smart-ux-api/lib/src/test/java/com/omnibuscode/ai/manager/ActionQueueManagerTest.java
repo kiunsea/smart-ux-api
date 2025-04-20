@@ -1,4 +1,6 @@
-package com.omnibuscode.ai;
+package com.omnibuscode.ai.manager;
+
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
@@ -7,11 +9,14 @@ import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.omnibuscode.ai.manager.ChatManager;
+import com.omnibuscode.ai.ChatRoom;
+import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.Assistant;
 
-public class ChatManagerTest {
+/**
+ * TODO servlet session 이 필요해서 테스트 케이스는 일단 보류
+ */
+public class ActionQueueManagerTest {
 
 	private ChatManager cm = null;
 	private ChatRoom cr = null;
@@ -19,11 +24,6 @@ public class ChatManagerTest {
 	@Before
     public void setUp() throws Exception {
 		cm = new ChatManager();
-		
-		//jiniebox용
-//		Assistant assist = new Assistant("asst_hsP6560JM3JiFi0HlU4gR8hZ");
-//		DummyUserFunction dumUsrFunc = new DummyUserFunction();
-//		assist.putFunction("on_jangbogo", dumUsrFunc);
 		
 		//su-api용
 		Assistant assist = new Assistant("asst_6T4VCQSWs0R6WrBZRxsiXiFJ");
@@ -35,17 +35,6 @@ public class ChatManagerTest {
 		this.cr = (ChatRoom) jo.get("instance");
 		System.out.println("* [" + cr.getId() + "] 채팅방 생성 결과: " + jo.toString());
     }
-	
-//	@Test
-//	public void testChatBuddy() throws Exception {
-//		Chatting chat = cr.createChatting(0);
-//		this.sendMsg(chat, "넌 누구니?");
-//		this.sendMsg(chat, "너의 이름은?");
-//		this.sendMsg(chat, "장보고 온보딩");
-//
-//		if (cm.closeChatRoom())
-//			System.out.println("* [" + cr.getId() + "] 채팅방 삭제 완료");
-//	}
 	
 	@Test
 	public void testChatAction() throws Exception {
@@ -64,13 +53,7 @@ public class ChatManagerTest {
 		if (resJson.containsKey("actionQueue")) {
 			System.out.println("* Action Queue: " + resJson.get("actionQueue").toString());
 		}
-		
-		Object usrFuncRst = resJson.get(ChatManager.USER_FUNCTIONS_RESULT);
-		if (usrFuncRst != null) {
-			Object onJbgRst = ((JSONObject) usrFuncRst).get("on_jangbogo");
-			if (onJbgRst != null)
-				System.out.println("* AI user_link: " + ((JSONObject) onJbgRst).get("user_link"));
-		}
+
 	}
 
 }

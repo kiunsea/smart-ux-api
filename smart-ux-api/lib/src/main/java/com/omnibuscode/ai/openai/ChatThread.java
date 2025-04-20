@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.connection.ChatConnection;
@@ -18,7 +17,6 @@ import com.omnibuscode.ai.openai.connection.ChatConnection;
 public class ChatThread extends ChatRoom {
 	
 	private Logger log = LogManager.getLogger(ChatThread.class);
-	ObjectMapper objMapper = new ObjectMapper();
 	
 	private Assistant assistInfo = null;
 	private ChatConnection conn = null;

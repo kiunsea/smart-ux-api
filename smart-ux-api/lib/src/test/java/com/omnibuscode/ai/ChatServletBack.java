@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import com.omnibuscode.ai.manager.ChatManager;
 import com.omnibuscode.ai.openai.Assistant;
 
 import jakarta.servlet.ServletException;

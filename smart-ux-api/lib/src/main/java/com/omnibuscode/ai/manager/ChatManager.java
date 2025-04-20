@@ -1,4 +1,4 @@
-package com.omnibuscode.ai;
+package com.omnibuscode.ai.manager;
 
 import java.io.IOException;
 
@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import com.omnibuscode.ai.ChatRoom;
+import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.Assistant;
 
 /**
