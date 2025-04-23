@@ -42,7 +42,7 @@ public class ChatActionOpenAI extends ChatAction {
 		
 		String reqActions = 
 				"\"" + userMsg + "\""
-				+ " 라는 명령을 수행하기 위한 action queue 의 json 을 만드는데 id 에 해당하는 selector 와 xpath 도 포함시켜줘";
+				+ " 명령을 수행하기 위한 ActionQueue JSON 을 작성해서 JSON 의 내용만 응답 메세지로 출력해줘, 그리고 JSON 내용에는 id 에 해당하는 selector 와 xpath 도 포함해줘";
 		
 		this.conn.createMessage(this.threadId, reqActions); //메세지 전달
 		String runId = this.conn.createRun(this.threadId); //메세지 분석

@@ -44,50 +44,46 @@ public class ActionServlet extends HttpServlet {
 		if (openaiAssistId == null || openaiApiKey == null) {
 			resObj.put("sys_msg", "ai 사용권한이 없습니다.");
 		} else {
-			ChatManager cm = new ChatManager();
-
 			HttpSession sess = req.getSession(true);
 			Object usObj = sess.getAttribute("CHAT_ROOM");
 			ChatRoom cr = null;
 			Chatting chat = null;
-			if (usObj != null) {
-				cr = (ChatRoom) usObj;
+			
+			Assistant assist = new Assistant(openaiAssistId);
+			assist.setApiKey(openaiApiKey);
+
+			ChatManager cm = new ChatManager();
+			cm.setAssistant(assist); // assistant 등록
+			JSONObject jo;
+			try {
+				jo = cm.createChatRoom(ChatManager.AI_NAME_OPENAI); //ChatRoom 을 세션에 담아 재사용했더니 자꾸 이전 명령어에 맞춰 응답한다. 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
+				cr = (ChatRoom) jo.get("instance");
+				chat = cr.createChatting(1);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			if (cr == null) {
-
-				Assistant assist = new Assistant(openaiAssistId);
-				assist.setApiKey(openaiApiKey);
-
-				cm.setAssistant(assist); // assistant 등록
-				JSONObject jo;
-				try {
-					jo = cm.createChatRoom(ChatManager.AI_NAME_OPENAI);
-					cr = (ChatRoom) jo.get("instance");
-					chat = cr.createChatting(1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				sess.setAttribute("CHAT_ROOM", cr);
-			}
-
+			
 			String userMsg = req.getParameter("user_msg");
+			System.out.println("um="+userMsg);
 			String assistMsg = null;
 			JSONObject resJson = null;
-			if (chat != null) {
-				try {
+			try {
+				if (chat != null) {
 					resJson = chat.sendMessage((userMsg != null ? userMsg : ""));
+					System.out.println("======================================================================");
+					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
 					if (resJson.containsKey("actionQueue")) {
-						ActionQueueManager aqm = new ActionQueueManager(
-								req.getSession(),
+						ActionQueueManager aqm = new ActionQueueManager(req.getSession(),
 								(JSONArray) resJson.get("actionQueue"));
 						if (!aqm.isEmpty()) {
 							resObj.put("action_queue", aqm.currentQueue());
 						}
 					}
-				} catch (IOException | ParseException e) {
-					e.printStackTrace();
 				}
+				cr.closeChat();
+			} catch (IOException | ParseException e) {
+				e.printStackTrace();
 			}
 			
 			resObj.put("assist_msg", assistMsg);

@@ -27,22 +27,6 @@
                 }
             }
         };
-
-        /**
-         * ajax 통신 결과를 검사한다
-         * @param {*} ajax 
-         * @returns 
-         */
-        const checkAjaxSuc = function (ajax) {
-            if (ajax.readyState === XMLHttpRequest.DONE) { // XMLHttpRequest.DONE = 4
-                try {
-                    return (ajax.status >= 200 && ajax.status < 300);
-                } catch (ignore) {
-                    return false;
-                }
-            }
-            return false;
-        }
     </script>
     <title>메가 커피 키오스크 연습</title>
 </head>
@@ -63,31 +47,57 @@
 
                 <div id="mega_order">
                     <div class="d-flex align-items-center">
-                        <input id="output" type="text" class="form-control" placeholder="input...">
+                        <p id="output" class="w-100 me-3 form-control">Speech will appear here...</p>
                         <div class="flex-shrink-0">
                             <img id="start-recognition" src="https://dev.jiniebox.com/suapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </div>
                         <script>
                             const startButton = document.getElementById('start-recognition');
                             const output = document.getElementById('output');
+                    
+                            // Check if the browser supports Web Speech API
+                            if (!('webkitSpeechRecognition' in window)) {
+                                output.textContent = 'Web Speech API is not supported in this browser.';
+                            } else {
+                                const recognition = new webkitSpeechRecognition();
+                                recognition.lang = 'ko-KR'; // Set language
+                                recognition.interimResults = false; // Show only final results
+                                recognition.maxAlternatives = 1;
+                    
+                                startButton.addEventListener('click', () => {
+                                    recognition.start();
+                                    output.textContent = 'Listening...';
+                                });
+                    
+                                recognition.onresult = (event) => {
+                                    const transcript = event.results[0][0].transcript;
+                                    output.textContent = `You said: ${transcript}`;
 
-                            startButton.addEventListener('click', () => {
-                                var path = "/suapi/action";
-                                var params = "user_msg=" + encodeURIComponent(output.value);
+                                    var path = "/suapi/action";
+                                    var params = "user_msg=" + encodeURIComponent(transcript);
 
-                                var _ajax = new XMLHttpRequest();
-                                _ajax.onreadystatechange = function () {
-                                    if (checkAjaxSuc(_ajax)) {
-                                        var resMsg = _ajax.responseText;
-                                        if (resMsg.length > 0) {
-                                            alert(resMsg);
-                                            //let resJo = JSON.parse(resMsg);
-                                            //alert(resJo.action_queue);
+                                    var _ajax = new XMLHttpRequest();
+                                    _ajax.onreadystatechange = function () {
+                                        if (checkAjaxSuc(_ajax)) {
+                                            var resMsg = _ajax.responseText;
+                                            if (resMsg.length > 0) {
+                                                alert(resMsg);
+                                                //let resJo = JSON.parse(resMsg);
+                                                //alert(resJo.action_queue);
+                                            }
                                         }
-                                    }
+                                    };
+                                    sendPost(_ajax, path, params);
                                 };
-                                sendPost(_ajax, path, params);
-                            });
+                    
+                                recognition.onerror = (event) => {
+                                    output.textContent = `Error occurred: ${event.error}`;
+                                };
+                    
+                                recognition.onend = () => {
+                                    //output.textContent += ' (Recognition ended)';
+                                };
+                            }
                         </script>
                     </div>
                     <div id="top_bar">
