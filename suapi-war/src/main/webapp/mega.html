@@ -80,9 +80,8 @@
                                     if (checkAjaxSuc(_ajax)) {
                                         var resMsg = _ajax.responseText;
                                         if (resMsg.length > 0) {
-                                            alert(resMsg);
-                                            //let resJo = JSON.parse(resMsg);
-                                            //alert(resJo.action_queue);
+                                            let resJo = JSON.parse(resMsg);
+                                            alert(resJo.action_queue);
                                         }
                                     }
                                 };
