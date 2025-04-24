@@ -81,7 +81,18 @@
                                         var resMsg = _ajax.responseText;
                                         if (resMsg.length > 0) {
                                             let resJo = JSON.parse(resMsg);
-                                            alert(resJo.action_queue);
+                                            //alert(resJo.action_queue);
+
+                                            // DOM 요소를 찾아 클릭 이벤트 실행
+                                            resJo.action_queue.forEach(action => {
+                                                const element = document.querySelector(action.selector);
+                                                if (element) {
+                                                    element.click();
+                                                    console.log(`Clicked: ${action.selector}`);
+                                                } else {
+                                                    console.warn(`Element not found for selector: ${action.selector}`);
+                                                }
+                                            });
                                         }
                                     }
                                 };
