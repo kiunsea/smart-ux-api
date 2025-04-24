@@ -73,9 +73,9 @@ public class ActionServlet extends HttpServlet {
 					System.out.println("======================================================================");
 					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
-					if (resJson.containsKey("actionQueue")) {
+					if (resJson.containsKey("action_queue")) {
 						ActionQueueManager aqm = new ActionQueueManager(req.getSession(),
-								(JSONArray) resJson.get("actionQueue"));
+								(JSONArray) resJson.get("action_queue"));
 						if (!aqm.isEmpty()) {
 							resObj.put("action_queue", aqm.currentQueue());
 						}
@@ -86,7 +86,7 @@ public class ActionServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			resObj.put("assist_msg", assistMsg);
+			//resObj.put("assist_msg", assistMsg);
 		}
 		
 		System.out.println("======================================================================");

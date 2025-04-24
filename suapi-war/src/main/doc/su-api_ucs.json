@@ -44,11 +44,22 @@
 					}
 				},
 				{
-					"id": "커피프라페",
+					"id": "녹차프라페",
 					"type": "button",
-					"label": "커피프라페",
-					"selector": "#커피프라페",
-					"xpath": "//*[@id='커피프라페']",
+					"label": "녹차프라페",
+					"selector": "#녹차프라페",
+					"xpath": "//*[@id='녹차프라페']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_꿀아메리카노",
+					"type": "button",
+					"label": "꿀아메리카노",
+					"selector": "#ice_꿀아메리카노",
+					"xpath": "//*[@id='ice_꿀아메리카노']",
 					"properties": {
 						"enabled": true,
 						"visible": true
