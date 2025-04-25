@@ -105,7 +105,7 @@ public class ChatConnection {
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode runInfo = this.objMapper.readTree(response);
-        String runId = runInfo.get("id").asText();
+		String runId = runInfo.has("id") ? runInfo.get("id").asText() : null;
         return runId;
     }
     

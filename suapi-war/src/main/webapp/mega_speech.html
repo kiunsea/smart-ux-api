@@ -47,6 +47,7 @@
 
                 <div id="mega_order">
                     <div class="d-flex align-items-center">
+                        <!-- 입력폼 시작 -->
                         <p id="output" class="w-100 me-3 form-control">Speech will appear here...</p>
                         <div class="flex-shrink-0">
                             <img id="start-recognition" src="https://dev.jiniebox.com/suapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -81,9 +82,17 @@
                                         if (checkAjaxSuc(_ajax)) {
                                             var resMsg = _ajax.responseText;
                                             if (resMsg.length > 0) {
-                                                alert(resMsg);
-                                                //let resJo = JSON.parse(resMsg);
-                                                //alert(resJo.action_queue);
+                                                let resJo = JSON.parse(resMsg);
+                                                // DOM 요소를 찾아 클릭 이벤트 실행
+                                                resJo.action_queue.forEach(action => {
+                                                    const element = document.querySelector(action.selector);
+                                                    if (element) {
+                                                        element.click();
+                                                        console.log(`Clicked: ${action.selector}`);
+                                                    } else {
+                                                        console.warn(`Element not found for selector: ${action.selector}`);
+                                                    }
+                                                });
                                             }
                                         }
                                     };
@@ -99,6 +108,7 @@
                                 };
                             }
                         </script>
+                        <!-- 입력폼 끝 -->
                     </div>
                     <div id="top_bar">
                         <div id="mega_top_bar_home" onclick="herf_home()"></div>

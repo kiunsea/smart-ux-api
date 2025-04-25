@@ -56,7 +56,7 @@ public class ActionQueueManager {
 					}
 					JSONObject actionJson = (JSONObject) this.actionQueue.remove(0);
 					currQueue.add(actionJson);
-					String type = actionJson.get("type").toString();
+					String type = actionJson.containsKey("type") ? actionJson.get("type").toString() : null;
 					if ("navigate".equals(type)) {
 						break;
 					}

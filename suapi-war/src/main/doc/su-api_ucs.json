@@ -69,6 +69,7 @@
 					"id": "total_price",
 					"type": "button",
 					"label": "결재하기",
+					"description": "주문을 완료하거나 결재를 요청 받았을때",
 					"selector": "#total_price",
 					"xpath": "//*[@id='total_price']",
 					"properties": {
