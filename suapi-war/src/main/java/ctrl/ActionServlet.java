@@ -70,8 +70,8 @@ public class ActionServlet extends HttpServlet {
 			try {
 				if (chat != null) {
 					resJson = chat.sendMessage((userMsg != null ? userMsg : ""));
-					System.out.println("======================================================================");
-					System.out.println("resJson - " + resJson.toJSONString());
+//					System.out.println("======================================================================");
+//					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
 					if (resJson.containsKey("action_queue")) {
 						ActionQueueManager aqm = new ActionQueueManager(req.getSession(),

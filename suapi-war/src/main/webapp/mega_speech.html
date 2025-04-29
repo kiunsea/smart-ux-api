@@ -27,6 +27,22 @@
                 }
             }
         };
+
+        /**
+         * ajax 통신 결과를 검사한다
+         * @param {*} ajax 
+         * @returns 
+         */
+         const checkAjaxSuc = function (ajax) {
+            if (ajax.readyState === XMLHttpRequest.DONE) { // XMLHttpRequest.DONE = 4
+                try {
+                    return (ajax.status >= 200 && ajax.status < 300);
+                } catch (ignore) {
+                    return false;
+                }
+            }
+            return false;
+        }
     </script>
     <title>메가 커피 키오스크 연습</title>
 </head>

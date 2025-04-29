@@ -1,6 +1,6 @@
 {
 	"DocName": "UI components Specification",
-	"description": "이 문서는 각 화면별 액션이 가능한 구성요소들에 상세서이다. page명을 key로 하였고 value json 내에 해당 page 의 description이 있다. 그리고 page가 소유하는 ui component들에 대한 정의가 json array로 정의되어 있다.",
+	"description": "이 문서는 각 화면별 액션이 가능한 구성 요소들의 상세서이다. page명을 key로 하였고 value json 내에 해당 page 의 description이 있다. 그리고 page가 소유하는 ui component들에 대한 정의가 json array로 정의되어 있다.",
 	"pages": {
 		"/home": {
 			"description": "홈화면의 액션요소",
@@ -35,9 +35,86 @@
 				{
 					"id": "ice_아메리카노",
 					"type": "button",
-					"label": "아메리카노",
+					"label": "ice_아메리카노",
 					"selector": "#ice_아메리카노",
 					"xpath": "//*[@id='ice_아메리카노']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "유니콘프라페",
+					"type": "button",
+					"label": "유니콘프라페",
+					"selector": "#유니콘프라페",
+					"xpath": "//*[@id='유니콘프라페']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "딸기쿠키프라페",
+					"type": "button",
+					"label": "딸기쿠키프라페",
+					"selector": "#딸기쿠키프라페",
+					"xpath": "//*[@id='딸기쿠키프라페']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "커피프라페",
+					"type": "button",
+					"label": "커피프라페",
+					"selector": "#커피프라페",
+					"xpath": "//*[@id='커피프라페']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "hot_토피넛마끼아또",
+					"type": "button",
+					"label": "hot_토피넛마끼아또",
+					"selector": "#hot_토피넛마끼아또",
+					"xpath": "//*[@id='hot_토피넛마끼아또']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_토피넛마끼아또",
+					"type": "button",
+					"label": "토피넛마끼아또",
+					"selector": "#ice_토피넛마끼아또",
+					"xpath": "//*[@id='ice_토피넛마끼아또']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "hot_레몬차",
+					"type": "button",
+					"label": "hot_레몬차",
+					"selector": "#hot_레몬차",
+					"xpath": "//*[@id='hot_레몬차']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_레몬차",
+					"type": "button",
+					"label": "ice_레몬차",
+					"selector": "#ice_레몬차",
+					"xpath": "//*[@id='ice_레몬차']",
 					"properties": {
 						"enabled": true,
 						"visible": true
