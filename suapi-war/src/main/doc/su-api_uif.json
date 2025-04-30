@@ -4,9 +4,9 @@
 	"userRequest": {
 		"gotoHome": {
 			"description": "홈화면(처음 화면)으로 이동한다",
-			"startAction": {
-				"id": "mega_top_bar_home",
-				"type": "click",
+			"action": {
+				"url": "/suapi/mega.html",
+				"type": "navigate",
 				"description": "처음 화면으로 이동"
 			}
 		},
