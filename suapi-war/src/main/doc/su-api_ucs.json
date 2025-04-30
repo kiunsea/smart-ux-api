@@ -132,6 +132,50 @@
 					}
 				},
 				{
+					"id": "hot_사과유자차",
+					"type": "button",
+					"label": "hot_사과유자차",
+					"selector": "#hot_사과유자차",
+					"xpath": "//*[@id='hot_사과유자차']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_사과유자차",
+					"type": "button",
+					"label": "ice_사과유자차",
+					"selector": "#ice_사과유자차",
+					"xpath": "//*[@id='ice_사과유자차']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "hot_허니자몽블랙티",
+					"type": "button",
+					"label": "hot_허니자몽블랙티",
+					"selector": "#hot_허니자몽블랙티",
+					"xpath": "//*[@id='hot_허니자몽블랙티']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_허니자몽블랙티",
+					"type": "button",
+					"label": "ice_허니자몽블랙티",
+					"selector": "#ice_허니자몽블랙티",
+					"xpath": "//*[@id='ice_허니자몽블랙티']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
 					"id": "ice_꿀아메리카노",
 					"type": "button",
 					"label": "꿀아메리카노",
