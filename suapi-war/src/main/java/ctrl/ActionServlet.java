@@ -74,6 +74,7 @@ public class ActionServlet extends HttpServlet {
 //					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
 					if (resJson.containsKey("action_queue")) {
+
 						
 //						CHECK 세션을 이용하여 queue 를 관리하고자 할땐 manager를 이용하여 세션 관리를 하면 된다.
 //						ActionQueueManager aqm = new ActionQueueManager(req.getSession(),
@@ -81,9 +82,8 @@ public class ActionServlet extends HttpServlet {
 //						if (!aqm.isEmpty()) {
 //							resObj.put("action_queue", aqm.currentQueue());
 //						}
-						
-						
-						
+
+
 						resObj.put("action_queue", resJson.get("action_queue"));
 					}
 				}

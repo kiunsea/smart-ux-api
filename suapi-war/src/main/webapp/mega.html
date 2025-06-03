@@ -81,6 +81,7 @@
                                 var _ajax = new XMLHttpRequest();
                                 _ajax.onreadystatechange = function () {
                                     if (checkAjaxSuc(_ajax)) {
+                                        output.textContent = 'Speech will appear here...';
                                         var resMsg = _ajax.responseText;
                                         if (resMsg.length > 0) {
                                             let resJo = JSON.parse(resMsg);
@@ -94,6 +95,7 @@
                                     }
                                 };
                                 sendPost(_ajax, path, params);
+                                output.textContent = 'Interpreting...';
                             });
                         </script>
                         <!-- 입력폼 끝 -->
