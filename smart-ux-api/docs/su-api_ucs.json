@@ -1,0 +1,49 @@
+{
+	"DocName": "UI components Specification",
+	"description": "이 문서는 각 화면별 액션이 가능한 구성 요소들의 상세서이다. page명을 key로 하였고 value json 내에 해당 page 의 description이 있다. 그리고 page가 소유하는 ui component들에 대한 정의가 json array로 정의되어 있다.",
+	"pages": {
+		"/home": {
+			"description": "홈화면의 액션요소",
+			"components": [
+				{
+					"id": "mega_start_btn",
+					"type": "button",
+					"label": "메뉴화면",
+					"selector": "#mega_start_btn",
+					"xpath": "//*[@id='mega_start_btn']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				}
+			]
+		},
+		"/menu": {
+			"description": "메뉴화면의 액션요소",
+			"components": [
+				{
+					"id": "mega_top_bar_home",
+					"type": "button",
+					"label": "홈화면",
+					"selector": "#mega_top_bar_home",
+					"xpath": "//*[@id='mega_top_bar_home']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				},
+				{
+					"id": "ice_아메리카노",
+					"type": "button",
+					"label": "ice_아메리카노",
+					"selector": "#ice_아메리카노",
+					"xpath": "//*[@id='ice_아메리카노']",
+					"properties": {
+						"enabled": true,
+						"visible": true
+					}
+				}
+			]
+		}
+	}
+}
