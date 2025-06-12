@@ -1,6 +1,4 @@
 (function () {
-  const SERVER_ENDPOINT = '/suapi/collect';  // <-- 실제 서버 URL로 교체하세요
-
   function isVisible(el) {
     const style = window.getComputedStyle(el);
     return (
@@ -53,6 +51,7 @@
 
     all.forEach(el => {
       if (!isVisible(el)) return;
+
       const hasEvent = hasInlineEventHandler(el) || hasDataAction(el);
       if (hasEvent) {
         result.push(extractElementInfo(el));
@@ -62,28 +61,9 @@
     return result;
   }
 
-  function storeAndSend(uiElements) {
+  function storeCollectedElements(uiElements) {
     window.uiSnapshot = uiElements;
     console.log('[UI Snapshot] Event-bound elements:', uiElements);
-
-    // 전송
-    fetch(SERVER_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        timestamp: new Date().toISOString(),
-        elements: uiElements
-      })
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-      console.log('[UI Snapshot] Sent to server successfully.');
-    }).catch(err => {
-      console.error('[UI Snapshot] Failed to send to server:', err);
-    });
   }
 
   let domChangeTimer = null;
@@ -93,8 +73,8 @@
 
     domChangeTimer = setTimeout(() => {
       const elements = collectEventBoundElements();
-      storeAndSend(elements);
-    }, 2000); // 2초 대기 후 수집 및 전송
+      storeCollectedElements(elements);
+    }, 2000); // 무조건 2초 대기
   }
 
   function observeDomChanges() {
@@ -109,12 +89,12 @@
       attributeFilter: ['style', 'class', 'onclick', 'onchange', 'oninput']
     });
 
-    console.log('[UI Snapshot] DOM observer initialized.');
+    console.log('[UI Snapshot] DOM observer initialized (event-bound only).');
   }
 
   function init() {
-    scheduleDomExtraction(); // 최초 로딩 시 2초 후 실행
-    observeDomChanges();     // 이후 DOM 변경 시마다 2초 대기 후 실행
+    scheduleDomExtraction(); // 최초 로드 시 2초 후 수집
+    observeDomChanges();     // 이후 DOM 변화 감지 시마다 2초 후 수집
   }
 
   if (document.readyState === 'complete') {
