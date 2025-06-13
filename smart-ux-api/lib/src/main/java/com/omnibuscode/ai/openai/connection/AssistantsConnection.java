@@ -20,17 +20,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.openai.Assistant;
 
 /**
- * openai api에 연결한다.
+ * Assistants API에 연결한다.
+ * ref : https://platform.openai.com/docs/api-reference/assistants
  */
-public class ChatConnection {
+public class AssistantsConnection {
 	
-	private Logger log = LogManager.getLogger(ChatConnection.class);
+	private Logger log = LogManager.getLogger(AssistantsConnection.class);
 	private String BASE_URL = "https://api.openai.com/v1";
 	
     private Assistant assistInfo = null;
     private ObjectMapper objMapper = new ObjectMapper();
     
-    public ChatConnection(Assistant assistInfo) {
+    public AssistantsConnection(Assistant assistInfo) {
     	this.assistInfo = assistInfo;
     }
     

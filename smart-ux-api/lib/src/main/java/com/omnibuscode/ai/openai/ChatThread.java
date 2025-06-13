@@ -9,7 +9,7 @@ import org.json.simple.parser.ParseException;
 
 import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.connection.ChatConnection;
+import com.omnibuscode.ai.openai.connection.AssistantsConnection;
 
 /**
  * ChatGPT의 Thread
@@ -19,7 +19,7 @@ public class ChatThread extends ChatRoom {
 	private Logger log = LogManager.getLogger(ChatThread.class);
 	
 	private Assistant assistInfo = null;
-	private ChatConnection conn = null;
+	private AssistantsConnection conn = null;
 	private String threadId = null; // thread id
 
 	public String getId() {
@@ -29,7 +29,7 @@ public class ChatThread extends ChatRoom {
 	public ChatThread(Assistant assistInfo) {
 		
 		this.assistInfo = assistInfo;
-		this.conn = new ChatConnection(assistInfo);
+		this.conn = new AssistantsConnection(assistInfo);
 		try {
 			this.threadId = this.conn.createThread();
 		} catch (IOException | ParseException e) {

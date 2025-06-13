@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatBuddy;
 import com.omnibuscode.ai.ProcessFunction;
 import com.omnibuscode.ai.manager.ChatManager;
-import com.omnibuscode.ai.openai.connection.ChatConnection;
+import com.omnibuscode.ai.openai.connection.AssistantsConnection;
 
 public class ChatBuddyOpenAI extends ChatBuddy {
 
@@ -22,11 +22,11 @@ public class ChatBuddyOpenAI extends ChatBuddy {
 	ObjectMapper objMapper = new ObjectMapper();
 	
 	private Assistant assistInfo = null;
-	private ChatConnection conn = null;
+	private AssistantsConnection conn = null;
 	private String threadId = null; // thread id
 	private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록
 	
-	public ChatBuddyOpenAI(Assistant assistInfo, ChatConnection conn, String threadId) {
+	public ChatBuddyOpenAI(Assistant assistInfo, AssistantsConnection conn, String threadId) {
 		this.messages = new HashMap<String, JsonNode>();
 		this.assistInfo = assistInfo;
 		this.conn = conn;

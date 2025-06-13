@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.ChatAction;
 import com.omnibuscode.ai.ProcessFunction;
 import com.omnibuscode.ai.manager.ChatManager;
-import com.omnibuscode.ai.openai.connection.ChatConnection;
+import com.omnibuscode.ai.openai.connection.AssistantsConnection;
 import com.omnibuscode.utils.JSONUtil;
 
 public class ChatActionOpenAI extends ChatAction {
@@ -24,11 +24,11 @@ public class ChatActionOpenAI extends ChatAction {
     ObjectMapper objMapper = new ObjectMapper();
     
     private Assistant assistInfo = null;
-    private ChatConnection conn = null;
+    private AssistantsConnection conn = null;
     private String threadId = null; // thread id
     private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록
     
-    public ChatActionOpenAI(Assistant assistInfo, ChatConnection conn, String threadId) {
+    public ChatActionOpenAI(Assistant assistInfo, AssistantsConnection conn, String threadId) {
         this.messages = new HashMap<String, JsonNode>();
         this.assistInfo = assistInfo;
         this.conn = conn;
