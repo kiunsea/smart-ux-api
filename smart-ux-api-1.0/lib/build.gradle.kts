@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.omnibuscode.ai"  // 그룹 ID 설정
-version = "0.7"      // 프로젝트 버전 설정
+version = "1.0"      // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
