@@ -117,7 +117,7 @@ public class ChatActionOpenAI extends ChatAction {
         return resJson;
     }
     
-    private JSONObject findJsonBlock(String paragraph) {
+    protected JSONObject findJsonBlock(String paragraph) {
         
         JSONObject resObj = null;
         
@@ -140,7 +140,7 @@ public class ChatActionOpenAI extends ChatAction {
         return resObj;
     }
     
-	private JSONArray extractActionQueue(String paragraph) throws ParseException {
+    protected JSONArray extractActionQueue(String paragraph) throws ParseException {
 		
 		Object msgObj = JSONUtil.parseJSONObject(paragraph).get("actionQueue");
 		if (msgObj == null) {

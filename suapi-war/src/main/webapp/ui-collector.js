@@ -112,14 +112,14 @@
     console.log('[UI Snapshot] DOM observer initialized.');
   }
 
-  function init() {
+  function observeScreen() {
     scheduleDomExtraction(); // 최초 로딩 시 2초 후 실행
     observeDomChanges();     // 이후 DOM 변경 시마다 2초 대기 후 실행
   }
 
   if (document.readyState === 'complete') {
-    init();
+    observeScreen();
   } else {
-    window.addEventListener('load', init);
+    window.addEventListener('load', observeScreen);
   }
 })();

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet("/collect")
 @MultipartConfig
-public class UiCollectServlet extends HttpServlet {
+public class HtmlToJsonServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     private static final ObjectMapper mapper = new ObjectMapper();

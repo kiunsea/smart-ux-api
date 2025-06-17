@@ -24,7 +24,7 @@ public abstract class ChatRoom {
 	public abstract boolean closeChat() throws IOException, ParseException;
 
 	/**
-	 * 기본 채팅
+	 * 기본 채팅 (ChatBuddy)
 	 * @return
 	 */
 	public Chatting createChatting() {
@@ -36,44 +36,5 @@ public abstract class ChatRoom {
 	 * @return
 	 */
 	public abstract Chatting createChatting(int chatmode);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	/**
-//	 * 사용자 메세지를 전달후 응답메세지를 반환한다.
-//	 * @param userMsg
-//	 * @return {"message":String, ChatManager.USER_FUNCTIONS_RESULT:JSONObject}
-//	 */
-//	public abstract JSONObject sendMessage(String userMsg) throws IOException, ParseException;
-	
-//	/**
-//	 * 사용자 메세지를 전달후 Action Queue를 반환한다.
-//	 * @param userMsg
-//	 * @return
-//	 * @throws IOException
-//	 * @throws ParseException
-//	 */
-//	public JSONObject reqActionQueue(String userMsg) throws IOException, ParseException {
-//		
-//		String reqMsg = "\""+userMsg+"\" 라는 명령을 수행하기 위한 action queue 의 json 을 만드는데 id 에 해당하는 selector 와 xpath 도 포함시켜줘";
-//		JSONObject rtnJson = this.sendMessage(reqMsg);
-//		
-//		return rtnJson;
-//	}
 
 }
