@@ -6,8 +6,9 @@ import java.io.PrintWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.manager.ChatManager;
-import com.omnibuscode.ai.openai.Assistant;
+import com.omnibuscode.ai.openai.assistants.OpenAIAssistant;
+import com.omnibuscode.legacy.ChatRoom;
+import com.omnibuscode.legacy.manager.ChatManager;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -77,7 +78,7 @@ public class ChatServletBack extends HttpServlet {
 			}
 			if (this.cr == null) {
 
-				Assistant assist = new Assistant(this.openaiAssistId);
+				OpenAIAssistant assist = new OpenAIAssistant(this.openaiAssistId);
 				assist.setApiKey(this.openaiApiKey);
 
 				this.cm.setAssistant(assist); // assistant 등록

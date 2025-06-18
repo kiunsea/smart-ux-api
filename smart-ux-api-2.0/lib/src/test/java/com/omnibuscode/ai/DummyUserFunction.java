@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.omnibuscode.legacy.ProcessFunction;
 
 public class DummyUserFunction implements ProcessFunction {
 

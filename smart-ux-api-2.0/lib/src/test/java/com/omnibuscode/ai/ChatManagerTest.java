@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.omnibuscode.ai.manager.ChatManager;
-import com.omnibuscode.ai.openai.Assistant;
+import com.omnibuscode.ai.openai.assistants.OpenAIAssistant;
+import com.omnibuscode.legacy.ChatRoom;
+import com.omnibuscode.legacy.manager.ChatManager;
 
 public class ChatManagerTest {
 
@@ -26,7 +27,7 @@ public class ChatManagerTest {
 //		assist.putFunction("on_jangbogo", dumUsrFunc);
 		
 		//su-api용
-		Assistant assist = new Assistant("asst_6T4VCQSWs0R6WrBZRxsiXiFJ");
+		OpenAIAssistant assist = new OpenAIAssistant("asst_6T4VCQSWs0R6WrBZRxsiXiFJ");
 		
 		assist.setApiKey("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");
 		cm.setAssistant(assist);
