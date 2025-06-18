@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import com.omnibuscode.legacy.ProcessFunction;
+import com.omnibuscode.ai.ProcessFunction;
 
 /**
  * 접속 정보를 관리한다.<br/>

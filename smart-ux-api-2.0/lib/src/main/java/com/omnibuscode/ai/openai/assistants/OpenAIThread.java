@@ -8,9 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.legacy.ChatRoom;
-import com.omnibuscode.legacy.openai.ChatActionOpenAI;
-import com.omnibuscode.legacy.openai.ChatBuddyOpenAI;
+import com.omnibuscode.ai.openai.OpenAIChatting;
 
 /**
  * ChatGPT의 Thread
@@ -40,15 +38,7 @@ public class OpenAIThread {
 	
 	public Chatting createChatting(int chatmode) {
 		
-		Chatting chat = null;
-		
-		if (chatmode == 1) {
-			chat = new ChatActionOpenAI(this.assistInfo, this.conn, this.threadId);
-		} else {
-			chat = new ChatBuddyOpenAI(this.assistInfo, this.conn, this.threadId);
-		}
-		
-		return chat;
+		return new OpenAIChatting();
 	}
 	
 	

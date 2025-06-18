@@ -1,4 +1,4 @@
-package com.omnibuscode.legacy;
+package com.omnibuscode.ai;
 
 import org.json.simple.JSONObject;
 
