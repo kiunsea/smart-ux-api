@@ -35,10 +35,10 @@ public class APIConnection {
 	private Logger log = LogManager.getLogger(APIConnection.class);
 	private String BASE_URL = "https://api.openai.com/v1";
 	
-    private OpenAIAssistant assistInfo = null;
+    private Assistant assistInfo = null;
     private ObjectMapper objMapper = new ObjectMapper();
     
-    public APIConnection(OpenAIAssistant assistInfo) {
+    public APIConnection(Assistant assistInfo) {
     	this.assistInfo = assistInfo;
     }
     

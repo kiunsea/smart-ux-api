@@ -1,5 +1,9 @@
 package com.omnibuscode.ai;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 /**
  * 대화방
  */
@@ -10,6 +14,8 @@ public interface ChatRoom {
 	/**
 	 * 대화방 나가기 (openai 에서는 thread 삭제)
 	 * @return
+	 * @throws ParseException 
+	 * @throws IOException 
 	 */
-	public boolean closeChat();
+	public boolean closeChat() throws IOException, ParseException;
 }
