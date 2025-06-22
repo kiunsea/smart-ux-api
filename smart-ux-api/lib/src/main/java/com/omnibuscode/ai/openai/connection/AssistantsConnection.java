@@ -21,15 +21,7 @@ import com.omnibuscode.ai.openai.Assistant;
 
 /**
  * Assistants API에 연결한다.
- * ※ References
- *   - https://platform.openai.com/docs/api-reference/assistants
- *   - https://kiunsea.tistory.com/37
- * ※ Conversation Process
- *   - Create a Thread : 대화방 생성
- *   - Add a Message to the Thread : 전달할 메세지 봉투 생성
- *   - Create a Run : 메세지 봉투 전달
- *   - Retrieve Run : 전달 확인
- *   - List Messages : 응답 메세지 확인
+ * ref : https://platform.openai.com/docs/api-reference/assistants
  */
 public class AssistantsConnection {
 	
@@ -44,7 +36,7 @@ public class AssistantsConnection {
     }
     
     /**
-     * 대화방 생성 Request (id를 반환)
+     * 
      * @return thread id
      * @throws IOException
      * @throws ParseException
@@ -62,13 +54,6 @@ public class AssistantsConnection {
         return threadId;
     }
     
-    /**
-     * 대화방 종료
-     * @param threadId
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
     public boolean deleteThread(String threadId) throws IOException, ParseException {
     	String url = String.format("%s/threads/%s", this.BASE_URL, threadId);
         String response = sendRequest(url, "DELETE", null);
@@ -79,7 +64,7 @@ public class AssistantsConnection {
     }
     
     /**
-     * openai 에 사용자 메세지 봉투 생성을 Request (id 반환)
+     * openai 에 사용자 메세지를 전달하고 아이디를 받는다.
      * @param threadId
      * @param content
      * @return 메세지 아이디
@@ -125,27 +110,11 @@ public class AssistantsConnection {
         return runId;
     }
     
-    /**
-     * 메세지 처리가 완료되었는지 여부
-     * @param threadId
-     * @param runId
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
     public boolean completedRun(String threadId, String runId) throws IOException, ParseException {
     	String runStatus = retrieveRun(threadId, runId).get("status").asText();
     	return (runStatus == null || !"completed".equals(runStatus)) ? false : true;
     }
     
-	/**
-	 * 메세지 처리 확인을 위한 Request
-	 * @param threadId
-	 * @param runId
-	 * @return
-	 * @throws IOException
-	 * @throws ParseException
-	 */
 	public JsonNode retrieveRun(String threadId, String runId) throws IOException, ParseException {
 		String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
 		log.debug("Request url: " + url);
@@ -158,13 +127,6 @@ public class AssistantsConnection {
 		return runInfo;
 	}
 	
-	/**
-	 * 대화방 안의 메세지 봉투 목록 Request
-	 * @param threadId
-	 * @return
-	 * @throws IOException
-	 * @throws ParseException
-	 */
 	public JsonNode listMessages(String threadId) throws IOException, ParseException {
 		String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
 		log.debug("Request url: " + url);
@@ -179,7 +141,7 @@ public class AssistantsConnection {
 	}
 	
 	/**
-	 * function call 처리 결과를 응답 Request
+	 * function call 처리 결과를 응답으로 전송
 	 * @param toolCalls
 	 * @param threadId
 	 * @param runId
