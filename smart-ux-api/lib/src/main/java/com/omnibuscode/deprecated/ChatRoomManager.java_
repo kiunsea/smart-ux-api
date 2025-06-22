@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.manager;
+package com.omnibuscode.ai;
 
 import java.io.IOException;
 
@@ -7,29 +7,28 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.Assistant;
+import com.omnibuscode.ai.openai.OpenAIChatRoom;
+import com.omnibuscode.ai.openai.assistants.Assistant;
 
 /**
  * AI 를 선택하여 Chatting Room 을 개설하고 AI 와 대화하는 인터페이스를 제공한다.
  */
-public class ChatManager {
+public class ChatRoomManager {
 
-	private Logger log = LogManager.getLogger(ChatManager.class);
+	private Logger log = LogManager.getLogger(ChatRoomManager.class);
 	
 	public static String AI_NAME_OPENAI = "OPENAI";
 	public static String AI_NAME_GEMINI = "GEMINI";
 	public static String USER_FUNCTIONS_RESULT = "USR_FUNCS_RST";
 	
 	private Assistant assistInfo = null;
-	private ChatRoom chatRoom = null; //채팅 스레드
+	private ChatRoom chatRoom = null; //TODO 여러 채팅방을 관리하게 변경해야 한다. 그중 ViewChat이 있는거다.(채팅 스레드)
 	
 	/**
-	 * OpenAI Assistants API 접속시 필요한 정보 객체(Assistant)를 저장한다.
+	 * OpenAI OpenAIAssistants API 접속시 필요한 정보 객체(OpenAIAssistant)를 저장한다.
 	 * @param aiInfo
 	 */
-	public void setAssistant(Assistant aiInfo) {
+	public void setOpenAIAssistant(Assistant aiInfo) {
 		this.assistInfo = aiInfo;
 	}
 	
@@ -43,18 +42,18 @@ public class ChatManager {
 		
 		JSONObject rtnInfo = new JSONObject();
 		
-		if (ChatManager.AI_NAME_OPENAI.equals(aiName)) {
+		if (ChatRoomManager.AI_NAME_OPENAI.equals(aiName)) {
 			
 		    /**
 		     * validation
 		     */
 			if (this.assistInfo == null) {
-				rtnInfo.put("message", "접속 정보(Assistants info)가 필요합니다. Assistant instance를 설정해 주세요.");
+				rtnInfo.put("message", "접속 정보(OpenAIAssistants info)가 필요합니다. OpenAIAssistant instance를 설정해 주세요.");
 				rtnInfo.put("result", "false");
 				return rtnInfo;
 			}
 		    if (this.assistInfo.getAssistantId() == null) {
-		    	rtnInfo.put("message", "assistant_id 가 필요합니다.");
+		    	rtnInfo.put("message", "OpenAIAssistant_id 가 필요합니다.");
 		    	rtnInfo.put("result", "false");
 		    	return rtnInfo;
 		    }
@@ -64,7 +63,7 @@ public class ChatManager {
 		    	return rtnInfo;
 		    }
 		    
-			this.chatRoom = new com.omnibuscode.ai.openai.ChatThread(this.assistInfo);
+			this.chatRoom = new OpenAIChatRoom(this.assistInfo);
 			rtnInfo.put("result", "true");
 			rtnInfo.put("instance", this.chatRoom);
 			return rtnInfo;

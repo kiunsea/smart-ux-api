@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.omnibuscode.ai"  // 그룹 ID 설정
-version = "0.7"      // 프로젝트 버전 설정
+version = "2.0"      // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -39,7 +39,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
     
-    implementation(files("bin/omnibuscode-utils-2.1.3.jar"))
+    implementation(files("bin/omnibuscode-utils-2.2.0.jar"))
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -52,6 +52,7 @@ java {
 tasks.jar {
     archiveFileName.set("${rootProject.name}-${project.version}.jar")
 }
+
 tasks.register("copyJar") {
     doLast {
         copy {

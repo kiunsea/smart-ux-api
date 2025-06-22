@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.omnibuscode.utils.JSONUtil;
 
-public class ChatActionOpenAITest {
+public class ExtractActionTest {
 
 	@Test
 	public void test() throws ParseException {
@@ -18,6 +18,7 @@ public class ChatActionOpenAITest {
 	private JSONArray extractActionQueue(String paragraph) throws ParseException {
 		
 		Object msgObj = JSONUtil.parseJSONObject(paragraph).get("assist_msg");
+		
 		if (msgObj == null) {
 			return null;
 		}

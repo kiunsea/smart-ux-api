@@ -10,29 +10,27 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.ai.ChatAction;
-import com.omnibuscode.ai.ProcessFunction;
-import com.omnibuscode.ai.manager.ChatManager;
-import com.omnibuscode.ai.openai.connection.AssistantsConnection;
+import com.omnibuscode.ai.Chatting;
+import com.omnibuscode.ai.openai.assistants.APIConnection;
 import com.omnibuscode.utils.JSONUtil;
 
-public class ChatActionOpenAI extends ChatAction {
+public class OpenAIChatting implements Chatting {
 
-    private Logger log = LogManager.getLogger(ChatActionOpenAI.class);
+    private Logger log = LogManager.getLogger(OpenAIChatting.class);
     ObjectMapper objMapper = new ObjectMapper();
     
-    private Assistant assistInfo = null;
-    private AssistantsConnection conn = null;
-    private String threadId = null; // thread id
-    private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록
+    private APIConnection connApi = null;
+    private String idThread = null; // thread id
+    private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록 <id_msg, message>
     
-    public ChatActionOpenAI(Assistant assistInfo, AssistantsConnection conn, String threadId) {
-        this.messages = new HashMap<String, JsonNode>();
-        this.assistInfo = assistInfo;
-        this.conn = conn;
-        this.threadId = threadId;
+    public OpenAIChatting(APIConnection connApi, String idThread) {
+        this.messages = new HashMap<String, JsonNode>(); //초기화
+        this.connApi = connApi;
+        this.idThread = idThread;
     }
     
     @Override
@@ -44,8 +42,8 @@ public class ChatActionOpenAI extends ChatAction {
                 "\"" + userMsg + "\""
                 + " 명령을 수행하기 위한 actionQueue JSON 을 작성해서 JSON 의 내용만 응답 메세지로 출력해줘, 그리고 JSON 내용에는 id 에 해당하는 selector 와 xpath 도 포함해줘";
         
-        this.conn.createMessage(this.threadId, reqActions); //메세지 전달
-        String runId = this.conn.createRun(this.threadId); //메세지 분석
+        this.connApi.createMessage(this.idThread, reqActions); //메세지 전달
+        String runId = this.connApi.createRun(this.idThread); //메세지 분석
         
         String runStatus = null;
         do {
@@ -54,8 +52,11 @@ public class ChatActionOpenAI extends ChatAction {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            JsonNode runInfo = this.conn.retrieveRun(this.threadId, runId);
+            JsonNode runInfo = this.connApi.retrieveRun(this.idThread, runId);
             runStatus = runInfo.get("status").asText();
+            
+            /**
+             * TODO 추후 function call 기능을 구현해야 할때를 대비해서 구현한 코드 (FunctionCall.java 가 미완성)
             if ("requires_action".equals(runStatus)) {
                 JsonNode toolCalls = runInfo.get("required_action").get("submit_tool_outputs").get("tool_calls");
                 JSONObject usrFuncsRst = null;
@@ -78,20 +79,22 @@ public class ChatActionOpenAI extends ChatAction {
                 }
                 this.conn.submitToolOutputs(toolCalls, this.threadId, runId);
             }
+            */
+            
         } while (runStatus == null || !"completed".equals(runStatus));
 
-        JsonNode msgArr = this.conn.listMessages(this.threadId);
+        JsonNode msgArr = this.connApi.listMessages(this.idThread);
         
         String resMsg = null;
         // 배열 노드 확인
         if (msgArr.isArray()) {
             // 배열 노드 순회
-            String msg_id = null;
+            String id_msg = null;
             for (JsonNode message : msgArr) {
                 // 각 객체 노드의 값 출력
-                msg_id = message.get("id").asText();
-                if (!this.messages.containsKey(msg_id)) {
-                    this.messages.put(msg_id, message);
+                id_msg = message.get("id").asText();
+                if (!this.messages.containsKey(id_msg)) {
+                    this.messages.put(id_msg, message);
                     if ("assistant".equals(message.get("role").asText())) {
                         resMsg = message.get("content").get(0).get("text").get("value").asText();
                     }
@@ -102,10 +105,10 @@ public class ChatActionOpenAI extends ChatAction {
         }
         
         if (resMsg != null) {
-			JSONObject jObj = this.findJsonBlock(resMsg);
-			JSONArray aqArr = null;
+        	JsonNode jObj = this.findJsonBlock(resMsg);
+			JsonNode aqArr = null;
 			if (jObj != null) {
-				aqArr = (JSONArray) jObj.get("actionQueue");
+				aqArr = jObj.get("actionQueue");
 			} else {
 				aqArr = this.extractActionQueue(resMsg);
 			}
@@ -117,9 +120,9 @@ public class ChatActionOpenAI extends ChatAction {
         return resJson;
     }
     
-    private JSONObject findJsonBlock(String paragraph) {
+    protected JsonNode findJsonBlock(String paragraph) {
         
-        JSONObject resObj = null;
+        JsonNode resObj = null;
         
         // JSON 문자열의 시작과 끝을 탐색
         int start = paragraph.indexOf("{");
@@ -128,7 +131,7 @@ public class ChatActionOpenAI extends ChatAction {
         if (start != -1 && end != -1 && end > start) {
             String jsonString = paragraph.substring(start, end + 1);
             try {
-                resObj = JSONUtil.parseJSONObject(jsonString);
+                resObj = JSONUtil.parseJsonNode(jsonString);
                 log.debug("추출된 JSON 객체: " + resObj);
             } catch (Exception e) {
                 log.debug("유효한 JSON이 아닙니다: " + e.getMessage());
@@ -140,29 +143,45 @@ public class ChatActionOpenAI extends ChatAction {
         return resObj;
     }
     
-	private JSONArray extractActionQueue(String paragraph) throws ParseException {
-		
-		Object msgObj = JSONUtil.parseJSONObject(paragraph).get("actionQueue");
-		if (msgObj == null) {
-			return null;
+	protected JsonNode extractActionQueue(String paragraph) throws ParseException, JsonMappingException, JsonProcessingException {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode rootNode = null;
+
+		if (paragraph.indexOf("```") > -1) {
+			// 문자열에서 JSON 블록만 추출
+			int jsonStart = paragraph.indexOf("```json");
+			int jsonEnd = paragraph.lastIndexOf("```");
+
+			if (jsonStart == -1 || jsonEnd == -1 || jsonStart >= jsonEnd) {
+				throw new IllegalArgumentException("JSON block not found in input");
+			}
+
+			// JSON 문자열만 추출
+			String jsonString = paragraph.substring(jsonStart + 7, jsonEnd).trim();
+			rootNode = objectMapper.readTree(jsonString);
+		} else {
+			rootNode = objectMapper.readTree(paragraph);
 		}
-		String input = msgObj.toString();
-		
-		// 문자열에서 JSON 블록만 추출
-		int jsonStart = input.indexOf("```json");
-		int jsonEnd = input.lastIndexOf("```");
 
-		if (jsonStart == -1 || jsonEnd == -1 || jsonStart >= jsonEnd) {
-			throw new IllegalArgumentException("JSON block not found in input");
+		JsonNode actionQueueNode = rootNode.get("actionQueue");
+
+		if (actionQueueNode != null) {
+			if (actionQueueNode.isArray()) {
+				System.out.println("--- 'actionQueue' (배열) 값 ---");
+				for (JsonNode action : actionQueueNode) {
+					System.out.println(action.toPrettyString());
+				}
+			} else {
+				System.out.println("--- 'actionQueue' (다른 타입) 값 ---");
+				System.out.println("타입: " + actionQueueNode.getNodeType());
+				System.out.println("값: " + actionQueueNode.asText());
+			}
+		} else {
+			System.out.println("'actionQueue' 필드가 존재하지 않습니다.");
 		}
-
-		// JSON 문자열만 추출
-		String jsonString = input.substring(jsonStart + 7, jsonEnd).trim();
-
-		// JSONObject 생성 및 actionQueue 추출
-		JSONObject jsonObject = JSONUtil.parseJSONObject(jsonString.replaceAll("\\/\\/", "//"));
-		Object obj = jsonObject.get("actionQueue");
-		return obj != null ? (JSONArray) obj : null;
+		
+		return actionQueueNode;
 	}
 
 }

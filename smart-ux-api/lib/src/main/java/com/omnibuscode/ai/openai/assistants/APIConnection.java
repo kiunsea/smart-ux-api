@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai.connection;
+package com.omnibuscode.ai.openai.assistants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,6 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.ai.openai.Assistant;
 
 /**
  * Assistants API에 연결한다.
@@ -31,15 +30,15 @@ import com.omnibuscode.ai.openai.Assistant;
  *   - Retrieve Run : 전달 확인
  *   - List Messages : 응답 메세지 확인
  */
-public class AssistantsConnection {
+public class APIConnection {
 	
-	private Logger log = LogManager.getLogger(AssistantsConnection.class);
+	private Logger log = LogManager.getLogger(APIConnection.class);
 	private String BASE_URL = "https://api.openai.com/v1";
 	
     private Assistant assistInfo = null;
     private ObjectMapper objMapper = new ObjectMapper();
     
-    public AssistantsConnection(Assistant assistInfo) {
+    public APIConnection(Assistant assistInfo) {
     	this.assistInfo = assistInfo;
     }
     
