@@ -10,6 +10,7 @@ import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.OpenAIChatRoom;
 import com.omnibuscode.ai.openai.assistants.Assistant;
+import com.omnibuscode.ai.openai.decorator.ActionQueueDecorator;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -54,6 +55,7 @@ public class ActionServlet extends HttpServlet {
 			try {
 				cr = new OpenAIChatRoom(assist); //ChatRoom 을 세션에 담아 재사용했더니 자꾸 이전 명령어에 맞춰 응답한다. 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
 				chat = cr.createChatting();
+				chat = cr.decorateActionQueue(chat);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,18 +1,19 @@
 package com.omnibuscode.ai.openai;
 
 import java.io.IOException;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.assistants.APIConnection;
 import com.omnibuscode.ai.openai.assistants.Assistant;
+import com.omnibuscode.ai.openai.decorator.ActionQueueDecorator;
+import com.omnibuscode.ai.openai.decorator.UXInfoDecorator;
 
 public class OpenAIChatRoom implements ChatRoom {
 
@@ -44,6 +45,14 @@ public class OpenAIChatRoom implements ChatRoom {
 	@Override
 	public Chatting createChatting() {
 		return new OpenAIChatting(this.connApi, this.idThread);
+	}
+	
+	public Chatting decorateActionQueue(Chatting chat) {
+		return new ActionQueueDecorator(chat, this.connApi, this.idThread);
+	}
+	
+	public Chatting decorateUXInfo(Chatting chat) {
+		return new UXInfoDecorator(chat, this.connApi, this.idThread);
 	}
 	
 	/**

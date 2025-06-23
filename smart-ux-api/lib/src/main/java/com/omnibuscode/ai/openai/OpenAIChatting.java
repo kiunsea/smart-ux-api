@@ -21,16 +21,25 @@ import com.omnibuscode.utils.JSONUtil;
 public class OpenAIChatting implements Chatting {
 
     private Logger log = LogManager.getLogger(OpenAIChatting.class);
+    
+    protected Chatting chatting;
     ObjectMapper objMapper = new ObjectMapper();
     
     private APIConnection connApi = null;
     private String idThread = null; // thread id
     private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록 <id_msg, message>
     
-    public OpenAIChatting(APIConnection connApi, String idThread) {
-        this.messages = new HashMap<String, JsonNode>(); //초기화
+    public OpenAIChatting(Chatting chatting, APIConnection connApi, String idThread) {
+    	this.chatting = chatting;
         this.connApi = connApi;
         this.idThread = idThread;
+        this.messages = new HashMap<String, JsonNode>(); //초기화
+    }
+    
+    public OpenAIChatting(APIConnection connApi, String idThread) {
+        this.connApi = connApi;
+        this.idThread = idThread;
+        this.messages = new HashMap<String, JsonNode>(); //초기화
     }
     
     @Override
@@ -38,11 +47,7 @@ public class OpenAIChatting implements Chatting {
 
         JSONObject resJson = new JSONObject();
         
-        String reqActions = 
-                "\"" + userMsg + "\""
-                + " 명령을 수행하기 위한 actionQueue JSON 을 작성해서 JSON 의 내용만 응답 메세지로 출력해줘, 그리고 JSON 내용에는 id 에 해당하는 selector 와 xpath 도 포함해줘";
-        
-        this.connApi.createMessage(this.idThread, reqActions); //메세지 전달
+        this.connApi.createMessage(this.idThread, userMsg); //메세지 전달
         String runId = this.connApi.createRun(this.idThread); //메세지 분석
         
         String runStatus = null;
@@ -100,21 +105,11 @@ public class OpenAIChatting implements Chatting {
                     }
                 }
             }
-        } else {
-            log.error("배열 형식이 아닙니다.");
-        }
-        
-        if (resMsg != null) {
-        	JsonNode jObj = this.findJsonBlock(resMsg);
-			JsonNode aqArr = null;
-			if (jObj != null) {
-				aqArr = jObj.get("actionQueue");
-			} else {
-				aqArr = this.extractActionQueue(resMsg);
-			}
-            resJson.put("action_queue", aqArr);
-        }
-        
+		} else if (msgArr.has("object") && "list".equals(msgArr.get("object").asText()) && msgArr.has("data")) {
+			msgArr = msgArr.get("data");
+		} else {
+			log.error("응답 형식을 찾을 수 없습니다.");
+		}
         resJson.put("message", resMsg);
         
         return resJson;
