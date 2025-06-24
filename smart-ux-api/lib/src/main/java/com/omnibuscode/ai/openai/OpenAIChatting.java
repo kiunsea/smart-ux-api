@@ -2,11 +2,12 @@ package com.omnibuscode.ai.openai;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -16,30 +17,27 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.assistants.APIConnection;
-import com.omnibuscode.utils.JSONUtil;
+import com.omnibuscode.util.JSONUtil;
 
 public class OpenAIChatting implements Chatting {
 
     private Logger log = LogManager.getLogger(OpenAIChatting.class);
     
-    protected Chatting chatting;
     ObjectMapper objMapper = new ObjectMapper();
     
     private APIConnection connApi = null;
     private String idThread = null; // thread id
-    private Map<String, JsonNode> messages = null; // 대화방에서의 대화 목록 <id_msg, message>
+    private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 대화 id 목록
     
     public OpenAIChatting(Chatting chatting, APIConnection connApi, String idThread) {
-    	this.chatting = chatting;
         this.connApi = connApi;
         this.idThread = idThread;
-        this.messages = new HashMap<String, JsonNode>(); //초기화
+        this.messageIdSet = chatting.getMessageIdSet();
     }
     
     public OpenAIChatting(APIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
-        this.messages = new HashMap<String, JsonNode>(); //초기화
     }
     
     @Override
@@ -94,16 +92,15 @@ public class OpenAIChatting implements Chatting {
         // 배열 노드 확인
         if (msgArr.isArray()) {
             // 배열 노드 순회
-            String id_msg = null;
             for (JsonNode message : msgArr) {
                 // 각 객체 노드의 값 출력
-                id_msg = message.get("id").asText();
-                if (!this.messages.containsKey(id_msg)) {
-                    this.messages.put(id_msg, message);
-                    if ("assistant".equals(message.get("role").asText())) {
-                        resMsg = message.get("content").get(0).get("text").get("value").asText();
-                    }
-                }
+            	String id_msg = message.get("id").asText();
+				if (!this.messageIdSet.contains(id_msg)) {
+					this.messageIdSet.add(id_msg);
+					if ("assistant".equals(message.get("role").asText())) {
+						resMsg = message.get("content").get(0).get("text").get("value").asText();
+					}
+				}
             }
 		} else if (msgArr.has("object") && "list".equals(msgArr.get("object").asText()) && msgArr.has("data")) {
 			msgArr = msgArr.get("data");
@@ -115,7 +112,11 @@ public class OpenAIChatting implements Chatting {
         return resJson;
     }
     
-    protected JsonNode findJsonBlock(String paragraph) {
+    public Set<String> getMessageIdSet() {
+    	return this.messageIdSet;
+    }
+    
+    protected JsonNode extractJsonBlock(String paragraph) {
         
         JsonNode resObj = null;
         
@@ -143,24 +144,27 @@ public class OpenAIChatting implements Chatting {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode rootNode = null;
 
-		if (paragraph.indexOf("```") > -1) {
-			// 문자열에서 JSON 블록만 추출
-			int jsonStart = paragraph.indexOf("```json");
-			int jsonEnd = paragraph.lastIndexOf("```");
+		JsonNode actionQueueNode = null;
+		if (JSONUtil.isValidJson(paragraph)) {
+			if (paragraph.indexOf("```") > -1) {
+				// 문자열에서 JSON 블록만 추출
+				int jsonStart = paragraph.indexOf("```json");
+				int jsonEnd = paragraph.lastIndexOf("```");
 
-			if (jsonStart == -1 || jsonEnd == -1 || jsonStart >= jsonEnd) {
-				throw new IllegalArgumentException("JSON block not found in input");
+				if (jsonStart == -1 || jsonEnd == -1 || jsonStart >= jsonEnd) {
+					throw new IllegalArgumentException("JSON block not found in input");
+				}
+
+				// JSON 문자열만 추출
+				String jsonString = paragraph.substring(jsonStart + 7, jsonEnd).trim();
+				rootNode = objectMapper.readTree(jsonString);
+			} else {
+				rootNode = objectMapper.readTree(paragraph);
 			}
 
-			// JSON 문자열만 추출
-			String jsonString = paragraph.substring(jsonStart + 7, jsonEnd).trim();
-			rootNode = objectMapper.readTree(jsonString);
-		} else {
-			rootNode = objectMapper.readTree(paragraph);
+			actionQueueNode = rootNode.get("actionQueue");
 		}
-
-		JsonNode actionQueueNode = rootNode.get("actionQueue");
-
+		
 		if (actionQueueNode != null) {
 			if (actionQueueNode.isArray()) {
 				System.out.println("--- 'actionQueue' (배열) 값 ---");

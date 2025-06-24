@@ -30,7 +30,7 @@ public class UXInfoDecorator extends OpenAIChatting {
 		
 		String resMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
 		if (resMsg != null) {
-			JsonNode jObj = this.findJsonBlock(resMsg);
+			JsonNode jObj = this.extractJsonBlock(resMsg);
 			JsonNode aqArr = null;
 			if (jObj != null) {
 				aqArr = jObj.get("actionQueue");

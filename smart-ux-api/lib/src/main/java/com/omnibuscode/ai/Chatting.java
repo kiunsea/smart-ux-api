@@ -1,6 +1,7 @@
 package com.omnibuscode.ai;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -15,5 +16,11 @@ public interface Chatting {
 	 * @throws IOException 
 	 */
 	public JSONObject sendMessage(String userMsg) throws IOException, ParseException;
+	
+	/**
+	 * 보유하고 있는 message id set 을 반환
+	 * @return
+	 */
+	public Set getMessageIdSet();
 	
 }

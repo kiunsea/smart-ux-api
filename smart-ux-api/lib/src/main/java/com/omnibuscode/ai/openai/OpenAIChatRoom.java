@@ -23,6 +23,8 @@ public class OpenAIChatRoom implements ChatRoom {
 
 	private String idThread = null; // OpenAI에서 부여하는 채팅방 고유 키값(thread id)
 	private APIConnection connApi = null;
+	
+	private Chatting chat = null;
 
 	public OpenAIChatRoom(Assistant assistInfo) throws ParseException {
 
@@ -44,7 +46,10 @@ public class OpenAIChatRoom implements ChatRoom {
 
 	@Override
 	public Chatting createChatting() {
-		return new OpenAIChatting(this.connApi, this.idThread);
+		if (this.chat == null) {
+			this.chat = new OpenAIChatting(this.connApi, this.idThread);
+		}
+		return this.chat;
 	}
 	
 	public Chatting decorateActionQueue(Chatting chat) {

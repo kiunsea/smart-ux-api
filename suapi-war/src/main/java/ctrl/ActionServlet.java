@@ -53,7 +53,12 @@ public class ActionServlet extends HttpServlet {
 
 			JSONObject jo;
 			try {
-				cr = new OpenAIChatRoom(assist); //ChatRoom 을 세션에 담아 재사용했더니 자꾸 이전 명령어에 맞춰 응답한다. 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
+				if (usObj != null) {
+					cr = (ChatRoom) usObj;
+				} else {
+					cr = new OpenAIChatRoom(assist); // ChatRoom 을 세션에 담아 재사용했더니 자꾸 이전 명령어에 맞춰 응답한다. 
+														// 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
+				}
 				chat = cr.createChatting();
 				chat = cr.decorateActionQueue(chat);
 			} catch (Exception e) {
@@ -71,16 +76,6 @@ public class ActionServlet extends HttpServlet {
 //					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
 					if (resJson.containsKey("action_queue")) {
-
-						
-//						CHECK 세션을 이용하여 queue 를 관리하고자 할땐 manager를 이용하여 세션 관리를 하면 된다.
-//						ActionQueueManager aqm = new ActionQueueManager(req.getSession(),
-//								(JSONArray) resJson.get("action_queue"));
-//						if (!aqm.isEmpty()) {
-//							resObj.put("action_queue", aqm.currentQueue());
-//						}
-
-
 						resObj.put("action_queue", resJson.get("action_queue"));
 					}
 				}

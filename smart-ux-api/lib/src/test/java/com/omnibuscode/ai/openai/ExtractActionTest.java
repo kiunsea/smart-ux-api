@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-import com.omnibuscode.utils.JSONUtil;
+import com.omnibuscode.util.JSONUtil;
 
 public class ExtractActionTest {
 

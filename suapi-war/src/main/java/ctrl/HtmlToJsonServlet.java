@@ -3,8 +3,14 @@ package ctrl;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import org.json.simple.parser.ParseException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omnibuscode.ai.ChatRoom;
+import com.omnibuscode.ai.Chatting;
+import com.omnibuscode.ai.openai.OpenAIChatRoom;
+import com.omnibuscode.ai.openai.assistants.Assistant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -12,6 +18,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author KIUNSEA
@@ -61,6 +68,25 @@ public class HtmlToJsonServlet extends HttpServlet {
         System.out.println("📦 Elements JSON: " + elementsNode);
 
         // 5. 필요 시 저장 또는 DB 처리 추가 가능
+        HttpSession sess = req.getSession(true);
+        Object usObj = sess.getAttribute("CHAT_ROOM");
+        
+		String openaiAssistId = "asst_6T4VCQSWs0R6WrBZRxsiXiFJ";
+	    String openaiApiKey = "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";
+
+		try {
+			Assistant assist = new Assistant(openaiAssistId);
+			assist.setApiKey(openaiApiKey);
+			OpenAIChatRoom cr = null;
+			if (usObj != null) {
+				cr = (OpenAIChatRoom) usObj;
+			} else {
+				cr = new OpenAIChatRoom(assist);
+			}
+			cr.setCurrentViewInfo(elementsNode.asText());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
         // 6. 응답 반환
         res.setContentType("application/json");

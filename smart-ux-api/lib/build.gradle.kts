@@ -39,7 +39,6 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
     
-    implementation(files("bin/omnibuscode-utils-2.2.0.jar"))
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
