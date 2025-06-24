@@ -3,12 +3,11 @@ package ctrl;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.OpenAIChatRoom;
 import com.omnibuscode.ai.openai.assistants.Assistant;
 
@@ -25,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet("/collect")
 @MultipartConfig
-public class HtmlToJsonServlet extends HttpServlet {
+public class UXInfoServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -71,9 +70,10 @@ public class HtmlToJsonServlet extends HttpServlet {
         HttpSession sess = req.getSession(true);
         Object usObj = sess.getAttribute("CHAT_ROOM");
         
-		String openaiAssistId = "asst_6T4VCQSWs0R6WrBZRxsiXiFJ";
+		String openaiAssistId = "asst_vRTLdQZdtYY9z5m57xjY1h5N";
 	    String openaiApiKey = "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";
 
+	    JSONObject resJson = new JSONObject();
 		try {
 			Assistant assist = new Assistant(openaiAssistId);
 			assist.setApiKey(openaiApiKey);
@@ -83,7 +83,8 @@ public class HtmlToJsonServlet extends HttpServlet {
 			} else {
 				cr = new OpenAIChatRoom(assist);
 			}
-			cr.setCurrentViewInfo(elementsNode.asText());
+			String msg = cr.setCurrentViewInfo(elementsNode.asText());
+			resJson.put("message", msg);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -91,6 +92,7 @@ public class HtmlToJsonServlet extends HttpServlet {
         // 6. 응답 반환
         res.setContentType("application/json");
         res.setStatus(HttpServletResponse.SC_OK);
-        res.getWriter().write("{\"status\":\"ok\"}");
+        resJson.put("status", "ok");
+        res.getWriter().write(resJson.toJSONString());
 	}
 }

@@ -130,7 +130,7 @@ public class APIConnection {
 		String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
 		log.debug("Request url: " + url);
 
-		String response = sendRequest(url, "GET", null);
+		String response = this.sendRequest(url, "GET", null);
 		log.debug("Response of sendRequest(): " + response);
 
         JsonNode resJson = this.objMapper.readTree(response);

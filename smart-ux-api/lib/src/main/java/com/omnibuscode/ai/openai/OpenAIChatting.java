@@ -87,6 +87,7 @@ public class OpenAIChatting implements Chatting {
         } while (runStatus == null || !"completed".equals(runStatus));
 
         JsonNode msgArr = this.connApi.listMessages(this.idThread);
+        resJson.put("org_msg", msgArr.asText());
         
         String resMsg = null;
         // 배열 노드 확인

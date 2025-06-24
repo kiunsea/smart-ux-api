@@ -44,8 +44,11 @@ public class OpenAIChatRoom implements ChatRoom {
 		// TODO
 	}
 
+	/**
+	 * Chatting instance 생성후 재사용한다.
+	 */
 	@Override
-	public Chatting createChatting() {
+	public Chatting getChatting() {
 		if (this.chat == null) {
 			this.chat = new OpenAIChatting(this.connApi, this.idThread);
 		}
@@ -68,8 +71,9 @@ public class OpenAIChatRoom implements ChatRoom {
 	 */
 	public String setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
 		this.curViewInfo = viewInfoJson;
-		Chatting chat = this.createChatting();
-		String usrQ = "다음은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야. 해당 정보를 이용해서 사용자 액션을 처리할거야. "+viewInfoJson;
+		Chatting chat = this.getChatting();
+		String usrQ = "다음은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야. 해당 정보를 이용해서 사용자 액션을 처리할거야. "
+				+ viewInfoJson;
 		JSONObject resJson = chat.sendMessage(usrQ);
 		String aiMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
 		return aiMsg;

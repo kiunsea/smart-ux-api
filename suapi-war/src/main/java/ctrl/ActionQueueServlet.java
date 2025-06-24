@@ -2,6 +2,8 @@ package ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -10,7 +12,7 @@ import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.OpenAIChatRoom;
 import com.omnibuscode.ai.openai.assistants.Assistant;
-import com.omnibuscode.ai.openai.decorator.ActionQueueDecorator;
+import com.omnibuscode.utils.FileUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -25,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet("/action")
 @MultipartConfig
-public class ActionServlet extends HttpServlet {
+public class ActionQueueServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     
@@ -35,7 +37,7 @@ public class ActionServlet extends HttpServlet {
     }
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String openaiAssistId = "asst_6T4VCQSWs0R6WrBZRxsiXiFJ";
+		String openaiAssistId = "asst_vRTLdQZdtYY9z5m57xjY1h5N";
 	    String openaiApiKey = "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";
 		
 		JSONObject resObj = new JSONObject();
@@ -57,10 +59,14 @@ public class ActionServlet extends HttpServlet {
 					cr = (ChatRoom) usObj;
 				} else {
 					cr = new OpenAIChatRoom(assist); // ChatRoom 을 세션에 담아 재사용했더니 자꾸 이전 명령어에 맞춰 응답한다. 
-														// 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
+													 // 프롬프트 작성하기 귀찮아서 그냥 매번 새로 생성하도록 정했다.
 				}
-				chat = cr.createChatting();
-				chat = cr.decorateActionQueue(chat);
+				chat = cr.getChatting();
+				
+				String clazzPath = this.getServletContext().getRealPath("/") + "WEB-INF/classes/";
+				StringBuilder sb = FileUtil.readFile(clazzPath + "/ctrl/easy_kiosc_uif.json", null);
+				chat.sendMessage("다음의 내용을 학습해 -> " + sb);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -71,9 +77,10 @@ public class ActionServlet extends HttpServlet {
 			JSONObject resJson = null;
 			try {
 				if (chat != null) {
+					chat = cr.decorateActionQueue(chat);
 					resJson = chat.sendMessage((userMsg != null ? userMsg : ""));
-//					System.out.println("======================================================================");
-//					System.out.println("resJson - " + resJson.toJSONString());
+					System.out.println("======================================================================");
+					System.out.println("resJson - " + resJson.toJSONString());
 					assistMsg = resJson.get("message").toString();
 					if (resJson.containsKey("action_queue")) {
 						resObj.put("action_queue", resJson.get("action_queue"));

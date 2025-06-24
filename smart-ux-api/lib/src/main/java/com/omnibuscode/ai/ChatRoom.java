@@ -9,7 +9,11 @@ import org.json.simple.parser.ParseException;
  */
 public interface ChatRoom {
 
-	public abstract Chatting createChatting();
+	/**
+	 * Chatting instance 를 반환
+	 * @return
+	 */
+	public abstract Chatting getChatting();
 	
 	/**
 	 * 대화방 나가기 (openai 에서는 thread 삭제)

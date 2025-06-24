@@ -31,7 +31,7 @@ public class OpenAIChatRoomTest {
 	}
 	
 	public void testChat() throws Exception {
-		Chatting chat = this.chatRoom.createChatting();
+		Chatting chat = this.chatRoom.getChatting();
 		String usrQ = "너는 누구니?";
 
 		System.out.println("* USER msg: " + usrQ);
@@ -54,7 +54,7 @@ public class OpenAIChatRoomTest {
 	}
 	
 	public void testChatAction() throws Exception {
-		Chatting chat = this.chatRoom.createChatting();
+		Chatting chat = this.chatRoom.getChatting();
 		chat = this.chatRoom.decorateActionQueue(chat);
 		String usrQ = "아메리카노와 커피프라페 주문해줘";
 
@@ -82,7 +82,7 @@ public class OpenAIChatRoomTest {
 		String aiMsg = this.chatRoom.setCurrentViewInfo(viewInfo);
 		System.out.println("* AI msg(현재화면설정 응답): " + aiMsg);
 		
-		Chatting chat = this.chatRoom.createChatting();
+		Chatting chat = this.chatRoom.getChatting();
 		chat = this.chatRoom.decorateUXInfo(chat);
 		String usrQ = "유니콘프라페 주문해줘";
 		
