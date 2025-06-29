@@ -3,6 +3,8 @@ package ctrl;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -10,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omnibuscode.ai.openai.OpenAIChatRoom;
 import com.omnibuscode.ai.openai.assistants.Assistant;
+import com.omnibuscode.utils.PropertiesUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -27,7 +30,13 @@ import jakarta.servlet.http.HttpSession;
 public class UXInfoServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
+    private Logger log = LogManager.getLogger(UXInfoServlet.class);
     private static final ObjectMapper mapper = new ObjectMapper();
+    
+    public void init() {
+        PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
+                + "WEB-INF/classes/res/SUAPI.PROPERTIES";
+    }
     
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	req.setCharacterEncoding("UTF-8");
@@ -63,28 +72,28 @@ public class UXInfoServlet extends HttpServlet {
         JsonNode timestampNode = rootNode.get("timestamp");
         JsonNode elementsNode = rootNode.get("elements");
 
-        System.out.println("🕒 Timestamp: " + (timestampNode != null ? timestampNode.asText() : "null"));
+        System.out.println("📦 Timestamp: " + (timestampNode != null ? timestampNode.toString() : "null"));
         System.out.println("📦 Elements JSON: " + elementsNode);
 
         // 5. 필요 시 저장 또는 DB 처리 추가 가능
         HttpSession sess = req.getSession(true);
         Object usObj = sess.getAttribute("CHAT_ROOM");
         
-		String openaiAssistId = "asst_vRTLdQZdtYY9z5m57xjY1h5N";
-	    String openaiApiKey = "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";
+	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
+	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
 
 	    JSONObject resJson = new JSONObject();
 		try {
-			Assistant assist = new Assistant(openaiAssistId);
-			assist.setApiKey(openaiApiKey);
 			OpenAIChatRoom cr = null;
 			if (usObj != null) {
 				cr = (OpenAIChatRoom) usObj;
 			} else {
+				Assistant assist = new Assistant(openaiAssistId);
+				assist.setApiKey(openaiApiKey);
 				cr = new OpenAIChatRoom(assist);
 			}
-			String msg = cr.setCurrentViewInfo(elementsNode.asText());
-			resJson.put("message", msg);
+			cr.setCurrentViewInfo(elementsNode.toString());
+			sess.setAttribute("CHAT_ROOM", cr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

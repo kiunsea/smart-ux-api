@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <!-- 로그 출력 방식 -->
+    <Appenders>
+        <!-- 콘솔 출력 방식 -->
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
+        </Console>
+        <!-- 파일 저장 방식 -->
+        <File name="file_dev" fileName="C:/LOGS/SUAPI_WAR.log">
+              <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
+        </File>
+    </Appenders>
+    
+    <Loggers>
+        <Logger name = "com.omnibuscode"  level="DEBUG" additivity = 'false'>
+            <AppenderRef ref="stdout"/>
+            <!-- AppenderRef ref="file_dev"/-->
+        </Logger>
+    </Loggers>
+</Configuration>

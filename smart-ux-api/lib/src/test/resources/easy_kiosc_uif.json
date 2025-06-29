@@ -2,6 +2,27 @@
 	"DocName": "User Interaction Flow",
 	"description": "이 문서는 사용자 요청에 대한 action queue를 정의하였다. id가 %input%인 경우 사용자에게 추가 정보를 요구해야 하므로 function call 로써 selectMenu 함수가 수행되어야 한다.",
 	"userRequest": {
+		"gotoHome": {
+			"description": "홈화면(처음 화면)으로 이동한다",
+			"action": {
+				"url": "/suapi/mega.html",
+				"type": "navigate",
+				"description": "처음 화면으로 이동"
+			}
+		},
+		"gotoMenu": {
+			"description": "메뉴 화면으로 이동한다",
+			"startAction": {
+				"id": "mega_top_bar_home",
+				"type": "click",
+				"description": "처음 화면으로 이동"
+			},
+			"endAction": {
+				"id": "mega_start_btn",
+				"type": "click",
+				"description": "메뉴 화면으로 이동"
+			}
+		},
 		"order": {
 			"description": "메뉴를 정하고 주문한다",
 			"actionQueue": [

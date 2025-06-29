@@ -5,25 +5,25 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.omnibuscode.ai.ChatRoom;
 import com.omnibuscode.ai.Chatting;
 import com.omnibuscode.ai.openai.assistants.APIConnection;
 import com.omnibuscode.ai.openai.assistants.Assistant;
-import com.omnibuscode.ai.openai.decorator.ActionQueueDecorator;
-import com.omnibuscode.ai.openai.decorator.UXInfoDecorator;
 
 public class OpenAIChatRoom implements ChatRoom {
 
+	public static String CHATROOM_TYPE_NORMAL = "NORMAL";
+	public static String CHATROOM_TYPE_UXINFO = "UXINFO";
 	public static String USER_FUNCTIONS_RESULT = "USR_FUNCS_RST";
+	
 	private Logger log = LogManager.getLogger(OpenAIChatRoom.class);
-	private String curViewInfo = null;
 
 	private String idThread = null; // OpenAI에서 부여하는 채팅방 고유 키값(thread id)
 	private APIConnection connApi = null;
 	
+	private String roomType = null;
 	private Chatting chat = null;
 
 	public OpenAIChatRoom(Assistant assistInfo) throws ParseException {
@@ -34,6 +34,7 @@ public class OpenAIChatRoom implements ChatRoom {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.roomType = OpenAIChatRoom.CHATROOM_TYPE_NORMAL;
 	}
 
 	public String getThreadId() {
@@ -43,6 +44,10 @@ public class OpenAIChatRoom implements ChatRoom {
 	public void setFunctionMap(Map usrFuncs) {
 		// TODO
 	}
+	
+	public String getRoomType() {
+		return this.roomType;
+	}
 
 	/**
 	 * Chatting instance 생성후 재사용한다.
@@ -50,33 +55,34 @@ public class OpenAIChatRoom implements ChatRoom {
 	@Override
 	public Chatting getChatting() {
 		if (this.chat == null) {
+			this.roomType = OpenAIChatRoom.CHATROOM_TYPE_NORMAL;
 			this.chat = new OpenAIChatting(this.connApi, this.idThread);
 		}
 		return this.chat;
 	}
 	
-	public Chatting decorateActionQueue(Chatting chat) {
-		return new ActionQueueDecorator(chat, this.connApi, this.idThread);
-	}
-	
 	public Chatting decorateUXInfo(Chatting chat) {
-		return new UXInfoDecorator(chat, this.connApi, this.idThread);
+		this.roomType = OpenAIChatRoom.CHATROOM_TYPE_UXINFO;
+		return new ActionQueueChatting(chat, this.connApi, this.idThread);
 	}
 	
 	/**
-	 * 현재 화면 정보를 AI에게 전달하여 학습
+	 * 현재 화면 정보를 채팅목록에 저장 
 	 * @param viewInfoJson
 	 * @throws ParseException 
 	 * @throws IOException 
 	 */
-	public String setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
-		this.curViewInfo = viewInfoJson;
+	public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
+
+		ActionQueueChatting aqChat = null;
 		Chatting chat = this.getChatting();
-		String usrQ = "다음은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야. 해당 정보를 이용해서 사용자 액션을 처리할거야. "
-				+ viewInfoJson;
-		JSONObject resJson = chat.sendMessage(usrQ);
-		String aiMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
-		return aiMsg;
+		if (!OpenAIChatRoom.CHATROOM_TYPE_UXINFO.equals(this.roomType)) {
+			aqChat = (ActionQueueChatting) this.decorateUXInfo(chat);
+			this.chat = aqChat;
+		} else {
+			aqChat = (ActionQueueChatting) chat;
+		}
+		aqChat.setCurViewInfo(viewInfoJson);
 	}
 
 	/**

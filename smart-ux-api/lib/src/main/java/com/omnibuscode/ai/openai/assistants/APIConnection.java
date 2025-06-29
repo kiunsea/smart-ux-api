@@ -83,7 +83,7 @@ public class APIConnection {
         
         // JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
         JsonNode msgInfo = this.objMapper.readTree(response);
-        String msgId = msgInfo.get("id").asText();
+		String msgId = (msgInfo != null && msgInfo.hasNonNull("id")) ? msgInfo.get("id").asText() : null;
         return msgId;
     }
     

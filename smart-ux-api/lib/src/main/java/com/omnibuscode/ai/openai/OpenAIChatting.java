@@ -27,7 +27,9 @@ public class OpenAIChatting implements Chatting {
     
     private APIConnection connApi = null;
     private String idThread = null; // thread id
-    private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 대화 id 목록
+    
+//    private String preprocMsg = null; //사용자 명령어 처리전 AI설정용 프롬프트
+    private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 메세지 id 목록
     
     public OpenAIChatting(Chatting chatting, APIConnection connApi, String idThread) {
         this.connApi = connApi;
@@ -38,6 +40,10 @@ public class OpenAIChatting implements Chatting {
     public OpenAIChatting(APIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
+    }
+    
+    public Set<String> getMessageIdSet() {
+    	return this.messageIdSet;
     }
     
     @Override
@@ -56,7 +62,7 @@ public class OpenAIChatting implements Chatting {
                 e.printStackTrace();
             }
             JsonNode runInfo = this.connApi.retrieveRun(this.idThread, runId);
-            runStatus = runInfo.get("status").asText();
+			runStatus = (runInfo != null && runInfo.hasNonNull("id")) ? runInfo.get("status").asText() : null;
             
             /**
              * TODO 추후 function call 기능을 구현해야 할때를 대비해서 구현한 코드 (FunctionCall.java 가 미완성)
@@ -87,7 +93,8 @@ public class OpenAIChatting implements Chatting {
         } while (runStatus == null || !"completed".equals(runStatus));
 
         JsonNode msgArr = this.connApi.listMessages(this.idThread);
-        resJson.put("org_msg", msgArr.asText());
+		log.debug("🕒 res msg=" + msgArr.toPrettyString());
+		resJson.put("org_msg", msgArr.toString());
         
         String resMsg = null;
         // 배열 노드 확인
@@ -111,10 +118,6 @@ public class OpenAIChatting implements Chatting {
         resJson.put("message", resMsg);
         
         return resJson;
-    }
-    
-    public Set<String> getMessageIdSet() {
-    	return this.messageIdSet;
     }
     
     protected JsonNode extractJsonBlock(String paragraph) {

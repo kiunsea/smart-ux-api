@@ -24,13 +24,6 @@ public interface ChatRoom {
 	public abstract boolean closeChat() throws IOException, ParseException;
 	
 	/**
-	 * ActionQueue 처리를 위한 Prompt 추가
-	 * @param chat
-	 * @return
-	 */
-	public abstract Chatting decorateActionQueue(Chatting chat);
-	
-	/**
 	 * UX Info 처리를 위한 Prompt 추가
 	 * @param chat
 	 * @return
