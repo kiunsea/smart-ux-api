@@ -115,15 +115,20 @@ public class APIConnection {
     }
     
 	public JsonNode retrieveRun(String threadId, String runId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
-		log.debug("Request url: " + url);
 
-		String response = sendRequest(url, "GET", null);
-		log.debug("Response of sendRequest(): " + response);
+		if (threadId != null && runId != null) {
+			String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
+			log.debug("Request url: " + url);
 
-		// JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
-        JsonNode runInfo = this.objMapper.readTree(response);
-		return runInfo;
+			String response = sendRequest(url, "GET", null);
+			log.debug("Response of sendRequest(): " + response);
+
+			// JSON 파싱을 통해 id 추출 (라이브러리 없이 간단히 처리)
+			JsonNode runInfo = this.objMapper.readTree(response);
+			return runInfo;
+		} else {
+			return null;
+		}
 	}
 	
 	public JsonNode listMessages(String threadId) throws IOException, ParseException {
