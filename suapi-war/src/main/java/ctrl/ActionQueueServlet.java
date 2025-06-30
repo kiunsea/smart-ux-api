@@ -47,35 +47,15 @@ public class ActionQueueServlet extends HttpServlet {
     }
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	
 	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
 	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
-		
-	    
-	    
 	    
 		Assistant assist = new Assistant(openaiAssistId);
 		assist.setApiKey(openaiApiKey);
 		HttpSession sess = req.getSession(true);
 		Object usObj = sess.getAttribute("CHAT_ROOM");
 		ChatRoom cr = null;
-		try {
-			if (usObj != null) {
-				cr = (ChatRoom) usObj;
-			} else {
-				cr = new OpenAIChatRoom(assist);
-			}
-			
-			String clazzPath = this.getServletContext().getRealPath("/") + "WEB-INF/classes/";
-			StringBuilder sb = FileUtil.readFile(clazzPath + "/ctrl/easy_kiosc_uif.json", null);
-			cr.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	    
-	    
-		
-		
 		
 		JSONObject resObj = new JSONObject();
 

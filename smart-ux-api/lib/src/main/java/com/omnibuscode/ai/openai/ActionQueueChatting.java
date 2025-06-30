@@ -38,14 +38,14 @@ public class ActionQueueChatting extends OpenAIChatting {
 	
 	public JSONObject sendMessage(String userMsg) throws IOException, ParseException {
 		
-    	String userPrompt = "사용자의 \"" + userMsg + "\""
-                + " 명령을 수행하기 위한 actionQueue JSON 을 작성해서 actionQueue id 에 담아 응답 메세지로 출력해줘, 그런데 actionQueue 의 내용은 내가 현재 화면 정보를 전달한 dom element structure 를 참고해서 작성해줘";
+		String userPrompt = "사용자의 \"" + userMsg + "\""
+				+ " 명령을 수행 할 수 있도록 id를 actionQueue 로 해서 actionQueue JSON 내용을 만들어줘, 그런데 actionQueue 의 내용은 내가 현재 화면 정보의 dom element structure 를 참고해서 작성해줘";
 		if (this.updateCurView) {
-			userPrompt = "다음은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야. 해당 정보를 이용해서 사용자 액션을 처리해야해. "
+			userPrompt = "다음은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야. 이전에 저장한 사용자 화면의 내용을 이것으로 교체해줘. 이 화면 정보를 이용해서 actionQueue 의 내용을 작성해야해. "
 					+ this.curViewInfo + " 그리고 " + userPrompt;
 			this.updateCurView = false;
 		}
-		
+
 		JSONObject resJson = super.sendMessage(userPrompt);
 		
 		String resMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
