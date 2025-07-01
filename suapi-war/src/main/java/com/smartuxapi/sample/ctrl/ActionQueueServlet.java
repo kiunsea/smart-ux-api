@@ -74,7 +74,7 @@ public class ActionQueueServlet extends HttpServlet {
 				}
 
 				String userMsg = req.getParameter("user_msg");
-				System.out.println("UserMsg=" + userMsg);
+				log.debug("UserMsg : " + userMsg);
 				String assistMsg = null;
 				JSONObject resJson = null;
 				try {
@@ -87,52 +87,10 @@ public class ActionQueueServlet extends HttpServlet {
 							resObj.put("action_queue", resJson.get("action_queue"));
 						}
 					}
-					cr.closeChat();
 				} catch (IOException | ParseException e) {
 					e.printStackTrace();
 				}
-				
-			} else {// 기존방식
-				
-				JSONObject jo;
-				try {
-					if (usObj != null) {
-						cr = (ChatRoom) usObj;
-					} else {
-						cr = new OpenAIChatRoom(assist);
-					}
-					String clazzPath = this.getServletContext().getRealPath("/") + "WEB-INF/classes/";
-					StringBuilder sb = FileUtil.readFile(clazzPath + "/ctrl/easy_kiosc_uif.json", null);
-					cr.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				String userMsg = req.getParameter("user_msg");
-				System.out.println("um=" + userMsg);
-				String assistMsg = null;
-				JSONObject resJson = null;
-				try {
-					Chatting chat = cr.getChatting();
-					if (cr.getChatting() != null) {
-						chat = cr.decorateUXInfo(chat);
-						resJson = chat.sendMessage((userMsg != null ? userMsg : ""));
-						System.out.println("======================================================================");
-						System.out.println("resJson - " + resJson.toJSONString());
-						assistMsg = resJson.get("message").toString();
-						if (resJson.containsKey("action_queue")) {
-							resObj.put("action_queue", resJson.get("action_queue"));
-						}
-					}
-					cr.closeChat();
-				} catch (IOException | ParseException e) {
-					e.printStackTrace();
-				}
-				
 			}
-			
-			//resObj.put("assist_msg", assistMsg);
 		}
 		
 		System.out.println("======================================================================");

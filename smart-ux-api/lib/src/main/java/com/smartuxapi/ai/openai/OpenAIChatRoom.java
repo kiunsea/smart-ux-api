@@ -36,6 +36,10 @@ public class OpenAIChatRoom implements ChatRoom {
 		}
 		this.roomType = OpenAIChatRoom.CHATROOM_TYPE_NORMAL;
 	}
+	
+	public String getId() {
+		return this.idThread;
+	}
 
 	public String getThreadId() {
 		return this.idThread;

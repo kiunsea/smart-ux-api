@@ -8,6 +8,8 @@ import org.json.simple.parser.ParseException;
  * 대화방
  */
 public interface ChatRoom {
+	
+	public String getId();
 
 	/**
 	 * Chatting instance 를 반환

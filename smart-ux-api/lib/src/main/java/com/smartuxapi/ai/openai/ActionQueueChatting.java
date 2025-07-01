@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.util.ActionQueueUtil;
 
 public class ActionQueueChatting extends OpenAIChatting {
 	
@@ -72,15 +73,11 @@ public class ActionQueueChatting extends OpenAIChatting {
 		JSONObject resJson = super.sendMessage(aqPromptSb.toString());
 		
 		String resMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
-		if (resMsg != null) {
-			JsonNode jObj = this.extractJsonBlock(resMsg);
-			JsonNode aqArr = null;
-			if (jObj != null) {
-				aqArr = jObj.get("actionQueue");
-			} else {
-				aqArr = this.extractActionQueue(resMsg);
-			}
-			resJson.put("action_queue", aqArr);
+		JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);
+		if (aqObj.hasNonNull("actionQueue")) {
+			resJson.put("action_queue", aqObj.get("actionQueue"));
+		} else {
+			resJson.put("action_queue", aqObj);
 		}
 		
 		return resJson;

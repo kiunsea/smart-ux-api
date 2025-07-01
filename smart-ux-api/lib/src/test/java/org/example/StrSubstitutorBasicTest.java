@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.core.lookup.StrSubstitutor;
 
-public class StrSubstitutorBasicExample {
+public class StrSubstitutorBasicTest {
 	public static void main(String[] args) {
 		// 1. 변수와 값 매핑을 위한 Map 생성
 		Map<String, String> valueMap = new HashMap<>();
