@@ -13,7 +13,7 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-//        System.out.println("세션 생성됨: " + se.getSession().getId());
+        System.out.println("세션 생성됨: " + se.getSession().getId());
     }
 
     @Override

@@ -69,6 +69,8 @@
                             <img id="start-recognition" src="https://dev.jiniebox.com/suapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </div>
                         <script type="module">
+                            import { doActions } from './lib/su-api.js';
+
                             const startButton = document.getElementById('start-recognition');
                             const output = document.getElementById('output');
                     
@@ -92,6 +94,7 @@
 
                                     var path = "/suapi/action";
                                     var params = "user_msg=" + encodeURIComponent(transcript);
+                                    params += "&proc_type=dynamic";
 
                                     var _ajax = new XMLHttpRequest();
                                     _ajax.onreadystatechange = function () {
@@ -100,19 +103,6 @@
                                             var resMsg = _ajax.responseText;
                                             if (resMsg.length > 0) {
                                                 let resJo = JSON.parse(resMsg);
-												alert(resMsg);
-// DOM 요소를 찾아 클릭 이벤트 실행
-/**
-resJo.action_queue.forEach(action => {
-	const element = document.querySelector(action.selector);
-	if (element) {
-		element.click();
-		console.log(`Clicked: ${action.selector}`);
-	} else {
-		console.warn(`Element not found for selector: ${action.selector}`);
-	}
-});
-*/
 
                                                 // DOM 요소를 찾아 클릭 이벤트 실행
                                                 doActions(resJo.action_queue, () => {
