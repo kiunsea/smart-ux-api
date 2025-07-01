@@ -10,9 +10,9 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.utils.PropertiesUtil;
 import com.smartuxapi.ai.openai.OpenAIChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistant;
+import com.smartuxapi.util.PropertiesUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
