@@ -13,7 +13,7 @@
     </Appenders>
     
     <Loggers>
-        <Logger name = "com.omnibuscode"  level="DEBUG" additivity = 'false'>
+        <Logger name = "com.smartuxapi"  level="DEBUG" additivity = 'false'>
             <AppenderRef ref="stdout"/>
             <!--AppenderRef ref="file_dev"/-->
         </Logger>

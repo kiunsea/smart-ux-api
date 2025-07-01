@@ -1,11 +1,11 @@
-package com.omnibuscode.ai.openai;
+package org.example;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-import com.omnibuscode.util.JSONUtil;
+import com.smartuxapi.util.JSONUtil;
 
 public class ExtractActionTest {
 

@@ -1,13 +1,13 @@
-package com.omnibuscode.ai.openai;
+package com.smartuxapi.ai.openai;
 
 import java.io.File;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.assistants.Assistant;
-import com.omnibuscode.util.FileUtil;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.openai.assistants.Assistant;
+import com.smartuxapi.util.FileUtil;
 
 public class OpenAIChatRoomTest {
 

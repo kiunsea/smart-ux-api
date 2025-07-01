@@ -1,22 +1,19 @@
-package ctrl;
+package com.smartuxapi.sample.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.OpenAIChatRoom;
-import com.omnibuscode.ai.openai.OpenAIChatting;
-import com.omnibuscode.ai.openai.assistants.Assistant;
 import com.omnibuscode.utils.FileUtil;
 import com.omnibuscode.utils.PropertiesUtil;
+import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.openai.assistants.Assistant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -38,7 +35,7 @@ public class ActionQueueServlet extends HttpServlet {
     
     public void init() {
         PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-                + "WEB-INF/classes/res/SUAPI.PROPERTIES";
+                + "WEB-INF/classes/resources/suapi.properties";
     }
     
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

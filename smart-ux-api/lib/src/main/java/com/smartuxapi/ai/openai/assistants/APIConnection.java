@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai.assistants;
+package com.smartuxapi.ai.openai.assistants;
 
 import java.io.BufferedReader;
 import java.io.IOException;

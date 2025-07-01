@@ -1,4 +1,4 @@
-package com.omnibuscode.util;
+package com.smartuxapi.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

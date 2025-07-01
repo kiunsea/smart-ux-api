@@ -1,4 +1,4 @@
-package com.omnibuscode.util;
+package com.smartuxapi.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;

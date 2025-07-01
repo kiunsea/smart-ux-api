@@ -1,4 +1,4 @@
-package com.omnibuscode.ai;
+package com.smartuxapi.ai;
 
 import java.io.IOException;
 

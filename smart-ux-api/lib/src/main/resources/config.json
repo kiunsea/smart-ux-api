@@ -1,0 +1,15 @@
+{
+  "setting1": "value1",
+  "featureEnabled": true,
+  "threshold": 100,
+  "prompt": {
+    "cur_view_info": [
+        "다음의 내용은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure야.",
+        "이전에 저장한 사용자 화면의 내용을 이것으로 교체해줘. 이 화면 정보를 이용해서 actionQueue 의 내용을 작성해야해. `${CurViewInfo}`"
+    ],
+    "action_queue": [
+        "그리고 사용자의 `${UserMsg}` 명령을 수행 할 수 있도록 id를 actionQueue로 해서 actionQueue의 JSON 내용을 작성해줘,",
+        "그런데 actionQueue의 내용은 내가 현재 화면 정보의 dom element structure 를 참고해서 작성해줘"
+    ]
+  }
+}

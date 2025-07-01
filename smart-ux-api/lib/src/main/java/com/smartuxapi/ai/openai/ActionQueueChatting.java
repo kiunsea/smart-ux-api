@@ -1,15 +1,21 @@
-package com.omnibuscode.ai.openai;
+package com.smartuxapi.ai.openai;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.lookup.StrSubstitutor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.assistants.APIConnection;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ConfigLoader;
+import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.util.StringUtil;
 
 public class ActionQueueChatting extends OpenAIChatting {
 	
@@ -38,6 +44,32 @@ public class ActionQueueChatting extends OpenAIChatting {
 	
 	public JSONObject sendMessage(String userMsg) throws IOException, ParseException {
 		
+		StringBuffer usrPromptSb = new StringBuffer();
+		JsonNode config = ConfigLoader.loadConfigFromClasspath();
+		
+		Map<String, String> valueMap = new HashMap<>();
+		valueMap.put("${CurViewInfo}", this.curViewInfo);
+		valueMap.put("${UserMsg}", userMsg);
+		StrSubstitutor sub = new StrSubstitutor(valueMap);
+		
+		Iterator<JsonNode> elements = null;
+		if (config.get("prompt").get("cur_view_info").isArray()) {
+			elements = config.get("prompt").get("cur_view_info").elements();
+			while (elements.hasNext()) {
+				JsonNode elementNode = elements.next();
+				usrPromptSb.append(" " + sub.replace(elementNode));
+			}
+		}
+		if (config.get("prompt").get("cur_view_info").isArray()) {
+			elements = config.get("prompt").get("action_queue").elements();
+			while (elements.hasNext()) {
+				JsonNode elementNode = elements.next();
+				usrPromptSb.append(" " + sub.replace(elementNode));
+			}
+		}
+		
+		System.out.println("------------------"+usrPromptSb);
+		
 		String userPrompt = "사용자의 \"" + userMsg + "\""
 				+ " 명령을 수행 할 수 있도록 id를 actionQueue 로 해서 actionQueue JSON 내용을 만들어줘, 그런데 actionQueue 의 내용은 내가 현재 화면 정보의 dom element structure 를 참고해서 작성해줘";
 		if (this.updateCurView) {
@@ -46,7 +78,7 @@ public class ActionQueueChatting extends OpenAIChatting {
 			this.updateCurView = false;
 		}
 
-		JSONObject resJson = super.sendMessage(userPrompt);
+		JSONObject resJson = super.sendMessage(usrPromptSb.toString());
 		
 		String resMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
 		if (resMsg != null) {

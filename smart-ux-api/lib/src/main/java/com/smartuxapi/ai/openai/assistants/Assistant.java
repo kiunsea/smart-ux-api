@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai.assistants;
+package com.smartuxapi.ai.openai.assistants;
 
 /**
  * 접속 정보를 관리한다.<br/>

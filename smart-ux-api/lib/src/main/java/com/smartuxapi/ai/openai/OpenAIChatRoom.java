@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai;
+package com.smartuxapi.ai.openai;
 
 import java.io.IOException;
 import java.util.Map;
@@ -7,10 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.assistants.APIConnection;
-import com.omnibuscode.ai.openai.assistants.Assistant;
+import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.ai.openai.assistants.Assistant;
 
 public class OpenAIChatRoom implements ChatRoom {
 

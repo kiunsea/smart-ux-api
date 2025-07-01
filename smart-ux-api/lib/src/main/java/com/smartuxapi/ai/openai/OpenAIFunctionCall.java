@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai;
+package com.smartuxapi.ai.openai;
 
 import org.json.simple.JSONObject;
 

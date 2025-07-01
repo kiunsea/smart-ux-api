@@ -1,4 +1,4 @@
-package ctrl;
+package com.smartuxapi.sample.ctrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +10,9 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.ai.openai.OpenAIChatRoom;
-import com.omnibuscode.ai.openai.assistants.Assistant;
 import com.omnibuscode.utils.PropertiesUtil;
+import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.openai.assistants.Assistant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -35,7 +35,7 @@ public class UXInfoServlet extends HttpServlet {
     
     public void init() {
         PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-                + "WEB-INF/classes/res/SUAPI.PROPERTIES";
+                + "WEB-INF/classes/resources/suapi.properties";
     }
     
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

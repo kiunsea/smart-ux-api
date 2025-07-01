@@ -1,4 +1,4 @@
-package com.omnibuscode.ai.openai;
+package com.smartuxapi.ai.openai;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,9 +15,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omnibuscode.ai.Chatting;
-import com.omnibuscode.ai.openai.assistants.APIConnection;
-import com.omnibuscode.util.JSONUtil;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.util.JSONUtil;
 
 public class OpenAIChatting implements Chatting {
 

@@ -1,3 +1,4 @@
+package com.smartuxapi.sample;
 
 
 import java.io.FileNotFoundException;
@@ -8,11 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import com.omnibuscode.ai.ChatRoom;
-import com.omnibuscode.ai.openai.OpenAIChatRoom;
-import com.omnibuscode.ai.openai.assistants.Assistant;
 import com.omnibuscode.utils.FileUtil;
 import com.omnibuscode.utils.PropertiesUtil;
+import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.openai.assistants.Assistant;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,8 +28,8 @@ public class InitializeEnv extends HttpServlet {
     private Logger log = LogManager.getLogger(InitializeEnv.class);
 
     public void init() {
-        PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-                + "WEB-INF/classes/res/SUAPI.PROPERTIES";
+		PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
+				+ "WEB-INF/classes/resources/suapi.properties";
         
 	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
 	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
@@ -38,8 +39,8 @@ public class InitializeEnv extends HttpServlet {
 		ChatRoom cr = null;
 		try {
 			cr = new OpenAIChatRoom(assist);
-			String clazzPath = this.getServletContext().getRealPath("/") + "WEB-INF/classes/";
-			StringBuilder sb = FileUtil.readFile(clazzPath + "/ctrl/easy_kiosc_uif.json", null);
+			StringBuilder sb = FileUtil.readFile(
+					this.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
 			cr.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
 			cr.closeChat();
 		} catch (ParseException e) {
