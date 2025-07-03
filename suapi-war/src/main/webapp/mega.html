@@ -72,7 +72,6 @@
 
             <div class="kiosc_mega_screen">
 
-
                 <div id="mega_start_img">
                     <button id="mega_start_btn" onclick="start_btn()"></button>
                 </div>
@@ -85,7 +84,7 @@
                             <img id="start-recognition" src="https://dev.jiniebox.com/suapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </div>
                         <script type="module">
-                            import { doActions } from './lib/su-api.js';
+                            import { doActions } from './lib/smart-ux-client.js';
 
                             const startButton = document.getElementById('start-recognition');
                             const output = document.getElementById('output');
@@ -127,14 +126,12 @@
                         <div id="mega_top_bar_name">Easy KIOSC</div>
                         <div id="mega_top_bar_lang">LANG</div>
                     </div>
-
                     <div id="mega_menu_bar">
                         <div id="menu_bar_left" onclick="turn_menu_page(this.id)">&#60;</div>
                         <div class="mega_menu_1"  title="추천_음료" onclick="open_menu_table(this.title)">추천(음료)</div>
                         <div class="mega_menu_1" title="추천_디저트" onclick="open_menu_table(this.title)">추천(디저트)</div>
                         <div class="mega_menu_1" title="커피_HOT" onclick="open_menu_table(this.title)">커피(HOT)</div>
                         <div class="mega_menu_1" title="커피_ICE" onclick="open_menu_table(this.title)">커피(ICE)</div>
-
 
                         <div class="mega_menu_2"  title="스무디_프라페" onclick="open_menu_table(this.title)">스무디&프라페</div>
                         <div class="mega_menu_2" title="에이드_주스" onclick="open_menu_table(this.title)">에이드&주스</div>
@@ -157,7 +154,6 @@
                         <div id="menu_bar_right" onclick="turn_menu_page(this.id)">></div>
                     </div>
                 </div>
-
 
                 <div id="mega_menu_table">
                     <div id="right_btn">></div>
@@ -208,11 +204,7 @@
                         </div>
                     </div>
 
-
-                    <div id="추천_디저트">
-
-                    </div>
-
+                    <div id="추천_디저트"></div>
 
                     <div id="커피_HOT">
                         <div id="row">
@@ -714,5 +706,5 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script src="ux-collector.js"></script>
+<script src="lib/smart-ux-collector.js"></script>
 </html>
