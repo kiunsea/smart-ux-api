@@ -15,7 +15,7 @@ Smart-UX-API/
 │   │           └── resources/
 │   ├── LICENSE
 │   └── README.md
-├── smart-war/
+├── suapi-war/
 │   ├── src/
 │   └── README.md
 ├── .gitattributes
