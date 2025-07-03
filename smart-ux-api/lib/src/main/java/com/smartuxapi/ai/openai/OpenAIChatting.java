@@ -169,17 +169,17 @@ public class OpenAIChatting implements Chatting {
 		
 		if (actionQueueNode != null) {
 			if (actionQueueNode.isArray()) {
-				System.out.println("--- 'actionQueue' (배열) 값 ---");
+				log.debug("--- 'actionQueue' (배열) 값 ---");
 				for (JsonNode action : actionQueueNode) {
-					System.out.println(action.toPrettyString());
+					log.debug(action.toPrettyString());
 				}
 			} else {
-				System.out.println("--- 'actionQueue' (다른 타입) 값 ---");
-				System.out.println("타입: " + actionQueueNode.getNodeType());
-				System.out.println("값: " + actionQueueNode.asText());
+				log.debug("--- 'actionQueue' (다른 타입) 값 ---");
+				log.debug("타입: " + actionQueueNode.getNodeType());
+				log.debug("값: " + actionQueueNode.asText());
 			}
 		} else {
-			System.out.println("'actionQueue' 필드가 존재하지 않습니다.");
+			log.debug("'actionQueue' 필드가 존재하지 않습니다.");
 		}
 		
 		return actionQueueNode;

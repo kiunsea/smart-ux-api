@@ -50,6 +50,12 @@ public class ConfigLoader {
 		}
 	}
 
+	
+	/**
+	 * Class Test
+	 * @param args
+	 */
+	/**
 	public static void main(String[] args) {
 		JsonNode config = loadConfigFromClasspath();
 
@@ -90,4 +96,5 @@ public class ConfigLoader {
 			}
 		}
 	}
+	*/
 }

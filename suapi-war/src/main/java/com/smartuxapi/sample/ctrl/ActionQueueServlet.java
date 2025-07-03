@@ -80,8 +80,8 @@ public class ActionQueueServlet extends HttpServlet {
 				try {
 					if (cr.getChatting() != null) {
 						resJson = cr.getChatting().sendMessage((userMsg != null ? userMsg : ""));
-						System.out.println("======================================================================");
-						System.out.println("resJson - " + resJson.toJSONString());
+						log.debug("======================================================================");
+						log.debug("resJson - " + resJson.toJSONString());
 						assistMsg = resJson.get("message").toString();
 						if (resJson.containsKey("action_queue")) {
 							resObj.put("action_queue", resJson.get("action_queue"));
@@ -93,8 +93,8 @@ public class ActionQueueServlet extends HttpServlet {
 			}
 		}
 		
-		System.out.println("======================================================================");
-		System.out.println(resObj.toJSONString());
+		log.debug("======================================================================");
+		log.debug(resObj.toJSONString());
 
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json;charset=UTF-8");

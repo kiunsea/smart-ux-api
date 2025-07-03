@@ -106,8 +106,10 @@ public class PropertiesUtil {
     }
 
     /**
+     * Class Test
      * @param args
      */
+    /**
     public static void main(String[] args) throws Exception {
         
         PropertiesUtil.USER_PROPERTIES_PATH = "F:\\TOBE_TFS_WIT\\TOBE_TFS_WIT.PROPERTIES";
@@ -124,4 +126,5 @@ public class PropertiesUtil {
         System.out.println(PropertiesUtil.getDefaultPropertiesPath());
         System.out.println(PropertiesUtil.get("name"));
     }
+    */
 }

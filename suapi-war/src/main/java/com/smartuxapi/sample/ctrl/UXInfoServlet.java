@@ -72,8 +72,8 @@ public class UXInfoServlet extends HttpServlet {
         JsonNode timestampNode = rootNode.get("timestamp");
         JsonNode elementsNode = rootNode.get("elements");
 
-        System.out.println("📦 Timestamp: " + (timestampNode != null ? timestampNode.toString() : "null"));
-        System.out.println("📦 Elements JSON: " + elementsNode);
+        log.debug("📦 Timestamp: " + (timestampNode != null ? timestampNode.toString() : "null"));
+        log.debug("📦 Elements JSON: " + elementsNode);
 
         // 5. 필요 시 저장 또는 DB 처리 추가 가능
         HttpSession sess = req.getSession(true);
