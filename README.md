@@ -1,6 +1,6 @@
 # Smart UX API 프로젝트
 Pure Java & HTML5 Project
-## sub dir
+## sub prj dir
 - smart-ux-api : Main Java+JS Library
 - suapi-war : Example Was
 ## 디렉터리 구조
