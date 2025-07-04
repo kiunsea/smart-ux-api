@@ -1,4 +1,5 @@
 # Smart UX API 프로젝트
+Pure Java & HTML5 Project
 ## 디렉터리 구조
 ```
 Smart-UX-API/
