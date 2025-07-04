@@ -23,8 +23,6 @@ su-api/
 ├── suapi-war/
 │   ├── src/
 │   └── README.md
-├── .gitattributes
-├── .gitignore
 └── README.md
 ```
 
