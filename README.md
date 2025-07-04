@@ -1,5 +1,6 @@
 # Smart UX API 프로젝트
-
+## 디렉터리 구조
+```
 Smart-UX-API/
 ├── smart-ux-api/
 │   ├── bin/
@@ -21,3 +22,6 @@ Smart-UX-API/
 ├── .gitattributes
 ├── .gitignore
 └── README.md
+```
+
+
