@@ -2,7 +2,7 @@
 Pure Java & HTML5 Project
 ## sub dir
 - smart-ux-api : Java Library
-- suapi-war : Example WAS
+- suapi-war : Example Was
 ## 디렉터리 구조
 ```
 Smart-UX-API/
