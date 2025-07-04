@@ -5,7 +5,7 @@ Pure Java & HTML5 Project
 - suapi-war : Example War
 ## 디렉터리 구조
 ```
-Smart-UX-API/
+su-api/
 ├── smart-ux-api/
 │   ├── bin/
 │   ├── docs/
