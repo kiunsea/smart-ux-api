@@ -41,7 +41,7 @@ suapi-war/
 
 ---
 
-## ✍️ 설정 및 실행 절차
+## ✍️ 실행 절차
 
 **text prompt 입력 테스트**
 - mega.html 페이지 오픈후 kiosk 화면에 진입
