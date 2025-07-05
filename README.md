@@ -22,6 +22,7 @@
 ## sub prj dir
 - smart-ux-api : Main Java+JS Library
 - suapi-war : Example War
+
 ## 디렉터리 구조
 ```
 su-api/
