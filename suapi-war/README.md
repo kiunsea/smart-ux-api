@@ -28,20 +28,20 @@ suapi-war/
 
 ---
 
-## ▶️ 설치 방법
-
-### Project Export
-- Project Explorer 에서 마우스 우클릭
-- Export > WAR file 선택
-
----
-
-## ✍️ 설정 및 실행 절차
+## ▶️ 설정 및 설치 방법
 
 **suapi.properties설정**
 - /suapi-war/src/main/java/resources/suapi.properties 파일을 수정
 - OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
-- war 배포후 was 실행
+
+**Project Export (Eclipse Tool 기준)**
+- Project Explorer 에서 마우스 우클릭
+- Export > WAR file 선택
+- war파일을 was에 배포
+
+---
+
+## ✍️ 설정 및 실행 절차
 
 **text prompt 입력 테스트**
 - mega.html 페이지 오픈후 kiosk 화면에 진입
