@@ -19,9 +19,9 @@
 - AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신
 - 액션 프로세스로 화면 상에서 필요한 액션을 자동 실행
 
-## sub prj dir
-- smart-ux-api : Main Java+JS Library
-- suapi-war : Example War
+## project directories
+- smart-ux-api : Main Project (Java+JS Library)
+- suapi-war : Example Project (War)
 
 ## 디렉터리 구조
 ```
