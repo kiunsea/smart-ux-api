@@ -1,6 +1,7 @@
 ﻿# suapi-war 🧪
 
-📁 **suapi-war**는 개발 및 테스트 목적의 샘플 프로젝트로, 새로운 기능을 실험하거나, 설정을 검증하거나, 협업을 위한 코드 베이스로 사용하기 위한 예제입니다.
+📁 **suapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 위한 테스트용 샘플 프로젝트입니다.
+새로운 기능을 실험하거나, 설정을 검증하거나, 협업을 위한 코드 베이스로 사용하기 위한 예제입니다.
 
 ---
 
@@ -29,23 +30,21 @@ suapi-war/
 
 ## ▶️ 설치 방법
 
-```eclipse
-# Project Export
+### Project Export
 - Project Explorer 에서 마우스 우클릭
 - Export > WAR file 선택
-```
 
 ---
 
-## ✍️ 설정 및 실행
+## ✍️ 설정 및 실행 절차
 
-```war
-# suapi.properties설정
+**suapi.properties설정**
 - /suapi-war/src/main/java/resources/suapi.properties 파일을 수정
 - OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
 - war 배포후 was 실행
-# Text Prompt 입력
-- http://suapi-war/mega.html 주소를 입력하여 kiosk 화면에 진입
+
+**text prompt 입력 테스트**
+- mega.html 페이지 오픈후 kiosk 화면에 진입
 - 최상단의 프롬프트 입력창("Please order~")에 화면상에 보이는 메뉴를 선택하는 프롬프트 입력
   ex)'아이스 아메리카노와 따뜻한 레몬차'
 - 입력창의 우측의 마이크 아이콘 클릭(AI에게 프롬프트 전송)
@@ -55,20 +54,19 @@ suapi-war/
 - 주문 확인
 - 프롬프트 입력란에 '결재하기' 입력후 전송
 - 주문 세부내역창 확인
-# Audio Prompt 입력
-- http://suapi-war/mega_speech.html 주소를 입력하여 kiosk 화면에 진입
+
+**audio prompt 입력 테스트**
+- mega_speech.html 페이지 오픈후 kiosk 화면에 진입
 - 프롬프트 입력창의 우측에 위치한 마이크 아이콘을 눌러 음성 입력 대기 상태로 진입
 - 음성 명령을 내리고 대기하면 자동으로 텍스트 전환하여 프롬프트가 전송됨
   ex) '시원한 토피넛 마끼아또 주문하고 결제하기 눌러줘'
 - 주문 세부내역창 확인
-```
 
 ---
 
 ## ⚠️ 주의사항
 
-> 이 프로젝트는 **프로덕션 용도**가 아닌, 개발 및 분석 용도로 사용됩니다.  
-> 실제 서비스에 사용되지 않도록 주의하세요.
+> 이 프로젝트는 **프로덕션 용도**가 아닌, 개발 및 분석 용도로 사용합니다.
 
 ---
 

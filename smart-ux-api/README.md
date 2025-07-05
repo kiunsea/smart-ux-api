@@ -40,13 +40,13 @@ Chatting은 ChatRoom내에서 AI와 대화하는 메세지셋입니다.
 
 ### 1. OpenAI Assitants API 등록
 openai package의 Assistant instance 생성시에 OpenAI API Key와 Assistant ID가 필요합니다.
-https://platform.openai.com/docs/assistants에서 Assistant API 사용을 위한 계정을 등록하고 
+https://platform.openai.com/docs/assistants 에서 Assistant API 사용을 위한 계정을 등록하고 
 API Key 발급과 Assitant 생성을 진행하여 주세요.
 
 ### 2. User Interaction Flow 문서 작성
 User Interaction Flow Document(JSON) 작성이 필요합니다.
 ui를 control 할 수 있도록 AI가 action queue를 작성할때 필요한 work flow를 정의한 문서입니다.
-서비스 초기화시 로딩되어 AI에게 전달합니다.
+서비스 초기화시 자동으로 로딩되어 AI에게 전달합니다.
 
 ### 3. 프롬프트 메세지 전송을 위한 기본 Instance 생성
 - Assistant instance 생성
