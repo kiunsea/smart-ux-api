@@ -3,7 +3,6 @@ package com.smartuxapi.ai;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.JsonNode;

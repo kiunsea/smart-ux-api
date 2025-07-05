@@ -9,10 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ChatRoom;
-import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.openai.OpenAIChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistant;
-import com.smartuxapi.util.FileUtil;
 import com.smartuxapi.util.PropertiesUtil;
 
 import jakarta.servlet.ServletException;
@@ -75,14 +73,13 @@ public class ActionQueueServlet extends HttpServlet {
 
 				String userMsg = req.getParameter("user_msg");
 				log.debug("UserMsg : " + userMsg);
-				String assistMsg = null;
 				JSONObject resJson = null;
 				try {
 					if (cr.getChatting() != null) {
 						resJson = cr.getChatting().sendMessage((userMsg != null ? userMsg : ""));
 						log.debug("======================================================================");
 						log.debug("resJson - " + resJson.toJSONString());
-						assistMsg = resJson.get("message").toString();
+						resJson.get("message").toString();
 						if (resJson.containsKey("action_queue")) {
 							resObj.put("action_queue", resJson.get("action_queue"));
 						}
