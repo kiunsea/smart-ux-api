@@ -1,4 +1,4 @@
-package org.example;
+package com.smartuxapi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package org.example;
+package com.smartuxapi;
 
 import java.util.HashMap;
 import java.util.Map;

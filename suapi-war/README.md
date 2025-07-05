@@ -31,7 +31,7 @@ suapi-war/
 ## ▶️ 설정 및 설치 방법
 
 **suapi.properties설정**
-- /suapi-war/src/main/java/resources/suapi.properties 파일을 수정
+- /suapi-war/src/main/java/resources/suapi.properties 파일을 생성 (def.suapi.properties 참고)
 - OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
 
 **project export (Eclipse Tool 기준)**
