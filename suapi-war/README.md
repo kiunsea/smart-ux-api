@@ -34,7 +34,7 @@ suapi-war/
 - /suapi-war/src/main/java/resources/suapi.properties 파일을 수정
 - OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
 
-**Project Export (Eclipse Tool 기준)**
+**project export (Eclipse Tool 기준)**
 - Project Explorer 에서 마우스 우클릭
 - Export > WAR file 선택
 - war파일을 was에 배포
