@@ -1,5 +1,5 @@
 # Smart UX API 프로젝트
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](./LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.html)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
@@ -60,7 +60,7 @@ Pull Request 또는 Issue를 통해 다음에 기여하실 수 있습니다:
 ## 📄 라이선스
 
 이 프로젝트는 **GNU Affero General Public License v3.0 (AGPL-3.0)**을 따릅니다.  
-상세한 내용은 [LICENSE](./LICENSE) 파일을 참조하세요.
+상세한 내용은 [LICENSE](https://www.gnu.org/licenses/agpl-3.0.html) 파일을 참조하세요.
 
 > ⚠️ AGPL은 네트워크 사용자에게도 소스코드 공개를 요구하는 **엄격한 카피레프트** 라이선스입니다.  
 > 이를 충분히 이해한 후 사용하거나 배포하세요.
