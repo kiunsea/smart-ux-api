@@ -25,13 +25,17 @@
 
 ---
 
+## [0.1.1] - 2025-07-07
+
+### Added
+- AGPL-3.0 LICENSE, README.md, 디렉터리 구조 작성
+
 ## [0.1.0] - 2025-01-30
 
 ### Added
 - 프로젝트 초기 생성
 - Java 서버 API 및 JS 클라이언트 코드 기본 뼈대 추가
 - User Interaction Flow 포맷 예시 추가 (`docs/sample.su-api_uif.json`)
-- AGPL-3.0 LICENSE, README.md, 디렉터리 구조 작성
 
 ---
 
