@@ -1,6 +1,6 @@
 # Smart UX API
 
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](./LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.html)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)

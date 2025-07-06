@@ -1,6 +1,6 @@
 ﻿# suapi-war 🧪
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
