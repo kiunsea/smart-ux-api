@@ -6,7 +6,7 @@
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
-📁 **suapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 위한 테스트용 샘플 프로젝트입니다.
+📁 **suapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 테스트 하기 위한 샘플 프로젝트입니다.
 새로운 기능을 실험하거나, 설정을 검증하거나, 협업을 위한 코드 베이스로 사용하기 위한 예제입니다.
 
 ---
