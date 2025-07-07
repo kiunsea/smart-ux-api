@@ -9,14 +9,14 @@ import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.openai.assistants.Assistant;
 import com.smartuxapi.util.FileUtil;
 
+
 public class OpenAIChatRoomTest {
 
 	private OpenAIChatRoom chatRoom = null;
 	
 	public OpenAIChatRoomTest() throws ParseException {
-		Assistant assist = new Assistant("asst_vRTLdQZdtYY9z5m57xjY1h5N");
-		assist.setApiKey(
-				"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");
+		Assistant assist = new Assistant(""); //Assistant ID
+		assist.setApiKey("");                 //API KEY
 		this.chatRoom = new OpenAIChatRoom(assist);
 		System.out.println("* [" + this.chatRoom.getThreadId() + "] 채팅방 생성");
 	}
