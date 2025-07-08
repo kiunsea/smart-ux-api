@@ -26,7 +26,7 @@
 
 ## 디렉터리 구조
 ```
-smux-api/
+su-api/
 ├── smart-ux-api/
 │   ├── bin/
 │   ├── docs/
