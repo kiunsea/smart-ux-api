@@ -12,6 +12,8 @@
 
 서비스에 익숙하지 않은 사용자에게 직관적인 사용 가이드를 제공하거나, 반복 작업을 AI를 통해 자동화하고자 할 때 특히 유용합니다.
 
+<img src="https://github.com/user-attachments/assets/9d597451-94a4-401a-967c-effccd1b60f2" alt="kiosk 시연 영상" height="650">
+
 ## 🔍 주요 기능
 
 - 기존 Java 웹 애플리케이션 서비스에 손쉽게 통합 가능
