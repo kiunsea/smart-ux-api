@@ -87,5 +87,5 @@ suapi-war/
 ## 🙋‍♀️ 문의 및 기여
 
 기여나 피드백은 언제든지 환영합니다!  
-Pull Request 또는 Issues를 통해 참여해주세요.
+Pull Request 또는 Issues를 통해 참여해주세요.  
 kiunsea@gmail.com
