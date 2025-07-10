@@ -66,6 +66,7 @@ Pull Request 또는 Issue를 통해 다음에 기여하실 수 있습니다:
 - 버그 수정
 - 기능 제안 또는 개선
 - 문서화 작업
+- kiunsea@gmail.com
 
 ---
 
