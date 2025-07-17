@@ -11,20 +11,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ConfigLoader {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 	private static final String CONFIG_FILE_NAME = "config.json"; // 클래스패스에서 찾을 설정 파일 이름
+	
+	/**
+	 * 기본 파일명으로 load (config.json)
+	 * 
+	 * @return JsonNode
+	 */
+	public static JsonNode loadConfigFromClasspath() {
+		return loadConfigFromClasspath(null);
+	}
 
 	/**
 	 * 클래스패스 루트에서 JSON 설정 파일을 로드하고 JsonNode로 반환합니다.
 	 *
 	 * @return 로드된 설정 파일의 JsonNode 객체, 파일을 찾지 못하거나 파싱 오류 시 null
 	 */
-	public static JsonNode loadConfigFromClasspath() {
+	public static JsonNode loadConfigFromClasspath(String confFileName) {
+		
+		if (confFileName == null) {
+			confFileName = CONFIG_FILE_NAME;
+		}
+		
 		// ClassLoader를 사용하여 클래스패스에서 리소스를 InputStream으로 얻습니다.
 		// 현재 클래스의 ClassLoader를 사용하면 해당 클래스 위치 기준으로 리소스를 찾습니다.
 		// "/"로 시작하면 클래스패스의 루트를 의미합니다.
-		try (InputStream inputStream = ConfigLoader.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME)) {
+		try (InputStream inputStream = ConfigLoader.class.getClassLoader().getResourceAsStream(confFileName)) {
 
 			if (inputStream == null) {
-				System.err.println("경고: 설정 파일 '" + CONFIG_FILE_NAME + "'을(를) 클래스패스에서 찾을 수 없습니다.");
+				System.err.println("경고: 설정 파일 '" + confFileName + "'을(를) 클래스패스에서 찾을 수 없습니다.");
 				System.err.println("src/main/resources 또는 컴파일된 클래스패스 루트에 있는지 확인하세요.");
 				return null;
 			}
@@ -33,18 +47,18 @@ public class ConfigLoader {
 			// Scanner를 사용하는 것이 InputStream을 전체 문자열로 읽는 간단한 방법입니다.
 			String jsonContent = new Scanner(inputStream, StandardCharsets.UTF_8.name()).useDelimiter("\\A").next();
 
-			System.out.println("설정 파일 '" + CONFIG_FILE_NAME + "' 내용을 클래스패스에서 로드했습니다:\n" + jsonContent);
+			System.out.println("설정 파일 '" + confFileName + "' 내용을 클래스패스에서 로드했습니다:\n" + jsonContent);
 
 			// 읽어온 JSON 문자열을 JsonNode로 파싱합니다.
 			try {
 				return objectMapper.readTree(jsonContent);
 			} catch (IOException e) {
-				System.err.println("오류: 설정 파일 '" + CONFIG_FILE_NAME + "' JSON 파싱 중 오류 발생: " + e.getMessage());
+				System.err.println("오류: 설정 파일 '" + confFileName + "' JSON 파싱 중 오류 발생: " + e.getMessage());
 				return null;
 			}
 
 		} catch (IOException e) {
-			System.err.println("오류: 설정 파일 '" + CONFIG_FILE_NAME + "' 읽기 중 오류 발생: " + e.getMessage());
+			System.err.println("오류: 설정 파일 '" + confFileName + "' 읽기 중 오류 발생: " + e.getMessage());
 			return null;
 		}
 	}

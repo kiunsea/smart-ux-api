@@ -35,6 +35,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.3")
     
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    implementation("org.json:json:20250517")
     
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
