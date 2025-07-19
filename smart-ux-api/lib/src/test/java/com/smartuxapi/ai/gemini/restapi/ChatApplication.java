@@ -16,7 +16,7 @@ public class ChatApplication {
 	public static void main(String[] args) {
 		
 		JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
-		String geminiApiKey = config.get("GEMINI_API_KEY").toString();
+		String geminiApiKey = config.get("GEMINI_API_KEY").asText();
 		if (geminiApiKey == null) geminiApiKey = GEMINI_API_KEY;
 		
 		if (geminiApiKey.equals("YOUR_GEMINI_API_KEY")) {

@@ -17,8 +17,8 @@ public class GeminiApiClient {
 	private final String modelName; // 예: "gemini-pro" 또는 "gemini-1.5-flash"
 
 	public GeminiApiClient(String apiKey, String modelName) {
-		this.apiKey = apiKey;
-		this.modelName = modelName;
+		this.apiKey = apiKey.trim();
+		this.modelName = modelName.trim();
 	}
 
 	/**
@@ -29,13 +29,17 @@ public class GeminiApiClient {
 	 * @throws Exception API 호출 중 발생한 예외
 	 */
 	public String generateContent(List<JSONObject> conversationHistory) throws Exception {
-		URL url = new URL(GEMINI_API_URL_BASE + modelName + ":generateContent?key="+apiKey);
+		String urlStr = GEMINI_API_URL_BASE + modelName + ":generateContent?key=" + apiKey;
+		URL url = new URL(urlStr);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/json");
-		conn.setRequestProperty("X-goog-api-key", apiKey);
 		conn.setDoOutput(true);
+		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		//conn.setRequestProperty("X-goog-api-key", apiKey);
+		//conn.setRequestProperty("Authorization", "Bearer " + apiKey);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setUseCaches(false);
 
 		// 요청 바디 생성
 		JSONObject requestBody = new JSONObject();
