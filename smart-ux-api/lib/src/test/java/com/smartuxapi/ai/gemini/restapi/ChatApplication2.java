@@ -13,6 +13,10 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
 
+/**
+ * 이전 대화 내용도 유지하면서
+ * 대화 시작전 숙지할 문서를 캐시로 학습 시킨후 대화에서 해당 내용을 활용
+ */
 public class ChatApplication2 {
 	private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"; // 여기에 실제 Gemini API 키를 입력하세요!
 	private static final String GEMINI_MODEL_NAME = "gemini-2.5-flash"; // "gemini-pro", "gemini-2.0-flash", "gemini-2.5-flash"
@@ -38,7 +42,8 @@ public class ChatApplication2 {
 		// 1. 문서 파일 읽기 및 Gemini에 캐시
 		try {
 			String documentContent = Files.readString(Paths.get(DOCUMENT_FILE_PATH), StandardCharsets.UTF_8);
-			System.out.println("문서 파일 '" + DOCUMENT_FILE_PATH + "'을 읽고 있습니다...");
+			System.out.println("문서 파일 '" + DOCUMENT_FILE_PATH + "'을 읽었습니다.");
+			System.out.println(documentContent);
 			cachedContentId = apiClient.createCachedContent(documentContent);
 			System.out.println("문서 캐싱 완료. 이제 대화에서 이 문서를 참조합니다.");
 		} catch (IOException e) {

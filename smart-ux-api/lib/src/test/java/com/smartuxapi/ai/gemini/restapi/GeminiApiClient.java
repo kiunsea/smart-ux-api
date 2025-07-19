@@ -35,8 +35,7 @@ public class GeminiApiClient {
 
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-		//conn.setRequestProperty("X-goog-api-key", apiKey);
-		//conn.setRequestProperty("Authorization", "Bearer " + apiKey);
+		conn.setRequestProperty("X-goog-api-key", apiKey);
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
         conn.setUseCaches(false);

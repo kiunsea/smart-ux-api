@@ -34,14 +34,15 @@ public class GeminiApiClient2 {
 		URL url = new URL(CREATE_CACHED_CONTENT_URL+"?key="+apiKey);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setRequestProperty("X-goog-api-key", apiKey);
-		conn.setDoOutput(true);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setUseCaches(false);
 
 		// 요청 바디 생성 (캐시할 문서 내용을 'parts'에 포함)
 		JSONObject requestBody = new JSONObject();
-		requestBody.put("model", modelName); // 어떤 모델에서 캐시를 사용할지 지정
+		requestBody.put("model", "models/"+modelName); // 어떤 모델에서 캐시를 사용할지 지정
 
 		JSONObject contentsObject = new JSONObject();
 		JSONArray partsArray = new JSONArray();
@@ -54,7 +55,8 @@ public class GeminiApiClient2 {
 		requestBody.put("contents", contentsArray);
 
 		// 캐시 유효 기간 설정 (초 단위) - 여기서는 1시간
-		requestBody.put("ttlSeconds", 3600);
+//		requestBody.put("ttlSeconds", 3600);
+		requestBody.put("ttl", "600s");
 
 		// 요청 바디 전송
 		try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {

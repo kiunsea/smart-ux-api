@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
 
+/**
+ * 이전 대화 기록을 저장하며 채팅을 이어가는 구조
+ */
 public class ChatApplication {
 	private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"; // 여기에 실제 Gemini API 키를 입력하세요!
 	private static final String GEMINI_MODEL_NAME = "gemini-2.5-flash"; // "gemini-pro", "gemini-2.0-flash", "gemini-2.5-flash"
