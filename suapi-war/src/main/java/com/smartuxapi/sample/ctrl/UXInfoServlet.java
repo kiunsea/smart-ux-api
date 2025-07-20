@@ -84,16 +84,16 @@ public class UXInfoServlet extends HttpServlet {
 
 	    JSONObject resJson = new JSONObject();
 		try {
-			OpenAIChatRoom cr = null;
+			OpenAIChatRoom chatRoom = null;
 			if (usObj != null) {
-				cr = (OpenAIChatRoom) usObj;
+				chatRoom = (OpenAIChatRoom) usObj;
 			} else {
 				Assistant assist = new Assistant(openaiAssistId);
 				assist.setApiKey(openaiApiKey);
-				cr = new OpenAIChatRoom(assist);
+				chatRoom = new OpenAIChatRoom(assist);
 			}
-			cr.setCurrentViewInfo(elementsNode.toString());
-			sess.setAttribute("CHAT_ROOM", cr);
+			chatRoom.setCurrentViewInfo(elementsNode.toString());
+			sess.setAttribute("CHAT_ROOM", chatRoom);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

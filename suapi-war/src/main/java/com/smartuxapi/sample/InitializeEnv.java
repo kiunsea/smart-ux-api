@@ -36,13 +36,13 @@ public class InitializeEnv extends HttpServlet {
 	    
 		Assistant assist = new Assistant(openaiAssistId);
 		assist.setApiKey(openaiApiKey);
-		ChatRoom cr = null;
+		ChatRoom chatRoom = null;
 		try {
-			cr = new OpenAIChatRoom(assist);
+			chatRoom = new OpenAIChatRoom(assist);
 			StringBuilder sb = FileUtil.readFile(
 					this.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
-			cr.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
-			cr.closeChat();
+			chatRoom.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
+			chatRoom.closeChat();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

@@ -50,7 +50,7 @@ public class ActionQueueServlet extends HttpServlet {
 		assist.setApiKey(openaiApiKey);
 		HttpSession sess = req.getSession(true);
 		Object usObj = sess.getAttribute("CHAT_ROOM");
-		ChatRoom cr = null;
+		ChatRoom chatRoom = null;
 		
 		JSONObject resObj = new JSONObject();
 
@@ -63,9 +63,9 @@ public class ActionQueueServlet extends HttpServlet {
 				JSONObject jo;
 				try {
 					if (usObj != null) {
-						cr = (ChatRoom) usObj;
+						chatRoom = (ChatRoom) usObj;
 					} else {
-						cr = new OpenAIChatRoom(assist);
+						chatRoom = new OpenAIChatRoom(assist);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,8 +75,8 @@ public class ActionQueueServlet extends HttpServlet {
 				log.debug("UserMsg : " + userMsg);
 				JSONObject resJson = null;
 				try {
-					if (cr.getChatting() != null) {
-						resJson = cr.getChatting().sendMessage((userMsg != null ? userMsg : ""));
+					if (chatRoom.getChatting() != null) {
+						resJson = chatRoom.getChatting().sendMessage((userMsg != null ? userMsg : ""));
 						log.debug("======================================================================");
 						log.debug("resJson - " + resJson.toJSONString());
 						resJson.get("message").toString();
