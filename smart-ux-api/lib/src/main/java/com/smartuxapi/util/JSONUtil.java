@@ -314,6 +314,7 @@ public class JSONUtil {
     /**
      * JSONObject instance를 JsonNode instance로 변환
      * 단, json data 의 모든 parameter 의 value 는 object reference 가 아니어야 한다.
+     * 
      * @param jsonObject
      * @return
      * @throws Exception
@@ -321,5 +322,85 @@ public class JSONUtil {
     public static JsonNode jsonObjectToJsonNode(JSONObject jsonObject) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(jsonObject.toString());
+    }
+    
+    /**
+     * org.json.JSONObject → org.json.simple.JSONObject 변환
+     * 
+     * @param jsonObject
+     * @return
+     */
+    public static org.json.simple.JSONObject convertToSimpleJSONObject(org.json.JSONObject jsonObject) {
+        org.json.simple.JSONObject simpleObj = new org.json.simple.JSONObject();
+        for (String key : jsonObject.keySet()) {
+            Object value = jsonObject.get(key);
+            if (value instanceof org.json.JSONObject) {
+                value = convertToSimpleJSONObject((org.json.JSONObject) value);
+            } else if (value instanceof JSONArray) {
+                value = convertToSimpleJSONArray((org.json.JSONArray) value);
+            }
+            simpleObj.put(key, value);
+        }
+        return simpleObj;
+    }
+
+    /**
+     * org.json.JSONArray → org.json.simple.JSONArray 변환
+     * 
+     * @param jsonArray
+     * @return
+     */
+    public static org.json.simple.JSONArray convertToSimpleJSONArray(org.json.JSONArray jsonArray) {
+        org.json.simple.JSONArray simpleArray = new org.json.simple.JSONArray();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Object value = jsonArray.get(i);
+            if (value instanceof org.json.JSONObject) {
+                value = convertToSimpleJSONObject((org.json.JSONObject) value);
+            } else if (value instanceof org.json.JSONArray) {
+                value = convertToSimpleJSONArray((org.json.JSONArray) value);
+            }
+            simpleArray.add(value);
+        }
+        return simpleArray;
+    }
+    
+    /**
+     * org.json.simple.JSONObject → org.json.JSONObject
+     * 
+     * @param simpleObj
+     * @return
+     */
+    public static org.json.JSONObject convertToJSONObject(org.json.simple.JSONObject simpleObj) {
+        org.json.JSONObject jsonObject = new org.json.JSONObject();
+        for (Object keyObj : simpleObj.keySet()) {
+            String key = (String) keyObj;
+            Object value = simpleObj.get(key);
+            if (value instanceof org.json.simple.JSONObject) {
+                value = convertToJSONObject((org.json.simple.JSONObject) value);
+            } else if (value instanceof org.json.simple.JSONArray) {
+                value = convertToJSONArray((org.json.simple.JSONArray) value);
+            }
+            jsonObject.put(key, value);
+        }
+        return jsonObject;
+    }
+
+    /**
+     * org.json.simple.JSONArray → org.json.JSONArray
+     * 
+     * @param simpleArray
+     * @return
+     */
+    public static org.json.JSONArray convertToJSONArray(org.json.simple.JSONArray simpleArray) {
+        org.json.JSONArray jsonArray = new org.json.JSONArray();
+        for (Object value : simpleArray) {
+            if (value instanceof org.json.simple.JSONObject) {
+                value = convertToJSONObject((org.json.simple.JSONObject) value);
+            } else if (value instanceof org.json.simple.JSONArray) {
+                value = convertToJSONArray((org.json.simple.JSONArray) value);
+            }
+            jsonArray.put(value);
+        }
+        return jsonArray;
     }
 }

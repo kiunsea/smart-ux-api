@@ -40,6 +40,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
     
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

@@ -9,7 +9,7 @@ import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.Chatting;
-import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
 import com.smartuxapi.ai.openai.assistants.Assistant;
 
 public class OpenAIChatRoom implements ChatRoom {
@@ -21,14 +21,14 @@ public class OpenAIChatRoom implements ChatRoom {
 	private Logger log = LogManager.getLogger(OpenAIChatRoom.class);
 
 	private String idThread = null; // OpenAI에서 부여하는 채팅방 고유 키값(thread id)
-	private APIConnection connApi = null;
+	private AssistantAPIConnection connApi = null;
 	
 	private String roomType = null;
 	private Chatting chat = null;
 
 	public OpenAIChatRoom(Assistant assistInfo) throws ParseException {
 
-		this.connApi = new APIConnection(assistInfo);
+		this.connApi = new AssistantAPIConnection(assistInfo);
 		try {
 			this.idThread = this.connApi.createThread();
 		} catch (IOException e) {
@@ -71,7 +71,7 @@ public class OpenAIChatRoom implements ChatRoom {
 	}
 	
 	/**
-	 * 현재 화면 정보를 채팅목록에 저장 
+	 * 현재 화면 정보를 채팅목록에 저장
 	 * @param viewInfoJson
 	 * @throws ParseException 
 	 * @throws IOException 

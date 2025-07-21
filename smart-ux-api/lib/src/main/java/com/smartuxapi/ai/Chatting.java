@@ -6,6 +6,9 @@ import java.util.Set;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+/**
+ * chat message 를 전송하고 응답받는다.
+ */
 public interface Chatting {
 	
 	/**
@@ -15,13 +18,12 @@ public interface Chatting {
 	 * @throws ParseException 
 	 * @throws IOException 
 	 */
-	public JSONObject sendMessage(String userMsg) throws IOException, ParseException;
+	public JSONObject sendMessage(String userMsg) throws Exception;
 	
 	/**
 	 * 보유하고 있는 message id set 을 반환
 	 * @return
 	 */
-	public Set getMessageIdSet();
-	
+	public Set<String> getMessageIdSet();
 	
 }

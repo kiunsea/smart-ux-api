@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.openai;
+package com.smartuxapi.ai.gemini;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,22 +14,21 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.ConfigLoader;
-import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
 import com.smartuxapi.util.ActionQueueUtil;
 
 /**
  * 현재 화면 정보를 갱신하면서 저장하며 Action Queue 작성을 요청할때 화면 정보를 함께 전달하여 AI가 분석하게 한다.
- * 
  */
-public class ActionQueueChatting extends OpenAIChatting {
+public class ActionQueueChatting extends GeminiChatting {
 	
-	private Logger log = LogManager.getLogger(ActionQueueChatting.class);
+	public ActionQueueChatting(GeminiAPIConnection connApi) {
+        super(connApi);
+    }
+
+    private Logger log = LogManager.getLogger(ActionQueueChatting.class);
 	
-    private String curViewInfo = null;
-	
-	public ActionQueueChatting(Chatting chatting, AssistantAPIConnection connApi, String idThread) {
-		super(chatting, connApi, idThread);
-	}
+    private String curViewInfo = null; //현재 화면 정보
+    private Chatting chat = null;
 	
 	/**
 	 * 현재 화면 정보 저장
@@ -40,10 +39,11 @@ public class ActionQueueChatting extends OpenAIChatting {
 		log.debug("현재 화면 정보 저장 : " + curViewInfo);
 	}
 	
-	/**
-	 * 현재 저장된 화면 정보를 함께 전달하여 Action Queue 작성을 요청
-	 */
-	public JSONObject sendMessage(String userMsg) throws IOException, ParseException {
+	public void setChatting(Chatting chat) {
+	    this.chat = chat;
+	}
+	
+	public JSONObject sendMessage(String userMsg) throws Exception {
 		
 		StringBuffer aqPromptSb = new StringBuffer();
 		JsonNode config = ConfigLoader.loadConfigFromClasspath();
@@ -71,7 +71,7 @@ public class ActionQueueChatting extends OpenAIChatting {
 		
 		log.debug("Action Queue Prompt : " + aqPromptSb);
 		
-		JSONObject resJson = super.sendMessage(aqPromptSb.toString());
+		JSONObject resJson = this.chat.sendMessage(aqPromptSb.toString());
 		
 		String resMsg = resJson.containsKey("message") ? resJson.get("message").toString() : null;
 		JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);

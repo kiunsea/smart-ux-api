@@ -88,7 +88,7 @@ public class UXInfoServlet extends HttpServlet {
 			if (usObj != null) {
 				chatRoom = (OpenAIChatRoom) usObj;
 			} else {
-				Assistant assist = new Assistant(openaiAssistId);
+			    Assistant assist = new Assistant(openaiAssistId);
 				assist.setApiKey(openaiApiKey);
 				chatRoom = new OpenAIChatRoom(assist);
 			}

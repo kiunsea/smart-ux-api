@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.Chatting;
-import com.smartuxapi.ai.openai.assistants.APIConnection;
+import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
 import com.smartuxapi.util.JSONUtil;
 
 public class OpenAIChatting implements Chatting {
@@ -23,19 +23,19 @@ public class OpenAIChatting implements Chatting {
     
     ObjectMapper objMapper = new ObjectMapper();
     
-    private APIConnection connApi = null;
+    private AssistantAPIConnection connApi = null;
     private String idThread = null; // thread id
     
 //    private String preprocMsg = null; //사용자 명령어 처리전 AI설정용 프롬프트
     private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 메세지 id 목록
     
-    public OpenAIChatting(Chatting chatting, APIConnection connApi, String idThread) {
+    public OpenAIChatting(Chatting chatting, AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
         this.messageIdSet = chatting.getMessageIdSet();
     }
     
-    public OpenAIChatting(APIConnection connApi, String idThread) {
+    public OpenAIChatting(AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
     }
@@ -63,7 +63,7 @@ public class OpenAIChatting implements Chatting {
 			runStatus = (runInfo != null && runInfo.hasNonNull("id")) ? runInfo.get("status").asText() : null;
             
             /**
-             * TODO 추후 function call 기능을 구현해야 할때를 대비해서 구현한 코드 (FunctionCall.java 가 미완성)
+             * TODO 추후 function call 기능을 구현해야 할때를 대비해서 구현한 코드
             if ("requires_action".equals(runStatus)) {
                 JsonNode toolCalls = runInfo.get("required_action").get("submit_tool_outputs").get("tool_calls");
                 JSONObject usrFuncsRst = null;

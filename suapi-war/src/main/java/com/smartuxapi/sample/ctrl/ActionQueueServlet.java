@@ -86,7 +86,9 @@ public class ActionQueueServlet extends HttpServlet {
 					}
 				} catch (IOException | ParseException e) {
 					e.printStackTrace();
-				}
+				} catch (Exception e) {
+                    e.printStackTrace();
+                }
 			}
 		}
 		

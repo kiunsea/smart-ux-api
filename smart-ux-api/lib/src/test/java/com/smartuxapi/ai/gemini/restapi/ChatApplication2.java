@@ -16,6 +16,7 @@ import com.smartuxapi.ai.ConfigLoader;
 /**
  * 이전 대화 내용도 유지하면서
  * 대화 시작전 숙지할 문서를 캐시로 학습 시킨후 대화에서 해당 내용을 활용
+ * XXX 2025.07.20 현재는 캐시 사용이 올바르지 않아서 API 오류가 발생하고 있다.
  */
 public class ChatApplication2 {
 	private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"; // 여기에 실제 Gemini API 키를 입력하세요!

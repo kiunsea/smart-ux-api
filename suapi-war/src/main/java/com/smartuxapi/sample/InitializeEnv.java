@@ -34,7 +34,7 @@ public class InitializeEnv extends HttpServlet {
 	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
 	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
 	    
-		Assistant assist = new Assistant(openaiAssistId);
+	    Assistant assist = new Assistant(openaiAssistId);
 		assist.setApiKey(openaiApiKey);
 		ChatRoom chatRoom = null;
 		try {
@@ -51,7 +51,10 @@ public class InitializeEnv extends HttpServlet {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		log.debug("초기화 설정 완료~");
     }
     
