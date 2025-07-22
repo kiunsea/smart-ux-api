@@ -10,18 +10,16 @@
 ## [Unreleased]
 
 ### Added
-- `CHANGELOG.md` 문서 초안 추가
-- AI로부터 받은 액션 시퀀스를 자동 실행하는 로직 추가
-- `.gitignore` 설정에 테스트 로그 무시 경로 추가
+- 
 
 ### Changed
-- 클라이언트 JS 코드의 오류 로깅 방식 개선
+- 
 
 ### Fixed
-- 특정 상황에서 input 요소 탐지 실패하던 버그 수정
+- 
 
 ### Removed
-- 개발 테스트용 임시 코드 삭제
+- 
 
 ---
 
@@ -44,6 +42,8 @@
 - 프로젝트 초기 생성
 - Java 서버 API 및 JS 클라이언트 코드 기본 뼈대 추가
 - User Interaction Flow 포맷 예시 추가 (`docs/sample.su-api_uif.json`)
+- `CHANGELOG.md` 문서 초안 추가
+- `.gitignore` 설정에 테스트 로그 무시 경로 추가
 
 ---
 
