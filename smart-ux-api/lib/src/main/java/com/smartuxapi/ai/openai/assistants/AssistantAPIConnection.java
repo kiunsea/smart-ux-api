@@ -63,7 +63,7 @@ public class AssistantAPIConnection {
     }
     
     /**
-     * openai 에 사용자 메세지를 전달하고 아이디를 받는다.
+     * openai 에 사용자 메세지를 전달하고 생성한 메세지 아이디를 받는다.
      * @param threadId
      * @param content
      * @return 메세지 아이디

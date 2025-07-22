@@ -9,8 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import com.smartuxapi.ai.ChatRoom;
-import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.SmuThread;
+import com.smartuxapi.ai.openai.OpenAIThread;
 import com.smartuxapi.ai.openai.assistants.Assistant;
 import com.smartuxapi.util.FileUtil;
 import com.smartuxapi.util.PropertiesUtil;
@@ -36,13 +36,13 @@ public class InitializeEnv extends HttpServlet {
 	    
 	    Assistant assist = new Assistant(openaiAssistId);
 		assist.setApiKey(openaiApiKey);
-		ChatRoom chatRoom = null;
+		SmuThread chatRoom = null;
 		try {
-			chatRoom = new OpenAIChatRoom(assist);
+			chatRoom = new OpenAIThread(assist);
 			StringBuilder sb = FileUtil.readFile(
 					this.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
-			chatRoom.getChatting().sendMessage("다음의 내용을 학습해 -> " + sb);
-			chatRoom.closeChat();
+			chatRoom.getMessages().sendMessage("다음의 내용을 학습해 -> " + sb);
+			chatRoom.closeThread();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

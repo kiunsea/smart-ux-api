@@ -1,22 +1,23 @@
 package com.smartuxapi.ai;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
 /**
- * chat message 를 전송하고 응답받는다.
+ * prompt message 를 전송하고 응답받는다.
  */
-public interface Chatting {
-	
+public interface SmuMessages {
+    
+    public void setActionQueueHandler(ActionQueueHandler aqHandler);
+    
 	/**
 	 * 입력한 사용자 메세지를 thread 에 추가하고 run 한다
+	 * 
+	 * @param ActionQueueHandler
 	 * @param userMsg
 	 * @return assistant message - {"message":String, "userFunctionsResult":JSONObject}
-	 * @throws ParseException 
-	 * @throws IOException 
+	 * @throws Exception
 	 */
 	public JSONObject sendMessage(String userMsg) throws Exception;
 	

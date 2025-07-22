@@ -10,7 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.openai.OpenAIThread;
 import com.smartuxapi.ai.openai.assistants.Assistant;
 import com.smartuxapi.util.PropertiesUtil;
 
@@ -84,13 +84,13 @@ public class UXInfoServlet extends HttpServlet {
 
 	    JSONObject resJson = new JSONObject();
 		try {
-			OpenAIChatRoom chatRoom = null;
+			OpenAIThread chatRoom = null;
 			if (usObj != null) {
-				chatRoom = (OpenAIChatRoom) usObj;
+				chatRoom = (OpenAIThread) usObj;
 			} else {
 			    Assistant assist = new Assistant(openaiAssistId);
 				assist.setApiKey(openaiApiKey);
-				chatRoom = new OpenAIChatRoom(assist);
+				chatRoom = new OpenAIThread(assist);
 			}
 			chatRoom.setCurrentViewInfo(elementsNode.toString());
 			sess.setAttribute("CHAT_ROOM", chatRoom);

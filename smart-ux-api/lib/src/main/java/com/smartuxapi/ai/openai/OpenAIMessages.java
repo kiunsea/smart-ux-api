@@ -9,33 +9,31 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ActionQueueHandler;
+import com.smartuxapi.ai.SmuMessages;
 import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
-import com.smartuxapi.util.JSONUtil;
 
-public class OpenAIChatting implements Chatting {
+public class OpenAIMessages implements SmuMessages {
 
-    private Logger log = LogManager.getLogger(OpenAIChatting.class);
+    private Logger log = LogManager.getLogger(OpenAIMessages.class);
     
-    ObjectMapper objMapper = new ObjectMapper();
+    private ObjectMapper objMapper = new ObjectMapper();
     
     private AssistantAPIConnection connApi = null;
     private String idThread = null; // thread id
     
-//    private String preprocMsg = null; //사용자 명령어 처리전 AI설정용 프롬프트
+    private ActionQueueHandler aqHandler = null;
     private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 메세지 id 목록
     
-    public OpenAIChatting(Chatting chatting, AssistantAPIConnection connApi, String idThread) {
+    public OpenAIMessages(SmuMessages chatting, AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
         this.messageIdSet = chatting.getMessageIdSet();
     }
     
-    public OpenAIChatting(AssistantAPIConnection connApi, String idThread) {
+    public OpenAIMessages(AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
     }
@@ -49,7 +47,13 @@ public class OpenAIChatting implements Chatting {
 
         JSONObject resJson = new JSONObject();
         
-        this.connApi.createMessage(this.idThread, userMsg); //메세지 전달
+        String aqPrompt = null;
+        if (this.aqHandler != null) {
+            aqPrompt = this.aqHandler.decoratePrompt(userMsg);
+        } else {
+            aqPrompt = userMsg;
+        }
+        this.connApi.createMessage(this.idThread, aqPrompt); //메세지 전달
         String runId = this.connApi.createRun(this.idThread); //메세지 분석
         
         String runStatus = null;
@@ -115,74 +119,19 @@ public class OpenAIChatting implements Chatting {
 		}
         resJson.put("message", resMsg);
         
-        return resJson;
-    }
-    
-    protected JsonNode extractJsonBlock(String paragraph) {
-        
-        JsonNode resObj = null;
-        
-        // JSON 문자열의 시작과 끝을 탐색
-        int start = paragraph.indexOf("{");
-        int end = paragraph.lastIndexOf("}");
-
-        if (start != -1 && end != -1 && end > start) {
-            String jsonString = paragraph.substring(start, end + 1);
-            try {
-                resObj = JSONUtil.parseJsonNode(jsonString);
-                log.debug("추출된 JSON 객체: " + resObj);
-            } catch (Exception e) {
-                log.debug("유효한 JSON이 아닙니다: " + e.getMessage());
-            }
+        JsonNode aqObj = this.aqHandler.getActionQueue(resMsg);
+        if (aqObj.hasNonNull("actionQueue")) {
+            resJson.put("action_queue", aqObj.get("actionQueue"));
         } else {
-            log.info("JSON 형식을 찾을 수 없습니다.");
+            resJson.put("action_queue", aqObj);
         }
         
-        return resObj;
+        return resJson;
     }
-    
-	protected JsonNode extractActionQueue(String paragraph) throws ParseException, JsonMappingException, JsonProcessingException {
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode rootNode = null;
-
-		JsonNode actionQueueNode = null;
-		if (JSONUtil.isValidJson(paragraph)) {
-			if (paragraph.indexOf("```") > -1) {
-				// 문자열에서 JSON 블록만 추출
-				int jsonStart = paragraph.indexOf("```json");
-				int jsonEnd = paragraph.lastIndexOf("```");
-
-				if (jsonStart == -1 || jsonEnd == -1 || jsonStart >= jsonEnd) {
-					throw new IllegalArgumentException("JSON block not found in input");
-				}
-
-				// JSON 문자열만 추출
-				String jsonString = paragraph.substring(jsonStart + 7, jsonEnd).trim();
-				rootNode = objectMapper.readTree(jsonString);
-			} else {
-				rootNode = objectMapper.readTree(paragraph);
-			}
-
-			actionQueueNode = rootNode.get("actionQueue");
-		}
-		
-		if (actionQueueNode != null) {
-			if (actionQueueNode.isArray()) {
-				log.debug("--- 'actionQueue' (배열) 값 ---");
-				for (JsonNode action : actionQueueNode) {
-					log.debug(action.toPrettyString());
-				}
-			} else {
-				log.debug("--- 'actionQueue' (다른 타입) 값 ---");
-				log.debug("타입: " + actionQueueNode.getNodeType());
-				log.debug("값: " + actionQueueNode.asText());
-			}
-		} else {
-			log.debug("'actionQueue' 필드가 존재하지 않습니다.");
-		}
-		
-		return actionQueueNode;
-	}
+    @Override
+    public void setActionQueueHandler(ActionQueueHandler aqHandler) {
+        this.aqHandler = aqHandler;
+    }
 
 }

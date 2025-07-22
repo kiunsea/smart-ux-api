@@ -6,13 +6,13 @@ import java.util.UUID;
 
 import org.json.JSONObject;
 
-import com.smartuxapi.ai.ChatManager;
-import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ActionQueueHandler;
+import com.smartuxapi.ai.SmuMessages;
 
 /**
  * 
  */
-public class GeminiChatting implements Chatting {
+public class GeminiChatting implements SmuMessages {
     
     private GeminiAPIConnection connApi = null;
     private ChatManager chatManager = null;
@@ -48,5 +48,11 @@ public class GeminiChatting implements Chatting {
      */
     public Set<String> getMessageIdSet() {
         return null;
+    }
+
+    @Override
+    public void setActionQueueHandler(ActionQueueHandler aqHandler) {
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
-import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.SmuThread;
 import com.smartuxapi.sample.ctrl.UXInfoServlet;
 
 import jakarta.servlet.http.HttpSessionEvent;
@@ -28,10 +28,10 @@ public class SessionListener implements HttpSessionListener {
         // ✅ 여기에 사용자 세션 종료 시 처리할 로직 작성
         Object usObj = se.getSession().getAttribute("CHAT_ROOM");
 		if (usObj != null) {
-			ChatRoom cr = (ChatRoom) usObj;
+		    SmuThread cr = (SmuThread) usObj;
 			try {
 				log.debug("Closed ChatRoom: " + cr.getId());
-				cr.closeChat();
+				cr.closeThread();
 			} catch (IOException | ParseException e) {
 				e.printStackTrace();
 			}

@@ -27,7 +27,7 @@ public class GeminiAPIConnectionTest {
         JSONObject response = new JSONObject();
         response.put("candidates", candidates);
 
-        com.smartuxapi.ai.ChatManager chatManager = new com.smartuxapi.ai.ChatManager();
+        com.smartuxapi.ai.gemini.ChatManager chatManager = new com.smartuxapi.ai.gemini.ChatManager();
         String currentSessionId = UUID.randomUUID().toString();
         
         // when: GeminiAPIConnection 메서드 호출

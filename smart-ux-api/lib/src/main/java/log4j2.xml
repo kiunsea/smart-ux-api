@@ -17,5 +17,8 @@
             <AppenderRef ref="stdout"/>
             <!--AppenderRef ref="file_dev"/-->
         </Logger>
+        <Logger name = "com.smartuxapi.ai.openai"  level="INFO" additivity = 'false'>
+            <AppenderRef ref="stdout"/>
+        </Logger>
     </Loggers>
 </Configuration>

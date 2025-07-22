@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.SmuMessages;
 import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.util.ActionQueueUtil;
 
@@ -28,7 +28,7 @@ public class ActionQueueChatting extends GeminiChatting {
     private Logger log = LogManager.getLogger(ActionQueueChatting.class);
 	
     private String curViewInfo = null; //현재 화면 정보
-    private Chatting chat = null;
+    private SmuMessages chat = null;
 	
 	/**
 	 * 현재 화면 정보 저장
@@ -39,7 +39,7 @@ public class ActionQueueChatting extends GeminiChatting {
 		log.debug("현재 화면 정보 저장 : " + curViewInfo);
 	}
 	
-	public void setChatting(Chatting chat) {
+	public void setChatting(SmuMessages chat) {
 	    this.chat = chat;
 	}
 	

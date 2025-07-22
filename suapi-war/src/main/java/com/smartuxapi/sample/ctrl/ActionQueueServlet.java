@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import com.smartuxapi.ai.ChatRoom;
-import com.smartuxapi.ai.openai.OpenAIChatRoom;
+import com.smartuxapi.ai.SmuThread;
+import com.smartuxapi.ai.openai.OpenAIThread;
 import com.smartuxapi.ai.openai.assistants.Assistant;
 import com.smartuxapi.util.PropertiesUtil;
 
@@ -50,7 +50,7 @@ public class ActionQueueServlet extends HttpServlet {
 		assist.setApiKey(openaiApiKey);
 		HttpSession sess = req.getSession(true);
 		Object usObj = sess.getAttribute("CHAT_ROOM");
-		ChatRoom chatRoom = null;
+		SmuThread chatRoom = null;
 		
 		JSONObject resObj = new JSONObject();
 
@@ -63,9 +63,9 @@ public class ActionQueueServlet extends HttpServlet {
 				JSONObject jo;
 				try {
 					if (usObj != null) {
-						chatRoom = (ChatRoom) usObj;
+						chatRoom = (SmuThread) usObj;
 					} else {
-						chatRoom = new OpenAIChatRoom(assist);
+						chatRoom = new OpenAIThread(assist);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,8 +75,8 @@ public class ActionQueueServlet extends HttpServlet {
 				log.debug("UserMsg : " + userMsg);
 				JSONObject resJson = null;
 				try {
-					if (chatRoom.getChatting() != null) {
-						resJson = chatRoom.getChatting().sendMessage((userMsg != null ? userMsg : ""));
+					if (chatRoom.getMessages() != null) {
+						resJson = chatRoom.getMessages().sendMessage((userMsg != null ? userMsg : ""));
 						log.debug("======================================================================");
 						log.debug("resJson - " + resJson.toJSONString());
 						resJson.get("message").toString();

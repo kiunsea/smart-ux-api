@@ -26,24 +26,11 @@
 ---
 
 ## [0.2.1] - 2025-07-23
-
-### Added
-- 내부 API 클래스 생성 (ActionQueueHandler)
-
-### Changed
-- API Interface 이름 변경 (ChatRoom -> SmuThread, Chatting -> SmuMessages) 
-
 ## [0.1.1] - 2025-07-07
-
-### Added
-- AGPL-3.0 LICENSE, README.md, 디렉터리 구조 작성
-
 ## [0.1.0] - 2025-01-30
-
 ### Added
 - 프로젝트 초기 생성
-- Java 서버 API 및 JS 클라이언트 코드 기본 뼈대 추가
-- User Interaction Flow 포맷 예시 추가 (`docs/sample.su-api_uif.json`)
+- 이 프로젝트의 수정 내용은 smart-ux-api 에 따라 작업되며 버전 규칙을 동일하게 가져갑니다.
 
 ---
 

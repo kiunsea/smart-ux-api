@@ -52,7 +52,7 @@ public class ActionQueueUtil {
     /**
      * 문자열 내 ```json\n...\n``` 블록 추출
      */
-    public static String extractJsonContent(String text) {
+    private static String extractJsonContent(String text) {
         String start = "```json\n";
         String end = "\n```\n";
 
@@ -72,7 +72,7 @@ public class ActionQueueUtil {
     /**
      * 문자열 내 ```json ... ``` 블록 추출
      */
-    public static String extractJson(String text) {
+    private static String extractJson(String text) {
         String start = "```json";
         String end = "```";
 
@@ -89,7 +89,7 @@ public class ActionQueueUtil {
     /**
      * 괄호 균형 기반 JSON 추출
      */
-    public static String extractJsonBlock(String text) {
+    private static String extractJsonBlock(String text) {
         int startIndex = -1;
         int braceCount = 0;
         char startChar = 0;
@@ -120,7 +120,7 @@ public class ActionQueueUtil {
     /**
      * 문자열 내 첫 JSON 블록을 괄호 카운팅으로 추출
      */
-    public static String extractJsonByBracketCounting(String text) {
+    private static String extractJsonByBracketCounting(String text) {
         int startIndex = -1;
         char startChar = ' ';
         char endChar = ' ';
@@ -162,7 +162,7 @@ public class ActionQueueUtil {
     /**
      * 파싱 시도 방식으로 JSON 추출
      */
-    public static String extractAndParseJson(String text) {
+    private static String extractAndParseJson(String text) {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             if (c == '{' || c == '[') {

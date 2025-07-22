@@ -1,4 +1,4 @@
-package com.smartuxapi.ai;
+package com.smartuxapi.ai.gemini;
 
 import java.util.ArrayList;
 import java.util.Collections;
