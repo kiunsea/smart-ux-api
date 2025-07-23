@@ -45,7 +45,8 @@ public class ActionQueueHandler {
     }
     
     /**
-     * 사용자 요청에 Action Queue 생성 요청을 덧붙인다. 
+     * 사용자 요청에 현재 화면 정보에 대한 Action Queue 생성 요청을 덧붙인다.<br/>
+     * > 현재 화면 정보가 없다면 일반 Prompt 로 동작한다.
      * 
      * @param User Message
      * @return Action Queue Prompt

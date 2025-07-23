@@ -1,13 +1,14 @@
 package com.smartuxapi.ai.gemini;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import com.smartuxapi.ai.ConfigLoader;
+import com.smartuxapi.ai.MessageHistory;
 
 public class GeminiAPIConnectionTest {
 
@@ -27,15 +28,16 @@ public class GeminiAPIConnectionTest {
         JSONObject response = new JSONObject();
         response.put("candidates", candidates);
 
-        com.smartuxapi.ai.gemini.MessageManager msgManager = new com.smartuxapi.ai.gemini.MessageManager();
-        String currentSessionId = UUID.randomUUID().toString();
+        MessageHistory msgHistory = new MessageHistory();
         
         // when: GeminiAPIConnection 메서드 호출
         JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
         String geminiApiKey = config.get("GEMINI_API_KEY").asText();
         GeminiAPIConnection conn = new GeminiAPIConnection(geminiApiKey, "gemini-2.5-flash");
         
-        List<JSONObject> conversationHistory = msgManager.addUserMessage(currentSessionId, "hi gemini");
+        String userPrompt = "hi gemini";
+        System.out.println("User prompt : "+userPrompt);
+        List<JSONObject> conversationHistory = msgHistory.addUserMessage(userPrompt);
         String geminiResponse = conn.generateContent(conversationHistory);
 
         // then: 결과 검증

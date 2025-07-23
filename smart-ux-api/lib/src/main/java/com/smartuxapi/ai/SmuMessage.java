@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 /**
  * prompt message 를 전송하고 응답받는다.
  */
-public interface SmuMessages {
+public interface SmuMessage {
     
     public void setActionQueueHandler(ActionQueueHandler aqHandler);
     
@@ -16,7 +16,7 @@ public interface SmuMessages {
 	 * 
 	 * @param ActionQueueHandler
 	 * @param userMsg
-	 * @return assistant message - {"message":String, "userFunctionsResult":JSONObject}
+	 * @return {"message":String, "action_queue":JSON String, "userFunctionsResult":JSON String}
 	 * @throws Exception
 	 */
 	public JSONObject sendMessage(String userMsg) throws Exception;

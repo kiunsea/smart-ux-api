@@ -1,44 +1,53 @@
 package com.smartuxapi.ai.gemini;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.json.simple.parser.ParseException;
 
+import com.smartuxapi.ai.ActionQueueHandler;
+import com.smartuxapi.ai.MessageHistory;
+import com.smartuxapi.ai.SmuMessage;
 import com.smartuxapi.ai.SmuThread;
-import com.smartuxapi.ai.SmuMessages;
 
-/**
- * TODO chatroom 은 chatting 을 생성하고 현재 화면 정보를 실시간 저장해야 한다.
- */
 public class GeminiThread implements SmuThread {
 
+    private GeminiAPIConnection connApi = null;
+    private GeminiMessage message = null;
+    
+    private final ActionQueueHandler aqHandler = new ActionQueueHandler();
+    private final MessageHistory messageHistory = new MessageHistory();
+    private final String threadId = UUID.randomUUID().toString();
+    
+    public GeminiThread(String apiKey, String modelName) {
+        this.connApi = new GeminiAPIConnection(apiKey, modelName);
+    }
+    
     @Override
     public String getId() {
-        // TODO Auto-generated method stub
-        return null;
+        return threadId;
     }
-
+    
     @Override
-    public SmuMessages getMessages() {
-        // TODO Auto-generated method stub
-        return null;
+    public SmuMessage getMessage() {
+        if (this.message == null) {
+            this.message = new GeminiMessage(this.connApi);
+        }
+        this.message.setActionQueueHandler(this.aqHandler);
+        return this.message;
     }
-
+    
     @Override
     public boolean closeThread() throws IOException, ParseException {
-        // TODO Auto-generated method stub
-        return false;
+        this.connApi = null;
+        this.message = null;
+        this.messageHistory.clearHistory();
+        return true;
     }
-
-    public SmuMessages decorateUXInfo(SmuMessages chat) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    
     @Override
     public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
-        // TODO Auto-generated method stub
-        
+        this.aqHandler.setCurViewInfo(viewInfoJson);
     }
 
 }

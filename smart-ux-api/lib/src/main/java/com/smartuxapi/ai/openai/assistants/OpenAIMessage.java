@@ -12,11 +12,11 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.SmuMessages;
+import com.smartuxapi.ai.SmuMessage;
 
-public class OpenAIMessages implements SmuMessages {
+public class OpenAIMessage implements SmuMessage {
 
-    private Logger log = LogManager.getLogger(OpenAIMessages.class);
+    private Logger log = LogManager.getLogger(OpenAIMessage.class);
     
     private ObjectMapper objMapper = new ObjectMapper();
     
@@ -26,13 +26,13 @@ public class OpenAIMessages implements SmuMessages {
     private ActionQueueHandler aqHandler = null;
     private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 메세지 id 목록
     
-    public OpenAIMessages(SmuMessages chatting, AssistantAPIConnection connApi, String idThread) {
+    public OpenAIMessage(SmuMessage chatting, AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
         this.messageIdSet = chatting.getMessageIdSet();
     }
     
-    public OpenAIMessages(AssistantAPIConnection connApi, String idThread) {
+    public OpenAIMessage(AssistantAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
     }
@@ -46,6 +46,7 @@ public class OpenAIMessages implements SmuMessages {
 
         JSONObject resJson = new JSONObject();
         
+        // Action Queue 요청 Prompt 작성 및 전달
         String aqPrompt = null;
         if (this.aqHandler != null) {
             aqPrompt = this.aqHandler.decoratePrompt(userMsg);
@@ -116,15 +117,17 @@ public class OpenAIMessages implements SmuMessages {
 		} else {
 			log.error("응답 형식을 찾을 수 없습니다.");
 		}
-        resJson.put("message", resMsg);
         
+        // Action Queue 메세지 전달
+        resJson.put("message", resMsg);
+
         JsonNode aqObj = this.aqHandler.getActionQueue(resMsg);
         if (aqObj.hasNonNull("actionQueue")) {
             resJson.put("action_queue", aqObj.get("actionQueue"));
         } else {
             resJson.put("action_queue", aqObj);
         }
-        
+
         return resJson;
     }
 

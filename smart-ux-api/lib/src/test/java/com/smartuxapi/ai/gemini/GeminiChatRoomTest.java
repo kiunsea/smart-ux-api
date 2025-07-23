@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.openai;
+package com.smartuxapi.ai.gemini;
 
 import java.io.File;
 
@@ -8,23 +8,19 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.ai.SmuMessage;
-import com.smartuxapi.ai.openai.assistants.Assistant;
-import com.smartuxapi.ai.openai.assistants.OpenAIThread;
+import com.smartuxapi.ai.SmuThread;
 import com.smartuxapi.util.FileUtil;
 
-public class OpenAIChatRoomTest {
+public class GeminiChatRoomTest {
 
-    private OpenAIThread chatRoom = null;
+    private SmuThread chatRoom = null;
 
-    public OpenAIChatRoomTest() throws ParseException {
+    public GeminiChatRoomTest() throws ParseException {
 
         JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
-        String assistantId = config.get("OPENAI_ASSIST_ID").asText();
-        String apiKey = config.get("OPENAI_API_KEY").asText();
+        String apiKey = config.get("GEMINI_API_KEY").asText();
 
-        Assistant assist = new Assistant(assistantId); // Assistant ID
-        assist.setApiKey(apiKey); // API KEY
-        this.chatRoom = new OpenAIThread(assist);
+        this.chatRoom = new GeminiThread(apiKey, "gemini-2.5-flash");
         System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
 
     }
@@ -37,7 +33,7 @@ public class OpenAIChatRoomTest {
      */
     public static void main(String args[]) throws Exception {
         
-        OpenAIChatRoomTest crTest = new OpenAIChatRoomTest();
+        GeminiChatRoomTest crTest = new GeminiChatRoomTest();
         
         crTest.testChat("너는 누구니?"); // 일반 대화 테스트
         

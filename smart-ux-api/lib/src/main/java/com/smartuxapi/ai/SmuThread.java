@@ -16,7 +16,7 @@ public interface SmuThread {
 	 * 
 	 * @return
 	 */
-	public SmuMessages getMessages();
+	public SmuMessage getMessage();
 	
 	/**
 	 * thread 종료 (openai 에서는 thread 삭제)
