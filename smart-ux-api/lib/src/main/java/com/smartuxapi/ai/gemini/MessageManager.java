@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ChatManager {
+public class MessageManager {
 	// 세션 ID를 키로 하여 해당 세션의 대화 기록을 저장
 	// 실제 프로덕션 환경에서는 영구적인 저장소(예: 데이터베이스, Redis)를 사용해야 합니다.
 	private final Map<String, List<JSONObject>> chatSessions = new ConcurrentHashMap<>();

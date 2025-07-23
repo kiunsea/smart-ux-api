@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.openai;
+package com.smartuxapi.ai.openai.assistants;
 
 import java.io.IOException;
 import java.util.Map;
@@ -10,8 +10,6 @@ import org.json.simple.parser.ParseException;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.SmuThread;
 import com.smartuxapi.ai.SmuMessages;
-import com.smartuxapi.ai.openai.assistants.Assistant;
-import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
 
 public class OpenAIThread implements SmuThread {
 

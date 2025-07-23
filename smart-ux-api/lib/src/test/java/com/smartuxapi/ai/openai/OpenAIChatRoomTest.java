@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.ai.SmuMessages;
 import com.smartuxapi.ai.openai.assistants.Assistant;
+import com.smartuxapi.ai.openai.assistants.OpenAIThread;
 import com.smartuxapi.util.FileUtil;
 
 public class OpenAIChatRoomTest {

@@ -27,7 +27,7 @@ public class GeminiAPIConnectionTest {
         JSONObject response = new JSONObject();
         response.put("candidates", candidates);
 
-        com.smartuxapi.ai.gemini.ChatManager chatManager = new com.smartuxapi.ai.gemini.ChatManager();
+        com.smartuxapi.ai.gemini.MessageManager msgManager = new com.smartuxapi.ai.gemini.MessageManager();
         String currentSessionId = UUID.randomUUID().toString();
         
         // when: GeminiAPIConnection 메서드 호출
@@ -35,7 +35,7 @@ public class GeminiAPIConnectionTest {
         String geminiApiKey = config.get("GEMINI_API_KEY").asText();
         GeminiAPIConnection conn = new GeminiAPIConnection(geminiApiKey, "gemini-2.5-flash");
         
-        List<JSONObject> conversationHistory = chatManager.addUserMessage(currentSessionId, "hi gemini");
+        List<JSONObject> conversationHistory = msgManager.addUserMessage(currentSessionId, "hi gemini");
         String geminiResponse = conn.generateContent(conversationHistory);
 
         // then: 결과 검증

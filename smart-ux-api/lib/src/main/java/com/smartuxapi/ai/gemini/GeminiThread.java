@@ -10,7 +10,7 @@ import com.smartuxapi.ai.SmuMessages;
 /**
  * TODO chatroom 은 chatting 을 생성하고 현재 화면 정보를 실시간 저장해야 한다.
  */
-public class GeminiChatRoom implements SmuThread {
+public class GeminiThread implements SmuThread {
 
     @Override
     public String getId() {

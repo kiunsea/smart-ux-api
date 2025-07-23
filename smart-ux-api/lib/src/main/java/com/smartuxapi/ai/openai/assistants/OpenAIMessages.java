@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.openai;
+package com.smartuxapi.ai.openai.assistants;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.SmuMessages;
-import com.smartuxapi.ai.openai.assistants.AssistantAPIConnection;
 
 public class OpenAIMessages implements SmuMessages {
 
