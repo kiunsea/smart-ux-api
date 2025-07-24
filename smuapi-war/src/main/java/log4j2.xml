@@ -15,7 +15,7 @@
     <Loggers>
         <Logger name = "com.smartuxapi"  level="DEBUG" additivity = 'false'>
             <AppenderRef ref="stdout"/>
-            <!-- AppenderRef ref="file_dev"/-->
+            <AppenderRef ref="file_dev"/>
         </Logger>
     </Loggers>
 </Configuration>

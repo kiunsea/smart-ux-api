@@ -33,4 +33,12 @@ public interface SmuThread {
 	 * @param viewInfoJson
 	 */
 	public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException;
+	
+	/**
+	 * 현재 화면 정보를 Handler에서 삭제
+	 * 
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	public void clearCurrentViewInfo() throws IOException, ParseException;
 }

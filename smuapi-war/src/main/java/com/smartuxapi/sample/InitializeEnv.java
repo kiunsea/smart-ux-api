@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.SmuThread;
-import com.smartuxapi.ai.openai.OpenAIThread;
 import com.smartuxapi.ai.openai.assistants.Assistant;
+import com.smartuxapi.ai.openai.assistants.OpenAIThread;
 import com.smartuxapi.util.FileUtil;
 import com.smartuxapi.util.PropertiesUtil;
 
@@ -41,7 +41,7 @@ public class InitializeEnv extends HttpServlet {
 			chatRoom = new OpenAIThread(assist);
 			StringBuilder sb = FileUtil.readFile(
 					this.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
-			chatRoom.getMessages().sendMessage("다음의 내용을 학습해 -> " + sb);
+			chatRoom.getMessage().sendPrompt("다음의 내용을 학습해 -> " + sb);
 			chatRoom.closeThread();
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public class InitializeEnv extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-		log.debug("초기화 설정 완료~");
+		log.info("Easy KIOSC 초기화 설정 완료!!");
     }
     
 }

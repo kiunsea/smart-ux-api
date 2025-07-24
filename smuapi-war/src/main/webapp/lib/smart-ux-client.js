@@ -4,23 +4,24 @@ export async function doActions(actions) {
         for (let i = 0; i < actions.length; i++) {
             const action = actions[i];
             try {
-                if (action.type === 'click') {
+                let type = action.action ? action.action : action.type;
+                if (type === 'click') {
                     const elem = document.querySelector('#'+action.id);
                     if (elem) {
                         elem.click();
                         await delay(200); // 클릭 후 약간 대기
                     }
-                } else if (action.type === 'scroll') {
+                } else if (type === 'scroll') {
                     window.scrollTo(0, action.position || 0);
                     await delay(300); // 스크롤 후 대기
-                } else if (action.type === 'setAttribute') {
+                } else if (type === 'setAttribute') {
                     const elem = document.querySelector('#'+action.id);
                     if (elem) {
                         elem.setAttribute(action.attrName, action.attrValue);
                     } else {
                         console.warn(`element not found for selector: ${action.id}`);
                     }
-                } else if (action.type === 'navigate') {
+                } else if (type === 'navigate') {
                     // 남은 명령어를 저장
                     const remaining = actions.slice(i + 1);
                     localStorage.setItem('pendingActions', JSON.stringify(remaining));

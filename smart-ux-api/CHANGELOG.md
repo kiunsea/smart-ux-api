@@ -10,6 +10,7 @@
 ## [Unreleased]
 
 ### Added
+- OpenAI GPT API(chat/completions) 지원
 
 ### Changed
 
@@ -18,20 +19,27 @@
 ### Removed
 
 ---
+## [0.3.0] - 2025-07-25
 
+### Added
+- Gemini API 지원
+
+---
 ## [0.2.1] - 2025-07-23
 
 ### Added
 - 내부 API 클래스 생성 (ActionQueueHandler)
 
 ### Changed
-- API Interface 이름 변경 (ChatRoom -> SmuThread, Chatting -> SmuMessages) 
+- API Interface 이름 변경 (ChatRoom -> SmuThread, Chatting -> SmuMessage) 
 
+---
 ## [0.1.1] - 2025-07-07
 
 ### Added
 - AGPL-3.0 LICENSE, README.md, 디렉터리 구조 작성
 
+---
 ## [0.1.0] - 2025-01-30
 
 ### Added

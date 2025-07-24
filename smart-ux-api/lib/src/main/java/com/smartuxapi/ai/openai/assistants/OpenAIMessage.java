@@ -42,7 +42,7 @@ public class OpenAIMessage implements SmuMessage {
     }
     
     @Override
-    public JSONObject sendMessage(String userMsg) throws IOException, ParseException {
+    public JSONObject sendPrompt(String userMsg) throws IOException, ParseException {
 
         JSONObject resJson = new JSONObject();
         
@@ -122,7 +122,7 @@ public class OpenAIMessage implements SmuMessage {
         resJson.put("message", resMsg);
 
         JsonNode aqObj = this.aqHandler.getActionQueue(resMsg);
-        if (aqObj.hasNonNull("actionQueue")) {
+        if (aqObj != null && aqObj.hasNonNull("actionQueue")) {
             resJson.put("action_queue", aqObj.get("actionQueue"));
         } else {
             resJson.put("action_queue", aqObj);

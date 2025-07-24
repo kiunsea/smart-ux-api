@@ -1,3 +1,5 @@
+var selected_ai_num = "1";
+
 /*메가커피 - 스크린 크기와 동일한 버튼을 누르면 
 1. 광고 포스터 이미지 사라짐
 2. 포스터와 같은 크기의 투명한 버튼 사라짐
@@ -8,6 +10,13 @@
 7. 담은 항복 가려짐
 */
 function start_btn() {
+    
+    var ainum = prompt("사용할 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini)");
+    while (ainum != 1 && ainum != 2) {
+        ainum = prompt("올바른 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini)");
+    }
+    selected_ai_num = ainum;
+    
     document.getElementById("mega_start_img").style.display = 'none';
     document.getElementById("mega_start_btn").style.display = 'none';
     document.getElementById("mega_order").style.display = 'block';

@@ -19,7 +19,7 @@ public interface SmuMessage {
 	 * @return {"message":String, "action_queue":JSON String, "userFunctionsResult":JSON String}
 	 * @throws Exception
 	 */
-	public JSONObject sendMessage(String userMsg) throws Exception;
+	public JSONObject sendPrompt(String userMsg) throws Exception;
 	
 	/**
 	 * 보유하고 있는 message id set 을 반환

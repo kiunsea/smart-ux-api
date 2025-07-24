@@ -1,0 +1,17 @@
+{
+	"DocName": "User Interaction Flow",
+	"description": "이 문서는 사용자 요청에 대한 actionQueue를 정의하였다. actionQueue를 작성하는 각 항목들은 사용자 화면에서 추출된 ui 요소 정보로 작성한다. actionQueue 안의 속성명은 반드시 이 문서의 규칙을 따른다.",
+	"userRequest": {
+		"order": {
+            "description": "메뉴를 정하고 주문한다",
+            "actionQueue": {
+                "description": "각 속성의 값은 사용자 화면에서 추출된 ui 요소 정보의 속성값과 매핑된다",
+                "id": "",
+                "type": "",
+                "label": "",
+                "selector": "",
+                "xpath": ""
+            }
+		}
+	}
+}

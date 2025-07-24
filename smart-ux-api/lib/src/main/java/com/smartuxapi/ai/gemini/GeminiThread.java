@@ -50,4 +50,10 @@ public class GeminiThread implements SmuThread {
         this.aqHandler.setCurViewInfo(viewInfoJson);
     }
 
+    @Override
+    public void clearCurrentViewInfo() throws IOException, ParseException {
+        if (this.aqHandler != null) {
+            this.aqHandler.setCurViewInfo(null);
+        }
+    }
 }

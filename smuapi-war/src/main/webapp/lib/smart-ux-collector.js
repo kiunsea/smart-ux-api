@@ -1,5 +1,5 @@
 (function () {
-  const SERVER_ENDPOINT = '/suapi/collect';  // <-- 실제 서버 URL로 교체하세요
+  const SERVER_ENDPOINT = '/smuapi/collect';  // <-- 실제 서버 URL로 교체하세요
 
   function isVisible(el) {
     const style = window.getComputedStyle(el);

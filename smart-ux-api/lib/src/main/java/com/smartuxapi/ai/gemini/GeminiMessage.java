@@ -26,7 +26,7 @@ public class GeminiMessage implements SmuMessage {
      * 대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달
      */
     @Override
-    public org.json.simple.JSONObject sendMessage(String userMsg) throws Exception {
+    public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
         
         // Action Queue 요청 Prompt 작성 및 전달
         String aqPrompt = null;
@@ -50,7 +50,7 @@ public class GeminiMessage implements SmuMessage {
         resJson.put("message", geminiResponse);
         
         JsonNode aqObj = this.aqHandler.getActionQueue(geminiResponse);
-        if (aqObj.hasNonNull("actionQueue")) {
+        if (aqObj != null && aqObj.hasNonNull("actionQueue")) {
             resJson.put("action_queue", aqObj.get("actionQueue"));
         } else {
             resJson.put("action_queue", aqObj);

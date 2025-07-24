@@ -37,7 +37,7 @@ public class ActionQueueHandler {
     
     public JsonNode getActionQueue(String resMsg) {
         JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);
-        if (aqObj.hasNonNull("actionQueue")) {
+        if (aqObj != null && aqObj.hasNonNull("actionQueue")) {
             return aqObj.get("actionQueue");
         } else {
             return aqObj;
@@ -53,35 +53,48 @@ public class ActionQueueHandler {
      */
     public String decoratePrompt(String userMsg) {
         
-        if (this.curViewInfo == null) //현재 화면 정보가 없다면 일반 Prompt 로 동작
-            return userMsg;
-        
-        StringBuffer aqPromptSb = new StringBuffer();
         JsonNode config = ConfigLoader.loadConfigFromClasspath();
-        
+        StringBuffer aqPromptSb = new StringBuffer();
         Map<String, String> valueMap = new HashMap<>();
-        valueMap.put("CurViewInfo", this.curViewInfo);
-        valueMap.put("UserMsg", userMsg);
-        StrSubstitutor sub = new StrSubstitutor(valueMap);
         
-        Iterator<JsonNode> elements = null;
-        if (config.get("prompt").get("cur_view_info").isArray()) {
-            elements = config.get("prompt").get("cur_view_info").elements();
-            while (elements.hasNext()) {
-                JsonNode elementNode = elements.next();
-                aqPromptSb.append(" " + sub.replace(elementNode));
+        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 일반 Prompt 로 동작
+            
+            valueMap.put("UserMsg", userMsg);
+            StrSubstitutor sub = new StrSubstitutor(valueMap);
+            
+            Iterator<JsonNode> elements = null;
+            if (config.get("prompt").get("normal_prompt").isArray()) {
+                elements = config.get("prompt").get("normal_prompt").elements();
+                while (elements.hasNext()) {
+                    JsonNode elementNode = elements.next();
+                    aqPromptSb.append(" " + sub.replace(elementNode));
+                }
             }
-        }
-        if (config.get("prompt").get("cur_view_info").isArray()) {
-            elements = config.get("prompt").get("action_queue").elements();
-            while (elements.hasNext()) {
-                JsonNode elementNode = elements.next();
-                aqPromptSb.append(" " + sub.replace(elementNode));
+            
+        } else {
+            
+            valueMap.put("CurViewInfo", this.curViewInfo);
+            valueMap.put("UserMsg", userMsg);
+            StrSubstitutor sub = new StrSubstitutor(valueMap);
+            
+            Iterator<JsonNode> elements = null;
+            if (config.get("prompt").get("cur_view_info").isArray()) {
+                elements = config.get("prompt").get("cur_view_info").elements();
+                while (elements.hasNext()) {
+                    JsonNode elementNode = elements.next();
+                    aqPromptSb.append(" " + sub.replace(elementNode));
+                }
+            }
+            if (config.get("prompt").get("cur_view_info").isArray()) {
+                elements = config.get("prompt").get("action_queue").elements();
+                while (elements.hasNext()) {
+                    JsonNode elementNode = elements.next();
+                    aqPromptSb.append(" " + sub.replace(elementNode));
+                }
             }
         }
         
         log.debug("Action Queue Prompt : " + aqPromptSb);
-        
         return aqPromptSb.toString();
     }
     

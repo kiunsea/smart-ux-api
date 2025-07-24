@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConfigLoader {
+    
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 	private static final String CONFIG_FILE_NAME = "config.json"; // 클래스패스에서 찾을 설정 파일 이름
 	
@@ -38,8 +39,8 @@ public class ConfigLoader {
 		try (InputStream inputStream = ConfigLoader.class.getClassLoader().getResourceAsStream(confFileName)) {
 
 			if (inputStream == null) {
-				System.err.println("경고: 설정 파일 '" + confFileName + "'을(를) 클래스패스에서 찾을 수 없습니다.");
-				System.err.println("src/main/resources 또는 컴파일된 클래스패스 루트에 있는지 확인하세요.");
+//				System.err.println("경고: 설정 파일 '" + confFileName + "'을(를) 클래스패스에서 찾을 수 없습니다.");
+//				System.err.println("src/main/resources 또는 컴파일된 클래스패스 루트에 있는지 확인하세요.");
 				return null;
 			}
 
@@ -47,18 +48,18 @@ public class ConfigLoader {
 			// Scanner를 사용하는 것이 InputStream을 전체 문자열로 읽는 간단한 방법입니다.
 			String jsonContent = new Scanner(inputStream, StandardCharsets.UTF_8.name()).useDelimiter("\\A").next();
 
-			System.out.println("설정 파일 '" + confFileName + "' 내용을 클래스패스에서 로드했습니다:\n" + jsonContent);
+//			System.out.println("설정 파일 '" + confFileName + "' 내용을 클래스패스에서 로드했습니다:\n" + jsonContent);
 
 			// 읽어온 JSON 문자열을 JsonNode로 파싱합니다.
 			try {
 				return objectMapper.readTree(jsonContent);
 			} catch (IOException e) {
-				System.err.println("오류: 설정 파일 '" + confFileName + "' JSON 파싱 중 오류 발생: " + e.getMessage());
+//				System.err.println("오류: 설정 파일 '" + confFileName + "' JSON 파싱 중 오류 발생: " + e.getMessage());
 				return null;
 			}
 
 		} catch (IOException e) {
-			System.err.println("오류: 설정 파일 '" + confFileName + "' 읽기 중 오류 발생: " + e.getMessage());
+//			System.err.println("오류: 설정 파일 '" + confFileName + "' 읽기 중 오류 발생: " + e.getMessage());
 			return null;
 		}
 	}
