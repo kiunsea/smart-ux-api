@@ -1,4 +1,4 @@
-﻿# suapi-war 🧪
+﻿# smuapi-war 🧪
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Java](https://img.shields.io/badge/language-Java-orange)
@@ -6,7 +6,7 @@
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
-📁 **suapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 테스트 하기 위한 샘플 프로젝트입니다.
+📁 **smuapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 테스트 하기 위한 샘플 프로젝트입니다.
 새로운 기능을 실험하거나, 설정을 검증하거나, 협업을 위한 코드 베이스로 사용하기 위한 예제입니다.
 
 ---
@@ -23,7 +23,7 @@
 ## 📦 프로젝트 구성
 
 ```
-suapi-war/
+smuapi-war/
 ├── src/                     
 │   └── main/
 │       ├── java/            # 예제 소스코드
@@ -36,8 +36,8 @@ suapi-war/
 
 ## ▶️ 설정 및 설치 방법
 
-**suapi.properties설정**
-- /suapi-war/src/main/java/resources/suapi.properties 파일을 생성 (def.suapi.properties 참고)
+**smuapi.properties설정**
+- /smuapi-war/src/main/java/resources/smuapi.properties 파일을 생성 (def.smuapi.properties 참고)
 - OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
 
 **project export (Eclipse Tool 기준)**

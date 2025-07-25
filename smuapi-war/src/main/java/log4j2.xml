@@ -7,7 +7,7 @@
             <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
         </Console>
         <!-- 파일 저장 방식 -->
-        <File name="file_dev" fileName="C:/LOGS/SUAPI_WAR.log">
+        <File name="file_dev" fileName="C:/LOGS/SMUAPI_WAR.log">
               <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
         </File>
     </Appenders>

@@ -34,7 +34,7 @@ public class ActionQueueServlet extends HttpServlet {
     
     public void init() {
         PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-                + "WEB-INF/classes/resources/suapi.properties";
+                + "WEB-INF/classes/resources/smuapi.properties";
     }
     
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

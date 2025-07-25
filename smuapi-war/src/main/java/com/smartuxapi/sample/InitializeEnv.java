@@ -29,7 +29,7 @@ public class InitializeEnv extends HttpServlet {
 
     public void init() {
 		PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-				+ "WEB-INF/classes/resources/suapi.properties";
+				+ "WEB-INF/classes/resources/smuapi.properties";
         
 	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
 	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
