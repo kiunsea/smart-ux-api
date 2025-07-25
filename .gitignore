@@ -2,3 +2,4 @@ smart-ux-api/lib/bin/
 smart-ux-api/docs/SmartUxAPI.emm
 smart-ux-api/lib/src/main/resources/dev.apikey.json
 smuapi-war/src/main/java/resources/smuapi.properties
+smart-ux-api/lib/src/main/resources/apikey.json
