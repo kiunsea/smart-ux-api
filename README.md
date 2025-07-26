@@ -24,7 +24,7 @@
 
 ## project directories
 - smart-ux-api : Main Project (Java+JS Library)
-- smuapi-war : Example Project (War)
+- smuxapi-war : Example Project (War)
 
 ## 디렉터리 구조
 ```
@@ -43,7 +43,7 @@ smux-api/
 │   │           └── resources/
 │   ├── LICENSE
 │   └── README.md
-├── smuapi-war/
+├── smuxapi-war/
 │   ├── src/
 │   └── README.md
 └── README.md
