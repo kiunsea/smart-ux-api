@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.gemini;
+package com.smartuxapi.ai.openai;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -6,14 +6,14 @@ import java.util.UUID;
 import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.ConversationHistory;
-import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ConversationHistory;
 
-public class GeminiChatRoom implements ChatRoom {
+public class ResponsesChatRoom implements ChatRoom {
 
-    private GeminiAPIConnection connApi = null;
-    private GeminiChatting message = null;
+    private ResponsesAPIConnection connApi = null;
+    private ResponsesChatting message = null;
     
     private final ActionQueueHandler aqHandler = new ActionQueueHandler();
     private final ConversationHistory conversationHistory = new ConversationHistory();
@@ -23,8 +23,8 @@ public class GeminiChatRoom implements ChatRoom {
      * @param apiKey
      * @param modelName
      */
-    public GeminiChatRoom(String apiKey, String modelName) {
-        this.connApi = new GeminiAPIConnection(apiKey, modelName);
+    public ResponsesChatRoom(String apiKey, String modelName) {
+        this.connApi = new ResponsesAPIConnection(apiKey, modelName);
     }
     
     @Override
@@ -35,7 +35,7 @@ public class GeminiChatRoom implements ChatRoom {
     @Override
     public Chatting getChatting() {
         if (this.message == null) {
-            this.message = new GeminiChatting(this.connApi);
+            this.message = new ResponsesChatting(this.connApi);
         }
         this.message.setActionQueueHandler(this.aqHandler);
         return this.message;

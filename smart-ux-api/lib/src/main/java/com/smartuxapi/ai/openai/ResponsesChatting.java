@@ -1,23 +1,23 @@
-package com.smartuxapi.ai.gemini;
+package com.smartuxapi.ai.openai;
 
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.ConversationHistory;
 import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ConversationHistory;
 
 /**
  * 
  */
-public class GeminiChatting implements Chatting {
+public class ResponsesChatting implements Chatting {
     
-    private GeminiAPIConnection connApi = null;
+    private ResponsesAPIConnection connApi = null;
     private ConversationHistory conversationHistory = null;
     private ActionQueueHandler aqHandler = null;
     
-    public GeminiChatting(GeminiAPIConnection connApi) {
+    public ResponsesChatting(ResponsesAPIConnection connApi) {
         this.connApi = connApi;
         this.conversationHistory = new ConversationHistory();
     }
@@ -36,20 +36,20 @@ public class GeminiChatting implements Chatting {
             aqPrompt = userMsg;
         }
         
-        // 1. 사용자 메시지를 대화 기록에 추가하고, Gemini에 보낼 전체 기록을 가져옴
+        // 1. 사용자 메시지를 대화 기록에 추가하고, AI에 보낼 전체 기록을 가져옴
         List<org.json.JSONObject> convHistory = this.conversationHistory.addUserMessage(aqPrompt);
 
-        // 2. Gemini API 호출 (전체 대화 기록 전송)
-        String geminiResponse = this.connApi.generateContent(convHistory);
+        // 2. Responses API 호출 (전체 대화 기록 전송)
+        String aiResponse = this.connApi.generateContent(convHistory);
 
-        // 3. Gemini 응답을 대화 기록에 추가
-        this.conversationHistory.addModelResponse(geminiResponse);
+        // 3. AI 응답을 대화 기록에 추가
+        this.conversationHistory.addModelResponse(aiResponse);
         
         // Action Queue 메세지 전달
         org.json.simple.JSONObject resJson = new org.json.simple.JSONObject();
-        resJson.put("message", geminiResponse);
+        resJson.put("message", aiResponse);
         
-        JsonNode aqObj = this.aqHandler.getActionQueue(geminiResponse);
+        JsonNode aqObj = this.aqHandler.getActionQueue(aiResponse);
         if (aqObj != null && aqObj.hasNonNull("action_queue")) {
             resJson.put("action_queue", aqObj.get("action_queue"));
         } else {

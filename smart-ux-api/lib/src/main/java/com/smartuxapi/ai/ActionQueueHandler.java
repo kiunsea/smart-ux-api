@@ -37,8 +37,8 @@ public class ActionQueueHandler {
     
     public JsonNode getActionQueue(String resMsg) {
         JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);
-        if (aqObj != null && aqObj.hasNonNull("actionQueue")) {
-            return aqObj.get("actionQueue");
+        if (aqObj != null && aqObj.hasNonNull("action_queue")) {
+            return aqObj.get("action_queue");
         } else {
             return aqObj;
         }

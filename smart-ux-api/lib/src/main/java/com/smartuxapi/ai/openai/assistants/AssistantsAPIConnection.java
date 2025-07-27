@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class AssistantsAPIConnection {
 	
 	private Logger log = LogManager.getLogger(AssistantsAPIConnection.class);
-	private String BASE_URL = "https://api.openai.com/v1";
+	private String ASSISTANTS_API_BASE_URL = "https://api.openai.com/v1";
 	
     private Assistants assistInfo = null;
     private ObjectMapper objMapper = new ObjectMapper();
@@ -41,7 +41,7 @@ public class AssistantsAPIConnection {
      * @throws ParseException
      */
     public String createThread() throws IOException, ParseException {
-        String url = String.format("%s/threads", this.BASE_URL);
+        String url = String.format("%s/threads", this.ASSISTANTS_API_BASE_URL);
 
         log.debug("Request url: "+url);
         String response = sendRequest(url, "POST", null);
@@ -54,7 +54,7 @@ public class AssistantsAPIConnection {
     }
     
     public boolean deleteThread(String threadId) throws IOException, ParseException {
-    	String url = String.format("%s/threads/%s", this.BASE_URL, threadId);
+    	String url = String.format("%s/threads/%s", this.ASSISTANTS_API_BASE_URL, threadId);
         String response = sendRequest(url, "DELETE", null);
         log.debug("Response of sendRequest(): "+response);
         JsonNode resInfo = this.objMapper.readTree(response);
@@ -71,7 +71,7 @@ public class AssistantsAPIConnection {
      * @throws ParseException
      */
     public String createMessage(String threadId, String content) throws IOException, ParseException {
-        String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
+        String url = String.format("%s/threads/%s/messages", this.ASSISTANTS_API_BASE_URL, threadId);
         log.debug("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
@@ -95,7 +95,7 @@ public class AssistantsAPIConnection {
      * @throws ParseException
      */
     public String createRun(String threadId) throws IOException, ParseException {
-        String url = String.format("%s/threads/%s/runs", this.BASE_URL, threadId);
+        String url = String.format("%s/threads/%s/runs", this.ASSISTANTS_API_BASE_URL, threadId);
         log.debug("Request url: "+url);
         
         JSONObject bodyJson = new JSONObject();
@@ -117,7 +117,7 @@ public class AssistantsAPIConnection {
 	public JsonNode retrieveRun(String threadId, String runId) throws IOException, ParseException {
 
 		if (threadId != null && runId != null) {
-			String url = String.format("%s/threads/%s/runs/%s", this.BASE_URL, threadId, runId);
+			String url = String.format("%s/threads/%s/runs/%s", this.ASSISTANTS_API_BASE_URL, threadId, runId);
 			log.debug("Request url: " + url);
 
 			String response = sendRequest(url, "GET", null);
@@ -132,7 +132,7 @@ public class AssistantsAPIConnection {
 	}
 	
 	public JsonNode listMessages(String threadId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/messages", this.BASE_URL, threadId);
+		String url = String.format("%s/threads/%s/messages", this.ASSISTANTS_API_BASE_URL, threadId);
 		log.debug("Request url: " + url);
 
 		String response = this.sendRequest(url, "GET", null);
@@ -154,7 +154,7 @@ public class AssistantsAPIConnection {
 	 * @throws ParseException
 	 */
 	public boolean submitToolOutputs(JsonNode toolCalls, String threadId, String runId) throws IOException, ParseException {
-		String url = String.format("%s/threads/%s/runs/%s/submit_tool_outputs", this.BASE_URL, threadId, runId);
+		String url = String.format("%s/threads/%s/runs/%s/submit_tool_outputs", this.ASSISTANTS_API_BASE_URL, threadId, runId);
 
 		JSONObject bodyJson = new JSONObject();
 		if (toolCalls != null && toolCalls.isArray()) {

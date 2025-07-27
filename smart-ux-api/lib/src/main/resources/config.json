@@ -4,14 +4,14 @@
         "다음의 내용은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 dom element structure 이다.",
         " `${CurViewInfo}`",
         " 이전에 저장한 사용자 화면의 내용을 이것으로 교체해야 한다.",
-        " 이 화면 정보를 이용해서 actionQueue 의 내용을 작성해야 한다."
+        " 이 화면 정보를 이용해서 action_queue 의 내용을 작성해야 한다."
     ],
     "action_queue": [
-        " 그리고 사용자의 `${UserMsg}` 명령을 수행 할 수 있도록 id가 actionQueue인 JSON 내용을 작성해야 한다.",
-        " actionQueue의 내용은 최종 갱신된 현재 화면 정보의 dom element structure 를 참고해서 작성해야 한다."
+        " 그리고 사용자의 `${UserMsg}` 명령을 수행 할 수 있도록 id가 action_queue 인 JSON 내용을 작성해야 한다.",
+        " action_queue 의 내용은 최종 갱신된 현재 화면 정보의 dom element structure 를 참고해서 작성해야 한다."
     ],
     "normal_prompt": [
-        "응답 메세지에서 actionQueue 에 대한 내용은 삽입하지 않는다.",
+        "응답 메세지에서 action_queue 에 대한 내용은 삽입하지 않는다.",
         " 그리고 현재 화면 정보를 초기화하고 다음의 사용자 프롬프트를 분석하여 답변을 응답해야 한다.",
         " `${UserMsg}`"
     ]

@@ -1,4 +1,4 @@
-package com.smartuxapi.ai.gemini;
+package com.smartuxapi.ai.openai;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -15,36 +15,35 @@ import org.json.JSONObject;
 
 /**
  * API에 연결한다.
- * ref : https://ai.google.dev/gemini-api/docs?hl=ko#rest
+ * ref : https://platform.openai.com/docs/api-reference/responses
  */
-public class GeminiAPIConnection {
+public class ResponsesAPIConnection {
     
-    private Logger log = LogManager.getLogger(GeminiAPIConnection.class);
-    private static final String GEMINI_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/";
+    private Logger log = LogManager.getLogger(ResponsesAPIConnection.class);
+    private static final String OPENAI_API_URL_BASE = "https://api.openai.com/v1/responses";
     
     private String apiKey = null;
     private String modelName = null;
     
-    public GeminiAPIConnection(String apiKey, String modelName) {
+    public ResponsesAPIConnection(String apiKey, String modelName) {
         this.apiKey = apiKey.trim();
         this.modelName = modelName.trim();
     }
     
     /**
-     * Gemini API에 대화 기록을 전송하고 응답을 받습니다.
+     * Responses API에 대화 기록을 전송하고 응답을 받습니다.
      * 
      * @param conversationHistory 전체 대화 기록 (User, Model 메시지 포함)
-     * @return Gemini 모델의 응답 텍스트
+     * @return AI 모델의 응답 텍스트
      * @throws Exception API 호출 중 발생한 예외
      */
     public String generateContent(List<JSONObject> conversationHistory) throws Exception {
-        String urlStr = GEMINI_API_URL_BASE + modelName + ":generateContent?key=" + apiKey;
-        URL url = new URL(urlStr);
+        URL url = new URL(OPENAI_API_URL_BASE);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setDoOutput(true);
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        conn.setRequestProperty("X-goog-api-key", apiKey);
+        conn.setRequestProperty("Authorization", "Bearer " + this.apiKey);
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
         conn.setUseCaches(false);
@@ -55,7 +54,10 @@ public class GeminiAPIConnection {
         for (JSONObject message : conversationHistory) {
             contentsArray.put(message);
         }
-        requestBody.put("contents", contentsArray);
+        requestBody.put("input", contentsArray);
+        
+        // AI모델 설정
+        requestBody.put("model", this.modelName);
 
         // 요청 바디 전송
         try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
