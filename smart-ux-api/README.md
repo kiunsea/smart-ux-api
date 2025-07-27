@@ -26,10 +26,10 @@ Smart UX API는 기존 또는 신규 Java 기반 웹 애플리케이션에 쉽�
 
 ## 🧊 주요 API 소개
 
-### 1. SmuThread
+### 1. ChatRoom
 SmuThread는 AI와 대화시 기존 대화들을 계속해서 유지하는 저장공간입니다.
 
-### 2. SmuMessage
+### 2. Chatting
 SmuMessage는 SmuThread내에서 AI와 대화하는 하나의 메세지셋입니다.
 사용자 프롬프트를 전송하고 AI의 응답을 전달 받을 수 있습니다.
 
@@ -57,11 +57,11 @@ ui를 control 할 수 있도록 AI가 action queue를 작성할때 필요한 wor
 
 ### 3. 프롬프트 메세지 전송을 위한 기본 Instance 생성 (OpenAI Assistant)
 - Assistant instance 생성
-- OpenAIThread instance 생성
-- OpenAIMessage instance 생성
+- AssistantThread instance 생성
+- AssistantMessage instance 생성
 
-### 4. 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 작성
-- User Interaction Flow 문서 전송 (Initialize Environment)
+### 4. 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 요구기능
+- User Interaction Flow 문서 전송 (사용자 세션 생성시 최초 한번 실행)
 - 현재 화면 정보(CurrentViewInfo) 전송 (UX Info Servlet)
 - 사용자 프롬프트 메세지 전송 및 응답 처리 (Action Queue Servlet)
 
