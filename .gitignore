@@ -4,3 +4,4 @@ smart-ux-api/lib/src/main/resources/dev.apikey.json
 smuapi-war/src/main/java/resources/smuapi.properties
 smart-ux-api/lib/src/main/resources/apikey.json
 smuxapi-war/src/main/java/resources/smuapi.properties
+smuxapi-war/src/main/java/resources/smuxapi.properties

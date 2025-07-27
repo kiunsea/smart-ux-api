@@ -1,4 +1,4 @@
-var selected_ai_num = "1";
+var ai_model = "";
 
 /*메가커피 - 스크린 크기와 동일한 버튼을 누르면 
 1. 광고 포스터 이미지 사라짐
@@ -15,7 +15,11 @@ function start_btn() {
     while (ainum != 1 && ainum != 2) {
         ainum = prompt("올바른 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini)");
     }
-    selected_ai_num = ainum;
+    if (ainum == 1) {
+        ai_model = 'chatgpt';
+    } else {
+        ai_model = 'gemini';
+    }
     
     document.getElementById("mega_start_img").style.display = 'none';
     document.getElementById("mega_start_btn").style.display = 'none';

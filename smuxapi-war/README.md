@@ -1,4 +1,4 @@
-﻿# smuapi-war 🧪
+﻿# smuxapi-war 🧪
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Java](https://img.shields.io/badge/language-Java-orange)
@@ -6,7 +6,7 @@
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
-📁 **smuapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 테스트 하기 위한 샘플 프로젝트입니다.
+📁 **smuxapi-war**는 smart-ux-api 프로젝트의 배포 라이브러리를 테스트 하기 위한 샘플 프로젝트입니다.
 새로운 기능을 실험하거나, 설정을 검증하거나, 협업을 위한 코드 베이스로 사용하기 위한 예제입니다.
 
 ---
@@ -23,7 +23,7 @@
 ## 📦 프로젝트 구성
 
 ```
-smuapi-war/
+smuxapi-war/
 ├── src/                     
 │   └── main/
 │       ├── java/            # 예제 소스코드
@@ -36,9 +36,9 @@ smuapi-war/
 
 ## ▶️ 설정 및 설치 방법
 
-**smuapi.properties설정**
-- /smuapi-war/src/main/java/resources/smuapi.properties 파일을 생성 (def.smuapi.properties 참고)
-- OPENAI_API_KEY, OPENAI_ASSIST_ID 값을 설정
+**smuxapi.properties설정**
+- /smuxapi-war/src/main/java/resources/smuxapi.properties 파일을 생성 (def.smuxapi.properties 참고)
+- OPENAI_API_KEY, OPENAI_ASSIST_ID, GEMINI_API_MODEL, GEMINI_API_KEY 값을 설정
 
 **project export (Eclipse Tool 기준)**
 - Project Explorer 에서 마우스 우클릭

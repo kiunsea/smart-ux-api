@@ -6,18 +6,18 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.MessageHistory;
-import com.smartuxapi.ai.SmuMessage;
+import com.smartuxapi.ai.Chatting;
 
 /**
  * 
  */
-public class GeminiMessage implements SmuMessage {
+public class GeminiChatting implements Chatting {
     
     private GeminiAPIConnection connApi = null;
     private MessageHistory msgHistory = null;
     private ActionQueueHandler aqHandler = null;
     
-    public GeminiMessage(GeminiAPIConnection connApi) {
+    public GeminiChatting(GeminiAPIConnection connApi) {
         this.connApi = connApi;
         this.msgHistory = new MessageHistory();
     }

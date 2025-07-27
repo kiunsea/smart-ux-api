@@ -12,27 +12,27 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.SmuMessage;
+import com.smartuxapi.ai.Chatting;
 
-public class OpenAIMessage implements SmuMessage {
+public class AssistantsMessage implements Chatting {
 
-    private Logger log = LogManager.getLogger(OpenAIMessage.class);
+    private Logger log = LogManager.getLogger(AssistantsMessage.class);
     
     private ObjectMapper objMapper = new ObjectMapper();
     
-    private AssistantAPIConnection connApi = null;
+    private AssistantsAPIConnection connApi = null;
     private String idThread = null; // thread id
     
     private ActionQueueHandler aqHandler = null;
     private Set<String> messageIdSet = new HashSet<String>(); // 대화방에서의 메세지 id 목록
     
-    public OpenAIMessage(SmuMessage chatting, AssistantAPIConnection connApi, String idThread) {
+    public AssistantsMessage(Chatting chatting, AssistantsAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
         this.messageIdSet = chatting.getMessageIdSet();
     }
     
-    public OpenAIMessage(AssistantAPIConnection connApi, String idThread) {
+    public AssistantsMessage(AssistantsAPIConnection connApi, String idThread) {
         this.connApi = connApi;
         this.idThread = idThread;
     }

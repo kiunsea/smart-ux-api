@@ -5,27 +5,29 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 /**
- * Messages 저장소
+ * Chatting 저장소
  */
-public interface SmuThread {
+public interface ChatRoom {
 	
 	public String getId();
 
 	/**
-	 * Messages instance 를 반환
+	 * Chatting instance 를 반환
 	 * 
 	 * @return
 	 */
-	public SmuMessage getMessage();
+	public Chatting getChatting();
 	
 	/**
-	 * thread 종료 (openai 에서는 thread 삭제)
+	 * ChatRoom 종료<br/>
+	 *   - ChatRoo의 구성 객체를 null로 초기화<br/>
+	 *   - openai 에서는 thread 삭제
 	 * 
 	 * @return
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public boolean closeThread() throws IOException, ParseException;
+	public boolean close() throws IOException, ParseException;
 	
 	/**
 	 * 현재 화면 정보를 저장

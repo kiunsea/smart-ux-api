@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 /**
  * prompt message 를 전송하고 응답받는다.
  */
-public interface SmuMessage {
+public interface Chatting {
     
     public void setActionQueueHandler(ActionQueueHandler aqHandler);
     

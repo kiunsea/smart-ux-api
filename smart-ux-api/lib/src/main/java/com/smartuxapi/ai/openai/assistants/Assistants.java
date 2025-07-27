@@ -3,12 +3,12 @@ package com.smartuxapi.ai.openai.assistants;
 /**
  * 접속 정보를 관리한다.<br/>
  */
-public class Assistant {
+public class Assistants {
 
     private String apiKey = null;
     private String assistantId = null;
     
-	public Assistant(String id) {
+	public Assistants(String id) {
 		this.assistantId = id;
 	}
 	

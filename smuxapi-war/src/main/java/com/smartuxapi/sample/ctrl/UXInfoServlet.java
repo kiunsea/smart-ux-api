@@ -10,9 +10,8 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartuxapi.ai.openai.assistants.Assistant;
-import com.smartuxapi.ai.openai.assistants.OpenAIThread;
-import com.smartuxapi.util.PropertiesUtil;
+import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.sample.ChatRoomServ;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -20,7 +19,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * @author KIUNSEA
@@ -33,17 +31,13 @@ public class UXInfoServlet extends HttpServlet {
     private Logger log = LogManager.getLogger(UXInfoServlet.class);
     private static final ObjectMapper mapper = new ObjectMapper();
     
-    public void init() {
-        PropertiesUtil.USER_PROPERTIES_PATH = this.getServletContext().getRealPath("/")
-                + "WEB-INF/classes/resources/smuapi.properties";
-    }
-    
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	req.setCharacterEncoding("UTF-8");
     	doGet(req, res);
     }
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        
         // 1. 요청의 Content-Type 확인
         if (!"application/json".equalsIgnoreCase(req.getContentType())) {
         	res.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Only application/json supported.");
@@ -76,29 +70,18 @@ public class UXInfoServlet extends HttpServlet {
         log.debug("📦 Elements JSON: " + elementsNode);
 
         // 5. 필요 시 저장 또는 DB 처리 추가 가능
-        HttpSession sess = req.getSession(true);
-        Object usObj = sess.getAttribute("CHAT_ROOM");
-        
-	    String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
-	    String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
-
-	    JSONObject resJson = new JSONObject();
-		try {
-			OpenAIThread chatRoom = null;
-			if (usObj != null) {
-				chatRoom = (OpenAIThread) usObj;
-			} else {
-			    Assistant assist = new Assistant(openaiAssistId);
-				assist.setApiKey(openaiApiKey);
-				chatRoom = new OpenAIThread(assist);
-			}
-			chatRoom.setCurrentViewInfo(elementsNode.toString());
-			sess.setAttribute("CHAT_ROOM", chatRoom);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+        try {
+            String aiModel = rootNode.get("ai_model").asText();
+            ChatRoom chatRoom = ChatRoomServ.getInstance().getChatRoom(aiModel, req.getSession(true), this);
+            if (chatRoom != null) {
+                chatRoom.setCurrentViewInfo(elementsNode.toString());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         // 6. 응답 반환
+        JSONObject resJson = new JSONObject();
         res.setContentType("application/json");
         res.setStatus(HttpServletResponse.SC_OK);
         resJson.put("status", "ok");

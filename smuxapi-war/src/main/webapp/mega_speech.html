@@ -82,7 +82,7 @@
                         <!-- 입력폼 시작 -->
                         <p id="output" class="w-100 me-3 form-control">Speech will appear here...</p>
                         <div class="flex-shrink-0">
-                            <img id="start-recognition" src="https://dev.jiniebox.com/smuapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <img id="start-recognition" src="https://dev.jiniebox.com/smuxapi/imgs/mic.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                         </div>
                         <script type="module">
                             import { doActions } from './lib/smart-ux-client.js';
@@ -108,14 +108,9 @@
                                     const transcript = event.results[0][0].transcript;
                                     output.textContent = `You said: ${transcript}`;
 
-                                    var path = "/smuapi/action";
+                                    var path = "/smuxapi/action";
                                     var params = "user_msg=" + encodeURIComponent(transcript);
-                                    params += "&proc_type=dynamic";
-                                    
-                                    if (selected_ai_num == 1)
-                                        params += "&ai_model=chatgpt";
-                                    else
-                                        params += "&ai_model=gemini";
+                                    params += "&ai_model="+ai_model;
 
                                     var _ajax = new XMLHttpRequest();
                                     _ajax.onreadystatechange = function () {

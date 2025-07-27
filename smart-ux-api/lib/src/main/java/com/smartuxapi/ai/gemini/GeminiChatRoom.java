@@ -7,19 +7,23 @@ import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.MessageHistory;
-import com.smartuxapi.ai.SmuMessage;
-import com.smartuxapi.ai.SmuThread;
+import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ChatRoom;
 
-public class GeminiThread implements SmuThread {
+public class GeminiChatRoom implements ChatRoom {
 
     private GeminiAPIConnection connApi = null;
-    private GeminiMessage message = null;
+    private GeminiChatting message = null;
     
     private final ActionQueueHandler aqHandler = new ActionQueueHandler();
     private final MessageHistory messageHistory = new MessageHistory();
     private final String threadId = UUID.randomUUID().toString();
     
-    public GeminiThread(String apiKey, String modelName) {
+    /**
+     * @param apiKey
+     * @param modelName
+     */
+    public GeminiChatRoom(String apiKey, String modelName) {
         this.connApi = new GeminiAPIConnection(apiKey, modelName);
     }
     
@@ -29,16 +33,16 @@ public class GeminiThread implements SmuThread {
     }
     
     @Override
-    public SmuMessage getMessage() {
+    public Chatting getChatting() {
         if (this.message == null) {
-            this.message = new GeminiMessage(this.connApi);
+            this.message = new GeminiChatting(this.connApi);
         }
         this.message.setActionQueueHandler(this.aqHandler);
         return this.message;
     }
     
     @Override
-    public boolean closeThread() throws IOException, ParseException {
+    public boolean close() throws IOException, ParseException {
         this.connApi = null;
         this.message = null;
         this.messageHistory.clearHistory();

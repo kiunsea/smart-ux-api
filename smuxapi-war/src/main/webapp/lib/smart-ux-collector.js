@@ -1,5 +1,5 @@
 (function () {
-  const SERVER_ENDPOINT = '/smuapi/collect';  // <-- 실제 서버 URL로 교체하세요
+  const SERVER_ENDPOINT = '/smuxapi/collect';  // <-- 실제 서버 URL로 교체하세요
 
   function isVisible(el) {
     const style = window.getComputedStyle(el);
@@ -129,6 +129,7 @@
   }
 
   function storeAndSend(uiElements) {
+    
     window.uiSnapshot = uiElements;
     console.log('[UI Snapshot] Event-bound elements:', uiElements);
 
@@ -140,7 +141,8 @@
       },
       body: JSON.stringify({
         timestamp: new Date().toISOString(),
-        elements: uiElements
+        elements: uiElements,
+        ai_model : ai_model
       })
     }).then(response => {
       if (!response.ok) {

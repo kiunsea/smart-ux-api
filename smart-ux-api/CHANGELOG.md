@@ -4,7 +4,10 @@
 
 형식은 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)를 따르며,  
 버전 관리는 [Semantic Versioning](https://semver.org/lang/ko/)을 따릅니다.
-
+  - Major: 하위 버전과 호환되지 않는 변화가 생겼을 때 증가
+  - Minor: 하위 버전과 호환되면서 새로운 기능이 추가될 때 증가
+  - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
+  
 ---
 
 ## [Unreleased]
@@ -17,6 +20,12 @@
 ### Fixed
 
 ### Removed
+
+---
+## [0.3.1] - 2025-07-27
+
+### Changed
+- API Interface 이름 변경 (SmuThread -> ChatRoom, SmuMessage -> Chatting)
 
 ---
 ## [0.3.0] - 2025-07-25

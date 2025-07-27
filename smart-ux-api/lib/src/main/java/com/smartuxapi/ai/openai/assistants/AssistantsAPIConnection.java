@@ -22,15 +22,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Assistants API에 연결한다.
  * ref : https://platform.openai.com/docs/api-reference/assistants
  */
-public class AssistantAPIConnection {
+public class AssistantsAPIConnection {
 	
-	private Logger log = LogManager.getLogger(AssistantAPIConnection.class);
+	private Logger log = LogManager.getLogger(AssistantsAPIConnection.class);
 	private String BASE_URL = "https://api.openai.com/v1";
 	
-    private Assistant assistInfo = null;
+    private Assistants assistInfo = null;
     private ObjectMapper objMapper = new ObjectMapper();
     
-    public AssistantAPIConnection(Assistant assistInfo) {
+    public AssistantsAPIConnection(Assistants assistInfo) {
     	this.assistInfo = assistInfo;
     }
     

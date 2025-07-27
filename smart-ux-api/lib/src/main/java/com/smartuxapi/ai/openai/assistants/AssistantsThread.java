@@ -8,22 +8,22 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.SmuThread;
-import com.smartuxapi.ai.SmuMessage;
+import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.Chatting;
 
-public class OpenAIThread implements SmuThread {
+public class AssistantsThread implements ChatRoom {
 
-	private Logger log = LogManager.getLogger(OpenAIThread.class);
+	private Logger log = LogManager.getLogger(AssistantsThread.class);
 
-	private AssistantAPIConnection connApi = null;
+	private AssistantsAPIConnection connApi = null;
 	private final ActionQueueHandler aqHandler = new ActionQueueHandler();
 
     private String idThread = null; // OpenAI에서 부여하는 Thread 고유 키값(thread id)
-	private SmuMessage message = null;
+	private Chatting message = null;
 
-	public OpenAIThread(Assistant assistInfo) throws ParseException {
+	public AssistantsThread(Assistants assistInfo) throws ParseException {
 
-		this.connApi = new AssistantAPIConnection(assistInfo);
+		this.connApi = new AssistantsAPIConnection(assistInfo);
 		try {
 			this.idThread = this.connApi.createThread();
 		} catch (IOException e) {
@@ -44,9 +44,9 @@ public class OpenAIThread implements SmuThread {
 	 * Message instance 생성후 재사용한다.
 	 */
 	@Override
-	public SmuMessage getMessage() {
+	public Chatting getChatting() {
 		if (this.message == null) {
-			this.message = new OpenAIMessage(this.connApi, this.idThread);
+			this.message = new AssistantsMessage(this.connApi, this.idThread);
 		}
 		this.message.setActionQueueHandler(this.aqHandler);
 		return this.message;
@@ -71,7 +71,7 @@ public class OpenAIThread implements SmuThread {
 	/**
 	 * 대화방 나가기
 	 */
-	public boolean closeThread() throws IOException, ParseException {
+	public boolean close() throws IOException, ParseException {
 		boolean deleted = this.connApi.deleteThread(idThread);
 		log.debug("delete thread [" + idThread + "] - " + deleted);
 		return deleted;
