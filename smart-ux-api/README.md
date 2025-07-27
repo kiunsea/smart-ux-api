@@ -20,8 +20,8 @@ Smart UX API는 기존 또는 신규 Java 기반 웹 애플리케이션에 쉽�
 - 웹 페이지에 다음 스크립트를 추가합니다:
 
 ```html
-<script src="/smuapi/smart-ux-client.js"></script>
-<script src="/smuapi/smart-ux-collector.js"></script>
+<script src="/smuxapi/smart-ux-client.js"></script>
+<script src="/smuxapi/smart-ux-collector.js"></script>
 ```
 
 ## 🧊 주요 API 소개
@@ -37,7 +37,7 @@ SmuMessage는 SmuThread내에서 AI와 대화하는 하나의 메세지셋입니
 OpenAI Assistants API를 이용할 경우.
 
 ## 📋 사용 방법
-사용 예제는 GitHub Repository의 smart-ux-api/smuapi-war 프로젝트를 참고해 주세요.
+사용 예제는 GitHub Repository의 smart-ux-api/smuxapi-war 프로젝트를 참고해 주세요.
 
 ### 1. AI Model API 등록
 사용할 AI Model에 따라 API Key가 필요합니다.
