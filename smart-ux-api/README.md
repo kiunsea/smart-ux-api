@@ -57,8 +57,8 @@ ui를 control 할 수 있도록 AI가 action queue를 작성할때 필요한 wor
 
 ### 3. 프롬프트 메세지 전송을 위한 기본 Instance 생성 (OpenAI Assistant)
 - Assistant instance 생성
-- AssistantThread instance 생성
-- AssistantMessage instance 생성
+- AssistantsThread instance 생성
+- AssistantsMessage instance 생성
 
 ### 4. 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 요구기능
 - User Interaction Flow 문서 전송 (사용자 세션 생성시 최초 한번 실행)
