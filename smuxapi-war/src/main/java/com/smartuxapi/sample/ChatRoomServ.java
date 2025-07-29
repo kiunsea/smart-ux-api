@@ -1,15 +1,12 @@
 package com.smartuxapi.sample;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.gemini.GeminiChatRoom;
+import com.smartuxapi.ai.openai.ResponsesChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistants;
 import com.smartuxapi.ai.openai.assistants.AssistantsThread;
 import com.smartuxapi.util.FileUtil;
@@ -65,23 +62,7 @@ public class ChatRoomServ {
             chatRoom = (ChatRoom) crObj;
         } else {
             
-            if ("chatgpt".equals(aiModel)) {
-                String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
-                String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
-                Assistants assist = new Assistants(openaiAssistId);
-                assist.setApiKey(openaiApiKey);
-                try {
-                    chatRoom = new AssistantsThread(assist);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                log.info("[" + sess.getId() + "] OpenAI Assistants API를 사용합니다");
-            } else {
-                String apiKey = PropertiesUtil.get("GEMINI_API_KEY");
-                String model = PropertiesUtil.get("GEMINI_API_MODEL");
-                chatRoom = new GeminiChatRoom(apiKey, model);
-                log.info("[" + sess.getId() + "] Gemini API를 사용합니다");
-            }
+            chatRoom = createChatRoom(aiModel);
             
             try {
                 StringBuilder sb = FileUtil.readFile(
@@ -107,33 +88,19 @@ public class ChatRoomServ {
     public ChatRoom getChatRoom(String aiModel, HttpSession sess, HttpServlet serv) {
         
         if (aiModel == null || aiModel.trim().length() < 1) {
-            log.info("[Warning] 선택된 AI모델이 없습니다. 진행을 중지합니다.");
+            log.info("[Warning] 사용할 AI모델을 선택해야 합니다.");
             return null;
         }
         
         Object crObj = sess.getAttribute("CHAT_ROOM");
         ChatRoom chatRoom = null;
         if (crObj != null) {
+            
             chatRoom = (ChatRoom) crObj;
+            
         } else {
             
-            if ("chatgpt".equals(aiModel)) {
-                String openaiApiKey = PropertiesUtil.get("OPENAI_API_KEY");
-                String openaiAssistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
-                Assistants assist = new Assistants(openaiAssistId);
-                assist.setApiKey(openaiApiKey);
-                try {
-                    chatRoom = new AssistantsThread(assist);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                log.info("[" + sess.getId() + "] OpenAI Assistants API를 사용합니다");
-            } else {
-                String apiKey = PropertiesUtil.get("GEMINI_API_KEY");
-                String model = PropertiesUtil.get("GEMINI_API_MODEL");
-                chatRoom = new GeminiChatRoom(apiKey, model);
-                log.info("[" + sess.getId() + "] Gemini API를 사용합니다");
-            }
+            chatRoom = createChatRoom(aiModel);
             
             try {
                 StringBuilder sb = FileUtil.readFile(
@@ -148,4 +115,33 @@ public class ChatRoomServ {
         return chatRoom;
     }
     
+    private ChatRoom createChatRoom(String aiModel) {
+        
+        ChatRoom chatRoom = null;
+        
+        if ("chatgpt".equals(aiModel)) {
+            String apiKey = PropertiesUtil.get("OPENAI_API_KEY");
+            String model = PropertiesUtil.get("OPENAI_MODEL");
+            chatRoom = new ResponsesChatRoom(apiKey, model);
+            log.info("[" + chatRoom.getId() + "] OpenAI Responses API를 사용합니다");
+        } else if ("gemini".equals(aiModel)){
+            String apiKey = PropertiesUtil.get("GEMINI_API_KEY");
+            String model = PropertiesUtil.get("GEMINI_MODEL");
+            chatRoom = new GeminiChatRoom(apiKey, model);
+            log.info("[" + chatRoom.getId() + "] Gemini API를 사용합니다");
+        } else {
+            String apiKey = PropertiesUtil.get("OPENAI_API_KEY");
+            String assistId = PropertiesUtil.get("OPENAI_ASSIST_ID");
+            Assistants assist = new Assistants(assistId);
+            assist.setApiKey(apiKey);
+            try {
+                chatRoom = new AssistantsThread(assist);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            log.info("[" + chatRoom.getId() + "] OpenAI Assistants API를 사용합니다");
+        }
+        
+        return chatRoom;
+    }
 }

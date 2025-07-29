@@ -11,14 +11,16 @@ var ai_model = "";
 */
 function start_btn() {
     
-    var ainum = prompt("사용할 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini)");
-    while (ainum != 1 && ainum != 2) {
-        ainum = prompt("올바른 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini)");
+    var ainum = prompt("사용할 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini, 3:Assistant)");
+    while (ainum != 1 && ainum != 2 && ainum != 3) {
+        ainum = prompt("올바른 AI 번호를 알려주세요(1:ChatGPT, 2:Gemini, 3:Assistant)");
     }
     if (ainum == 1) {
         ai_model = 'chatgpt';
-    } else {
+    } else if (ainum == 2) {
         ai_model = 'gemini';
+    } else {
+        ai_model = 'assist';
     }
     
     document.getElementById("mega_start_img").style.display = 'none';
