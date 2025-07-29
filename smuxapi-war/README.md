@@ -38,7 +38,7 @@ smuxapi-war/
 
 **smuxapi.properties설정**
 - /smuxapi-war/src/main/java/resources/smuxapi.properties 파일을 생성 (def.smuxapi.properties 참고)
-- OPENAI_API_KEY, OPENAI_ASSIST_ID, GEMINI_API_MODEL, GEMINI_API_KEY 값을 설정
+- OPENAI_API_KEY, OPENAI_MODEL, OPENAI_ASSIST_ID, GEMINI_API_KEY, GEMINI_MODEL 값을 설정
 
 **project export (Eclipse Tool 기준)**
 - Project Explorer 에서 마우스 우클릭

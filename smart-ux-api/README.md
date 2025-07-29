@@ -41,25 +41,30 @@ OpenAI Assistants API를 이용할 경우.
 
 ### 1. AI Model API 등록
 사용할 AI Model에 따라 API Key가 필요합니다.
+1) OpenAI Responses, Assitants API
+- OpenAI의 Responses 또는 Assistants API를 사용하기 위해서는 OpenAI API Key 발급이 필요합니다.
+- https://platform.openai.com/settings/organization/api-keys에서 API 사용을 위한 계정을 등록하고 API Key를 발급 받으세요.
+- 또한 openai package의 Assistant instance를 사용해야 한다면 Assistant ID가 함께 필요합니다.
+- https://platform.openai.com/docs/assistants에서 Assitant 생성을 진행하여 주세요.
 
-### 1) OpenAI Assitants API
-openai package의 Assistant instance 생성시에 OpenAI API Key와 Assistant ID가 필요합니다.
-https://platform.openai.com/docs/assistants 에서 Assistant API 사용을 위한 계정을 등록하고 
-API Key 발급과 Assitant 생성을 진행하여 주세요.
-
-### 2) Gemini API
-Gemini API Key 생성은 다음의 링크에서 진행해 주세요.
-https://console.cloud.google.com
+2) Gemini API
+- Gemini API Key 생성은 다음의 링크에서 진행해 주세요.
+- https://console.cloud.google.com
 
 ### 2. User Interaction Flow 문서 작성
 User Interaction Flow Document(JSON) 작성이 필요합니다.
 ui를 control 할 수 있도록 AI가 action queue를 작성할때 필요한 work flow를 정의한 문서입니다.
 서비스 초기화시 자동으로 로딩되어 AI에게 전달합니다.
 
-### 3. 프롬프트 메세지 전송을 위한 기본 Instance 생성 (OpenAI Assistant)
-- Assistant instance 생성
-- AssistantsThread instance 생성
-- AssistantsMessage instance 생성
+### 3. 프롬프트 메세지 전송을 위한 기본 Instance 생성
+1) OpenAI Responses, Google Gemini
+- ResponsesChatRoom, ResponsesChatting
+- GeminiChatRoom, GeminiChatting
+
+2) OpenAI Assistant
+- Assistant instance
+- AssistantsThread instance
+- AssistantsMessage instance
 
 ### 4. 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 요구기능
 - User Interaction Flow 문서 전송 (사용자 세션 생성시 최초 한번 실행)

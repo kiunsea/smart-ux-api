@@ -13,13 +13,19 @@
 ## [Unreleased]
 
 ### Added
-- OpenAI GPT API(chat/completions) 지원
+- 새로운 UX Framework 추가 지원
 
 ### Changed
 
 ### Fixed
 
 ### Removed
+
+---
+## [0.4.0] - 2025-07-29
+
+### Added
+- OpenAI Responses API 지원
 
 ---
 ## [0.3.1] - 2025-07-27
