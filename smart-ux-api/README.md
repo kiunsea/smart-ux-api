@@ -18,7 +18,7 @@
 
 ### 2️⃣ JS 라이브러리 포함
 
-* `lib/src/main/js/*.js` 파일을 웹 애플리케이션의 `[DOC ROOT]/smuapi` 디렉터리에 추가합니다.
+* `lib/src/main/js/*.js` 파일을 웹 애플리케이션의 `[DOC ROOT]/smuxapi` 디렉터리에 추가합니다.
 * 웹 페이지에 다음 스크립트를 포함시킵니다:
 
 ```html
