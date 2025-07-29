@@ -71,15 +71,15 @@ AI가 \*\*UI를 제어할 때 필요한 작업 흐름(Work Flow)\*\*을 정의�
 
 ### 3️⃣ 프롬프트 메시지 전송을 위한 기본 인스턴스 생성
 
-**OpenAI Responses / Google Gemini**
+* OpenAI Responses / Google Gemini
 
-  * `ResponsesChatRoom`, `ResponsesChatting`
-  * `GeminiChatRoom`, `GeminiChatting`
-**OpenAI Assistant**
+  - `ResponsesChatRoom`, `ResponsesChatting`
+  - `GeminiChatRoom`, `GeminiChatting`
+* OpenAI Assistant
 
-  * `Assistant`
-  * `AssistantsThread`
-  * `AssistantsMessage`
+  - `Assistant`
+  - `AssistantsThread`
+  - `AssistantsMessage`
 
 ### 4️⃣ 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 요구 사항
 
