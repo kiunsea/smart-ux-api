@@ -72,7 +72,6 @@ public class GeminiAPIConnection {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
-                log.debug("Response of sendRequest(): " + response);
                 
                 JSONObject jsonResponse = new JSONObject(response.toString());
                 JSONArray candidates = jsonResponse.getJSONArray("candidates");

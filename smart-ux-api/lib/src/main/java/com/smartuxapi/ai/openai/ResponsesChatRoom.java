@@ -8,7 +8,7 @@ import org.json.simple.parser.ParseException;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.Chatting;
-import com.smartuxapi.ai.ConversationHistory;
+import com.smartuxapi.ai.gemini.ConversationHistory;
 
 public class ResponsesChatRoom implements ChatRoom {
 

@@ -6,7 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
-import com.smartuxapi.ai.ConversationHistory;
+import com.smartuxapi.ai.openai.ConversationHistory;
 
 /**
  * 

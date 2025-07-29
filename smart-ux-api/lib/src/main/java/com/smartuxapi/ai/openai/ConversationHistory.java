@@ -1,9 +1,8 @@
-package com.smartuxapi.ai;
+package com.smartuxapi.ai.openai;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -28,9 +27,7 @@ public class ConversationHistory {
         // 사용자 메시지 JSON 객체 생성
         JSONObject userContent = new JSONObject();
         userContent.put("role", "user");
-        JSONArray userParts = new JSONArray();
-        userParts.put(new JSONObject().put("text", userMessage));
-        userContent.put("parts", userParts);
+        userContent.put("content", userMessage);
 
         convHistory.add(userContent);
         return convHistory; // 이 시점에서 AI에 보낼 전체 기록을 반환
@@ -45,10 +42,8 @@ public class ConversationHistory {
 
         // 모델 응답 JSON 객체 생성
         JSONObject modelContent = new JSONObject();
-        modelContent.put("role", "model");
-        JSONArray modelParts = new JSONArray();
-        modelParts.put(new JSONObject().put("text", modelResponse));
-        modelContent.put("parts", modelParts);
+        modelContent.put("role", "assistant");
+        modelContent.put("content", modelResponse);
 
         convHistory.add(modelContent);
         // chatSessions 맵에 이미 참조가 있으므로 별도로 put할 필요는 없음

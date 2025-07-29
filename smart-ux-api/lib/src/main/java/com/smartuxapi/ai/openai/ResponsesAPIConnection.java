@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * API에 연결한다.
  * ref : https://platform.openai.com/docs/api-reference/responses
@@ -75,16 +78,36 @@ public class ResponsesAPIConnection {
                     response.append(inputLine);
                 }
 
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                JSONArray candidates = jsonResponse.getJSONArray("candidates");
-                if (candidates.length() > 0) {
-                    JSONObject firstCandidate = candidates.getJSONObject(0);
-                    JSONObject content = firstCandidate.getJSONObject("content");
-                    JSONArray parts = content.getJSONArray("parts");
-                    if (parts.length() > 0) {
-                        return parts.getJSONObject(0).getString("text");
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonRes = mapper.readTree(response.toString());
+
+                // 1. "output" 배열 값 추출
+                JsonNode outputArray = jsonRes.get("output");
+
+                if (outputArray != null && outputArray.isArray()) {
+                    // 2. 해당 array에서 role이 "assistant"인 JSON 인스턴스 찾기
+                    for (JsonNode outputItem : outputArray) {
+                        JsonNode roleNode = outputItem.get("role");
+                        if (roleNode != null && "assistant".equals(roleNode.asText())) {
+                            // 3. 해당 instance의 "content" array 값 추출
+                            JsonNode contentArray = outputItem.get("content");
+                            if (contentArray != null && contentArray.isArray() && contentArray.size() > 0) {
+                                // 4. 첫 번째 JSON 인스턴스의 "text" 값 추출
+                                JsonNode firstContentItem = contentArray.get(0);
+                                JsonNode textNode = firstContentItem.get("text");
+
+                                if (textNode != null) {
+                                    log.debug("추출된 텍스트: " + textNode.asText());
+                                    return textNode.asText(); // 원하는 값을 찾았으므로 종료
+                                }
+                            }
+                        }
                     }
+                    log.debug("Assistant 역할의 content 또는 text를 찾을 수 없습니다.");
+                } else {
+                    log.debug("output 배열을 찾을 수 없거나 배열이 아닙니다.");
                 }
+
                 return "응답에서 텍스트를 찾을 수 없습니다.";
             }
         } else { // 오류 응답
@@ -95,9 +118,9 @@ public class ResponsesAPIConnection {
                 while ((errorLine = errorIn.readLine()) != null) {
                     errorResponse.append(errorLine);
                 }
-                log.error("Gemini API Error Response Code: " + responseCode);
-                log.error("Gemini API Error Message: " + errorResponse.toString());
-                throw new Exception("Gemini API 호출 실패: " + responseCode + " - " + errorResponse.toString());
+                log.error("OpenAI API Error Response Code: " + responseCode);
+                log.error("OpenAI API Error Message: " + errorResponse.toString());
+                throw new Exception("OpenAI API 호출 실패: " + responseCode + " - " + errorResponse.toString());
             }
         }
     }
