@@ -53,16 +53,14 @@ OpenAI **Assistants API**를 활용할 때 필요한 기능을 제공합니다.
 
 AI 모델별로 API Key가 필요합니다.
 
-**OpenAI Responses / Assistants API**
-
-  * OpenAI API Key 발급 필요
+* OpenAI Responses / Assistants API
+  - OpenAI API Key 발급 필요
     👉 [API Key 발급 링크](https://platform.openai.com/settings/organization/api-keys)
-  * Assistants API를 사용할 경우 **Assistant ID**도 필요합니다.
+  - Assistants API를 사용할 경우 **Assistant ID**도 필요합니다.
     👉 [Assistants 문서](https://platform.openai.com/docs/assistants)
 
-**Gemini API**
-
-  * [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하세요.
+* Gemini API
+  - [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하세요.
 
 ### 2️⃣ User Interaction Flow 문서 작성
 
@@ -72,11 +70,9 @@ AI가 \*\*UI를 제어할 때 필요한 작업 흐름(Work Flow)\*\*을 정의�
 ### 3️⃣ 프롬프트 메시지 전송을 위한 기본 인스턴스 생성
 
 * OpenAI Responses / Google Gemini
-
   - `ResponsesChatRoom`, `ResponsesChatting`
   - `GeminiChatRoom`, `GeminiChatting`
 * OpenAI Assistant
-
   - `Assistant`
   - `AssistantsThread`
   - `AssistantsMessage`
