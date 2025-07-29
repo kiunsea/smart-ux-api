@@ -59,7 +59,7 @@ AI 모델별로 API Key가 필요합니다.
   - Assistants API를 사용할 경우 **Assistant ID**도 필요합니다.
     👉 [Assistants 문서](https://platform.openai.com/docs/assistants)
 
-* Gemini API
+* Google Gemini API
   - [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하세요.
 
 ### 2️⃣ User Interaction Flow 문서 작성
