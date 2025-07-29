@@ -19,7 +19,7 @@
 - 기존 Java 웹 애플리케이션 서비스에 손쉽게 통합 가능
 - 웹 화면 내 UI 구성 요소를 자동 수집
 - 사용자의 자연어 요청을 AI에게 전달
-  * Gemini API 지원
+  * Google Gemini API 지원
   * OpenAI Responses API 지원
   * OpenAI Assistants API 지원
 - AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신
