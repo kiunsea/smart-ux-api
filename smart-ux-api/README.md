@@ -41,7 +41,7 @@ ChatRoom 내에서 진행되는 **하나의 대화 세트**를 의미합니다.
 
 ### 3️⃣ Assistant
 
-OpenAI **Assistants API**를 활용할 때 필요한 기능을 제공합니다.
+OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합니다.
 
 ---
 
@@ -51,7 +51,7 @@ OpenAI **Assistants API**를 활용할 때 필요한 기능을 제공합니다.
 
 ### 1️⃣ AI 모델 API 등록
 
-AI 모델별로 API Key가 필요합니다.
+사용하는 AI 모델에 따라 해당 AI서비스 API Key가 필요합니다.
 
 * OpenAI Responses / Assistants API
   - OpenAI API Key 발급 필요
@@ -78,7 +78,7 @@ AI가 \*\*UI를 제어할 때 필요한 작업 흐름(Work Flow)\*\*을 정의�
   - `AssistantsMessage`
 
 ### 4️⃣ 서비스 초기화 및 사용자 요청 처리를 위한 Servlet 요구 사항
-
+다음과 같은 프로세스를 통해 AI로부터 Action Queue를 응답받아 동작하게 됩니다.
 * **User Interaction Flow 문서 전송** (사용자 세션 최초 생성 시 1회 실행)
 * **현재 화면 정보(CurrentViewInfo) 전송** (UX Info Servlet)
 * **사용자 프롬프트 메시지 전송 및 응답 처리** (Action Queue Servlet)
