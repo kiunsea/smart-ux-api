@@ -49,11 +49,13 @@ public class ResponsesChatting implements Chatting {
         org.json.simple.JSONObject resJson = new org.json.simple.JSONObject();
         resJson.put("message", aiResponse);
         
-        JsonNode aqObj = this.aqHandler.getActionQueue(aiResponse);
-        if (aqObj != null && aqObj.hasNonNull("action_queue")) {
-            resJson.put("action_queue", aqObj.get("action_queue"));
-        } else {
-            resJson.put("action_queue", aqObj);
+        if (this.aqHandler != null) {
+            JsonNode aqObj = this.aqHandler.getActionQueue(aiResponse);
+            if (aqObj != null && aqObj.hasNonNull("action_queue")) {
+                resJson.put("action_queue", aqObj.get("action_queue"));
+            } else {
+                resJson.put("action_queue", aqObj);
+            }
         }
 
         return resJson;

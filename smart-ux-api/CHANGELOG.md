@@ -9,13 +9,25 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
-
 ## [Unreleased]
 
 ### Added
 - 새로운 UX Framework 추가 지원
 
 ### Changed
+
+### Fixed
+
+### Removed
+
+---
+## [0.5.0]
+
+### Added
+- Nexacro Platform UI Framework 지원
+
+### Changed
+- ActionQueueHandler 종속성 제거 (사용자가 생성 관리)
 
 ### Fixed
 

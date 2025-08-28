@@ -74,7 +74,7 @@ public class UXInfoServlet extends HttpServlet {
             String aiModel = rootNode.get("ai_model").asText();
             ChatRoom chatRoom = ChatRoomServ.getInstance().getChatRoom(aiModel, req.getSession(true), this);
             if (chatRoom != null) {
-                chatRoom.setCurrentViewInfo(elementsNode.toString());
+                chatRoom.getActionQueueHandler().setCurrentViewInfo(elementsNode.toString());
             }
         } catch (ParseException e) {
             e.printStackTrace();

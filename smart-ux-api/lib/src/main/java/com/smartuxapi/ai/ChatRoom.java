@@ -29,18 +29,23 @@ public interface ChatRoom {
 	 */
 	public boolean close() throws IOException, ParseException;
 	
-	/**
-	 * 현재 화면 정보를 저장
-	 * 
-	 * @param viewInfoJson
-	 */
-	public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException;
+//	/**
+//	 * 현재 화면 정보를 저장
+//	 * 
+//	 * @param viewInfoJson
+//	 */
+//	public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException;
+//	
+//	/**
+//	 * 현재 화면 정보를 Handler에서 삭제
+//	 * 
+//	 * @throws IOException
+//	 * @throws ParseException
+//	 */
+//	public void clearCurrentViewInfo() throws IOException, ParseException;
 	
-	/**
-	 * 현재 화면 정보를 Handler에서 삭제
-	 * 
-	 * @throws IOException
-	 * @throws ParseException
-	 */
-	public void clearCurrentViewInfo() throws IOException, ParseException;
+	
+	public void setActionQueueHandler(ActionQueueHandler aqHandler);
+	public ActionQueueHandler getActionQueueHandler();
+	
 }

@@ -121,11 +121,13 @@ public class AssistantsMessage implements Chatting {
         // Action Queue 메세지 전달
         resJson.put("message", resMsg);
 
-        JsonNode aqObj = this.aqHandler.getActionQueue(resMsg);
-        if (aqObj != null && aqObj.hasNonNull("action_queue")) {
-            resJson.put("action_queue", aqObj.get("action_queue"));
-        } else {
-            resJson.put("action_queue", aqObj);
+        if (this.aqHandler != null) {
+            JsonNode aqObj = this.aqHandler.getActionQueue(resMsg);
+            if (aqObj != null && aqObj.hasNonNull("action_queue")) {
+                resJson.put("action_queue", aqObj.get("action_queue"));
+            } else {
+                resJson.put("action_queue", aqObj);
+            }
         }
 
         return resJson;

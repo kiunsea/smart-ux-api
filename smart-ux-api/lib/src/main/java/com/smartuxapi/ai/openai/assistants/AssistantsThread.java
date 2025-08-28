@@ -16,7 +16,7 @@ public class AssistantsThread implements ChatRoom {
 	private Logger log = LogManager.getLogger(AssistantsThread.class);
 
 	private AssistantsAPIConnection connApi = null;
-	private final ActionQueueHandler aqHandler = new ActionQueueHandler();
+	private ActionQueueHandler aqHandler = null;
 
     private String idThread = null; // OpenAI에서 부여하는 Thread 고유 키값(thread id)
 	private Chatting message = null;
@@ -52,22 +52,6 @@ public class AssistantsThread implements ChatRoom {
 		return this.message;
 	}
 	
-    /**
-     * 현재 화면 정보를 Handler에 저장
-     */
-    public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
-        this.aqHandler.setCurViewInfo(viewInfoJson);
-    }
-    
-    /**
-     * 현재 화면 정보를 Handler에서 삭제
-     */
-    public void clearCurrentViewInfo() throws IOException, ParseException {
-        if (this.aqHandler != null) {
-            this.aqHandler.setCurViewInfo(null);
-        }
-    }
-
 	/**
 	 * 대화방 나가기
 	 */
@@ -76,5 +60,15 @@ public class AssistantsThread implements ChatRoom {
 		log.debug("delete thread [" + idThread + "] - " + deleted);
 		return deleted;
 	}
+
+    @Override
+    public void setActionQueueHandler(ActionQueueHandler aqHandler) {
+        this.aqHandler = aqHandler;
+    }
+
+    @Override
+    public ActionQueueHandler getActionQueueHandler() {
+        return this.aqHandler;
+    }
 
 }

@@ -12,12 +12,12 @@ import com.smartuxapi.ai.gemini.ConversationHistory;
 
 public class ResponsesChatRoom implements ChatRoom {
 
-    private ResponsesAPIConnection connApi = null;
-    private ResponsesChatting message = null;
-    
-    private final ActionQueueHandler aqHandler = new ActionQueueHandler();
     private final ConversationHistory conversationHistory = new ConversationHistory();
     private final String threadId = UUID.randomUUID().toString();
+    
+    private ResponsesAPIConnection connApi = null;
+    private ResponsesChatting message = null;
+    private ActionQueueHandler aqHandler = null;
     
     /**
      * @param apiKey
@@ -48,16 +48,15 @@ public class ResponsesChatRoom implements ChatRoom {
         this.conversationHistory.clearHistory();
         return true;
     }
-    
+
     @Override
-    public void setCurrentViewInfo(String viewInfoJson) throws IOException, ParseException {
-        this.aqHandler.setCurViewInfo(viewInfoJson);
+    public void setActionQueueHandler(ActionQueueHandler aqHandler) {
+        this.aqHandler = aqHandler;
     }
 
     @Override
-    public void clearCurrentViewInfo() throws IOException, ParseException {
-        if (this.aqHandler != null) {
-            this.aqHandler.setCurViewInfo(null);
-        }
+    public ActionQueueHandler getActionQueueHandler() {
+        return this.aqHandler;
     }
+    
 }

@@ -186,6 +186,38 @@ public class JSONUtil {
     }
     
     /**
+     * JSON 배열 문자열을 JSONArray 객체로 파싱합니다.
+     * * @param jsonString 파싱할 JSON 배열 문자열
+     * @return 파싱된 JSONArray 객체. 유효하지 않거나 파싱 오류 발생 시 null 반환.
+     */
+    public static JSONArray parseJsonArray(String jsonString) {
+        if (jsonString == null || jsonString.trim().isEmpty()) {
+            System.err.println("오류: 입력된 JSON 문자열이 비어 있습니다.");
+            return null;
+        }
+
+        // 입력 문자열의 첫 비공백 문자가 '['인지 확인하여 JSON 배열인지 검증
+        String trimmedString = jsonString.trim();
+        if (trimmedString.charAt(0) != '[') {
+            System.err.println("오류: 입력된 문자열은 JSON 배열이 아닙니다. '['로 시작해야 합니다.");
+            return null;
+        }
+
+        JSONParser parser = new JSONParser();
+        try {
+            // parse() 메소드는 Object를 반환하므로, JSONArray로 명시적 형변환(캐스팅) 필요
+            Object obj = parser.parse(jsonString);
+            return (JSONArray) obj;
+        } catch (ParseException e) {
+            System.err.println("오류: JSON 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            return null;
+        } catch (ClassCastException e) {
+            System.err.println("오류: JSON 파싱 후 JSONArray로 형변환에 실패했습니다. 입력 데이터 형식을 확인하세요.");
+            return null;
+        }
+    }
+    
+    /**
      * JSON 문자열을 JsonNode 객체로 변환
      * 
      * @param jsonStr

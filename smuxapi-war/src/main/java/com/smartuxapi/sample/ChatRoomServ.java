@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
+import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.gemini.GeminiChatRoom;
 import com.smartuxapi.ai.openai.ResponsesChatRoom;
@@ -141,6 +142,8 @@ public class ChatRoomServ {
             }
             log.info("[" + chatRoom.getId() + "] OpenAI Assistants API를 사용합니다");
         }
+        
+        chatRoom.setActionQueueHandler(new ActionQueueHandler());
         
         return chatRoom;
     }
