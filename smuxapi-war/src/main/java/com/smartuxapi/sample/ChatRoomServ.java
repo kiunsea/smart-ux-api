@@ -4,13 +4,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.ChatRoom;
+import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.ai.gemini.GeminiChatRoom;
 import com.smartuxapi.ai.openai.ResponsesChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistants;
 import com.smartuxapi.ai.openai.assistants.AssistantsThread;
-import com.smartuxapi.util.FileUtil;
 import com.smartuxapi.util.PropertiesUtil;
 
 import jakarta.servlet.http.HttpServlet;
@@ -66,9 +67,8 @@ public class ChatRoomServ {
             chatRoom = createChatRoom(aiModel);
             
             try {
-                StringBuilder sb = FileUtil.readFile(
-                        serv.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
-                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + sb);
+                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("resources/easy_kiosc_uif.json");
+                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -104,9 +104,8 @@ public class ChatRoomServ {
             chatRoom = createChatRoom(aiModel);
             
             try {
-                StringBuilder sb = FileUtil.readFile(
-                        serv.getServletContext().getRealPath("/") + "WEB-INF/classes/resources/easy_kiosc_uif.json", null);
-                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + sb);
+                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("resources/easy_kiosc_uif.json");
+                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
             } catch (Exception e) {
                 e.printStackTrace();
             }

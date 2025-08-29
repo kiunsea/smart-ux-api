@@ -18,11 +18,14 @@ public class NexacroAnanlysisTest {
 
     public NexacroAnanlysisTest() throws ParseException {
 
+        String currentDirectory = System.getProperty("user.dir");
+        System.out.println("Current Working Directory: " + currentDirectory);
+        
         JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
         String apiKey = config.get("GEMINI_API_KEY").asText();
 
         this.chatRoom = new GeminiChatRoom(apiKey, "gemini-2.5-flash");
-        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, "config.nexa.json"));
+//        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, "src/test/resources/test.config.nexa.json"));
         
         System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
 
@@ -36,19 +39,17 @@ public class NexacroAnanlysisTest {
     
     public void testNexacroAnalysis() throws Exception {
 
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println("Current Working Directory: " + currentDirectory);
         // File 객체로도 얻을 수 있습니다.
         File currentDirFile = new File(".");
         
         System.out.println("Current Working Directory (File): " + currentDirFile.getAbsolutePath());
         StringBuilder sbUif = FileUtil
-                .readFile(currentDirFile.getAbsolutePath() + "/src/test/resources/easy_kiosc_uif.json", null);
+                .readFile(currentDirFile.getAbsolutePath() + "test.easy_kiosc_uif.json", null);
         this.chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + sbUif);
         
         System.out.println("Current Working Directory (File): " + currentDirFile.getAbsolutePath());
         StringBuilder sbNexaUi = FileUtil
-                .readFile(currentDirFile.getAbsolutePath() + "/src/test/resources/nexacro-analysis.json", null);
+                .readFile(currentDirFile.getAbsolutePath() + "test.nexacro-analysis.json", null);
         this.chatRoom.getActionQueueHandler().setCurrentViewInfo(sbNexaUi.toString());
         
         String usrQ = "시작하기 버튼 정보 알려줘";
