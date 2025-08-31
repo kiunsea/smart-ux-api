@@ -11,7 +11,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartuxapi.util.ActionQueueUtil;
 import com.smartuxapi.util.JSONUtil;
 
@@ -81,6 +84,17 @@ public class ActionQueueHandler {
         } else {
             this.curViewInfo = null;
         }
+    }
+    
+    public void setCurrentViewInfo(JsonNode curViewInfo) throws JsonProcessingException {
+        
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode newNode = mapper.createObjectNode();
+        newNode.set("viewInfo", curViewInfo);  // 배열 그대로 들어감
+        newNode.put("format", this.format);
+
+        String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newNode);
+        this.curViewInfo = result;
     }
     
     public String getCurViewInfo() {
