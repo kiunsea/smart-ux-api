@@ -25,7 +25,7 @@ public class NexacroAnanlysisTest {
         String apiKey = config.get("GEMINI_API_KEY").asText();
 
         this.chatRoom = new GeminiChatRoom(apiKey, "gemini-2.5-flash");
-//        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, "src/test/resources/test.config.nexa.json"));
+        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, "/src/test/resources/test.config.nexa.json"));
         
         System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
 
@@ -44,12 +44,12 @@ public class NexacroAnanlysisTest {
         
         System.out.println("Current Working Directory (File): " + currentDirFile.getAbsolutePath());
         StringBuilder sbUif = FileUtil
-                .readFile(currentDirFile.getAbsolutePath() + "test.easy_kiosc_uif.json", null);
+                .readFile(currentDirFile.getAbsolutePath() + "/src/test/resources/test.easy_kiosc_uif.json", null);
         this.chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + sbUif);
         
         System.out.println("Current Working Directory (File): " + currentDirFile.getAbsolutePath());
         StringBuilder sbNexaUi = FileUtil
-                .readFile(currentDirFile.getAbsolutePath() + "test.nexacro-analysis.json", null);
+                .readFile(currentDirFile.getAbsolutePath() + "/src/test/resources/test.nexacro-analysis.json", null);
         this.chatRoom.getActionQueueHandler().setCurrentViewInfo(sbNexaUi.toString());
         
         String usrQ = "시작하기 버튼 정보 알려줘";

@@ -85,21 +85,119 @@ public class ActionQueueHandler {
             this.curViewInfo = null;
         }
     }
-    
-    public void setCurrentViewInfo(JsonNode curViewInfo) throws JsonProcessingException {
-        
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode newNode = mapper.createObjectNode();
-        newNode.set("viewInfo", curViewInfo);  // 배열 그대로 들어감
-        newNode.put("format", this.format);
 
-        String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newNode);
-        this.curViewInfo = result;
+    /**
+     * 현재 화면 정보가 저장되어 있는지 확인
+     * 
+     * @return 화면 정보 저장 여부
+     */
+    public boolean isCurrentViewInfo() {
+        return (this.curViewInfo != null && this.curViewInfo.length() > 0);
     }
     
-    public String getCurViewInfo() {
-        return this.curViewInfo;
+    /**
+     * 현재 화면 정보 설정에 대한 프롬프트를 반환
+     * @return Current View Prompt
+     */
+    public String getCurViewPrompt() {
+        StringBuffer aqPromptSb = new StringBuffer();
+        Map<String, String> valueMap = new HashMap<>();
+
+        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 prompt 생성 취소
+            return null;
+        } else {// 현재 화면 정보가 있다면 Prompt 추가
+
+            valueMap.put("CurViewInfo", this.curViewInfo);
+            StrSubstitutor sub = new StrSubstitutor(valueMap);
+
+            Iterator<JsonNode> elements = null;
+            if (config.get("prompt").get("cur_view_info").isArray()) {
+                elements = config.get("prompt").get("cur_view_info").elements();
+                while (elements.hasNext()) {
+                    JsonNode elementNode = elements.next();
+                    aqPromptSb.append(" " + sub.replace(elementNode));
+                }
+            }
+        }
+
+        log.debug("Current View Prompt : " + aqPromptSb);
+        return aqPromptSb.toString();
     }
+    
+    /**
+     * 현재 화면 정보에 대한 Action Queue 생성 요청 Prompt 를 반환.<br/>
+     * 현재 화면 정보(CurViewInfo)가 필수로 저장되어 있어야 한다.
+     * @return Action Queue Prompt
+     */
+    public String getActionQueuePrompt(String userMsg) {
+
+        StringBuffer aqPromptSb = new StringBuffer();
+        Map<String, String> valueMap = new HashMap<>();
+
+        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 prompt 생성 취소
+            return null;
+        } else {// 현재 화면 정보가 있다면 Prompt 추가
+            valueMap.put("UserMsg", userMsg);
+            StrSubstitutor sub = new StrSubstitutor(valueMap);
+
+            Iterator<JsonNode> elements = null;
+            if (config.get("prompt").get("action_queue").isArray()) {
+                elements = config.get("prompt").get("action_queue").elements();
+                while (elements.hasNext()) {
+                    JsonNode elementNode = elements.next();
+                    aqPromptSb.append(" " + sub.replace(elementNode));
+                }
+            }
+        }
+
+        log.debug("Action Queue Prompt : " + aqPromptSb);
+        return aqPromptSb.toString();
+    }
+//    public String getActionQueuePrompt(String userMsg) {
+//        
+//        StringBuffer aqPromptSb = new StringBuffer();
+//        Map<String, String> valueMap = new HashMap<>();
+//        
+//        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 일반 Prompt 로 동작
+//            
+//            valueMap.put("UserMsg", userMsg);
+//            StrSubstitutor sub = new StrSubstitutor(valueMap);
+//            
+//            Iterator<JsonNode> elements = null;
+//            if (this.config.get("prompt").get("normal_prompt").isArray()) {
+//                elements = this.config.get("prompt").get("normal_prompt").elements();
+//                while (elements.hasNext()) {
+//                    JsonNode elementNode = elements.next();
+//                    aqPromptSb.append(" " + sub.replace(elementNode));
+//                }
+//            }
+//            
+//        } else {// 현재 화면 정보가 있다면 Prompt 추가
+//            
+//            valueMap.put("CurViewInfo", this.curViewInfo);
+//            valueMap.put("UserMsg", userMsg);
+//            StrSubstitutor sub = new StrSubstitutor(valueMap);
+//            
+//            Iterator<JsonNode> elements = null;
+//            if (config.get("prompt").get("cur_view_info").isArray()) {
+//                elements = config.get("prompt").get("cur_view_info").elements();
+//                while (elements.hasNext()) {
+//                    JsonNode elementNode = elements.next();
+//                    aqPromptSb.append(" " + sub.replace(elementNode));
+//                }
+//            }
+//            if (config.get("prompt").get("action_queue").isArray()) {
+//                elements = config.get("prompt").get("action_queue").elements();
+//                while (elements.hasNext()) {
+//                    JsonNode elementNode = elements.next();
+//                    aqPromptSb.append(" " + sub.replace(elementNode));
+//                }
+//            }
+//        }
+//        
+//        log.debug("Action Queue Prompt : " + aqPromptSb);
+//        return aqPromptSb.toString();
+//    }
     
     public JsonNode getActionQueue(String resMsg) {
         JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);
@@ -110,62 +208,7 @@ public class ActionQueueHandler {
         }
     }
     
-    /**
-     * 사용자 요청에 현재 화면 정보에 대한 Action Queue 생성 요청을 덧붙인다.<br/>
-     * > 현재 화면 정보가 없다면 일반 Prompt 로 동작한다.
-     * 
-     * @param User Message
-     * @return Action Queue Prompt
-     */
-    public String decoratePrompt(String userMsg) {
-        
-        
-        StringBuffer aqPromptSb = new StringBuffer();
-        Map<String, String> valueMap = new HashMap<>();
-        
-        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 일반 Prompt 로 동작
-            
-            valueMap.put("UserMsg", userMsg);
-            StrSubstitutor sub = new StrSubstitutor(valueMap);
-            
-            Iterator<JsonNode> elements = null;
-            if (this.config.get("prompt").get("normal_prompt").isArray()) {
-                elements = this.config.get("prompt").get("normal_prompt").elements();
-                while (elements.hasNext()) {
-                    JsonNode elementNode = elements.next();
-                    aqPromptSb.append(" " + sub.replace(elementNode));
-                }
-            }
-            
-        } else {// 현재 화면 정보가 있다면 Prompt 추가
-            
-            valueMap.put("CurViewInfo", this.curViewInfo);
-            valueMap.put("UserMsg", userMsg);
-            StrSubstitutor sub = new StrSubstitutor(valueMap);
-            
-            Iterator<JsonNode> elements = null;
-            if (config.get("prompt").get("cur_view_info").isArray()) {
-                elements = config.get("prompt").get("cur_view_info").elements();
-                while (elements.hasNext()) {
-                    JsonNode elementNode = elements.next();
-                    aqPromptSb.append(" " + sub.replace(elementNode));
-                }
-            }
-            if (config.get("prompt").get("cur_view_info").isArray()) {
-                elements = config.get("prompt").get("action_queue").elements();
-                while (elements.hasNext()) {
-                    JsonNode elementNode = elements.next();
-                    aqPromptSb.append(" " + sub.replace(elementNode));
-                }
-            }
-        }
-        
-        log.debug("Action Queue Prompt : " + aqPromptSb);
-        return aqPromptSb.toString();
-    }
-    
     public void clearCurrentViewInfo() {
         this.curViewInfo = null;
     }
-    
 }

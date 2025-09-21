@@ -7,71 +7,30 @@ import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
-import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.ConfigLoader;
-import com.smartuxapi.ai.openai.assistants.Assistants;
-import com.smartuxapi.ai.openai.assistants.AssistantsThread;
 import com.smartuxapi.util.FileUtil;
 
-public class AssistantsChatRoomTest {
-
-    private AssistantsThread chatRoom = null;
-
-    public AssistantsChatRoomTest() throws ParseException {
+public class ResponseChatRoomTest {
+    
+    private ChatRoom chatRoom = null;
+    
+    public ResponseChatRoomTest() throws ParseException {
 
         JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
-        String assistantId = config.get("OPENAI_ASSIST_ID").asText();
         String apiKey = config.get("OPENAI_API_KEY").asText();
-
-        Assistants assist = new Assistants(assistantId); // Assistant ID
-        assist.setApiKey(apiKey); // API KEY
-        this.chatRoom = new AssistantsThread(assist);
+        String model = config.get("OPENAI_MODEL").asText();
+        this.chatRoom = new ResponsesChatRoom(apiKey, model);
         this.chatRoom.setActionQueueHandler(new ActionQueueHandler());
         System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
 
     }
 
-    /**
-     * OpenAI Assistants API에 접속하여 thread를 생성하고 요청 메세지를 전달후 응답 메세지를 받는다.
-     * 
-     * @param args
-     * @throws Exception
-     */
     public static void main(String args[]) throws Exception {
-        
-        AssistantsChatRoomTest crTest = new AssistantsChatRoomTest();
-        
-        crTest.testChat("너는 누구니?"); // 일반 대화 테스트
-        
-        crTest.testChatAction(); // dynamic action queue 응답 테스트
-        
-        crTest.chatRoom.getActionQueueHandler().clearCurrentViewInfo();
-        
-        crTest.testChat("한국의 수도를 알려줘"); // 일반 대화 테스트
-
-        if (crTest.chatRoom.close())
-            System.out.println("* [" + crTest.chatRoom.getId() + "] 채팅방 삭제 완료");
+        ResponseChatRoomTest resTest = new ResponseChatRoomTest();
+        resTest.testChatAction();
     }
-
-    public void testChat(String prompt) throws Exception {
-        Chatting chat = this.chatRoom.getChatting();
-
-        System.out.println("* USER msg: " + prompt);
-        JSONObject resJson = chat.sendPrompt(prompt);
-        System.out.println("* AI msg: " + resJson.get("message"));
-
-        if (resJson.containsKey("action_queue")) {
-            System.out.println("* Action Queue: " + resJson.get("action_queue"));
-        }
-
-        Object usrFuncRst = null; // resJson.get(OpenAIChatRoom.USER_FUNCTIONS_RESULT);
-        if (usrFuncRst != null) {
-            Object onJbgRst = ((JSONObject) usrFuncRst).get("on_jangbogo");
-            if (onJbgRst != null)
-                System.out.println("* AI user_link: " + ((JSONObject) onJbgRst).get("user_link"));
-        }
-    }
-
+    
     public void testChatAction() throws Exception {
 
         String currentDirectory = System.getProperty("user.dir");

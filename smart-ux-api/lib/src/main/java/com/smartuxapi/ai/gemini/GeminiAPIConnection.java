@@ -37,7 +37,7 @@ public class GeminiAPIConnection {
      * @return Gemini 모델의 응답 텍스트
      * @throws Exception API 호출 중 발생한 예외
      */
-    public String generateContent(List<JSONObject> conversationHistory) throws Exception {
+    public String generateContent(JSONArray contentsArray) throws Exception {
         String urlStr = GEMINI_API_URL_BASE + modelName + ":generateContent?key=" + apiKey;
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -51,10 +51,6 @@ public class GeminiAPIConnection {
 
         // 요청 바디 생성
         JSONObject requestBody = new JSONObject();
-        JSONArray contentsArray = new JSONArray();
-        for (JSONObject message : conversationHistory) {
-            contentsArray.put(message);
-        }
         requestBody.put("contents", contentsArray);
 
         // 요청 바디 전송

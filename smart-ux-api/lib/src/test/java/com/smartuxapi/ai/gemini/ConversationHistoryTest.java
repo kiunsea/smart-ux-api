@@ -1,8 +1,6 @@
 package com.smartuxapi.ai.gemini;
 
-import java.util.List;
-
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
@@ -18,9 +16,9 @@ public class ConversationHistoryTest {
         String model = config.get("GEMINI_MODEL").asText();
         GeminiAPIConnection conn = new GeminiAPIConnection(apiKey, model);
 
-        String userPrompt = "hi gemini, my name is lol";
-        System.out.println("User prompt : " + userPrompt);
-        List<JSONObject> convHistory = conversationHistory.addUserMessage(userPrompt);
+        String userPrompt = "hi gemini, my name is 티니핑";
+        System.out.println("User prompt : " + userPrompt +" <- 내 이름을 티니핑 이라고 알려줌");
+        JSONArray convHistory = conversationHistory.addUserPrompt(userPrompt, null);
         String geminiResponse = conn.generateContent(convHistory);
         
         // then: 결과 검증
@@ -29,8 +27,8 @@ public class ConversationHistoryTest {
         
         userPrompt = "What is my name?";
         System.out.println("User prompt : " + userPrompt);
-        convHistory = conversationHistory.addUserMessage(userPrompt);
+        convHistory = conversationHistory.addUserPrompt(userPrompt, null);
         geminiResponse = conn.generateContent(convHistory);
-        System.out.println("Gemini response : " + geminiResponse);
+        System.out.println("Gemini response : " + geminiResponse +" <- 내 이름이 티니핑 임을 아는지 확인함");
     }
 }

@@ -1,12 +1,12 @@
 package com.smartuxapi.ai.openai;
 
-import java.util.List;
 import java.util.Set;
+
+import org.json.JSONArray;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
-import com.smartuxapi.ai.openai.ConversationHistory;
 
 /**
  * 
@@ -28,16 +28,28 @@ public class ResponsesChatting implements Chatting {
     @Override
     public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
         
+//        // Action Queue 요청 Prompt 작성 및 전달
+//        String aqPrompt = null;
+//        if (this.aqHandler != null) {
+//            aqPrompt = this.aqHandler.getActionQueuePrompt(userMsg);
+//        } else {
+//            aqPrompt = userMsg;
+//        }
+        
+        boolean reqActionQueue = this.aqHandler != null && this.aqHandler.isCurrentViewInfo();
+
+        String usrPrompt, curViewPrompt = null;
+
         // Action Queue 요청 Prompt 작성 및 전달
-        String aqPrompt = null;
-        if (this.aqHandler != null) {
-            aqPrompt = this.aqHandler.decoratePrompt(userMsg);
+        if (reqActionQueue) {
+            usrPrompt = this.aqHandler.getActionQueuePrompt(userMsg);
+            curViewPrompt = this.aqHandler.getCurViewPrompt();
         } else {
-            aqPrompt = userMsg;
+            usrPrompt = userMsg;
         }
         
         // 1. 사용자 메시지를 대화 기록에 추가하고, AI에 보낼 전체 기록을 가져옴
-        List<org.json.JSONObject> convHistory = this.conversationHistory.addUserMessage(aqPrompt);
+        JSONArray convHistory = this.conversationHistory.addUserPrompt(usrPrompt, curViewPrompt);
 
         // 2. Responses API 호출 (전체 대화 기록 전송)
         String aiResponse = this.connApi.generateContent(convHistory);

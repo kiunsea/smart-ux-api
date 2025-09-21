@@ -1,8 +1,5 @@
 package com.smartuxapi.ai.gemini;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,25 +12,39 @@ import org.json.JSONObject;
  */
 public class ConversationHistory {
 
-    private final List<JSONObject> convHistory = new ArrayList<>();
+    private final JSONArray convHistory = new JSONArray();
 
     /**
      * 사용자 메시지를 대화 기록에 추가하고, AI API 호출을 위한 전체 기록을 반환합니다.
      * 
-     * @param userMessage 사용자 입력 메시지
+     * @param userPrompt 사용자 입력 프롬프트 (필수)
+     * @param curViewPrompt 현재 화면 프롬프트 (필수 아님, null available)
      * @return AI API에 전송할 전체 대화 기록
      */
-    public List<JSONObject> addUserMessage(String userMessage) {
+    public JSONArray addUserPrompt(String userPrompt, String curViewPrompt) {
 
-        // 사용자 메시지 JSON 객체 생성
+        JSONArray rtnValue = new JSONArray(this.convHistory); //원본을 복사
+        
+        // 사용자 메시지 JSON 객체 생성하여 history JSONArray 에 저장
         JSONObject userContent = new JSONObject();
         userContent.put("role", "user");
         JSONArray userParts = new JSONArray();
-        userParts.put(new JSONObject().put("text", userMessage));
+        userParts.put(new JSONObject().put("text", userPrompt));
         userContent.put("parts", userParts);
-
-        convHistory.add(userContent);
-        return convHistory; // 이 시점에서 AI에 보낼 전체 기록을 반환
+        this.convHistory.put(userContent);
+        
+        if (curViewPrompt != null) {
+            // 반환용 JSONArray 작성
+            JSONObject rtnContent = new JSONObject();
+            rtnContent.put("role", "user");
+            JSONArray rtnParts = new JSONArray();
+            rtnParts.put(new JSONObject().put("text", userPrompt + ", " + curViewPrompt));
+            rtnContent.put("parts", rtnParts);
+            rtnValue.put(rtnContent);
+            return rtnValue;
+        } else {
+            return this.convHistory;
+        }
     }
 
     /**
@@ -50,7 +61,7 @@ public class ConversationHistory {
         modelParts.put(new JSONObject().put("text", modelResponse));
         modelContent.put("parts", modelParts);
 
-        convHistory.add(modelContent);
+        this.convHistory.put(modelContent);
         // chatSessions 맵에 이미 참조가 있으므로 별도로 put할 필요는 없음
     }
 
@@ -70,7 +81,7 @@ public class ConversationHistory {
      * @param sessionId
      * @return
      */
-    public List<JSONObject> getHistory() {
+    public JSONArray getHistory() {
         return convHistory;
     }
 }

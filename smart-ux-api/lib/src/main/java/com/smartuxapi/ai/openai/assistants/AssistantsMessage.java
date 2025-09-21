@@ -49,10 +49,11 @@ public class AssistantsMessage implements Chatting {
         // Action Queue 요청 Prompt 작성 및 전달
         String aqPrompt = null;
         if (this.aqHandler != null) {
-            aqPrompt = this.aqHandler.decoratePrompt(userMsg);
+            aqPrompt = this.aqHandler.getActionQueuePrompt(userMsg);
         } else {
             aqPrompt = userMsg;
         }
+        
         this.connApi.createMessage(this.idThread, aqPrompt); //메세지 전달
         String runId = this.connApi.createRun(this.idThread); //메세지 분석
         

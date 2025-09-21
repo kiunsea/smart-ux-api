@@ -40,7 +40,7 @@ public class ResponsesAPIConnection {
      * @return AI 모델의 응답 텍스트
      * @throws Exception API 호출 중 발생한 예외
      */
-    public String generateContent(List<JSONObject> conversationHistory) throws Exception {
+    public String generateContent(JSONArray conversationHistory) throws Exception {
         URL url = new URL(OPENAI_API_URL_BASE);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -53,11 +53,7 @@ public class ResponsesAPIConnection {
 
         // 요청 바디 생성
         JSONObject requestBody = new JSONObject();
-        JSONArray contentsArray = new JSONArray();
-        for (JSONObject message : conversationHistory) {
-            contentsArray.put(message);
-        }
-        requestBody.put("input", contentsArray);
+        requestBody.put("input", conversationHistory);
         
         // AI모델 설정
         requestBody.put("model", this.modelName);

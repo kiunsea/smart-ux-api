@@ -1,8 +1,6 @@
 package com.smartuxapi.ai.openai;
 
-import java.util.List;
-
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
@@ -20,7 +18,7 @@ public class ConversationHistoryTest {
 
         String userPrompt = "hi openai, my name is lol";
         System.out.println("User prompt : " + userPrompt);
-        List<JSONObject> convHistory = conversationHistory.addUserMessage(userPrompt);
+        JSONArray convHistory = conversationHistory.addUserPrompt(userPrompt, null);
         String geminiResponse = conn.generateContent(convHistory);
         
         // then: 결과 검증
@@ -29,7 +27,7 @@ public class ConversationHistoryTest {
         
         userPrompt = "What is my name?";
         System.out.println("User prompt : " + userPrompt);
-        convHistory = conversationHistory.addUserMessage(userPrompt);
+        convHistory = conversationHistory.addUserPrompt(userPrompt, null);
         geminiResponse = conn.generateContent(convHistory);
         System.out.println("OpenAI response : " + geminiResponse);
     }

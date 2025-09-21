@@ -1,8 +1,6 @@
 package com.smartuxapi.ai.gemini;
 
-import java.util.List;
-
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ConfigLoader;
@@ -21,7 +19,7 @@ public class GeminiAPIConnectionTest {
         
         String userPrompt = "hi gemini";
         System.out.println("User prompt : "+userPrompt);
-        List<JSONObject> convHistory = conversationHistory.addUserMessage(userPrompt);
+        JSONArray convHistory = conversationHistory.addUserPrompt(userPrompt, null);
         String geminiResponse = conn.generateContent(convHistory);
 
         // then: 결과 검증

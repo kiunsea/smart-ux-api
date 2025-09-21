@@ -3,6 +3,9 @@ package com.smartuxapi.ai.gemini;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
@@ -26,28 +29,32 @@ public class GeminiChatting implements Chatting {
      */
     @Override
     public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
-        
+
+        boolean reqActionQueue = this.aqHandler != null && this.aqHandler.isCurrentViewInfo();
+
+        String usrPrompt, curViewPrompt = null;
+
         // Action Queue 요청 Prompt 작성 및 전달
-        String aqPrompt = null;
-        if (this.aqHandler != null) {
-            aqPrompt = this.aqHandler.decoratePrompt(userMsg);
+        if (reqActionQueue) {
+            usrPrompt = this.aqHandler.getActionQueuePrompt(userMsg);
+            curViewPrompt = this.aqHandler.getCurViewPrompt();
         } else {
-            aqPrompt = userMsg;
+            usrPrompt = userMsg;
         }
-        
+
         // 1. 사용자 메시지를 대화 기록에 추가하고, Gemini에 보낼 전체 기록을 가져옴
-        List<org.json.JSONObject> convHistory = this.conversationHistory.addUserMessage(aqPrompt);
+        JSONArray convHistory = this.conversationHistory.addUserPrompt(usrPrompt, curViewPrompt);
 
         // 2. Gemini API 호출 (전체 대화 기록 전송)
         String geminiResponse = this.connApi.generateContent(convHistory);
 
         // 3. Gemini 응답을 대화 기록에 추가
         this.conversationHistory.addModelResponse(geminiResponse);
-        
+
         // Action Queue 메세지 전달
         org.json.simple.JSONObject resJson = new org.json.simple.JSONObject();
         resJson.put("message", geminiResponse);
-        
+
         if (this.aqHandler != null) {
             JsonNode aqObj = this.aqHandler.getActionQueue(geminiResponse);
             if (aqObj != null && aqObj.hasNonNull("action_queue")) {
