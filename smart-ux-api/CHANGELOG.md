@@ -21,6 +21,18 @@
 ### Removed
 
 ---
+## [0.5.1]
+
+### Added
+
+### Changed
+ - ConversationHistory 에 view 정보 제거(성능 개선)
+
+### Fixed
+
+### Removed
+
+---
 ## [0.5.0]
 
 ### Added
