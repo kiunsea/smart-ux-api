@@ -21,11 +21,13 @@ public class NexacroAnanlysisTest {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println("Current Working Directory: " + currentDirectory);
         
-        JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
-        String apiKey = config.get("GEMINI_API_KEY").asText();
+        JsonNode configApikey = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
+        String apiKey = configApikey.get("GEMINI_API_KEY").asText();
+        
+        JsonNode configPrompt = ConfigLoader.loadConfigFromClasspath("test.config.nexa.json");
 
         this.chatRoom = new GeminiChatRoom(apiKey, "gemini-2.5-flash");
-        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, "/src/test/resources/test.config.nexa.json"));
+        this.chatRoom.setActionQueueHandler(new ActionQueueHandler(ActionQueueHandler.FORMAT_NEXACRO, configPrompt));
         
         System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
 

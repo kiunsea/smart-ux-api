@@ -179,10 +179,31 @@ public class JSONUtil {
      * @throws ParseException
      */
     public static JSONObject parseJSONObject(String jsonStr) throws ParseException {
+//        JSONParser parser = new JSONParser();
+//        Object obj = parser.parse(jsonStr.trim().replaceAll("\\r|\\n", ""));
+//        JSONObject jsonObj = (JSONObject) obj;
+//        return jsonObj;
+        
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(jsonStr);
-        JSONObject jsonObj = (JSONObject) obj;
-        return jsonObj;
+
+        // 불필요한 앞뒤 공백, 줄바꿈 제거
+        String normalized = jsonStr.trim().replaceAll("[\\r\\n]+", "");
+
+        Object obj = parser.parse(normalized);
+
+        // 문자열로 떨어진 경우 다시 재파싱
+        if (obj instanceof String) {
+            String str = ((String) obj).trim();
+            if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
+                obj = parser.parse(str);
+            }
+        }
+
+        if (obj instanceof JSONObject) {
+            return (JSONObject) obj;
+        } else {
+            throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN, "JSON 객체로 변환할 수 없습니다: " + obj.getClass());
+        }
     }
     
     /**
