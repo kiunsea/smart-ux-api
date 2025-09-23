@@ -26,7 +26,7 @@
 ### Added
 
 ### Changed
- - ConversationHistory 에 view 정보 제거(성능 개선)
+- ConversationHistory 에 view 정보 제거(성능 개선)
 
 ### Fixed
 
