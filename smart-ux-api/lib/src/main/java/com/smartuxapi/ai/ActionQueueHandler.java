@@ -154,51 +154,6 @@ public class ActionQueueHandler {
         log.debug("Action Queue Prompt : " + aqPromptSb);
         return aqPromptSb.toString();
     }
-//    public String getActionQueuePrompt(String userMsg) {
-//        
-//        StringBuffer aqPromptSb = new StringBuffer();
-//        Map<String, String> valueMap = new HashMap<>();
-//        
-//        if (this.curViewInfo == null) {// 현재 화면 정보가 없다면 일반 Prompt 로 동작
-//            
-//            valueMap.put("UserMsg", userMsg);
-//            StrSubstitutor sub = new StrSubstitutor(valueMap);
-//            
-//            Iterator<JsonNode> elements = null;
-//            if (this.config.get("prompt").get("normal_prompt").isArray()) {
-//                elements = this.config.get("prompt").get("normal_prompt").elements();
-//                while (elements.hasNext()) {
-//                    JsonNode elementNode = elements.next();
-//                    aqPromptSb.append(" " + sub.replace(elementNode));
-//                }
-//            }
-//            
-//        } else {// 현재 화면 정보가 있다면 Prompt 추가
-//            
-//            valueMap.put("CurViewInfo", this.curViewInfo);
-//            valueMap.put("UserMsg", userMsg);
-//            StrSubstitutor sub = new StrSubstitutor(valueMap);
-//            
-//            Iterator<JsonNode> elements = null;
-//            if (config.get("prompt").get("cur_view_info").isArray()) {
-//                elements = config.get("prompt").get("cur_view_info").elements();
-//                while (elements.hasNext()) {
-//                    JsonNode elementNode = elements.next();
-//                    aqPromptSb.append(" " + sub.replace(elementNode));
-//                }
-//            }
-//            if (config.get("prompt").get("action_queue").isArray()) {
-//                elements = config.get("prompt").get("action_queue").elements();
-//                while (elements.hasNext()) {
-//                    JsonNode elementNode = elements.next();
-//                    aqPromptSb.append(" " + sub.replace(elementNode));
-//                }
-//            }
-//        }
-//        
-//        log.debug("Action Queue Prompt : " + aqPromptSb);
-//        return aqPromptSb.toString();
-//    }
     
     public JsonNode getActionQueue(String resMsg) {
         JsonNode aqObj = ActionQueueUtil.extractActionQueue(resMsg);

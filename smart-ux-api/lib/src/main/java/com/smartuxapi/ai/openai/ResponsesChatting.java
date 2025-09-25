@@ -28,14 +28,6 @@ public class ResponsesChatting implements Chatting {
     @Override
     public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
         
-//        // Action Queue 요청 Prompt 작성 및 전달
-//        String aqPrompt = null;
-//        if (this.aqHandler != null) {
-//            aqPrompt = this.aqHandler.getActionQueuePrompt(userMsg);
-//        } else {
-//            aqPrompt = userMsg;
-//        }
-        
         boolean reqActionQueue = this.aqHandler != null && this.aqHandler.isCurrentViewInfo();
 
         String usrPrompt, curViewPrompt = null;
