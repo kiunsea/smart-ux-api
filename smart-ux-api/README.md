@@ -64,7 +64,7 @@ OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합�
 
 ### 2️⃣ User Interaction Flow 문서 작성
 
-AI가 \*\*UI를 제어할 때 필요한 작업 흐름(Work Flow)\*\*을 정의한 **JSON 문서**를 작성합니다.
+AI가 **UI를 제어할 때 필요한 작업 흐름(Work Flow)** 을 정의한 **JSON 문서**를 작성합니다.
 서비스 초기화 시 자동 로딩되어 AI에 전달됩니다.
 
 ### 3️⃣ 프롬프트 메시지 전송을 위한 기본 인스턴스 생성
@@ -99,7 +99,7 @@ Pull Request 또는 Issue를 통해 다음과 같은 기여가 가능합니다:
 
 ## 📄 라이선스
 
-이 프로젝트는 \*\*GNU Affero General Public License v3.0 (AGPL-3.0)\*\*을 따릅니다.
+이 프로젝트는 **GNU Affero General Public License v3.0 (AGPL-3.0)** 을 따릅니다.
 자세한 내용은 [LICENSE](./LICENSE) 파일을 참고하세요.
 
 > ⚠️ **AGPL**은 네트워크 사용자를 포함해 소스코드 공개를 요구하는 **엄격한 카피레프트** 라이선스입니다.
