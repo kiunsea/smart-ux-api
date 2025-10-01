@@ -90,15 +90,17 @@ smuxapi-war/
 
 ## 📄 라이선스
 
-* 이 샘플 프로젝트의 **Class**는 [MIT](LICENSE) 라이선스를 따릅니다.
-* 포함된 **jar 패키지**는 각 프로젝트의 라이선스 정책을 따릅니다.
-* 자세한 내용은 **LICENSE 파일**을 참고하세요.
+이 프로젝트는 **Apache License, 버전 2.0**에 따라 배포됩니다.
+
+라이선스의 전체 내용은 [LICENSE](../LICENSE) 파일을 참조해 주십시오.
 
 ---
 
-## 🙋‍♀️ 문의 및 기여
+**Copyright [2025] [kiunsea@gmail.com]**
 
-* 💬 기여 및 피드백은 언제나 환영합니다!
-* **Pull Request** 또는 **Issues**를 통해 참여해주세요.
+---
 
-📩 문의: **[kiunsea@gmail.com](mailto:kiunsea@gmail.com)**
+## 🔗 외부 링크
+
+- Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
+- 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
