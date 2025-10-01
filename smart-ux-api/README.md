@@ -99,16 +99,17 @@ Pull Request 또는 Issue를 통해 다음과 같은 기여가 가능합니다:
 
 ## 📄 라이선스
 
-이 프로젝트는 **GNU Affero General Public License v3.0 (AGPL-3.0)** 을 따릅니다.
-자세한 내용은 [LICENSE](./LICENSE) 파일을 참고하세요.
+이 프로젝트는 **Apache License, 버전 2.0**에 따라 배포됩니다.
 
-> ⚠️ **AGPL**은 네트워크 사용자를 포함해 소스코드 공개를 요구하는 **엄격한 카피레프트** 라이선스입니다.
-> 사용 및 배포 전 반드시 내용을 이해하고 준수해 주세요.
+라이선스의 전체 내용은 [LICENSE](LICENSE) 파일을 참조해 주십시오.
+
+---
+
+**Copyright [2025] [kiunsea@gmail.com]**
 
 ---
 
 ## 🔗 외부 링크
 
-* [AGPL 공식 문서](https://www.gnu.org/licenses/agpl-3.0.html)
-* [Choose a License 설명](https://choosealicense.com/licenses/agpl-3.0/)
-
+- Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
+- 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
