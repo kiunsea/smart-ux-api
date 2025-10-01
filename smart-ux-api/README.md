@@ -101,7 +101,7 @@ Pull Request 또는 Issue를 통해 다음과 같은 기여가 가능합니다:
 
 이 프로젝트는 **Apache License, 버전 2.0**에 따라 배포됩니다.
 
-라이선스의 전체 내용은 [LICENSE](LICENSE) 파일을 참조해 주십시오.
+라이선스의 전체 내용은 [LICENSE](../LICENSE) 파일을 참조해 주십시오.
 
 ---
 
