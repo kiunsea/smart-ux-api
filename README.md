@@ -1,5 +1,5 @@
 # Smart UX API 프로젝트
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.html)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
