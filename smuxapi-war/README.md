@@ -1,6 +1,6 @@
 ﻿# smuxapi-war 🧪
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
@@ -90,7 +90,7 @@ smuxapi-war/
 
 ## 📄 라이선스
 
-이 프로젝트는 **MIT 라이선스**에 따라 배포됩니다.
+이 프로젝트는 **Apache License, 버전 2.0**에 따라 배포됩니다.
 
 라이선스의 전체 내용은 [LICENSE](../LICENSE) 파일을 참조해 주십시오.
 
