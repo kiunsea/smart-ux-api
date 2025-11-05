@@ -67,6 +67,44 @@ OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합�
 AI가 **UI를 제어할 때 필요한 작업 흐름(Work Flow)** 을 정의한 **JSON 문서**를 작성합니다.
 서비스 초기화 시 자동 로딩되어 AI에 전달됩니다.
 
+#### 예시: UIF 문서 구조
+```json
+{
+  "service": "키오스크 주문 시스템",
+  "screens": [
+    {
+      "name": "메인 화면",
+      "elements": [
+        {
+          "id": "menu_americano",
+          "type": "button",
+          "label": "아메리카노",
+          "action": "click"
+        },
+        {
+          "id": "order_count",
+          "type": "input",
+          "label": "수량",
+          "action": "setValue"
+        }
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "메뉴 주문",
+      "steps": [
+        "1. 메뉴 버튼 클릭",
+        "2. 수량 입력",
+        "3. 장바구니 추가"
+      ]
+    }
+  ]
+}
+```
+
+샘플 파일은 `docs/sample.su-api_uif.json`을 참조하세요.
+
 ### 3️⃣ 프롬프트 메시지 전송을 위한 기본 인스턴스 생성
 
 * OpenAI Responses / Google Gemini
@@ -82,6 +120,191 @@ AI가 **UI를 제어할 때 필요한 작업 흐름(Work Flow)** 을 정의한 *
 * **User Interaction Flow 문서 전송** (사용자 세션 최초 생성 시 1회 실행)
 * **현재 화면 정보(CurrentViewInfo) 전송** (UX Info Servlet)
 * **사용자 프롬프트 메시지 전송 및 응답 처리** (Action Queue Servlet)
+
+---
+
+## 💻 코드 예제
+
+### OpenAI Responses API 사용 예제
+
+#### ChatRoom 및 Chatting 생성
+```java
+// API Key 및 모델 설정
+String apiKey = "your-openai-api-key";
+String model = "gpt-4";
+
+// ChatRoom 생성 (대화 세션 관리)
+ResponsesChatRoom chatRoom = new ResponsesChatRoom(apiKey, model);
+
+// User Interaction Flow 문서 로드
+String uifDocument = loadUIFDocument("path/to/uif.json");
+chatRoom.addSystemMessage(uifDocument);
+
+// Chatting 인스턴스 생성
+ResponsesChatting chatting = chatRoom.createChatting();
+```
+
+#### 프롬프트 전송 및 응답 수신
+```java
+// 사용자 프롬프트
+String userPrompt = "아이스 아메리카노 2잔 주문해줘";
+
+// 현재 화면 정보 수집 (JavaScript에서 전달받음)
+String currentViewInfo = getCurrentViewInfoFromClient();
+
+// AI에게 프롬프트 전송
+String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+
+// 응답 확인
+System.out.println("Action Queue: " + actionQueue);
+```
+
+### Google Gemini API 사용 예제
+
+```java
+// API Key 및 모델 설정
+String apiKey = "your-gemini-api-key";
+String model = "gemini-pro";
+
+// ChatRoom 생성
+GeminiChatRoom chatRoom = new GeminiChatRoom(apiKey, model);
+
+// User Interaction Flow 전송
+String uifDocument = loadUIFDocument("path/to/uif.json");
+chatRoom.addSystemMessage(uifDocument);
+
+// Chatting 생성 및 프롬프트 전송
+GeminiChatting chatting = chatRoom.createChatting();
+String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+```
+
+### OpenAI Assistants API 사용 예제
+
+```java
+// API Key 및 Assistant ID 설정
+String apiKey = "your-openai-api-key";
+String assistantId = "asst_xxxxxxxxxxxxx";
+
+// Assistant 생성
+Assistant assistant = new Assistant(apiKey, assistantId);
+
+// Thread 생성 (대화 세션)
+AssistantsThread thread = assistant.createThread();
+
+// 메시지 전송
+AssistantsMessage message = thread.createMessage();
+String actionQueue = message.sendMessage(userPrompt, currentViewInfo);
+```
+
+### Servlet 구현 예제
+
+#### Action Queue 응답 Servlet
+```java
+@WebServlet("/api/chat")
+public class ChatServlet extends HttpServlet {
+    private ResponsesChatRoom chatRoom;
+    
+    @Override
+    public void init() throws ServletException {
+        // API 설정 로드
+        String apiKey = getServletContext().getInitParameter("openai.api.key");
+        String model = getServletContext().getInitParameter("openai.model");
+        
+        // ChatRoom 초기화
+        chatRoom = new ResponsesChatRoom(apiKey, model);
+        
+        // UIF 문서 로드
+        String uifDocument = loadUIFDocument();
+        chatRoom.addSystemMessage(uifDocument);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+            throws ServletException, IOException {
+        // 요청 파라미터 추출
+        String userPrompt = req.getParameter("prompt");
+        String currentViewInfo = req.getParameter("viewInfo");
+        
+        // Chatting 생성 및 메시지 전송
+        ResponsesChatting chatting = chatRoom.createChatting();
+        String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+        
+        // JSON 응답
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(actionQueue);
+    }
+}
+```
+
+### JavaScript 클라이언트 사용 예제
+
+```javascript
+// UI 정보 수집
+const collector = new SmartUXCollector();
+const viewInfo = collector.collectUIInfo();
+
+// 프롬프트 전송
+fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        prompt: userInput,
+        viewInfo: viewInfo
+    })
+})
+.then(response => response.json())
+.then(actionQueue => {
+    // Action Queue 실행
+    const client = new SmartUXClient();
+    client.executeActionQueue(actionQueue);
+});
+```
+
+---
+
+## 📚 API Reference
+
+### 주요 클래스
+
+#### ChatRoom 인터페이스
+대화 세션을 관리하는 기본 인터페이스
+
+**구현체:**
+- `ResponsesChatRoom`: OpenAI Responses API용
+- `GeminiChatRoom`: Google Gemini API용
+
+**주요 메서드:**
+- `addSystemMessage(String message)`: 시스템 메시지 추가 (UIF 문서)
+- `createChatting()`: 새로운 Chatting 인스턴스 생성
+- `getChatHistory()`: 대화 이력 조회
+
+#### Chatting 인터페이스
+개별 대화를 처리하는 인터페이스
+
+**구현체:**
+- `ResponsesChatting`: OpenAI Responses API용
+- `GeminiChatting`: Google Gemini API용
+
+**주요 메서드:**
+- `sendMessage(String prompt, String viewInfo)`: 프롬프트 전송 및 Action Queue 수신
+- `getConversationHistory()`: 현재 대화 이력 조회
+
+#### Assistant (OpenAI Assistants API 전용)
+OpenAI Assistants API를 사용하는 경우 필요한 클래스
+
+**주요 메서드:**
+- `createThread()`: 새로운 Thread 생성
+- `retrieveThread(String threadId)`: 기존 Thread 조회
+
+#### ActionQueueHandler
+Action Queue를 파싱하고 실행하는 유틸리티 클래스 (선택사항)
+
+**주요 메서드:**
+- `parse(String actionQueue)`: JSON 파싱
+- `execute(ActionQueue queue)`: 액션 실행
+
+자세한 API 문서는 [API.md](../docs/API.md) 또는 [JavaDoc](../docs/javadoc/)을 참조하세요.
 
 ---
 
@@ -105,7 +328,7 @@ Pull Request 또는 Issue를 통해 다음과 같은 기여가 가능합니다:
 
 ---
 
-**Copyright [2025] [kiunsea@gmail.com]**
+**Copyright © 2025 [jiniebox.com](https://jiniebox.com)**
 
 ---
 
@@ -113,4 +336,5 @@ Pull Request 또는 Issue를 통해 다음과 같은 기여가 가능합니다:
 
 - Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
 - 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
-- 개발자 홈페이지: https://www.omnibuscode.com
+- 개발자 홈페이지: https://jiniebox.com
+- 문의: kiunsea@gmail.com

@@ -1,0 +1,12 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 질문 및 토론
+    url: https://github.com/kiunsea/smux-api/discussions
+    about: 질문이 있으시거나 아이디어를 논의하고 싶으시면 Discussions를 이용해 주세요
+  - name: 📖 문서
+    url: https://github.com/kiunsea/smux-api/tree/main/docs
+    about: 자세한 문서와 가이드를 확인하세요
+  - name: 🔒 보안 취약점 보고
+    url: https://github.com/kiunsea/smux-api/security/policy
+    about: 보안 문제는 이메일(kiunsea@gmail.com)로 직접 보고해 주세요
+

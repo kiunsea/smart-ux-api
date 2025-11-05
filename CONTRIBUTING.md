@@ -20,12 +20,138 @@
 
 ---
 
+## 🛠️ 개발 환경 설정
+
+### 사전 요구 사항
+- **JDK 17 이상** ([다운로드](https://adoptium.net/))
+- **Gradle 8.10 이상** (프로젝트에 포함된 Gradle Wrapper 사용 가능)
+- **Git** ([다운로드](https://git-scm.com/))
+- **IDE**: IntelliJ IDEA, Eclipse, 또는 VS Code
+
+### 개발 환경 설정 단계
+
+1. **저장소 Fork 및 Clone**
+```bash
+# Fork 후 자신의 저장소 클론
+git clone https://github.com/your-username/smux-api.git
+cd smux-api
+```
+
+2. **Gradle 프로젝트 Import**
+- IntelliJ IDEA: `File > Open` → `smart-ux-api/lib/build.gradle.kts` 선택
+- Eclipse: `File > Import > Gradle > Existing Gradle Project`
+
+3. **프로젝트 빌드**
+```bash
+cd smart-ux-api/lib
+./gradlew build
+```
+
+4. **테스트 실행**
+```bash
+./gradlew test
+```
+
+5. **개발 브랜치 생성**
+```bash
+git checkout -b feature/my-new-feature
+```
+
+### IDE 설정
+
+#### IntelliJ IDEA
+- Code Style: Java (Google Style 또는 기본 설정)
+- File Encoding: UTF-8
+- Line Separator: LF (Unix)
+
+#### Eclipse
+- Window > Preferences > Java > Code Style > Formatter
+- Workspace Encoding: UTF-8
+
+---
+
 ## 📑 코드 스타일 및 규칙
 
-- 코드 스타일을 유지해주세요. (예: 들여쓰기, 변수명, 주석)
-- 커밋 메시지 컨벤션을 지켜주세요:  
-  `[타입] 변경 내용` 예시: `[fix] 로그인 오류 수정`
-- 필요시 ESLint/Formatter 등 자동화 도구를 활용해주세요.
+### Java 코드 스타일
+- **들여쓰기**: 공백 4칸 (탭 사용 금지)
+- **줄 길이**: 최대 120자
+- **변수명**: camelCase 사용 (예: `chatRoom`, `actionQueue`)
+- **클래스명**: PascalCase 사용 (예: `ResponsesChatRoom`)
+- **상수명**: UPPER_SNAKE_CASE 사용 (예: `MAX_RETRY_COUNT`)
+- **패키지명**: 소문자 (예: `com.smartuxapi.ai`)
+
+### JavaScript 코드 스타일
+- **들여쓰기**: 공백 2칸
+- **변수명**: camelCase 사용
+- **세미콜론**: 항상 사용
+- **문자열**: 작은따옴표 사용
+
+### 주석 작성
+- **JavaDoc**: 모든 public 클래스와 메서드에 작성
+- **한글 주석**: 복잡한 로직에 대한 설명
+- **TODO**: 미완성 기능에 대해 `// TODO: 설명` 형식으로 작성
+
+### Commit Message Convention
+
+커밋 메시지는 다음 형식을 따릅니다:
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+#### Type (필수)
+- **feat**: 새로운 기능 추가
+- **fix**: 버그 수정
+- **docs**: 문서 변경
+- **style**: 코드 포맷팅 (기능 변경 없음)
+- **refactor**: 코드 리팩토링
+- **test**: 테스트 추가/수정
+- **chore**: 빌드, 설정 변경
+
+#### Scope (선택)
+- 변경된 모듈이나 컴포넌트 (예: `chatroom`, `collector`, `docs`)
+
+#### Subject (필수)
+- 50자 이내의 간결한 설명
+- 명령형 현재 시제 사용
+- 마침표 없음
+
+#### Body (선택)
+- 변경 이유와 내용을 상세히 설명
+- 72자마다 줄 바꿈
+
+#### Footer (선택)
+- 관련 이슈 번호: `Closes #123` 또는 `Fixes #456`
+- Breaking Changes: `BREAKING CHANGE: 설명`
+
+#### 예시
+```
+feat(chatroom): Add Gemini API support
+
+- GeminiChatRoom 클래스 추가
+- 기존 ChatRoom 인터페이스 호환성 유지
+- Gemini API 호출 로직 구현
+
+Closes #42
+```
+
+```
+fix(collector): Fix null pointer exception in UI scan
+
+UI 요소가 없을 때 발생하는 NPE 해결
+
+Fixes #78
+```
+
+```
+docs(readme): Update installation guide
+
+설치 가이드에 Gradle 버전 정보 추가
+```
 
 ---
 
@@ -38,9 +164,67 @@
 
 ## 🗂️ 브랜치 및 PR 관리
 
-- `main` 브랜치는 배포/운영용입니다. 직접 push하지 마세요.
-- 기능 추가/수정은 별도 브랜치에서 작업하고 PR로 요청해주세요.
-- PR에는 변경 목적, 주요 변경점, 테스트 내역을 명확히 작성해주세요.
+### 브랜치 전략
+
+- **main**: 안정적인 릴리스 브랜치 (직접 push 금지)
+- **develop**: 개발 통합 브랜치 (선택사항)
+- **feature/기능명**: 새로운 기능 개발
+- **fix/버그명**: 버그 수정
+- **docs/문서명**: 문서 작업
+- **refactor/대상**: 리팩토링
+
+#### 브랜치 명명 규칙
+```
+feature/add-claude-api-support
+fix/null-pointer-in-collector
+docs/update-api-reference
+refactor/chatroom-interface
+```
+
+### Pull Request 절차
+
+1. **Fork 저장소에서 작업**
+```bash
+git checkout -b feature/my-feature
+# 작업 수행
+git add .
+git commit -m "feat(scope): description"
+git push origin feature/my-feature
+```
+
+2. **PR 생성**
+- GitHub에서 `New Pull Request` 클릭
+- 템플릿에 따라 내용 작성
+- 관련 이슈 번호 연결 (`Closes #123`)
+
+3. **PR 내용 작성**
+- **제목**: 커밋 메시지 규칙과 동일
+- **설명**: 변경 사항, 이유, 테스트 결과
+- **체크리스트**: 모든 항목 확인
+
+4. **코드 리뷰**
+- 최소 1명의 maintainer 승인 필요
+- 리뷰 의견에 대해 응답 및 수정
+- CI 테스트 통과 확인
+
+5. **Merge**
+- Squash merge 권장 (커밋 이력 정리)
+- Merge 후 브랜치 삭제
+
+### Code Review 가이드라인
+
+#### 리뷰어
+- ✅ 코드 품질 및 스타일 확인
+- ✅ 버그나 잠재적 문제 지적
+- ✅ 테스트 커버리지 확인
+- ✅ 문서 업데이트 확인
+- 🤝 건설적이고 친절한 피드백
+
+#### 작성자
+- 🙏 피드백을 긍정적으로 수용
+- 💬 명확하지 않은 부분은 질문
+- ✏️ 지적된 사항 신속히 수정
+- 📝 변경 이유 명확히 설명
 
 ---
 

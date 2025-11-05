@@ -96,7 +96,7 @@ smuxapi-war/
 
 ---
 
-**Copyright [2025] [kiunsea@gmail.com]**
+**Copyright © 2025 [jiniebox.com](https://jiniebox.com)**
 
 ---
 
@@ -104,4 +104,5 @@ smuxapi-war/
 
 - Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
 - 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
-- 개발자 홈페이지: https://www.omnibuscode.com
+- 개발자 홈페이지: https://jiniebox.com
+- 문의: kiunsea@gmail.com

@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        java: [ '17', '21' ]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: 'temurin'
+        cache: 'gradle'
+    
+    - name: Grant execute permission for gradlew
+      working-directory: ./smart-ux-api/lib
+      run: chmod +x gradlew
+    
+    - name: Build with Gradle
+      working-directory: ./smart-ux-api/lib
+      run: ./gradlew build
+    
+    - name: Run tests
+      working-directory: ./smart-ux-api/lib
+      run: ./gradlew test
+    
+    - name: Generate test report
+      if: always()
+      uses: dorny/test-reporter@v1
+      with:
+        name: Test Results (Java ${{ matrix.java }})
+        path: smart-ux-api/lib/build/test-results/**/*.xml
+        reporter: java-junit
+        fail-on-error: true
+    
+    - name: Upload build artifacts
+      if: success() && matrix.java == '17'
+      uses: actions/upload-artifact@v4
+      with:
+        name: smart-ux-api-jar
+        path: smart-ux-api/lib/build/libs/*.jar
+        retention-days: 7
+    
+    - name: Check code style
+      working-directory: ./smart-ux-api/lib
+      run: ./gradlew checkstyleMain checkstyleTest || true
+    
+    - name: Upload coverage to Codecov
+      if: matrix.java == '17'
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./smart-ux-api/lib/build/reports/jacoco/test/jacocoTestReport.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check Markdown files
+      uses: markdownlint/markdownlint@v0.34.0
+      with:
+        files: '**/*.md'
+        ignore: 'node_modules'
+        config: '.markdownlint.json'
+      continue-on-error: true
+    
+    - name: Check for TODO/FIXME
+      run: |
+        if grep -r "TODO\|FIXME" --include="*.java" smart-ux-api/lib/src/main/java; then
+          echo "⚠️ Warning: Found TODO/FIXME in code"
+        fi
+      continue-on-error: true
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Run OWASP Dependency Check
+      working-directory: ./smart-ux-api/lib
+      run: |
+        chmod +x gradlew
+        ./gradlew dependencyCheckAnalyze || true
+    
+    - name: Upload dependency check report
+      uses: actions/upload-artifact@v4
+      with:
+        name: dependency-check-report
+        path: smart-ux-api/lib/build/reports/dependency-check-report.html
+      if: always()
+

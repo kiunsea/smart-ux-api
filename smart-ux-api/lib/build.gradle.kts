@@ -52,4 +52,155 @@ java {
 
 tasks.jar {
     archiveFileName.set("${rootProject.name}-${project.version}.jar")
+    
+    manifest {
+        attributes(
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version,
+            "Implementation-Vendor" to "Smart UX API",
+            "Built-By" to System.getProperty("user.name"),
+            "Built-JDK" to System.getProperty("java.version"),
+            "Created-By" to "Gradle ${gradle.gradleVersion}"
+        )
+    }
 }
+
+// JavaDoc 설정
+tasks.javadoc {
+    options {
+        this as StandardJavadocDocletOptions
+        encoding = "UTF-8"
+        charset("UTF-8")
+        docEncoding = "UTF-8"
+        
+        // JavaDoc 옵션
+        memberLevel = JavadocMemberLevel.PROTECTED
+        links("https://docs.oracle.com/en/java/javase/17/docs/api/")
+        
+        // 경고 무시 (필요한 경우)
+        addStringOption("Xdoclint:none", "-quiet")
+        
+        // 커스텀 태그
+        tags(
+            "apiNote:a:API Note:",
+            "implSpec:a:Implementation Requirements:",
+            "implNote:a:Implementation Note:"
+        )
+        
+        // HTML5 출력
+        addBooleanOption("html5", true)
+        
+        // 윈도우 제목
+        windowTitle = "Smart UX API ${project.version} API Documentation"
+        
+        // 문서 제목
+        docTitle = "Smart UX API ${project.version}"
+        
+        // 하단 텍스트
+        bottom = """
+            <div style="text-align: center;">
+            Copyright &copy; 2025 <a href="https://jiniebox.com">jiniebox.com</a>. 
+            Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.<br>
+            Contact: <a href="mailto:kiunsea@gmail.com">kiunsea@gmail.com</a>
+            </div>
+        """.trimIndent()
+        
+        // 헤더
+        header = """
+            <b>Smart UX API ${project.version}</b><br>
+            <span style="font-size: 90%;">AI-powered UI Automation</span>
+        """.trimIndent()
+    }
+    
+    // 소스 파일 포함
+    source = sourceSets["main"].allJava
+    
+    // 클래스패스 설정
+    classpath = configurations["compileClasspath"]
+}
+
+// JavaDoc JAR 생성
+tasks.register<Jar>("javadocJar") {
+    group = "documentation"
+    description = "Assembles a jar archive containing the JavaDoc."
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+}
+
+// Sources JAR 생성
+tasks.register<Jar>("sourcesJar") {
+    group = "documentation"
+    description = "Assembles a jar archive containing the main sources."
+    archiveClassifier.set("sources")
+    from(sourceSets["main"].allSource)
+}
+
+// Build 시 JavaDoc과 Sources JAR 생성
+tasks.build {
+    dependsOn("javadocJar", "sourcesJar")
+}
+
+// Test 리포트 설정
+tasks.test {
+    useJUnitPlatform()
+    
+    // 테스트 결과 리포트
+    reports {
+        html.required.set(true)
+        junitXml.required.set(true)
+    }
+    
+    // 테스트 로깅
+    testLogging {
+        events("passed", "skipped", "failed")
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        showStandardStreams = false
+    }
+}
+
+// JaCoCo 코드 커버리지
+plugins.apply("jacoco")
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
+    
+    classDirectories.setFrom(
+        files(classDirectories.files.map {
+            fileTree(it) {
+                exclude("**/*Test*")
+            }
+        })
+    )
+}
+
+// Checkstyle (코드 스타일 검사)
+plugins.apply("checkstyle")
+
+checkstyle {
+    toolVersion = "10.12.3"
+    configFile = file("${rootProject.rootDir}/config/checkstyle/checkstyle.xml")
+    isIgnoreFailures = true
+}
+
+// Dependency Check (보안 취약점 검사)
+// buildscript {
+//     repositories {
+//         mavenCentral()
+//     }
+//     dependencies {
+//         classpath("org.owasp:dependency-check-gradle:8.4.0")
+//     }
+// }
+// 
+// plugins.apply("org.owasp.dependencycheck")
+// 
+// configure<org.owasp.dependencycheck.gradle.extension.DependencyCheckExtension> {
+//     format = "ALL"
+//     failBuildOnCVSS = 7f
+// }

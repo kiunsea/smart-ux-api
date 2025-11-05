@@ -1,8 +1,109 @@
-smart-ux-api/lib/bin/
-smart-ux-api/docs/SmartUxAPI.emm
+# Java Compiled Files
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.ctxt
+.mtj.tmp/
+hs_err_pid*
+
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# IDE - Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+
+# IDE - NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# API Keys and Sensitive Configuration (IMPORTANT!)
+**/apikey.json
+**/dev.apikey.json
+**/*apikey*.json
+**/smuapi.properties
+**/smuxapi.properties
 smart-ux-api/lib/src/main/resources/dev.apikey.json
-smuapi-war/src/main/java/resources/smuapi.properties
 smart-ux-api/lib/src/main/resources/apikey.json
+smart-ux-api/lib/src/test/resources/dev.apikey.json
+smuapi-war/src/main/java/resources/smuapi.properties
 smuxapi-war/src/main/java/resources/smuapi.properties
 smuxapi-war/src/main/java/resources/smuxapi.properties
-smart-ux-api/lib/src/test/resources/dev.apikey.json
+
+# Build Artifacts
+smart-ux-api/lib/bin/
+smart-ux-api/lib/build/
+smuxapi-war/build/
+dist/
+target/
+
+# Test Results
+test-output/
+*.log
+**/logs/
+
+# Documentation Build
+smart-ux-api/docs/SmartUxAPI.emm
+/site/
+docs/_build/
+
+# Temporary Files
+*.tmp
+*.temp
+*.cache
+
+# Maven (if used)
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.mvn/
+mvnw
+mvnw.cmd
+
+# Package Files
+*.nar
+*.zip
+*.tar.gz
+*.rar

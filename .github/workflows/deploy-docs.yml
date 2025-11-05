@@ -1,0 +1,125 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - 'smart-ux-api/README.md'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    
+    - name: Install MkDocs
+      run: |
+        pip install mkdocs
+        pip install mkdocs-material
+        pip install mkdocs-mermaid2-plugin
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'gradle'
+    
+    - name: Generate JavaDoc
+      working-directory: ./smart-ux-api/lib
+      run: |
+        chmod +x gradlew
+        ./gradlew javadoc
+    
+    - name: Create MkDocs structure
+      run: |
+        mkdir -p site_src/docs
+        cp README.md site_src/docs/index.md
+        cp docs/*.md site_src/docs/
+        cp -r smart-ux-api/lib/build/docs/javadoc site_src/docs/ || true
+    
+    - name: Create mkdocs.yml
+      run: |
+        cat > site_src/mkdocs.yml << 'EOF'
+        site_name: Smart UX API Documentation
+        site_description: AI-powered UI automation library for Java web applications
+        site_author: kiunsea@gmail.com
+        site_url: https://kiunsea.github.io/smux-api
+        
+        repo_name: kiunsea/smux-api
+        repo_url: https://github.com/kiunsea/smux-api
+        
+        theme:
+          name: material
+          language: ko
+          palette:
+            - scheme: default
+              primary: indigo
+              accent: indigo
+              toggle:
+                icon: material/brightness-7
+                name: Switch to dark mode
+            - scheme: slate
+              primary: indigo
+              accent: indigo
+              toggle:
+                icon: material/brightness-4
+                name: Switch to light mode
+          features:
+            - navigation.tabs
+            - navigation.sections
+            - navigation.expand
+            - navigation.top
+            - search.suggest
+            - search.highlight
+            - content.code.copy
+        
+        nav:
+          - Home: index.md
+          - 설치: INSTALL.md
+          - API Reference: API.md
+          - 예제: EXAMPLES.md
+          - 문제 해결: TROUBLESHOOTING.md
+          - JavaDoc: javadoc/index.html
+        
+        markdown_extensions:
+          - admonition
+          - codehilite
+          - pymdownx.highlight
+          - pymdownx.superfences
+          - pymdownx.inlinehilite
+          - pymdownx.tabbed
+          - pymdownx.details
+          - toc:
+              permalink: true
+        
+        plugins:
+          - search
+          - mermaid2
+        EOF
+    
+    - name: Build MkDocs site
+      working-directory: ./site_src
+      run: mkdocs build
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site_src/site
+        cname: smuxapi.omnibuscode.com  # 커스텀 도메인이 있다면
+

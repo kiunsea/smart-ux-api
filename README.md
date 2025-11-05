@@ -17,18 +17,118 @@
 
 ## 🔍 주요 기능
 
-- 기존 Java 웹 애플리케이션 서비스에 손쉽게 통합 가능
-- 웹 화면 내 UI 구성 요소를 자동 수집
-- 사용자의 자연어 요청을 AI에게 전달
+- ✅ 기존 Java 웹 애플리케이션 서비스에 손쉽게 통합 가능
+- 🔍 웹 화면 내 UI 구성 요소를 자동 수집
+- 🤖 사용자의 자연어 요청을 AI에게 전달
   * Google Gemini API 지원
   * OpenAI Responses API 지원
   * OpenAI Assistants API 지원
-- AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신
-- 액션 프로세스로 화면 상에서 필요한 액션을 자동 실행
+- 📋 AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신
+- ⚡ 액션 프로세스로 화면 상에서 필요한 액션을 자동 실행
 
-## project directories
-- smart-ux-api : Main Project (Java+JS Library)
-- smuxapi-war : Example Project (War)
+## 🏗️ 아키텍처
+
+Smart UX API는 다음과 같은 플로우로 동작합니다:
+
+```
+┌─────────────┐  자연어 명령   ┌──────────────────┐  UI 정보 수집   ┌─────────────┐
+│   사용자    │ ────────────> │  Smart UX        │ ─────────────> │   Web UI    │
+│   (User)    │               │  Collector (JS)  │                │  Elements   │
+└─────────────┘               └──────────────────┘                └─────────────┘
+                                      │
+                                      │ UI 구조 JSON
+                                      ▼
+┌─────────────┐  Action Queue  ┌──────────────────┐  Prompt +      ┌─────────────┐
+│   Web UI    │ <────────────  │  Smart UX        │  UI Info       │   AI API    │
+│   Control   │                │  Client (Java)   │ ─────────────> │ (GPT/Gemini)│
+└─────────────┘                └──────────────────┘                └─────────────┘
+```
+
+1. **UI 수집**: `smart-ux-collector.js`가 웹 페이지의 DOM 요소를 스캔하여 JSON으로 변환
+2. **프롬프트 전송**: 사용자 요청과 UI 정보를 AI API에 전달
+3. **액션 생성**: AI가 실행 가능한 Action Queue를 생성
+4. **자동 실행**: `smart-ux-client.js`가 Action Queue를 파싱하여 UI 제어
+
+## 🚀 Quick Start
+
+### 사전 요구 사항
+- Java 17 이상
+- Gradle 8.x
+- OpenAI API Key 또는 Google Gemini API Key
+- 웹 애플리케이션 서버 (Tomcat, Jetty 등)
+
+### 5분만에 시작하기
+
+1. **저장소 클론**
+```bash
+git clone https://github.com/kiunsea/smux-api.git
+cd smux-api
+```
+
+2. **라이브러리 빌드**
+```bash
+cd smart-ux-api/lib
+./gradlew build
+```
+
+3. **JAR 파일을 웹 애플리케이션에 추가**
+```
+lib/build/libs/smart-ux-api-0.5.1.jar 를 /WEB-INF/lib/ 에 복사
+```
+
+4. **JavaScript 라이브러리 포함**
+```
+lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
+```
+
+5. **API Key 설정**
+```json
+// resources/apikey.json
+{
+  "openai": {
+    "apiKey": "your-api-key",
+    "model": "gpt-4"
+  }
+}
+```
+
+6. **HTML에 스크립트 추가**
+```html
+<script src="/lib/smart-ux-client.js"></script>
+<script src="/lib/smart-ux-collector.js"></script>
+```
+
+자세한 설치 가이드는 [INSTALL.md](docs/INSTALL.md)를 참조하세요.
+
+### 📦 프로젝트 구성
+- **smart-ux-api**: 메인 라이브러리 (Java + JavaScript)
+- **smuxapi-war**: 샘플 애플리케이션 (WAR 프로젝트)
+
+## 🌟 사용 사례
+
+### 키오스크 자동화
+음성 또는 텍스트 명령으로 키오스크 주문을 자동화하여 고령자 및 디지털 취약계층을 지원합니다.
+
+```
+사용자: "아이스 아메리카노 2잔이랑 따뜻한 레몬차 주문해줘"
+→ AI가 메뉴 선택 → 수량 조절 → 장바구니 추가
+```
+
+### 웹 애플리케이션 가이드
+복잡한 웹 서비스의 사용법을 AI가 자동으로 안내합니다.
+
+```
+사용자: "회원가입 도와줘"
+→ AI가 단계별로 폼 작성 가이드 제공
+```
+
+### 업무 자동화
+반복적인 웹 작업을 자연어 명령으로 자동화합니다.
+
+```
+사용자: "오늘 날짜로 보고서 검색하고 엑셀로 다운로드해줘"
+→ AI가 검색 → 필터 설정 → 다운로드 실행
+```
 
 ## 디렉터리 구조
 ```
@@ -53,14 +153,66 @@ smux-api/
 └── README.md
 ```
 
+## ❓ FAQ
+
+### Q: 어떤 AI 모델을 사용할 수 있나요?
+A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다. 향후 Claude 등 다른 모델도 지원 예정입니다.
+
+### Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?
+A: 네! JAR 파일과 JavaScript 라이브러리만 추가하면 바로 사용 가능합니다. 기존 코드 수정 최소화.
+
+### Q: Nexacro 외에 다른 프레임워크도 지원하나요?
+A: 순수 HTML5, React, Vue.js 등 모든 웹 기반 UI 프레임워크에서 사용 가능합니다.
+
+### Q: 상업적 이용이 가능한가요?
+A: Apache 2.0 라이선스로 상업적 이용이 자유롭습니다.
+
+### Q: API 비용은 얼마나 드나요?
+A: Smart UX API 자체는 무료입니다. OpenAI/Gemini API 사용료만 발생합니다.
+
+### Q: 보안은 안전한가요?
+A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않습니다. 자세한 내용은 [SECURITY.md](SECURITY.md)를 참조하세요.
+
+더 많은 질문은 [Discussions](https://github.com/kiunsea/smux-api/discussions)에서 확인하세요!
+
+## 📊 Roadmap
+
+### v0.6.0 (계획 중)
+- [ ] Claude API 지원
+- [ ] 다국어 지원 (영어, 일본어)
+- [ ] 성능 최적화
+
+### v0.7.0
+- [ ] React/Vue 컴포넌트 직접 지원
+- [ ] 플러그인 시스템
+- [ ] 시각적 UI Flow 편집기
+
+### v1.0.0
+- [ ] 안정화 및 프로덕션 레디
+- [ ] 상세 문서 및 튜토리얼
+- [ ] 커뮤니티 에코시스템
+
+제안사항이 있으시면 [Feature Request](https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md)를 등록해 주세요!
+
 ## 🧑‍💻 기여 가이드
 
-Pull Request 또는 Issue를 통해 다음에 기여하실 수 있습니다:
+기여를 환영합니다! 다음과 같은 방법으로 참여하실 수 있습니다:
 
-- 버그 수정
-- 기능 제안 또는 개선
-- 문서화 작업
-- kiunsea@gmail.com
+- 🐛 [버그 신고](https://github.com/kiunsea/smux-api/issues/new?template=bug_report.md)
+- ✨ [기능 제안](https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md)
+- 📝 문서 개선
+- 💻 Pull Request 제출
+
+자세한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참조해 주세요.
+
+💬 문의: **kiunsea@gmail.com**
+
+## 🙌 Acknowledgments
+
+- [OpenAI](https://openai.com) - GPT API 제공
+- [Google](https://ai.google.dev) - Gemini API 제공
+- [Apache Software Foundation](https://www.apache.org) - 오픈소스 라이선스
+- 모든 기여자분들께 감사드립니다!
 
 ---
 
@@ -72,7 +224,7 @@ Pull Request 또는 Issue를 통해 다음에 기여하실 수 있습니다:
 
 ---
 
-**Copyright [2025] [kiunsea@gmail.com]**
+**Copyright © 2025 [jiniebox.com](https://jiniebox.com)**
 
 ---
 
@@ -80,4 +232,5 @@ Pull Request 또는 Issue를 통해 다음에 기여하실 수 있습니다:
 
 - Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
 - 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
-- 개발자 홈페이지: https://www.omnibuscode.com
+- 개발자 홈페이지: https://jiniebox.com
+- 문의: kiunsea@gmail.com
