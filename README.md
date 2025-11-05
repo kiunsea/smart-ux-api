@@ -177,17 +177,7 @@ A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않�
 
 ## 📊 Roadmap
 
-### v0.6.0 (계획 중)
-- [ ] Claude API 지원
-- [ ] 다국어 지원 (영어, 일본어)
-- [ ] 성능 최적화
-
-### v0.7.0
-- [ ] React/Vue 컴포넌트 직접 지원
-- [ ] 플러그인 시스템
-- [ ] 시각적 UI Flow 편집기
-
-### v1.0.0
+### v1.0.0 (계획 중)
 - [ ] 안정화 및 프로덕션 레디
 - [ ] 상세 문서 및 튜토리얼
 - [ ] 커뮤니티 에코시스템
@@ -232,5 +222,5 @@ A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않�
 
 - Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0
 - 오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002
-- 개발자 홈페이지: https://jiniebox.com
+- 개발자 홈페이지: https://www.omnibuscode.com
 - 문의: kiunsea@gmail.com

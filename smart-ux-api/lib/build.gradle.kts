@@ -101,7 +101,8 @@ tasks.javadoc {
             <div style="text-align: center;">
             Copyright &copy; 2025 <a href="https://jiniebox.com">jiniebox.com</a>. 
             Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.<br>
-            Contact: <a href="mailto:kiunsea@gmail.com">kiunsea@gmail.com</a>
+            Contact: <a href="mailto:kiunsea@gmail.com">kiunsea@gmail.com</a> | 
+            Website: <a href="https://www.omnibuscode.com">www.omnibuscode.com</a>
             </div>
         """.trimIndent()
         
