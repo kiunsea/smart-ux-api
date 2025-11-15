@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit test framework.
-    testImplementation(libs.junit)
+    // Use JUnit Jupiter test framework.
+    testImplementation(libs.junit.jupiter)
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api(libs.commons.math3)
@@ -39,8 +39,6 @@ dependencies {
     
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
-    
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

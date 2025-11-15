@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class JsonExtractorTest {
 
 	private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -14,6 +18,49 @@ public class JsonExtractorTest {
 		gemini1();
 		gemini2();
 		gemini3();
+	}
+	
+	@Test
+	@DisplayName("extractJson 메서드 테스트 - 기본 JSON 블록 추출")
+	public void testExtractJson() {
+		String inputString = "Here is some JSON:\n```json\n{\"id\": \"test\", \"value\": 123}\n```\nEnd of text";
+		String extracted = extractJson(inputString);
+		
+		assertNotNull(extracted);
+		assertTrue(extracted.contains("\"id\""));
+		assertTrue(extracted.contains("\"test\""));
+	}
+	
+	@Test
+	@DisplayName("extractJsonBlock 메서드 테스트 - 괄호 균형 검사")
+	public void testExtractJsonBlock() {
+		String inputString = "Some text before {\"id\": \"test\", \"nested\": {\"value\": 123}} some text after";
+		String extracted = extractJsonBlock(inputString);
+		
+		assertNotNull(extracted);
+		assertTrue(extracted.startsWith("{"));
+		assertTrue(extracted.endsWith("}"));
+		assertTrue(extracted.contains("\"id\""));
+	}
+	
+	@Test
+	@DisplayName("extractJsonContent 메서드 테스트 - 코드 블록에서 JSON 추출")
+	public void testExtractJsonContent() {
+		String inputString = "Text before\n```json\n[\"item1\", \"item2\"]\n```\nText after";
+		String extracted = extractJsonContent(inputString);
+		
+		assertNotNull(extracted);
+		assertTrue(extracted.startsWith("["));
+		assertTrue(extracted.endsWith("]"));
+	}
+	
+	@Test
+	@DisplayName("JSON 추출 실패 케이스 테스트")
+	public void testExtractJsonFailure() {
+		String inputString = "No JSON here";
+		String extracted = extractJson(inputString);
+		
+		assertNull(extracted);
 	}
 
 	public static void chatGPT2() {
