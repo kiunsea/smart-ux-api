@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     
     strategy:
       matrix:
@@ -45,8 +48,9 @@ jobs:
         name: Test Results (Java ${{ matrix.java }})
         path: smart-ux-api/lib/build/test-results/**/*.xml
         reporter: java-junit
+        token: ${{ secrets.GITHUB_TOKEN }}
         fail-on-error: false
-        if_no_files_found: ignore
+        fail-on-empty: false
     
     - name: Upload build artifacts
       if: success() && matrix.java == '17'
