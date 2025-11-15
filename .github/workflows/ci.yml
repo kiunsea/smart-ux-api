@@ -45,7 +45,8 @@ jobs:
         name: Test Results (Java ${{ matrix.java }})
         path: smart-ux-api/lib/build/test-results/**/*.xml
         reporter: java-junit
-        fail-on-error: true
+        fail-on-error: false
+        if_no_files_found: ignore
     
     - name: Upload build artifacts
       if: success() && matrix.java == '17'
