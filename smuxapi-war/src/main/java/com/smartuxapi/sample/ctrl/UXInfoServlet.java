@@ -36,6 +36,7 @@ public class UXInfoServlet extends HttpServlet {
     	doGet(req, res);
     }
     
+    @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         
         // 1. 요청의 Content-Type 확인

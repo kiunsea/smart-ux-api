@@ -12,4 +12,9 @@
 	<session-config>
 		<session-timeout>30</session-timeout> <!-- 분 단위 -->
 	</session-config>
+	
+	<!-- Session Listener 등록 -->
+	<listener>
+		<listener-class>com.smartuxapi.sample.listen.SessionListener</listener-class>
+	</listener>
 </web-app>

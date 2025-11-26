@@ -67,7 +67,7 @@ public class ChatRoomServ {
             chatRoom = createChatRoom(aiModel);
             
             try {
-                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("resources/easy_kiosc_uif.json");
+                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
                 chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -104,7 +104,7 @@ public class ChatRoomServ {
             chatRoom = createChatRoom(aiModel);
             
             try {
-                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("resources/easy_kiosc_uif.json");
+                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
                 chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,13 +136,18 @@ public class ChatRoomServ {
             assist.setApiKey(apiKey);
             try {
                 chatRoom = new AssistantsThread(assist);
+                if (chatRoom != null) {
+                    log.info("[" + chatRoom.getId() + "] OpenAI Assistants API를 사용합니다");
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
+                log.error("OpenAI Assistants Thread 생성 실패", e);
             }
-            log.info("[" + chatRoom.getId() + "] OpenAI Assistants API를 사용합니다");
         }
         
-        chatRoom.setActionQueueHandler(new ActionQueueHandler());
+        if (chatRoom != null) {
+            chatRoom.setActionQueueHandler(new ActionQueueHandler());
+        }
         
         return chatRoom;
     }

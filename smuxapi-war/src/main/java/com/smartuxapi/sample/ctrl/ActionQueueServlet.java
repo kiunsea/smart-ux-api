@@ -33,6 +33,7 @@ public class ActionQueueServlet extends HttpServlet {
     	doGet(req, res);
     }
     
+    @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         
         ChatRoom chatRoom = ChatRoomServ.getInstance().getChatRoom(this, req);

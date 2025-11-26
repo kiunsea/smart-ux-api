@@ -24,11 +24,12 @@
 
 ```plaintext
 smuxapi-war/
-├── src/                     
+├── src/
 │   └── main/
 │       ├── java/            # 예제 소스코드
-│       │    └── resources/  # 설정 파일 및 정적 자원
-│       └── webapp/
+│       ├── resources/       # 설정 파일 및 정적 자원
+│       └── webapp/          # 웹 리소스 (HTML, CSS, JS, WEB-INF)
+├── build.gradle.kts         # Gradle 빌드 설정
 └── README.md
 ```
 
@@ -38,14 +39,53 @@ smuxapi-war/
 
 ### 1️⃣ **smuxapi.properties 설정**
 
-* `/smuxapi-war/src/main/java/resources/smuxapi.properties` 파일 생성
+* `/smuxapi-war/src/main/resources/smuxapi.properties` 파일 생성
   (예제 파일: `def.smuxapi.properties` 참고)
 * 아래 항목을 환경에 맞게 설정:
 
   * `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_ASSIST_ID`
   * `GEMINI_API_KEY`, `GEMINI_MODEL`
 
-### 2️⃣ **프로젝트 Export (Eclipse 기준)**
+### 2️⃣ **Gradle 빌드 및 실행**
+
+#### WAR 파일 빌드
+
+```bash
+# 프로젝트 루트에서 실행
+cd smart-ux-api
+./gradlew :smuxapi-war:war
+
+# 생성된 WAR 파일 위치
+# smuxapi-war/build/libs/smuxapi-war-{version}.war
+```
+
+#### Embedded Tomcat으로 실행 (톰캣 서버 없이)
+
+```bash
+# 프로젝트 루트에서 실행
+cd smart-ux-api
+./gradlew :smuxapi-war:run
+
+# 또는 특정 포트로 실행
+./gradlew :smuxapi-war:run --args="--port=8080 --context-path=/"
+
+# 실행 후 브라우저에서 접속
+# http://localhost:8080/
+```
+
+#### Java로 직접 실행
+
+```bash
+# 빌드 후 실행
+cd smart-ux-api
+./gradlew :smuxapi-war:build
+
+# 실행
+java -cp "smuxapi-war/build/classes/java/main:smuxapi-war/build/resources/main:$(./gradlew :smuxapi-war:printClasspath -q)" \
+     com.smartuxapi.sample.EmbeddedTomcatServer --port=8080
+```
+
+### 3️⃣ **프로젝트 Export (Eclipse 기준 - 레거시)**
 
 1. **Project Explorer**에서 마우스 우클릭
 2. **Export > WAR file** 선택
@@ -55,30 +95,77 @@ smuxapi-war/
 
 ## ✍️ 실행 절차
 
+### 🚀 **서버 실행**
+
+#### 방법 1: Gradle로 실행 (권장)
+
+```bash
+cd smart-ux-api
+./gradlew :smuxapi-war:run
+```
+
+서버가 시작되면 다음 메시지가 표시됩니다:
+```
+🚀 Embedded Tomcat Server Started!
+📍 Port: 8080
+📍 Context Path: /
+🌐 URL: http://localhost:8080/
+```
+
+#### 방법 2: Java로 직접 실행
+
+```bash
+# 먼저 빌드
+cd smart-ux-api
+./gradlew :smuxapi-war:build
+
+# 실행 (Windows)
+java -cp "smuxapi-war\build\classes\java\main;smuxapi-war\build\resources\main;%CLASSPATH%" ^
+     com.smartuxapi.sample.EmbeddedTomcatServer --port=8080
+
+# 실행 (Linux/Mac)
+java -cp "smuxapi-war/build/classes/java/main:smuxapi-war/build/resources/main:$CLASSPATH" \
+     com.smartuxapi.sample.EmbeddedTomcatServer --port=8080
+```
+
+#### 방법 3: WAR 파일을 외부 톰캣에 배포
+
+```bash
+# WAR 파일 빌드
+./gradlew :smuxapi-war:war
+
+# 생성된 WAR 파일을 톰캣의 webapps 디렉토리에 복사
+# smuxapi-war/build/libs/smuxapi-war-{version}.war
+```
+
+---
+
 ### 🔤 **Text Prompt 입력 테스트**
 
-1. `mega.html` 페이지 열기 → 키오스크 화면 진입
-2. 상단 입력창(`Please order~`)에 주문할 메뉴 입력
+1. 서버 실행 후 브라우저에서 `http://localhost:8080/mega.html` 접속
+2. 키오스크 화면 진입
+3. 상단 입력창(`Please order~`)에 주문할 메뉴 입력
 
    * 예: `아이스 아메리카노와 따뜻한 레몬차`
-3. 입력창 우측 **마이크 아이콘 클릭** → AI에게 프롬프트 전송
-4. 결과 확인
-5. 추가 프롬프트 입력 후 다시 전송
+4. 입력창 우측 **마이크 아이콘 클릭** → AI에게 프롬프트 전송
+5. 결과 확인
+6. 추가 프롬프트 입력 후 다시 전송
 
    * 예: `시원한 사과유자차 주문해줘`
-6. 주문 확인 후 `"결재하기"` 입력 → 전송
-7. 주문 세부내역 창 확인
+7. 주문 확인 후 `"결재하기"` 입력 → 전송
+8. 주문 세부내역 창 확인
 
 ---
 
 ### 🎤 **Audio Prompt 입력 테스트**
 
-1. `mega_speech.html` 페이지 열기 → 키오스크 화면 진입
-2. 프롬프트 입력창 우측 **마이크 아이콘 클릭** → 음성 입력 대기
-3. 음성 명령 후 자동으로 텍스트 변환 & 프롬프트 전송
+1. 서버 실행 후 브라우저에서 `http://localhost:8080/mega_speech.html` 접속
+2. 키오스크 화면 진입
+3. 프롬프트 입력창 우측 **마이크 아이콘 클릭** → 음성 입력 대기
+4. 음성 명령 후 자동으로 텍스트 변환 & 프롬프트 전송
 
    * 예: `시원한 토피넛 마끼아또 주문하고 결제하기 눌러줘`
-4. 주문 세부내역 창 확인
+5. 주문 세부내역 창 확인
 
 ---
 

@@ -107,3 +107,4 @@ mvnw.cmd
 *.zip
 *.tar.gz
 *.rar
+smuxapi-war/src/main/resources/smuxnexa.properties
