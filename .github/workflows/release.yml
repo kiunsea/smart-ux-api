@@ -144,8 +144,29 @@ jobs:
     if: success()
     
     steps:
+    - name: Extract version from tag
+      id: get_version
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+    
     - name: Send notification
       run: |
         echo "✅ Release completed successfully!"
-        echo "Version: ${GITHUB_REF#refs/tags/v}"
+        echo "Version: ${{ steps.get_version.outputs.VERSION }}"
+    
+    - name: Trigger doribox update
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ secrets.DORIBOX_REPO_TOKEN }}
+        repository: kiunsea/doribox
+        event-type: smart-ux-api-released
+        client-payload: |
+          {
+            "version": "${{ steps.get_version.outputs.VERSION }}",
+            "release_url": "https://github.com/${{ github.repository }}/releases/tag/${{ github.ref }}",
+            "jar_url": "https://github.com/${{ github.repository }}/releases/download/${{ github.ref }}/smart-ux-api-${{ steps.get_version.outputs.VERSION }}.jar"
+          }
+      continue-on-error: true
 
