@@ -40,10 +40,10 @@ jobs:
         cache: 'gradle'
     
     - name: Generate JavaDoc
-      working-directory: ./smart-ux-api/lib
+      working-directory: ./smart-ux-api
       run: |
         chmod +x gradlew
-        ./gradlew javadoc
+        ./gradlew :lib:javadoc
     
     - name: Create MkDocs structure
       run: |

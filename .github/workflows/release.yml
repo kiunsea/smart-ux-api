@@ -31,26 +31,26 @@ jobs:
         echo "Release version: $VERSION"
     
     - name: Grant execute permission for gradlew
-      working-directory: ./smart-ux-api/lib
+      working-directory: ./smart-ux-api
       run: chmod +x gradlew
-    
+
     - name: Build with Gradle
-      working-directory: ./smart-ux-api/lib
-      run: ./gradlew build -x test
-    
+      working-directory: ./smart-ux-api
+      run: ./gradlew :lib:build -x test
+
     - name: Run tests
-      working-directory: ./smart-ux-api/lib
-      run: ./gradlew test
-    
+      working-directory: ./smart-ux-api
+      run: ./gradlew :lib:test
+
     - name: Generate JavaDoc
-      working-directory: ./smart-ux-api/lib
-      run: ./gradlew javadoc
-    
+      working-directory: ./smart-ux-api
+      run: ./gradlew :lib:javadoc
+
     - name: Package JavaDoc
-      working-directory: ./smart-ux-api/lib
+      working-directory: ./smart-ux-api
       run: |
-        cd build/docs
-        zip -r ../../javadoc-${{ steps.get_version.outputs.VERSION }}.zip javadoc
+        cd lib/build/docs
+        zip -r ../../../javadoc-${{ steps.get_version.outputs.VERSION }}.zip javadoc
     
     - name: Copy JavaScript files
       run: |
@@ -126,7 +126,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./smart-ux-api/lib/javadoc-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_path: ./smart-ux-api/javadoc-${{ steps.get_version.outputs.VERSION }}.zip
         asset_name: javadoc-${{ steps.get_version.outputs.VERSION }}.zip
         asset_content_type: application/zip
     
