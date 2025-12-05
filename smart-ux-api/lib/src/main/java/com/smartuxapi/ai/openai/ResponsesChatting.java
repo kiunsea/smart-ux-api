@@ -49,6 +49,11 @@ public class ResponsesChatting implements Chatting {
         // 3. AI 응답을 대화 기록에 추가
         this.conversationHistory.addModelResponse(aiResponse);
         
+        // 4. 화면 정보가 변경되어 프롬프트에 포함된 경우, 전송 완료로 표시
+        if (this.aqHandler != null && curViewPrompt != null) {
+            this.aqHandler.markViewInfoAsSent();
+        }
+        
         // Action Queue 메세지 전달
         org.json.simple.JSONObject resJson = new org.json.simple.JSONObject();
         resJson.put("message", aiResponse);

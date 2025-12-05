@@ -32,7 +32,7 @@
 
 ### 1. JAR 파일 추가
 
-`lib/build/libs/smart-ux-api-0.5.1.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+`lib/build/libs/smart-ux-api-0.6.0.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2. JavaScript 파일 추가
 
@@ -323,13 +323,12 @@ public ActionQueueHandler()
 public ActionQueueHandler(String formatUi, JsonNode configPrompt)
 ```
 
-- `formatUi`: UI 포맷 (`ActionQueueHandler.FORMAT_HTML` 또는 `ActionQueueHandler.FORMAT_NEXACRO`)
+- `formatUi`: UI 포맷 (`ActionQueueHandler.FORMAT_HTML`)
 - `configPrompt`: 설정 프롬프트 JSON (`JsonNode`)
 
 ### 상수
 
 - `FORMAT_HTML`: HTML 포맷
-- `FORMAT_NEXACRO`: Nexacro 포맷
 
 ### 메서드
 
@@ -853,7 +852,7 @@ public class AssistantChatServlet extends HttpServlet {
 
 ## 버전 정보
 
-- **현재 버전**: 0.5.1
+- **현재 버전**: 0.6.0
 - **Java 버전**: 17 이상
 - **라이선스**: Apache License 2.0
 

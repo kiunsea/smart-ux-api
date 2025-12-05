@@ -9,16 +9,17 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
-## [Unreleased]
+## [0.6.0] - 2025-01-XX
 
 ### Added
-- 새로운 UX Framework 추가 지원
+- `ActionQueueHandler.addCurrentViewInfo(JsonNode)` 메서드 추가: 현재 화면 정보에 추가 정보를 병합하는 기능
 
 ### Changed
-
-### Fixed
+- 화면 정보 변경 감지 로직 구현: 화면 정보가 실제로 변경된 경우에만 프롬프트에 포함되도록 최적화
+- 테스트 프레임워크를 JUnit 5로 마이그레이션: 모든 테스트를 JUnit 5로 변환하고 `com.smartuxapi.AllTests` 통합 테스트 스위트 추가
 
 ### Removed
+- Nexacro Platform 지원 제거: 관련 문서 및 코드 정리
 
 ---
 ## [0.5.1]
@@ -36,7 +37,6 @@
 ## [0.5.0]
 
 ### Added
-- Nexacro Platform UI Framework 지원
 
 ### Changed
 - ActionQueueHandler 종속성 제거 (사용자가 생성 관리)

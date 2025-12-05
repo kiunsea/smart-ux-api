@@ -73,7 +73,7 @@ cd smart-ux-api/lib
 
 3. **JAR 파일을 웹 애플리케이션에 추가**
 ```
-lib/build/libs/smart-ux-api-0.5.1.jar 를 /WEB-INF/lib/ 에 복사
+lib/build/libs/smart-ux-api-0.6.0.jar 를 /WEB-INF/lib/ 에 복사
 ```
 
 4. **JavaScript 라이브러리 포함**
@@ -161,7 +161,7 @@ A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다.
 ### Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?
 A: 네! JAR 파일과 JavaScript 라이브러리만 추가하면 바로 사용 가능합니다. 기존 코드 수정 최소화.
 
-### Q: Nexacro 외에 다른 프레임워크도 지원하나요?
+### Q: 어떤 프레임워크를 지원하나요?
 A: 순수 HTML5, React, Vue.js 등 모든 웹 기반 UI 프레임워크에서 사용 가능합니다.
 
 ### Q: 상업적 이용이 가능한가요?

@@ -471,6 +471,7 @@ GeminiChatRoom chatRoom = new GeminiChatRoom.Builder()
 
 | Smart UX API | Java | OpenAI API | Gemini API |
 |--------------|------|------------|------------|
+| 0.6.x        | 17+  | v1         | v1         |
 | 0.5.x        | 17+  | v1         | v1         |
 | 0.4.x        | 17+  | v1         | N/A        |
 | 0.3.x        | 17+  | v1 (Beta)  | v1 (Beta)  |

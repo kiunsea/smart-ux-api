@@ -10,7 +10,6 @@ Smart UX API를 프로젝트에 통합하는 상세 가이드입니다.
 - [Java 웹 애플리케이션에 통합](#java-웹-애플리케이션에-통합)
 - [Spring Boot 프로젝트에 통합](#spring-boot-프로젝트에-통합)
 - [일반 Servlet 프로젝트에 통합](#일반-servlet-프로젝트에-통합)
-- [Nexacro Platform과 통합](#nexacro-platform과-통합)
 - [API Key 설정](#api-key-설정)
 - [설치 확인](#설치-확인)
 
@@ -46,7 +45,7 @@ gradlew.bat build
 ./gradlew build
 ```
 
-빌드 완료 후 `lib/build/libs/smart-ux-api-0.5.1.jar` 생성 확인
+빌드 완료 후 `lib/build/libs/smart-ux-api-0.6.0.jar` 생성 확인
 
 ### 2. JAR 파일 추가
 
@@ -56,7 +55,7 @@ gradlew.bat build
 your-web-app/
 ├── WEB-INF/
 │   └── lib/
-│       └── smart-ux-api-0.5.1.jar  ← 여기에 복사
+│       └── smart-ux-api-0.6.0.jar  ← 여기에 복사
 ```
 
 ### 3. JavaScript 라이브러리 추가
@@ -98,7 +97,7 @@ your-web-app/
 
 ```kotlin
 dependencies {
-    implementation(files("libs/smart-ux-api-0.5.1.jar"))
+    implementation(files("libs/smart-ux-api-0.6.0.jar"))
     
     // 필요한 의존성들 (이미 있다면 생략)
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
@@ -249,43 +248,6 @@ public class SmartUXServlet extends HttpServlet {
     
 </web-app>
 ```
-
----
-
-## Nexacro Platform과 통합
-
-Nexacro Platform 프로젝트에서 Smart UX API를 사용하는 방법입니다.
-
-### 1. 라이브러리 추가
-일반 Java 웹 애플리케이션과 동일하게 JAR 파일 추가
-
-### 2. Nexacro UI 정보 수집
-
-Nexacro 화면 정보를 JSON으로 변환하는 커스텀 수집기 필요:
-
-```javascript
-function collectNexacroUIInfo() {
-    var uiInfo = {
-        components: []
-    };
-    
-    // Nexacro 컴포넌트 순회
-    var comps = application.mainframe.getChilds();
-    for (var i = 0; i < comps.length; i++) {
-        var comp = comps[i];
-        uiInfo.components.push({
-            id: comp.name,
-            type: comp.toString(),
-            visible: comp.visible,
-            enable: comp.enable
-        });
-    }
-    
-    return JSON.stringify(uiInfo);
-}
-```
-
-자세한 내용은 [smuxapi-war 예제](../smuxapi-war/)를 참조하세요.
 
 ---
 

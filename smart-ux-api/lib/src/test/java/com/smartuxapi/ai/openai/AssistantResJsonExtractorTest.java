@@ -1,10 +1,18 @@
 package com.smartuxapi.ai.openai;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Assistant Response JSON 추출 테스트")
 public class AssistantResJsonExtractorTest {
-    public static void main(String[] args) {
+    
+    @Test
+    @DisplayName("Assistant 응답에서 텍스트 추출 테스트")
+    public void testExtractTextFromAssistantResponse() {
         String jsonString = """
                 {
                     "id": "resp_688774bd12f08192a6c27b3cb59560710a13fbb018c758a9",
@@ -78,34 +86,35 @@ public class AssistantResJsonExtractorTest {
 
             // 1. "output" 배열 값 추출
             JsonNode outputArray = rootNode.get("output");
+            assertNotNull(outputArray, "output 배열이 있어야 합니다");
+            assertTrue(outputArray.isArray(), "output은 배열이어야 합니다");
 
-            if (outputArray != null && outputArray.isArray()) {
-                // 2. 해당 array에서 role이 "assistant"인 JSON 인스턴스 찾기
-                for (JsonNode outputItem : outputArray) {
-                    JsonNode roleNode = outputItem.get("role");
-                    if (roleNode != null && "assistant".equals(roleNode.asText())) {
-                        // 3. 해당 instance의 "content" array 값 추출
-                        JsonNode contentArray = outputItem.get("content");
-                        if (contentArray != null && contentArray.isArray() && contentArray.size() > 0) {
-                            // 4. 첫 번째 JSON 인스턴스의 "text" 값 추출
-                            JsonNode firstContentItem = contentArray.get(0);
-                            JsonNode textNode = firstContentItem.get("text");
+            // 2. 해당 array에서 role이 "assistant"인 JSON 인스턴스 찾기
+            boolean found = false;
+            for (JsonNode outputItem : outputArray) {
+                JsonNode roleNode = outputItem.get("role");
+                if (roleNode != null && "assistant".equals(roleNode.asText())) {
+                    // 3. 해당 instance의 "content" array 값 추출
+                    JsonNode contentArray = outputItem.get("content");
+                    assertNotNull(contentArray, "content 배열이 있어야 합니다");
+                    assertTrue(contentArray.isArray() && contentArray.size() > 0, "content는 비어있지 않은 배열이어야 합니다");
+                    
+                    // 4. 첫 번째 JSON 인스턴스의 "text" 값 추출
+                    JsonNode firstContentItem = contentArray.get(0);
+                    JsonNode textNode = firstContentItem.get("text");
 
-                            if (textNode != null) {
-                                System.out.println("추출된 텍스트: " + textNode.asText());
-                                return; // 원하는 값을 찾았으므로 종료
-                            }
-                        }
-                    }
+                    assertNotNull(textNode, "text 노드가 있어야 합니다");
+                    String extractedText = textNode.asText();
+                    assertNotNull(extractedText, "추출된 텍스트가 null이 아니어야 합니다");
+                    assertFalse(extractedText.isEmpty(), "추출된 텍스트가 비어있지 않아야 합니다");
+                    found = true;
+                    break;
                 }
-                System.out.println("Assistant 역할의 content 또는 text를 찾을 수 없습니다.");
-            } else {
-                System.out.println("output 배열을 찾을 수 없거나 배열이 아닙니다.");
             }
+            assertTrue(found, "Assistant 역할의 응답을 찾아야 합니다");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("JSON 파싱 중 오류가 발생했습니다: " + e.getMessage());
+            fail("JSON 파싱 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 }

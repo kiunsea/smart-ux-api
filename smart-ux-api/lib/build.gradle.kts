@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.smartuxapi.ai"  // 그룹 ID 설정
-version = "0.5.1"            // 프로젝트 버전 설정
+version = "0.6.0"            // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -21,6 +21,10 @@ repositories {
 dependencies {
     // Use JUnit Jupiter test framework.
     testImplementation(libs.junit.jupiter)
+    
+    // JUnit Platform Suite API (통합 테스트 스위트용)
+    testImplementation("org.junit.platform:junit-platform-suite-api:1.10.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-suite-engine:1.10.1")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api(libs.commons.math3)
@@ -153,6 +157,35 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-        showStandardStreams = false
+        showStandardStreams = true // 테스트 출력 표시
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+        minGranularity = 0 // 테스트 실행 시간 표시
     }
+    
+    // 테스트 실패 시에도 계속 실행
+    ignoreFailures = false
+    
+    // 테스트 결과 요약 출력
+    addTestListener(object : org.gradle.api.tasks.testing.TestListener {
+        override fun beforeSuite(suite: org.gradle.api.tasks.testing.TestDescriptor) {}
+        override fun afterSuite(suite: org.gradle.api.tasks.testing.TestDescriptor, result: org.gradle.api.tasks.testing.TestResult) {
+            if (suite.parent == null) {
+                println("\n" + "=".repeat(80))
+                println("테스트 결과 요약")
+                println("=".repeat(80))
+                println("총 테스트: ${result.testCount}")
+                println("성공: ${result.successfulTestCount}")
+                println("실패: ${result.failedTestCount}")
+                println("건너뜀: ${result.skippedTestCount}")
+                println("실행 시간: ${result.endTime - result.startTime}ms")
+                println("=".repeat(80))
+                println("상세 리포트: build/reports/tests/test/index.html")
+                println("=".repeat(80) + "\n")
+            }
+        }
+        override fun beforeTest(testDescriptor: org.gradle.api.tasks.testing.TestDescriptor) {}
+        override fun afterTest(testDescriptor: org.gradle.api.tasks.testing.TestDescriptor, result: org.gradle.api.tasks.testing.TestResult) {}
+    })
 }

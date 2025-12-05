@@ -2,6 +2,11 @@ package com.smartuxapi.ai.gemini;
 
 import java.io.File;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -11,72 +16,56 @@ import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.ConfigLoader;
 import com.smartuxapi.util.FileUtil;
+import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Gemini ChatRoom 테스트")
 public class GeminiChatRoomTest {
 
     private ChatRoom chatRoom = null;
 
-    public GeminiChatRoomTest() throws ParseException {
-
+    @BeforeEach
+    void setUp() throws ParseException {
         JsonNode config = ConfigLoader.loadConfigFromClasspath("dev.apikey.json");
+        if (config == null) {
+            // 설정 파일이 없으면 테스트를 건너뜀
+            org.junit.jupiter.api.Assumptions.assumeTrue(false, "dev.apikey.json 파일이 클래스패스에 없습니다. 테스트를 건너뜁니다.");
+            return;
+        }
+        
         String apiKey = config.get("GEMINI_API_KEY").asText();
 
         this.chatRoom = new GeminiChatRoom(apiKey, "gemini-2.5-flash");
         this.chatRoom.setActionQueueHandler(new ActionQueueHandler());
-        System.out.println("* [" + this.chatRoom.getId() + "] 채팅방 생성");
-
     }
 
-    /**
-     * OpenAI Assistants API에 접속하여 thread를 생성하고 요청 메세지를 전달후 응답 메세지를 받는다.
-     * 
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String args[]) throws Exception {
-        
-        GeminiChatRoomTest crTest = new GeminiChatRoomTest();
-
-        // 일반 대화 테스트
-        crTest.testChat("너는 누구니?");
-
-        // dynamic action queue 응답 테스트
-        crTest.testChatAction();
-
-        // 일반 대화 테스트
-        crTest.chatRoom.getActionQueueHandler().clearCurrentViewInfo();
-        crTest.testChat("한국의 수도를 알려줘");
-
-        if (crTest.chatRoom.close())
-            System.out.println("* [" + crTest.chatRoom.getId() + "] 채팅방 삭제 완료");
-    }
-
-    public void testChat(String prompt) throws Exception {
-        Chatting chat = this.chatRoom.getChatting();
-
-        System.out.println("* USER msg: " + prompt);
-        JSONObject resJson = chat.sendPrompt(prompt);
-        System.out.println("* AI msg: " + resJson.get("message"));
-
-        if (resJson.containsKey("action_queue")) {
-            System.out.println("* Action Queue: " + resJson.get("action_queue"));
-        }
-
-        Object usrFuncRst = null; // resJson.get(OpenAIChatRoom.USER_FUNCTIONS_RESULT);
-        if (usrFuncRst != null) {
-            Object onJbgRst = ((JSONObject) usrFuncRst).get("on_jangbogo");
-            if (onJbgRst != null)
-                System.out.println("* AI user_link: " + ((JSONObject) onJbgRst).get("user_link"));
+    @AfterEach
+    void tearDown() throws Exception {
+        if (chatRoom != null) {
+            chatRoom.close();
         }
     }
 
+    @Test
+    @DisplayName("ChatRoom 생성 테스트")
+    public void testChatRoomCreation() {
+        assertNotNull(chatRoom, "ChatRoom이 생성되어야 합니다");
+        assertNotNull(chatRoom.getId(), "ChatRoom ID가 있어야 합니다");
+        assertNotNull(chatRoom.getActionQueueHandler(), "ActionQueueHandler가 설정되어야 합니다");
+    }
+
+    @Test
+    @DisplayName("일반 대화 테스트")
+    @Disabled("API 키가 필요하므로 기본적으로 비활성화")
+    public void testChat() throws Exception {
+        String prompt = "너는 누구니?";
+        testChatInternal(prompt);
+    }
+
+    @Test
+    @DisplayName("Action Queue를 포함한 채팅 테스트")
+    @Disabled("API 키가 필요하므로 기본적으로 비활성화")
     public void testChatAction() throws Exception {
-
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println("Current Working Directory: " + currentDirectory);
-        // File 객체로도 얻을 수 있습니다.
         File currentDirFile = new File(".");
-        System.out.println("Current Working Directory (File): " + currentDirFile.getAbsolutePath());
         StringBuilder sb = FileUtil
                 .readFile(currentDirFile.getAbsolutePath() + "/src/test/resources/test.easy_kiosc_uif.json", null);
         this.chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + sb);
@@ -85,19 +74,21 @@ public class GeminiChatRoomTest {
         this.chatRoom.getActionQueueHandler().setCurrentViewInfo(viewInfo);
         String usrQ = "시원한 레몬차와 따뜻한 허니자몽블랙티를 주문해줘";
 
-        System.out.println("* USER msg: " + usrQ);
         JSONObject resJson = this.chatRoom.getChatting().sendPrompt(usrQ);
-        System.out.println("* AI msg(액션큐 응답): " + resJson.get("message"));
-
+        
+        assertNotNull(resJson, "응답이 null이 아니어야 합니다");
+        assertTrue(resJson.containsKey("message"), "응답에 message가 포함되어야 합니다");
+        
         if (resJson.containsKey("action_queue")) {
-            System.out.println("* Action Queue: " + resJson.get("action_queue"));
+            assertNotNull(resJson.get("action_queue"), "Action Queue가 null이 아니어야 합니다");
         }
+    }
 
-        Object usrFuncRst = null; // resJson.get(OpenAIChatRoom.USER_FUNCTIONS_RESULT);
-        if (usrFuncRst != null) {
-            Object onJbgRst = ((JSONObject) usrFuncRst).get("on_jangbogo");
-            if (onJbgRst != null)
-                System.out.println("* AI user_link: " + ((JSONObject) onJbgRst).get("user_link"));
-        }
+    private void testChatInternal(String prompt) throws Exception {
+        Chatting chat = this.chatRoom.getChatting();
+        JSONObject resJson = chat.sendPrompt(prompt);
+        
+        assertNotNull(resJson, "응답이 null이 아니어야 합니다");
+        assertTrue(resJson.containsKey("message"), "응답에 message가 포함되어야 합니다");
     }
 }

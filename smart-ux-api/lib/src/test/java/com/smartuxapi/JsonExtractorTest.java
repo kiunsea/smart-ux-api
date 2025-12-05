@@ -11,14 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonExtractorTest {
 
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-
-	public static void main(String[] args) {
-		chatGPT1();
-		chatGPT2();
-		gemini1();
-		gemini2();
-		gemini3();
-	}
 	
 	@Test
 	@DisplayName("extractJson 메서드 테스트 - 기본 JSON 블록 추출")
