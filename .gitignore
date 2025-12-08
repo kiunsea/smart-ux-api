@@ -55,6 +55,7 @@ local.properties
 ehthumbs.db
 Thumbs.db
 Desktop.ini
+nul
 
 # API Keys and Sensitive Configuration (IMPORTANT!)
 **/apikey.json

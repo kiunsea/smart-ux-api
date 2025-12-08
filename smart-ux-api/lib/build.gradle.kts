@@ -97,22 +97,12 @@ tasks.javadoc {
         
         // 문서 제목
         docTitle = "Smart UX API ${project.version}"
-        
-        // 하단 텍스트
-        bottom = """
-            <div style="text-align: center;">
-            Copyright &copy; 2025 <a href="https://jiniebox.com">jiniebox.com</a>. 
-            Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.<br>
-            Contact: <a href="mailto:kiunsea@gmail.com">kiunsea@gmail.com</a> | 
-            Website: <a href="https://www.omnibuscode.com">www.omnibuscode.com</a>
-            </div>
-        """.trimIndent()
-        
-        // 헤더
-        header = """
-            <b>Smart UX API ${project.version}</b><br>
-            <span style="font-size: 90%;">AI-powered UI Automation</span>
-        """.trimIndent()
+
+        // 하단 텍스트 - addStringOption으로 설정
+        addStringOption("bottom", "<div style='text-align: center;'>Copyright 2025 <a href='https://jiniebox.com'>jiniebox.com</a>. Licensed under the <a href='https://www.apache.org/licenses/LICENSE-2.0'>Apache License 2.0</a>.<br>Contact: <a href='mailto:kiunsea@gmail.com'>kiunsea@gmail.com</a> | Website: <a href='https://www.omnibuscode.com'>www.omnibuscode.com</a></div>")
+
+        // 헤더 - addStringOption으로 설정
+        addStringOption("header", "<b>Smart UX API ${project.version}</b><br><span style='font-size: 90%;'>AI-powered UI Automation</span>")
     }
     
     // 소스 파일 포함
