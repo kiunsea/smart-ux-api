@@ -1,0 +1,1902 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI-powered UI automation library for Java web applications">
+      
+      
+        <meta name="author" content="kiunsea@gmail.com">
+      
+      
+        <link rel="canonical" href="https://kiunsea.github.io/smux-api/EXAMPLES/">
+      
+      
+        <link rel="prev" href="../API/">
+      
+      
+        <link rel="next" href="../TROUBLESHOOTING/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>예제 - Smart UX API Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#code-examples" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Smart UX API Documentation" class="md-header__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smart UX API Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              예제
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../INSTALL/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  설치
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../API/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  예제
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../TROUBLESHOOTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  문제 해결
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../javadoc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  JavaDoc
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Smart UX API Documentation" class="md-nav__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Smart UX API Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INSTALL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    예제
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    예제
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 사용법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="기본 사용법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        완전한 예제: 간단한 챗봇
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Responses API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-assistants-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Assistants API 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 3: 고급 옵션 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gemini 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gemini-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Gemini API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Gemini 고급 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        고급 시나리오
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="고급 시나리오">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 다중 턴 대화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: 에러 재시도 로직
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-action-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 3: Action Queue 후처리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프레임워크 통합
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="프레임워크 통합">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-spring-boot-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Spring Boot Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-servlet-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Servlet Filter로 세션 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        에러 처리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="에러 처리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 포괄적인 에러 처리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript 클라이언트 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript 클라이언트 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 전체 플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: 실시간 업데이트
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        더 많은 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TROUBLESHOOTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문제 해결
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javadoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaDoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        기본 사용법
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="기본 사용법">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        완전한 예제: 간단한 챗봇
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Responses API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-assistants-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Assistants API 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 3: 고급 옵션 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gemini 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gemini-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Gemini API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Gemini 고급 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        고급 시나리오
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="고급 시나리오">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 다중 턴 대화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: 에러 재시도 로직
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-action-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 3: Action Queue 후처리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        프레임워크 통합
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="프레임워크 통합">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-spring-boot-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Spring Boot Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-servlet-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: Servlet Filter로 세션 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        에러 처리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="에러 처리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 포괄적인 에러 처리
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript 클라이언트 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript 클라이언트 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: 전체 플로우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: 실시간 업데이트
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        더 많은 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="code-examples">Code Examples<a class="headerlink" href="#code-examples" title="Permanent link">&para;</a></h1>
+<p>Smart UX API를 사용하는 다양한 실전 예제 모음입니다.</p>
+<hr />
+<h2 id="_1">📋 목차<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#기본-사용법">기본 사용법</a></li>
+<li><a href="#openai-예제">OpenAI 예제</a></li>
+<li><a href="#gemini-예제">Gemini 예제</a></li>
+<li><a href="#고급-시나리오">고급 시나리오</a></li>
+<li><a href="#프레임워크-통합">프레임워크 통합</a></li>
+<li><a href="#에러-처리">에러 처리</a></li>
+</ul>
+<hr />
+<h2 id="_2">기본 사용법<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">완전한 예제: 간단한 챗봇<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.smartuxapi.ai.chatroom.ResponsesChatRoom</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.smartuxapi.ai.chatting.ResponsesChatting</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SimpleChatbot</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 1. ChatRoom 생성</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OPENAI_API_KEY&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 2. Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 3. 현재 화면 정보 설정 (실제 사용 시 JavaScript에서 전달받음)</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">currentViewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCurrentViewInfo</span><span class="p">();</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">currentViewInfo</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 4. Chatting 인스턴스 생성</span>
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 5. 프롬프트 전송</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;아메리카노 2잔 주문해줘&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 6. 결과 출력</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">actionQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;AI 응답: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Action Queue: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">actionQueue</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">loadUIFDocument</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// UIF 문서 로드 로직</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;service\&quot;: \&quot;키오스크 주문\&quot; }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentViewInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 현재 화면 정보 (JavaScript에서 수집)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;elements\&quot;: [...] }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="openai">OpenAI 예제<a class="headerlink" href="#openai" title="Permanent link">&para;</a></h2>
+<h3 id="1-responses-api">예제 1: Responses API 기본 사용<a class="headerlink" href="#1-responses-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OpenAIResponsesExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">chatWithAI</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ChatRoom 생성</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="s">&quot;gpt-4&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">currentView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCurrentView</span><span class="p">();</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">currentView</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 대화 시작</span>
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 첫 번째 프롬프트</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;아메리카노 주문해줘&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Response 1: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response1</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 두 번째 프롬프트 (컨텍스트 유지)</span>
+<span class="w">        </span><span class="c1">// 화면 정보가 변경되었다면 다시 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getCurrentView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;2잔으로 바꿔줘&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Response 2: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response2</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;currentScreen\&quot;: \&quot;menu\&quot; }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-assistants-api">예제 2: Assistants API 사용<a class="headerlink" href="#2-assistants-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OpenAIAssistantsExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">useAssistant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Assistant 생성</span>
+<span class="w">        </span><span class="n">Assistant</span><span class="w"> </span><span class="n">assistant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Assistant</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;asst_abc123&quot;</span><span class="w">  </span><span class="c1">// Assistant ID</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Thread 생성 (대화 세션)</span>
+<span class="w">        </span><span class="n">AssistantsThread</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AssistantsThread</span><span class="p">(</span><span class="n">assistant</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">thread</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getCurrentView</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// 메시지 전송</span>
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;아메리카노 주문하고 결제까지 해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Action Queue: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">));</span>
+
+<span class="w">        </span><span class="c1">// 같은 Thread에서 계속 대화 가능</span>
+<span class="w">        </span><span class="c1">// 화면 정보가 변경되었다면 다시 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getCurrentView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">followUp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;사이즈를 Large로 변경해줘&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Follow-up: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">followUp</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;currentScreen\&quot;: \&quot;menu\&quot; }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3">예제 3: 고급 옵션 사용<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AdvancedOpenAIExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">customConfiguration</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 현재 버전(0.6.0)에서는 Builder 패턴을 지원하지 않습니다.</span>
+<span class="w">        </span><span class="c1">// 기본 생성자를 사용합니다.</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;주문해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="gemini">Gemini 예제<a class="headerlink" href="#gemini" title="Permanent link">&para;</a></h2>
+<h3 id="1-gemini-api">예제 1: Gemini API 기본 사용<a class="headerlink" href="#1-gemini-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GeminiExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">chatWithGemini</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// GeminiChatRoom 생성</span>
+<span class="w">        </span><span class="n">GeminiChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GeminiChatRoom</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;AIza...&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;gemini-pro&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getCurrentViewInfo</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// Chatting 생성</span>
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 프롬프트 전송</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;라떼 한 잔 주문하고 싶어요&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Gemini Response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">loadUIFDocument</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;service\&quot;: \&quot;커피 주문\&quot; }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentViewInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;elements\&quot;: [...] }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-gemini">예제 2: Gemini 고급 옵션<a class="headerlink" href="#2-gemini" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AdvancedGeminiExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">customGeminiConfig</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 현재 버전(0.6.0)에서는 Builder 패턴을 지원하지 않습니다.</span>
+<span class="w">        </span><span class="c1">// 기본 생성자를 사용합니다.</span>
+<span class="w">        </span><span class="n">GeminiChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GeminiChatRoom</span><span class="p">(</span><span class="s">&quot;AIza...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gemini-1.5-pro&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;메뉴 추천해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_4">고급 시나리오<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1">예제 1: 다중 턴 대화<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MultiTurnConversation</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">multiTurnChat</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 첫 번째 요청</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">step1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;아메리카노 주문할게요&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">executeActions</span><span class="p">(</span><span class="n">step1</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 두 번째 요청 (컨텍스트 유지)</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">step2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;핫으로 변경해주세요&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">executeActions</span><span class="p">(</span><span class="n">step2</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 세 번째 요청</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">step3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;수량 2개로 늘려주세요&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">executeActions</span><span class="p">(</span><span class="n">step3</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 최종 주문</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">step4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;결제하기&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">executeActions</span><span class="p">(</span><span class="n">step4</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">executeActions</span><span class="p">(</span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">actionQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Executing: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">actionQueue</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">executeActions</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">actionQueue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Action Queue 실행 로직</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Executing: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">actionQueue</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2">예제 2: 에러 재시도 로직<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RetryExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">JSONObject</span><span class="w"> </span><span class="nf">sendWithRetry</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxRetries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">attempt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">attempt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxRetries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">attempt</span><span class="o">++</span><span class="p">;</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Attempt &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; failed: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">attempt</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">maxRetries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// 지수 백오프</span>
+<span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">((</span><span class="kt">long</span><span class="p">)</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">attempt</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">ie</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span>
+<span class="w">                    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">ie</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Max retries exceeded&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3-action-queue">예제 3: Action Queue 후처리<a class="headerlink" href="#3-action-queue" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ActionQueueProcessing</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">processActionQueue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;주문해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue 추출</span>
+<span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">actionQueueObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actionQueueObj</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Action Queue가 없습니다.&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// JSON 파싱 (action_queue가 JSON 문자열인 경우)</span>
+<span class="w">        </span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">JSONObject</span><span class="w"> </span><span class="n">aqJson</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actionQueueObj</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">aqJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">JSONObject</span><span class="p">((</span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="n">actionQueueObj</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 이미 JSON 객체인 경우</span>
+<span class="w">            </span><span class="n">aqJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">JSONObject</span><span class="p">(</span><span class="n">actionQueueObj</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">JSONArray</span><span class="w"> </span><span class="n">actions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aqJson</span><span class="p">.</span><span class="na">getJSONArray</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 각 액션 처리</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">actions</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">JSONObject</span><span class="w"> </span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">actions</span><span class="p">.</span><span class="na">getJSONObject</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">elementId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">action</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;elementId&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">actionType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">action</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Element: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">elementId</span><span class="p">);</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Action: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">actionType</span><span class="p">);</span>
+
+<span class="w">            </span><span class="c1">// 조건부 실행</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actionType</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">clickElement</span><span class="p">(</span><span class="n">elementId</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">actionType</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;setValue&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">action</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="n">setElementValue</span><span class="p">(</span><span class="n">elementId</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">clickElement</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Clicking: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setElementValue</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Setting &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; to &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_5">프레임워크 통합<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="1-spring-boot-integration">예제 1: Spring Boot Integration<a class="headerlink" href="#1-spring-boot-integration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/smartux&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SmartUXController</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">SmartUXController</span><span class="p">(</span>
+<span class="w">            </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${openai.api.key}&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="p">,</span>
+<span class="w">            </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${openai.model}&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">model</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ResourceLoader</span><span class="w"> </span><span class="n">resourceLoader</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@PostMapping</span><span class="p">(</span><span class="s">&quot;/chat&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ActionQueueResponse</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span>
+<span class="w">            </span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">ChatRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">            </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getActionQueueHandler</span><span class="p">();</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getViewInfo</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getViewInfo</span><span class="p">());</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">            </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getPrompt</span><span class="p">());</span>
+
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span>
+<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueResponse</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="w">            </span><span class="p">);</span>
+
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span>
+<span class="w">                </span><span class="p">.</span><span class="na">status</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueResponse</span><span class="p">(</span>
+<span class="w">                    </span><span class="s">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                    </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">()</span>
+<span class="w">                </span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// DTO 클래스</span>
+<span class="kd">record</span> <span class="nc">ChatRequest</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="kd">record</span> <span class="nc">ActionQueueResponse</span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">simple</span><span class="p">.</span><span class="na">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ActionQueueResponse</span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="na">json</span><span class="p">.</span><span class="na">simple</span><span class="p">.</span><span class="na">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">(</span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">ActionQueueResponse</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-servlet-filter">예제 2: Servlet Filter로 세션 관리<a class="headerlink" href="#2-servlet-filter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="s">&quot;/api/*&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SmartUXSessionFilter</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                         </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">request</span><span class="p">;</span>
+<span class="w">        </span><span class="n">HttpSession</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">httpRequest</span><span class="p">.</span><span class="na">getSession</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// ChatRoom을 세션에 저장</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ResponsesChatRoom</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="n">session</span><span class="p">.</span><span class="na">getAttribute</span><span class="p">(</span><span class="s">&quot;chatRoom&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chatRoom</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 새 세션 - ChatRoom 생성</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getServletContext</span><span class="p">().</span><span class="na">getInitParameter</span><span class="p">(</span><span class="s">&quot;openai.api.key&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getServletContext</span><span class="p">().</span><span class="na">getInitParameter</span><span class="p">(</span><span class="s">&quot;openai.model&quot;</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+
+<span class="w">            </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">            </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">            </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">session</span><span class="p">.</span><span class="na">setAttribute</span><span class="p">(</span><span class="s">&quot;chatRoom&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">chain</span><span class="p">.</span><span class="na">doFilter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_6">에러 처리<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">예제 1: 포괄적인 에러 처리<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ComprehensiveErrorHandling</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">JSONObject</span><span class="w"> </span><span class="nf">sendMessageSafely</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">viewInfo</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">viewInfo</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ParseException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;화면 정보 파싱 실패: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Invalid view info format&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">);</span>
+
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 에러 처리</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">errorMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">();</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errorMsg</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errorMsg</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="s">&quot;401&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;API Key가 유효하지 않습니다.&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errorMsg</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="s">&quot;429&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Rate limit 초과. 잠시 후 다시 시도하세요.&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errorMsg</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="s">&quot;500&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;OpenAI 서버 오류.&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;API Error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">errorMsg</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;예상치 못한 오류: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSimpleName</span><span class="p">());</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Failed to send message&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="javascript">JavaScript 클라이언트 예제<a class="headerlink" href="#javascript" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">예제 1: 전체 플로우<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// UI 정보 수집</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">collector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXCollector</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">collector</span><span class="p">.</span><span class="nx">collectUIInfo</span><span class="p">();</span>
+
+<span class="c1">// 사용자 프롬프트 가져오기</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">userPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;promptInput&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+
+<span class="c1">// 서버에 전송</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/chat&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">prompt</span><span class="o">:</span><span class="w"> </span><span class="nx">userPrompt</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">viewInfo</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">viewInfo</span><span class="p">)</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Action Queue 실행</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXClient</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">executeActionQueue</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">actionQueue</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="2_1">예제 2: 실시간 업데이트<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">SmartUXApp</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">collector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXCollector</span><span class="p">();</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXClient</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="nx">sendPrompt</span><span class="p">(</span><span class="nx">prompt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 현재 화면 정보 수집</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">collector</span><span class="p">.</span><span class="nx">collectUIInfo</span><span class="p">();</span>
+
+<span class="w">            </span><span class="c1">// 서버로 전송</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/chat&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"> </span><span class="nx">prompt</span><span class="p">,</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="p">})</span>
+<span class="w">            </span><span class="p">});</span>
+
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">            </span><span class="c1">// Action Queue 실행</span>
+<span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">executeActionQueue</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">actionQueue</span><span class="p">);</span>
+
+<span class="w">            </span><span class="c1">// 성공 알림</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">showNotification</span><span class="p">(</span><span class="s1">&#39;명령이 실행되었습니다.&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">showNotification</span><span class="p">(</span><span class="s1">&#39;오류가 발생했습니다.&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">showNotification</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[</span><span class="si">${</span><span class="nx">type</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="sb">] </span><span class="si">${</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 사용</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXApp</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">sendPrompt</span><span class="p">(</span><span class="s1">&#39;아메리카노 주문해줘&#39;</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="_7">더 많은 예제<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>완전한 동작 예제는 <a href="../smuxapi-war/">smuxapi-war 프로젝트</a>를 참조하세요.</p>
+<ul>
+<li>키오스크 주문 시스템</li>
+<li>음성 명령 통합</li>
+<li>다양한 UI 패턴</li>
+</ul>
+<hr />
+<h2 id="_8">추가 리소스<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../API/">API Reference</a></li>
+<li><a href="../INSTALL/">설치 가이드</a></li>
+<li><a href="../TROUBLESHOOTING/">문제 해결</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1486 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI-powered UI automation library for Java web applications">
+      
+      
+        <meta name="author" content="kiunsea@gmail.com">
+      
+      
+        <link rel="canonical" href="https://kiunsea.github.io/smux-api/">
+      
+      
+      
+        <link rel="next" href="INSTALL/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Smart UX API Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#smart-ux-api" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="." title="Smart UX API Documentation" class="md-header__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smart UX API Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="INSTALL/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  설치
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="API/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="EXAMPLES/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  예제
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="TROUBLESHOOTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  문제 해결
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="javadoc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  JavaDoc
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Smart UX API Documentation" class="md-nav__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Smart UX API Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 소개
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 주요 기능
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 아키텍처
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사전 요구 사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5분만에 시작하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 프로젝트 구성
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌟 사용 사례
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌟 사용 사례">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키오스크 자동화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        웹 애플리케이션 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        업무 자동화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 어떤 AI 모델을 사용할 수 있나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 어떤 프레임워크를 지원하나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 상업적 이용이 가능한가요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: API 비용은 얼마나 드나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 보안은 안전한가요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Roadmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.0.0 (계획 중)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧑‍💻 기여 가이드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙌 Acknowledgments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 라이선스
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 외부 링크
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="INSTALL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="EXAMPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    예제
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="TROUBLESHOOTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문제 해결
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="javadoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaDoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 소개
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 주요 기능
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 아키텍처
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        사전 요구 사항
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5분만에 시작하기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 프로젝트 구성
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌟 사용 사례
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌟 사용 사례">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키오스크 자동화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        웹 애플리케이션 가이드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        업무 자동화
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 어떤 AI 모델을 사용할 수 있나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 어떤 프레임워크를 지원하나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 상업적 이용이 가능한가요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: API 비용은 얼마나 드나요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q: 보안은 안전한가요?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Roadmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.0.0 (계획 중)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧑‍💻 기여 가이드
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙌 Acknowledgments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 라이선스
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 외부 링크
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="smart-ux-api">Smart UX API 프로젝트<a class="headerlink" href="#smart-ux-api" title="Permanent link">&para;</a></h1>
+<p><a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
+<img alt="Java" src="https://img.shields.io/badge/language-Java-orange" />
+<img alt="JavaScript" src="https://img.shields.io/badge/language-JavaScript-yellow" />
+<img alt="Platform" src="https://img.shields.io/badge/platform-Web-blue" />
+<img alt="Status" src="https://img.shields.io/badge/status-Active-brightgreen" /> </p>
+<h2 id="_1">🧠 소개<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><strong>Smart UX API</strong>는 Pure Java와 HTML5 기반의 기존 웹 애플리케이션에 인공지능 기반 화면 제어 기능을 쉽게 통합할 수 있도록 지원하는 오픈소스 도구입니다.</p>
+<p>사용자가 전달하는 텍스트 기반 요청을 분석하여, 해당 요청을 수행하기 위해 어떤 UI 요소에 어떤 액션을 취해야 하는지를 AI가 판단하고 실행 가능한 <strong>액션 프로세스 정의서</strong>로 응답받아 화면을 자동 제어합니다.</p>
+<p>서비스에 익숙하지 않은 사용자에게 직관적인 사용 가이드를 제공하거나, 반복 작업을 AI를 통해 자동화하고자 할 때 특히 유용합니다.</p>
+<p><img src="https://github.com/user-attachments/assets/9d597451-94a4-401a-967c-effccd1b60f2" alt="kiosk 시연 영상" height="650"></p>
+<h2 id="_2">🔍 주요 기능<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>✅ 기존 Java 웹 애플리케이션 서비스에 손쉽게 통합 가능</li>
+<li>🔍 웹 화면 내 UI 구성 요소를 자동 수집</li>
+<li>🤖 사용자의 자연어 요청을 AI에게 전달</li>
+<li>Google Gemini API 지원</li>
+<li>OpenAI Responses API 지원</li>
+<li>OpenAI Assistants API 지원</li>
+<li>📋 AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신</li>
+<li>⚡ 액션 프로세스로 화면 상에서 필요한 액션을 자동 실행</li>
+</ul>
+<h2 id="_3">🏗️ 아키텍처<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Smart UX API는 다음과 같은 플로우로 동작합니다:</p>
+<div class="highlight"><pre><span></span><code>┌─────────────┐  자연어 명령   ┌──────────────────┐  UI 정보 수집   ┌─────────────┐
+│   사용자    │ ────────────&gt; │  Smart UX        │ ─────────────&gt; │   Web UI    │
+│   (User)    │               │  Collector (JS)  │                │  Elements   │
+└─────────────┘               └──────────────────┘                └─────────────┘
+                                      │
+                                      │ UI 구조 JSON
+                                      ▼
+┌─────────────┐  Action Queue  ┌──────────────────┐  Prompt +      ┌─────────────┐
+│   Web UI    │ &lt;────────────  │  Smart UX        │  UI Info       │   AI API    │
+│   Control   │                │  Client (Java)   │ ─────────────&gt; │ (GPT/Gemini)│
+└─────────────┘                └──────────────────┘                └─────────────┘
+</code></pre></div>
+<ol>
+<li><strong>UI 수집</strong>: <code>smart-ux-collector.js</code>가 웹 페이지의 DOM 요소를 스캔하여 JSON으로 변환</li>
+<li><strong>프롬프트 전송</strong>: 사용자 요청과 UI 정보를 AI API에 전달</li>
+<li><strong>액션 생성</strong>: AI가 실행 가능한 Action Queue를 생성</li>
+<li><strong>자동 실행</strong>: <code>smart-ux-client.js</code>가 Action Queue를 파싱하여 UI 제어</li>
+</ol>
+<h2 id="quick-start">🚀 Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="_4">사전 요구 사항<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Java 17 이상</li>
+<li>Gradle 8.x</li>
+<li>OpenAI API Key 또는 Google Gemini API Key</li>
+<li>웹 애플리케이션 서버 (Tomcat, Jetty 등)</li>
+</ul>
+<h3 id="5">5분만에 시작하기<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>저장소 클론</strong>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kiunsea/smux-api.git
+<span class="nb">cd</span><span class="w"> </span>smux-api
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>라이브러리 빌드</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>smart-ux-api/lib
+./gradlew<span class="w"> </span>build
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>JAR 파일을 웹 애플리케이션에 추가</strong>
+<div class="highlight"><pre><span></span><code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar 를 /WEB-INF/lib/ 에 복사
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>JavaScript 라이브러리 포함</strong>
+<div class="highlight"><pre><span></span><code>smart-ux-api/lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>API Key 설정</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// resources/apikey.json</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;openai&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;apiKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-api-key&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>HTML에 스크립트 추가</strong>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/lib/smart-ux-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/lib/smart-ux-collector.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div></p>
+</li>
+</ol>
+<p>자세한 설치 가이드는 <a href="docs/INSTALL.md">INSTALL.md</a>를 참조하세요.</p>
+<h3 id="_5">📦 프로젝트 구성<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>smart-ux-api</strong>: 메인 라이브러리 (Java + JavaScript)</li>
+<li><strong>smuxapi-war</strong>: 샘플 애플리케이션 (WAR 프로젝트)</li>
+</ul>
+<h2 id="_6">🌟 사용 사례<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">키오스크 자동화<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>음성 또는 텍스트 명령으로 키오스크 주문을 자동화하여 고령자 및 디지털 취약계층을 지원합니다.</p>
+<div class="highlight"><pre><span></span><code>사용자: &quot;아이스 아메리카노 2잔이랑 따뜻한 레몬차 주문해줘&quot;
+→ AI가 메뉴 선택 → 수량 조절 → 장바구니 추가
+</code></pre></div>
+<h3 id="_8">웹 애플리케이션 가이드<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>복잡한 웹 서비스의 사용법을 AI가 자동으로 안내합니다.</p>
+<div class="highlight"><pre><span></span><code>사용자: &quot;회원가입 도와줘&quot;
+→ AI가 단계별로 폼 작성 가이드 제공
+</code></pre></div>
+<h3 id="_9">업무 자동화<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>반복적인 웹 작업을 자연어 명령으로 자동화합니다.</p>
+<div class="highlight"><pre><span></span><code>사용자: &quot;오늘 날짜로 보고서 검색하고 엑셀로 다운로드해줘&quot;
+→ AI가 검색 → 필터 설정 → 다운로드 실행
+</code></pre></div>
+<h2 id="_10">디렉터리 구조<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>smux-api/
+├── smart-ux-api/
+│   ├── bin/
+│   ├── docs/
+│   ├── gradle/
+│   ├── lib/
+│   │   ├── build/
+│   │   │   └── libs/
+│   │   └── src/
+│   │       └── main/
+│   │           ├── java/
+│   │           ├── js/
+│   │           └── resources/
+│   ├── LICENSE
+│   └── README.md
+├── smuxapi-war/
+│   ├── src/
+│   └── README.md
+└── README.md
+</code></pre></div>
+<h2 id="faq">❓ FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="q-ai">Q: 어떤 AI 모델을 사용할 수 있나요?<a class="headerlink" href="#q-ai" title="Permanent link">&para;</a></h3>
+<p>A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다. 향후 Claude 등 다른 모델도 지원 예정입니다.</p>
+<h3 id="q">Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?<a class="headerlink" href="#q" title="Permanent link">&para;</a></h3>
+<p>A: 네! JAR 파일과 JavaScript 라이브러리만 추가하면 바로 사용 가능합니다. 기존 코드 수정 최소화.</p>
+<h3 id="q_1">Q: 어떤 프레임워크를 지원하나요?<a class="headerlink" href="#q_1" title="Permanent link">&para;</a></h3>
+<p>A: 순수 HTML5, React, Vue.js 등 모든 웹 기반 UI 프레임워크에서 사용 가능합니다.</p>
+<h3 id="q_2">Q: 상업적 이용이 가능한가요?<a class="headerlink" href="#q_2" title="Permanent link">&para;</a></h3>
+<p>A: Apache 2.0 라이선스로 상업적 이용이 자유롭습니다.</p>
+<h3 id="q-api">Q: API 비용은 얼마나 드나요?<a class="headerlink" href="#q-api" title="Permanent link">&para;</a></h3>
+<p>A: Smart UX API 자체는 무료입니다. OpenAI/Gemini API 사용료만 발생합니다.</p>
+<h3 id="q_3">Q: 보안은 안전한가요?<a class="headerlink" href="#q_3" title="Permanent link">&para;</a></h3>
+<p>A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않습니다. 자세한 내용은 <a href="SECURITY.md">SECURITY.md</a>를 참조하세요.</p>
+<p>더 많은 질문은 <a href="https://github.com/kiunsea/smux-api/discussions">Discussions</a>에서 확인하세요!</p>
+<h2 id="roadmap">📊 Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="v100">v1.0.0 (계획 중)<a class="headerlink" href="#v100" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 안정화 및 프로덕션 레디</li>
+<li>[ ] 상세 문서 및 튜토리얼</li>
+<li>[ ] 커뮤니티 에코시스템</li>
+</ul>
+<p>제안사항이 있으시면 <a href="https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md">Feature Request</a>를 등록해 주세요!</p>
+<h2 id="_11">🧑‍💻 기여 가이드<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>기여를 환영합니다! 다음과 같은 방법으로 참여하실 수 있습니다:</p>
+<ul>
+<li>🐛 <a href="https://github.com/kiunsea/smux-api/issues/new?template=bug_report.md">버그 신고</a></li>
+<li>✨ <a href="https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md">기능 제안</a></li>
+<li>📝 문서 개선</li>
+<li>💻 Pull Request 제출</li>
+</ul>
+<p>자세한 내용은 <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>를 참조해 주세요.</p>
+<p>💬 문의: <strong>kiunsea@gmail.com</strong></p>
+<h2 id="acknowledgments">🙌 Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://openai.com">OpenAI</a> - GPT API 제공</li>
+<li><a href="https://ai.google.dev">Google</a> - Gemini API 제공</li>
+<li><a href="https://www.apache.org">Apache Software Foundation</a> - 오픈소스 라이선스</li>
+<li>모든 기여자분들께 감사드립니다!</li>
+</ul>
+<hr />
+<h2 id="_12">📄 라이선스<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>이 프로젝트는 <strong>Apache License, 버전 2.0</strong>에 따라 배포됩니다.</p>
+<p>라이선스의 전체 내용은 <a href="LICENSE">LICENSE</a> 파일을 참조해 주십시오.</p>
+<hr />
+<p><strong>Copyright © 2025 <a href="https://jiniebox.com">jiniebox.com</a></strong></p>
+<hr />
+<h2 id="_13">🔗 외부 링크<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Apache License, Version 2.0 (원문): http://www.apache.org/licenses/LICENSE-2.0</li>
+<li>오픈소스SW 라이선스 종합정보시스템 (Apache-2.0): https://www.olis.or.kr/license/Detailselect.do?lId=1002</li>
+<li>개발자 홈페이지: https://www.omnibuscode.com</li>
+<li>문의: kiunsea@gmail.com</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

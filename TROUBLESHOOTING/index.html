@@ -1,0 +1,2423 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI-powered UI automation library for Java web applications">
+      
+      
+        <meta name="author" content="kiunsea@gmail.com">
+      
+      
+        <link rel="canonical" href="https://kiunsea.github.io/smux-api/TROUBLESHOOTING/">
+      
+      
+        <link rel="prev" href="../EXAMPLES/">
+      
+      
+        <link rel="next" href="../javadoc/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>문제 해결 - Smart UX API Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting-guide" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Smart UX API Documentation" class="md-header__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smart UX API Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              문제 해결
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../INSTALL/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  설치
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../API/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../EXAMPLES/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  예제
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  문제 해결
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../javadoc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  JavaDoc
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Smart UX API Documentation" class="md-nav__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Smart UX API Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INSTALL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXAMPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    예제
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문제 해결
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문제 해결
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설치 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#javalangunsupportedclassversionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 빌드 실패: java.lang.UnsupportedClassVersionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradle-could-not-resolve-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Gradle 빌드 오류: Could not resolve dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ JAR 파일이 생성되지 않음
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 연결 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API 연결 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-unauthorized-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 401 Unauthorized - API Key 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 401 Unauthorized - API Key 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#429-too-many-requests-rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 429 Too Many Requests - Rate Limit 초과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 429 Too Many Requests - Rate Limit 초과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Rate Limiting 구현
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 지수 백오프 재시도
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#500-internal-server-error-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 500 Internal Server Error - API 서버 오류
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-timeout-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Connection Timeout - 연결 시간 초과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ Connection Timeout - 연결 시간 초과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 타임아웃 늘리기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 네트워크 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프록시 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        런타임 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="런타임 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nullpointerexception-in-chatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ NullPointerException in ChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonexception-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ JSONException - 응답 파싱 실패
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ JSONException - 응답 파싱 실패">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 응답 검증
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-uif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. UIF 문서 개선
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outofmemoryerror-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ OutOfMemoryError - 메모리 부족
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ OutOfMemoryError - 메모리 부족">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. JVM 메모리 증가
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대화 이력 제한
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript 클라이언트 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript 클라이언트 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smartuxcollector-is-not-defined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ SmartUXCollector is not defined
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ UI 요소를 찾을 수 없음
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ UI 요소를 찾을 수 없음">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-element-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Element ID 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Collector 디버깅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 동적 로딩 대기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ CORS 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ CORS 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spring-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spring Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servlet-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servlet Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        성능 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="성능 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 응답 시간이 너무 느림
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 응답 시간이 너무 느림">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-uif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. UIF 문서 최적화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대화 이력 압축
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 모델 변경
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        보안 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="보안 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ API Key가 클라이언트에 노출됨
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ SQL Injection 위험
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 지원
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="추가 지원">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        로그 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="로그 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log4j2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log4j2 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디버그 모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문제가 해결되지 않을 때
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javadoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaDoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설치 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#javalangunsupportedclassversionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 빌드 실패: java.lang.UnsupportedClassVersionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradle-could-not-resolve-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Gradle 빌드 오류: Could not resolve dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ JAR 파일이 생성되지 않음
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API 연결 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API 연결 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-unauthorized-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 401 Unauthorized - API Key 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 401 Unauthorized - API Key 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#429-too-many-requests-rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 429 Too Many Requests - Rate Limit 초과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 429 Too Many Requests - Rate Limit 초과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Rate Limiting 구현
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 지수 백오프 재시도
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#500-internal-server-error-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 500 Internal Server Error - API 서버 오류
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-timeout-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Connection Timeout - 연결 시간 초과
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ Connection Timeout - 연결 시간 초과">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 타임아웃 늘리기
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 네트워크 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프록시 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        런타임 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="런타임 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nullpointerexception-in-chatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ NullPointerException in ChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonexception-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ JSONException - 응답 파싱 실패
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ JSONException - 응답 파싱 실패">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 응답 검증
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-uif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. UIF 문서 개선
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outofmemoryerror-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ OutOfMemoryError - 메모리 부족
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ OutOfMemoryError - 메모리 부족">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. JVM 메모리 증가
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대화 이력 제한
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript 클라이언트 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript 클라이언트 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smartuxcollector-is-not-defined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ SmartUXCollector is not defined
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ UI 요소를 찾을 수 없음
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ UI 요소를 찾을 수 없음">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-element-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Element ID 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Collector 디버깅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 동적 로딩 대기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ CORS 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ CORS 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spring-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spring Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servlet-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servlet Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        성능 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="성능 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ 응답 시간이 너무 느림
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ 응답 시간이 너무 느림">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-uif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. UIF 문서 최적화
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대화 이력 압축
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 모델 변경
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        보안 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="보안 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ API Key가 클라이언트에 노출됨
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ SQL Injection 위험
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 지원
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="추가 지원">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        로그 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="로그 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log4j2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log4j2 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디버그 모드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문제가 해결되지 않을 때
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="troubleshooting-guide">Troubleshooting Guide<a class="headerlink" href="#troubleshooting-guide" title="Permanent link">&para;</a></h1>
+<p>Smart UX API 사용 중 발생할 수 있는 문제들과 해결 방법입니다.</p>
+<hr />
+<h2 id="_1">📋 목차<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#설치-문제">설치 문제</a></li>
+<li><a href="#api-연결-문제">API 연결 문제</a></li>
+<li><a href="#런타임-오류">런타임 오류</a></li>
+<li><a href="#javascript-클라이언트-문제">JavaScript 클라이언트 문제</a></li>
+<li><a href="#성능-문제">성능 문제</a></li>
+<li><a href="#보안-문제">보안 문제</a></li>
+</ul>
+<hr />
+<h2 id="_2">설치 문제<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="javalangunsupportedclassversionerror">❌ 빌드 실패: <code>java.lang.UnsupportedClassVersionError</code><a class="headerlink" href="#javalangunsupportedclassversionerror" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>java.lang.UnsupportedClassVersionError: ... has been compiled by a more recent version of the Java Runtime
+</code></pre></div></p>
+<p><strong>원인:</strong> Java 버전이 17 미만입니다.</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Java 버전 확인</span>
+java<span class="w"> </span>-version
+
+<span class="c1"># Java 17 이상으로 업그레이드</span>
+<span class="c1"># Windows: https://adoptium.net/</span>
+<span class="c1"># Linux: sudo apt install openjdk-17-jdk</span>
+<span class="c1"># Mac: brew install openjdk@17</span>
+</code></pre></div></p>
+<hr />
+<h3 id="gradle-could-not-resolve-dependencies">❌ Gradle 빌드 오류: <code>Could not resolve dependencies</code><a class="headerlink" href="#gradle-could-not-resolve-dependencies" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>Could not resolve com.fasterxml.jackson.core:jackson-databind:2.15.3
+</code></pre></div></p>
+<p><strong>원인:</strong> 네트워크 문제 또는 Maven Central 접근 불가</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 프록시 설정 (필요한 경우)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRADLE_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dhttp.proxyHost=proxy.company.com -Dhttp.proxyPort=8080&quot;</span>
+
+<span class="c1"># 2. Gradle 캐시 정리</span>
+./gradlew<span class="w"> </span>clean<span class="w"> </span>--refresh-dependencies
+
+<span class="c1"># 3. 저장소 미러 사용 (build.gradle.kts)</span>
+repositories<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>maven<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>uri<span class="o">(</span><span class="s2">&quot;https://maven.aliyun.com/repository/public&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span>mavenCentral<span class="o">()</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="jar">❌ JAR 파일이 생성되지 않음<a class="headerlink" href="#jar" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong> <code>build/libs/</code> 디렉터리가 비어있음</p>
+<p><strong>원인:</strong> 빌드가 실패했거나 다른 경로에 생성됨</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 클린 빌드</span>
+./gradlew<span class="w"> </span>clean<span class="w"> </span>build
+
+<span class="c1"># 2. JAR 파일 찾기</span>
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;smart-ux-api*.jar&quot;</span>
+
+<span class="c1"># 3. 빌드 로그 확인</span>
+./gradlew<span class="w"> </span>build<span class="w"> </span>--info
+</code></pre></div></p>
+<hr />
+<h2 id="api">API 연결 문제<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h3 id="401-unauthorized-api-key">❌ <code>401 Unauthorized</code> - API Key 오류<a class="headerlink" href="#401-unauthorized-api-key" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>APIException: 401 Unauthorized - Invalid API Key
+</code></pre></div></p>
+<p><strong>원인:</strong> API Key가 잘못되었거나 만료됨</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="openai">OpenAI<a class="headerlink" href="#openai" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. API Key 확인</span>
+<span class="c1"># https://platform.openai.com/api-keys</span>
+
+<span class="c1"># 2. 환경 변수 설정</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
+
+<span class="c1"># 3. 코드에서 확인</span>
+System.out.println<span class="o">(</span><span class="s2">&quot;API Key: &quot;</span><span class="w"> </span>+<span class="w"> </span>apiKey.substring<span class="o">(</span><span class="m">0</span>,<span class="w"> </span><span class="m">7</span><span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="gemini">Gemini<a class="headerlink" href="#gemini" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. API Key 확인</span>
+<span class="c1"># https://aistudio.google.com/app/apikey</span>
+
+<span class="c1"># 2. 환경 변수 설정</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;AIza...&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="429-too-many-requests-rate-limit">❌ <code>429 Too Many Requests</code> - Rate Limit 초과<a class="headerlink" href="#429-too-many-requests-rate-limit" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>APIException: 429 Too Many Requests - Rate limit exceeded
+</code></pre></div></p>
+<p><strong>원인:</strong> API 호출 한도 초과</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1-rate-limiting">1. Rate Limiting 구현<a class="headerlink" href="#1-rate-limiting" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RateLimiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">lastRequestTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MIN_INTERVAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1초</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">synchronized</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">waitIfNeeded</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastRequestTime</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">elapsed</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MIN_INTERVAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">MIN_INTERVAL</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">elapsed</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">lastRequestTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="2">2. 지수 백오프 재시도<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxRetries</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">APIException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">429</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">((</span><span class="kt">long</span><span class="p">)</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="500-internal-server-error-api">❌ <code>500 Internal Server Error</code> - API 서버 오류<a class="headerlink" href="#500-internal-server-error-api" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>APIException: 500 Internal Server Error
+</code></pre></div></p>
+<p><strong>원인:</strong> OpenAI/Gemini 서버 일시적 장애</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// 재시도 로직 추가</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">retries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">retries</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">APIException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">retries</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">retries</span><span class="o">--</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2초 대기</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="connection-timeout-">❌ <code>Connection Timeout</code> - 연결 시간 초과<a class="headerlink" href="#connection-timeout-" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>NetworkException: Connection timed out
+</code></pre></div></p>
+<p><strong>원인:</strong> 네트워크 지연 또는 방화벽 차단</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1">1. 타임아웃 늘리기<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">apiKey</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">model</span><span class="p">(</span><span class="s">&quot;gpt-4&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">timeout</span><span class="p">(</span><span class="mi">60000</span><span class="p">)</span><span class="w">  </span><span class="c1">// 60초로 증가</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h4 id="2_1">2. 네트워크 확인<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># OpenAI API 연결 테스트</span>
+curl<span class="w"> </span>-I<span class="w"> </span>https://api.openai.com/v1/chat/completions
+
+<span class="c1"># Gemini API 연결 테스트</span>
+curl<span class="w"> </span>-I<span class="w"> </span>https://generativelanguage.googleapis.com/v1/models
+</code></pre></div>
+<h4 id="3">3. 프록시 설정<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;proxy.company.com&quot;</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;8080&quot;</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;https.proxyHost&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;proxy.company.com&quot;</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;https.proxyPort&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;8080&quot;</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="_3">런타임 오류<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="nullpointerexception-in-chatroom">❌ <code>NullPointerException</code> in ChatRoom<a class="headerlink" href="#nullpointerexception-in-chatroom" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>java.lang.NullPointerException at ResponsesChatRoom.addSystemMessage()
+</code></pre></div></p>
+<p><strong>원인:</strong> API Key가 null이거나 초기화 실패</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// API Key 검증</span>
+<span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OPENAI_API_KEY&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">apiKey</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">apiKey</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;API Key is required&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<hr />
+<h3 id="jsonexception-">❌ <code>JSONException</code> - 응답 파싱 실패<a class="headerlink" href="#jsonexception-" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>org.json.JSONException: JSONObject[&quot;actions&quot;] not found
+</code></pre></div></p>
+<p><strong>원인:</strong> AI 응답 형식이 예상과 다름</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1_1">1. 응답 검증<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">);</span>
+<span class="w">    </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JSONObject</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">json</span><span class="p">.</span><span class="na">has</span><span class="p">(</span><span class="s">&quot;actions&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Invalid response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Response missing &#39;actions&#39; field&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">JSONArray</span><span class="w"> </span><span class="n">actions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">getJSONArray</span><span class="p">(</span><span class="s">&quot;actions&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 처리 계속...</span>
+
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">JSONException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Failed to parse response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="w">    </span><span class="c1">// Fallback 로직</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="2-uif">2. UIF 문서 개선<a class="headerlink" href="#2-uif" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;instructions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;응답은 반드시 다음 JSON 형식이어야 합니다: { \&quot;actions\&quot;: [...] }&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;examples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;메뉴 클릭&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;actions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;elementId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;menu_btn&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;click&quot;</span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="outofmemoryerror-">❌ <code>OutOfMemoryError</code> - 메모리 부족<a class="headerlink" href="#outofmemoryerror-" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>java.lang.OutOfMemoryError: Java heap space
+</code></pre></div></p>
+<p><strong>원인:</strong> 대화 이력이 너무 많이 축적됨</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1-jvm">1. JVM 메모리 증가<a class="headerlink" href="#1-jvm" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tomcat의 경우 setenv.sh/setenv.bat</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CATALINA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Xms512m -Xmx2048m&quot;</span>
+</code></pre></div>
+<h4 id="2_2">2. 대화 이력 제한<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ConversationManager</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_HISTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">limitHistory</span><span class="p">(</span><span class="n">ResponsesChatting</span><span class="w"> </span><span class="n">chatting</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">getConversationHistory</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_HISTORY</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 오래된 메시지 제거</span>
+<span class="w">            </span><span class="n">chatting</span><span class="p">.</span><span class="na">clearHistory</span><span class="p">();</span>
+<span class="w">            </span><span class="c1">// 최근 메시지만 재추가</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">history</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MAX_HISTORY</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">history</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">chatting</span><span class="p">.</span><span class="na">addMessage</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="javascript">JavaScript 클라이언트 문제<a class="headerlink" href="#javascript" title="Permanent link">&para;</a></h2>
+<h3 id="smartuxcollector-is-not-defined">❌ <code>SmartUXCollector is not defined</code><a class="headerlink" href="#smartuxcollector-is-not-defined" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>Uncaught ReferenceError: SmartUXCollector is not defined
+</code></pre></div></p>
+<p><strong>원인:</strong> JavaScript 파일이 로드되지 않음</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 스크립트 순서 확인 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-collector.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 또는 defer 사용 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-collector.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="ui">❌ UI 요소를 찾을 수 없음<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>Error: Element with id &#39;menu_americano&#39; not found
+</code></pre></div></p>
+<p><strong>원인:</strong> Element ID가 실제 DOM과 다름</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1-element-id">1. Element ID 확인<a class="headerlink" href="#1-element-id" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 브라우저 콘솔에서 확인</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;menu_americano&#39;</span><span class="p">));</span>
+</code></pre></div>
+<h4 id="2-collector">2. Collector 디버깅<a class="headerlink" href="#2-collector" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">collector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXCollector</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">collector</span><span class="p">.</span><span class="nx">collectUIInfo</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Collected elements:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">viewInfo</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="3_1">3. 동적 로딩 대기<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Element가 로드될 때까지 대기</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">waitForElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">startTime</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">timeout</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Element not found: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">selector</span><span class="p">));</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">check</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="nx">check</span><span class="p">();</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 사용</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">waitForElement</span><span class="p">(</span><span class="s1">&#39;#menu_americano&#39;</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h3 id="cors">❌ CORS 오류<a class="headerlink" href="#cors" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong>
+<div class="highlight"><pre><span></span><code>Access to fetch at &#39;http://localhost:8080/api/chat&#39; has been blocked by CORS policy
+</code></pre></div></p>
+<p><strong>원인:</strong> 서버에서 CORS 헤더가 설정되지 않음</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="spring-boot">Spring Boot<a class="headerlink" href="#spring-boot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@Configuration</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CorsConfig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Bean</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">WebMvcConfigurer</span><span class="w"> </span><span class="nf">corsConfigurer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WebMvcConfigurer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nd">@Override</span>
+<span class="w">            </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCorsMappings</span><span class="p">(</span><span class="n">CorsRegistry</span><span class="w"> </span><span class="n">registry</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">registry</span><span class="p">.</span><span class="na">addMapping</span><span class="p">(</span><span class="s">&quot;/api/**&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">allowedOrigins</span><span class="p">(</span><span class="s">&quot;http://localhost:3000&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">allowedMethods</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PUT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DELETE&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">allowedHeaders</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">allowCredentials</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="servlet-filter">Servlet Filter<a class="headerlink" href="#servlet-filter" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@WebFilter</span><span class="p">(</span><span class="s">&quot;/*&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CorsFilter</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">)</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="w">        </span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">req</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Methods&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;POST, GET, OPTIONS, DELETE&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Access-Control-Max-Age&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;3600&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Headers&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Content-Type&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;OPTIONS&quot;</span><span class="p">.</span><span class="na">equalsIgnoreCase</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getMethod</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">response</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">.</span><span class="na">SC_OK</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">chain</span><span class="p">.</span><span class="na">doFilter</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_4">성능 문제<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">❌ 응답 시간이 너무 느림<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong> AI 응답이 10초 이상 소요</p>
+<p><strong>원인:</strong> 복잡한 UIF 문서 또는 긴 대화 이력</p>
+<p><strong>해결 방법:</strong></p>
+<h4 id="1-uif">1. UIF 문서 최적화<a class="headerlink" href="#1-uif" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Before (너무 상세함)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;elements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;btn1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;btn2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ... 100개 이상</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// After (핵심만)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;elements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;btn1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;아메리카노&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;btn2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;라떼&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="2_3">2. 대화 이력 압축<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 오래된 메시지 요약</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;이전 대화 요약: 사용자가 아메리카노 2잔 주문함.&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">chatting</span><span class="p">.</span><span class="na">clearHistory</span><span class="p">();</span>
+<span class="w">    </span><span class="n">chatting</span><span class="p">.</span><span class="na">addSystemMessage</span><span class="p">(</span><span class="n">summary</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="3_2">3. 모델 변경<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// GPT-4 대신 GPT-3.5-turbo 사용 (더 빠름)</span>
+<span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-3.5-turbo&quot;</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="_6">보안 문제<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="api-key">❌ API Key가 클라이언트에 노출됨<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong> 브라우저 개발자 도구에서 API Key 확인 가능</p>
+<p><strong>원인:</strong> JavaScript에 API Key를 하드코딩</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ 올바른 방법: 서버에서만 API Key 관리</span>
+<span class="c1">// JavaScript에서는 서버 API만 호출</span>
+<span class="n">fetch</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">chat</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">})</span><span class="w">  </span><span class="c1">// API Key 포함 안 함</span>
+
+<span class="c1">// ❌ 잘못된 방법: JavaScript에 API Key 포함</span>
+<span class="kd">const</span><span class="w"> </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sk-...&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// 절대 금지!</span>
+</code></pre></div></p>
+<hr />
+<h3 id="sql-injection">❌ SQL Injection 위험<a class="headerlink" href="#sql-injection" title="Permanent link">&para;</a></h3>
+<p><strong>증상:</strong> 사용자 입력이 그대로 쿼리에 사용됨</p>
+<p><strong>해결 방법:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ Prepared Statement 사용</span>
+<span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;INSERT INTO chat_logs (prompt, response) VALUES (?, ?)&quot;</span><span class="p">;</span>
+<span class="n">PreparedStatement</span><span class="w"> </span><span class="n">pstmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">);</span>
+<span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">prompt</span><span class="p">);</span>
+<span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="n">pstmt</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">();</span>
+
+<span class="c1">// ❌ 문자열 연결 (위험!)</span>
+<span class="n">String</span><span class="w"> </span><span class="n">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;INSERT INTO chat_logs VALUES (&#39;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&#39;, &#39;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&#39;)&quot;</span><span class="p">;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="_7">추가 지원<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">로그 활성화<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="log4j2">Log4j2 설정<a class="headerlink" href="#log4j2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- log4j2.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Configuration</span><span class="w"> </span><span class="na">status=</span><span class="s">&quot;WARN&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Appenders&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Console</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Console&quot;</span><span class="w"> </span><span class="na">target=</span><span class="s">&quot;SYSTEM_OUT&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;PatternLayout</span><span class="w"> </span><span class="na">pattern=</span><span class="s">&quot;%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/Console&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Appenders&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Loggers&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;com.smartuxapi&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;DEBUG&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Root</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;INFO&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;AppenderRef</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;Console&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/Root&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Loggers&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre></div>
+<hr />
+<h3 id="_9">디버그 모드<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 디버그 정보 출력</span>
+<span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;smartux.debug&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="p">);</span>
+
+<span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpt-4&quot;</span><span class="p">);</span>
+<span class="n">chatRoom</span><span class="p">.</span><span class="na">setDebugMode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">  </span><span class="c1">// 요청/응답 로깅</span>
+</code></pre></div>
+<hr />
+<h3 id="_10">문제가 해결되지 않을 때<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>GitHub Issues 검색</strong>: <a href="https://github.com/kiunsea/smux-api/issues">기존 이슈 확인</a></li>
+<li><strong>새 이슈 등록</strong>: <a href="https://github.com/kiunsea/smux-api/issues/new?template=bug_report.md">버그 신고</a></li>
+<li><strong>Discussions</strong>: <a href="https://github.com/kiunsea/smux-api/discussions">질문하기</a></li>
+<li><strong>Email</strong>: kiunsea@gmail.com</li>
+</ol>
+<hr />
+<h2 id="_11">추가 리소스<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../API/">API Reference</a></li>
+<li><a href="../INSTALL/">설치 가이드</a></li>
+<li><a href="../EXAMPLES/">코드 예제</a></li>
+<li><a href="../SECURITY.md">보안 정책</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

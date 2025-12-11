@@ -1,0 +1,2731 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI-powered UI automation library for Java web applications">
+      
+      
+        <meta name="author" content="kiunsea@gmail.com">
+      
+      
+        <link rel="canonical" href="https://kiunsea.github.io/smux-api/API/">
+      
+      
+        <link rel="prev" href="../INSTALL/">
+      
+      
+        <link rel="next" href="../EXAMPLES/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>API Reference - Smart UX API Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href=".." title="Smart UX API Documentation" class="md-header__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smart UX API Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../INSTALL/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  설치
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../EXAMPLES/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  예제
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../TROUBLESHOOTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  문제 해결
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../javadoc/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  JavaDoc
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Smart UX API Documentation" class="md-nav__button md-logo" aria-label="Smart UX API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Smart UX API Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kiunsea/smux-api" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kiunsea/smux-api
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../INSTALL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChatRoom
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChatRoom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구현체
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatting-getchatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chatting getChatting()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구현체
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstring-getmessageidset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set&lt;String&gt; getMessageIdSet()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Responses API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI Responses API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responseschatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsesChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responseschatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsesChatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResponsesChatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="주요 메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-gemini-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Gemini API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Gemini API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geminichatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GeminiChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geminichatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GeminiChatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GeminiChatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="주요 메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai-assistants-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Assistants API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI Assistants API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assistants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistantsthread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AssistantsThread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistantsmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AssistantsMessage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actionqueuehandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ActionQueueHandler
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ActionQueueHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#void-setcurrentviewinfostring-curviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void setCurrentViewInfo(String curViewInfo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-addcurrentviewinfojsonnode-additionalviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void addCurrentViewInfo(JsonNode additionalViewInfo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-iscurrentviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boolean isCurrentViewInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-getcurviewprompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String getCurViewPrompt()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-getactionqueuepromptstring-usermsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String getActionQueuePrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-getactionqueuestring-resmsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode getActionQueue(String resMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-clearcurrentviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void clearCurrentViewInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-markviewinfoassent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void markViewInfoAsSent()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-isviewinfochanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boolean isViewInfoChanged()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConfigLoader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ConfigLoader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-loadconfigfromclasspath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode loadConfigFromClasspath()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-loadconfigfromclasspathstring-conffilename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode loadConfigFromClasspath(String confFileName)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-client-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript Client API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript Client API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smartuxcollector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartUXCollector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SmartUXCollector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collectuiinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        collectUIInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smartuxclient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartUXClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SmartUXClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executeactionqueueactionqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executeActionQueue(actionQueue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executeactionaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executeAction(action)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        지원 액션 타입
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        에러 처리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="에러 처리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예외 클래스
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="예외 클래스">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apiexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        APIException
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networkexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkException
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예외 처리 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설정 옵션
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설정 옵션">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        고급 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        버전 호환성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        질문 및 지원
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXAMPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    예제
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TROUBLESHOOTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문제 해결
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javadoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaDoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChatRoom
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChatRoom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구현체
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatting-getchatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chatting getChatting()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        구현체
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstring-getmessageidset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set&lt;String&gt; getMessageIdSet()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Responses API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI Responses API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responseschatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsesChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responseschatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsesChatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResponsesChatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="주요 메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-gemini-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Gemini API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Gemini API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geminichatroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GeminiChatRoom
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geminichatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GeminiChatting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GeminiChatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        주요 메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="주요 메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonobject-sendpromptstring-usermsg_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONObject sendPrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openai-assistants-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Assistants API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenAI Assistants API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assistants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistantsthread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AssistantsThread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistantsmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AssistantsMessage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actionqueuehandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ActionQueueHandler
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ActionQueueHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#void-setcurrentviewinfostring-curviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void setCurrentViewInfo(String curViewInfo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-addcurrentviewinfojsonnode-additionalviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void addCurrentViewInfo(JsonNode additionalViewInfo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-iscurrentviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boolean isCurrentViewInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-getcurviewprompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String getCurViewPrompt()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-getactionqueuepromptstring-usermsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String getActionQueuePrompt(String userMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-getactionqueuestring-resmsg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode getActionQueue(String resMsg)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-clearcurrentviewinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void clearCurrentViewInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#void-markviewinfoassent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        void markViewInfoAsSent()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-isviewinfochanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boolean isViewInfoChanged()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConfigLoader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ConfigLoader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-loadconfigfromclasspath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode loadConfigFromClasspath()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonnode-loadconfigfromclasspathstring-conffilename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JsonNode loadConfigFromClasspath(String confFileName)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-client-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript Client API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript Client API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smartuxcollector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartUXCollector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SmartUXCollector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collectuiinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        collectUIInfo()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smartuxclient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartUXClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SmartUXClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        메서드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="메서드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executeactionqueueactionqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executeActionQueue(actionQueue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executeactionaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executeAction(action)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        지원 액션 타입
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        에러 처리
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="에러 처리">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예외 클래스
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="예외 클래스">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apiexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        APIException
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networkexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkException
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예외 처리 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설정 옵션
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설정 옵션">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        고급 옵션
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        버전 호환성
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        추가 리소스
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        질문 및 지원
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>Smart UX API의 상세한 API 레퍼런스 문서입니다.</p>
+<hr />
+<h2 id="_1">📋 목차<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#core-interfaces">Core Interfaces</a></li>
+<li><a href="#openai-responses-api">OpenAI Responses API</a></li>
+<li><a href="#google-gemini-api">Google Gemini API</a></li>
+<li><a href="#openai-assistants-api">OpenAI Assistants API</a></li>
+<li><a href="#utility-classes">Utility Classes</a></li>
+<li><a href="#javascript-client-api">JavaScript Client API</a></li>
+</ul>
+<hr />
+<h2 id="core-interfaces">Core Interfaces<a class="headerlink" href="#core-interfaces" title="Permanent link">&para;</a></h2>
+<h3 id="chatroom">ChatRoom<a class="headerlink" href="#chatroom" title="Permanent link">&para;</a></h3>
+<p>대화 세션을 관리하는 기본 인터페이스입니다.</p>
+<h4 id="_2">구현체<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>ResponsesChatRoom</code>: OpenAI Responses API</li>
+<li><code>GeminiChatRoom</code>: Google Gemini API</li>
+</ul>
+<h4 id="_3">메서드<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<h5 id="chatting-getchatting"><code>Chatting getChatting()</code><a class="headerlink" href="#chatting-getchatting" title="Permanent link">&para;</a></h5>
+<p>Chatting 인스턴스를 반환합니다. 첫 호출 시 생성되며, 이후 호출 시 동일한 인스턴스를 반환합니다.</p>
+<p><strong>반환값:</strong> <code>Chatting</code> 인스턴스</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 문서에서 언급된 <code>addSystemMessage()</code> 및 <code>createChatting()</code> 메서드는 현재 버전(0.6.0)에서는 지원되지 않습니다. 대신 <code>getChatting()</code> 메서드를 사용하여 Chatting 인스턴스를 얻고, <code>sendPrompt()</code> 메서드를 통해 사용자 메시지를 전송합니다.</p>
+<hr />
+<h3 id="chatting">Chatting<a class="headerlink" href="#chatting" title="Permanent link">&para;</a></h3>
+<p>개별 대화를 처리하는 인터페이스입니다.</p>
+<h4 id="_4">구현체<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>ResponsesChatting</code>: OpenAI Responses API</li>
+<li><code>GeminiChatting</code>: Google Gemini API</li>
+</ul>
+<h4 id="_5">메서드<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<h5 id="jsonobject-sendpromptstring-usermsg"><code>JSONObject sendPrompt(String userMsg)</code><a class="headerlink" href="#jsonobject-sendpromptstring-usermsg" title="Permanent link">&para;</a></h5>
+<p>사용자 메시지를 전송하고 AI 응답을 받습니다.</p>
+<p><strong>파라미터:</strong>
+- <code>userMsg</code> - 사용자 메시지 (프롬프트)</p>
+<p><strong>반환값:</strong> <code>JSONObject</code> - 다음 형식의 JSON 객체:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 응답 메시지&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Action Queue JSON 문자열 또는 JSON 객체&quot;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>예외:</strong>
+- <code>Exception</code> - 네트워크 오류, API 호출 실패 등</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;아메리카노 주문해줘&quot;</span><span class="p">;</span>
+<span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">);</span>
+<span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">);</span>
+<span class="n">Object</span><span class="w"> </span><span class="n">actionQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;action_queue&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 
+- 현재 화면 정보는 <code>ActionQueueHandler.setCurrentViewInfo()</code>를 통해 별도로 설정해야 합니다.
+- 화면 정보가 설정되어 있으면 자동으로 프롬프트에 포함됩니다.</p>
+<h5 id="setstring-getmessageidset"><code>Set&lt;String&gt; getMessageIdSet()</code><a class="headerlink" href="#setstring-getmessageidset" title="Permanent link">&para;</a></h5>
+<p>보유하고 있는 메시지 ID Set을 반환합니다.</p>
+<p><strong>반환값:</strong> 메시지 ID Set (Responses API와 Gemini API의 경우 <code>null</code> 반환)</p>
+<p><strong>참고:</strong> 이 메서드는 주로 Assistants API에서 사용됩니다.</p>
+<hr />
+<h2 id="openai-responses-api">OpenAI Responses API<a class="headerlink" href="#openai-responses-api" title="Permanent link">&para;</a></h2>
+<h3 id="responseschatroom">ResponsesChatRoom<a class="headerlink" href="#responseschatroom" title="Permanent link">&para;</a></h3>
+<p><strong>생성자:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">ResponsesChatRoom</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>파라미터:</strong>
+- <code>apiKey</code> - OpenAI API Key
+- <code>model</code> - 사용할 모델 (예: "gpt-4", "gpt-3.5-turbo")</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s">&quot;gpt-4&quot;</span>
+<span class="p">);</span>
+</code></pre></div></p>
+<h3 id="responseschatting">ResponsesChatting<a class="headerlink" href="#responseschatting" title="Permanent link">&para;</a></h3>
+<p><code>ResponsesChatRoom.getChatting()</code>을 통해 생성됩니다.</p>
+<h4 id="_6">주요 메서드<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<h5 id="jsonobject-sendpromptstring-usermsg_1"><code>JSONObject sendPrompt(String userMsg)</code><a class="headerlink" href="#jsonobject-sendpromptstring-usermsg_1" title="Permanent link">&para;</a></h5>
+<p>OpenAI Responses API를 호출하여 응답을 받습니다.</p>
+<p><strong>API 엔드포인트:</strong> <code>https://api.openai.com/v1/chat/completions</code></p>
+<p><strong>동작 방식:</strong>
+1. <code>ActionQueueHandler</code>가 설정되어 있고 현재 화면 정보가 있으면, 화면 정보와 사용자 메시지를 결합한 프롬프트를 생성합니다.
+2. 대화 이력(ConversationHistory)에 사용자 메시지를 추가합니다.
+3. OpenAI API를 호출하여 응답을 받습니다.
+4. 응답을 대화 이력에 추가합니다.
+5. <code>ActionQueueHandler</code>를 통해 Action Queue를 추출합니다.</p>
+<p><strong>반환 형식:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 응답 메시지&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;elementId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;menu_americano&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;click&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 
+- <code>getMessageIdSet()</code> 메서드는 <code>null</code>을 반환합니다 (Gemini API와 동일).</p>
+<hr />
+<h2 id="google-gemini-api">Google Gemini API<a class="headerlink" href="#google-gemini-api" title="Permanent link">&para;</a></h2>
+<h3 id="geminichatroom">GeminiChatRoom<a class="headerlink" href="#geminichatroom" title="Permanent link">&para;</a></h3>
+<p><strong>생성자:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">GeminiChatRoom</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>파라미터:</strong>
+- <code>apiKey</code> - Google Gemini API Key
+- <code>model</code> - 사용할 모델 (예: "gemini-pro", "gemini-1.5-pro")</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">GeminiChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GeminiChatRoom</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;AIza...&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s">&quot;gemini-pro&quot;</span>
+<span class="p">);</span>
+</code></pre></div></p>
+<h3 id="geminichatting">GeminiChatting<a class="headerlink" href="#geminichatting" title="Permanent link">&para;</a></h3>
+<p><code>GeminiChatRoom.getChatting()</code>을 통해 생성됩니다.</p>
+<h4 id="_7">주요 메서드<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<h5 id="jsonobject-sendpromptstring-usermsg_2"><code>JSONObject sendPrompt(String userMsg)</code><a class="headerlink" href="#jsonobject-sendpromptstring-usermsg_2" title="Permanent link">&para;</a></h5>
+<p>Gemini API를 호출하여 응답을 받습니다.</p>
+<p><strong>API 엔드포인트:</strong> <code>https://generativelanguage.googleapis.com/v1/models/{model}:generateContent</code></p>
+<p><strong>동작 방식:</strong>
+1. <code>ActionQueueHandler</code>가 설정되어 있고 현재 화면 정보가 있으면, 화면 정보와 사용자 메시지를 결합한 프롬프트를 생성합니다.
+2. 대화 이력(ConversationHistory)에 사용자 메시지를 추가합니다.
+3. Gemini API를 호출하여 응답을 받습니다.
+4. 응답을 대화 이력에 추가합니다.
+5. <code>ActionQueueHandler</code>를 통해 Action Queue를 추출합니다.</p>
+<p><strong>반환 형식:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 응답 메시지&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 
+- <code>getMessageIdSet()</code> 메서드는 <code>null</code>을 반환합니다.</p>
+<hr />
+<h2 id="openai-assistants-api">OpenAI Assistants API<a class="headerlink" href="#openai-assistants-api" title="Permanent link">&para;</a></h2>
+<h3 id="assistants">Assistants<a class="headerlink" href="#assistants" title="Permanent link">&para;</a></h3>
+<p>OpenAI Assistants API의 Assistant 정보를 관리하는 클래스입니다.</p>
+<p><strong>생성자:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">Assistants</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">assistantId</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>파라미터:</strong>
+- <code>assistantId</code> - Assistant ID (예: "asst_...")</p>
+<p><strong>메서드:</strong>
+- <code>String getAssistantId()</code> - Assistant ID 반환
+- <code>String getApiKey()</code> - API Key 반환
+- <code>void setApiKey(String apiKey)</code> - API Key 설정</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">Assistants</span><span class="w"> </span><span class="n">assistant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Assistants</span><span class="p">(</span><span class="s">&quot;asst_abc123&quot;</span><span class="p">);</span>
+<span class="n">assistant</span><span class="p">.</span><span class="na">setApiKey</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 
+- <code>createThread()</code> 및 <code>retrieveThread()</code> 메서드는 <code>AssistantsThread</code> 클래스에서 제공됩니다.</p>
+<hr />
+<h3 id="assistantsthread">AssistantsThread<a class="headerlink" href="#assistantsthread" title="Permanent link">&para;</a></h3>
+<p>Thread는 Assistants API의 대화 세션을 나타내는 <code>ChatRoom</code> 구현체입니다.</p>
+<p><strong>생성자:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">AssistantsThread</span><span class="p">(</span><span class="n">Assistants</span><span class="w"> </span><span class="n">assistInfo</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ParseException</span>
+</code></pre></div></p>
+<p><strong>파라미터:</strong>
+- <code>assistInfo</code> - <code>Assistants</code> 인스턴스</p>
+<p><strong>주요 메서드:</strong>
+- <code>String getId()</code> - Thread ID 반환
+- <code>Chatting getChatting()</code> - Chatting 인스턴스 반환 (AssistantsMessage)
+- <code>boolean close()</code> - Thread 삭제 및 리소스 정리
+- <code>void setFunctionMap(Map usrFuncs)</code> - 사용자 함수 맵 설정 (TODO: 추후 구현 예정)</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">Assistants</span><span class="w"> </span><span class="n">assistant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Assistants</span><span class="p">(</span><span class="s">&quot;asst_abc123&quot;</span><span class="p">);</span>
+<span class="n">assistant</span><span class="p">.</span><span class="na">setApiKey</span><span class="p">(</span><span class="s">&quot;sk-...&quot;</span><span class="p">);</span>
+<span class="n">AssistantsThread</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AssistantsThread</span><span class="p">(</span><span class="n">assistant</span><span class="p">);</span>
+<span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+</code></pre></div></p>
+<hr />
+<h3 id="assistantsmessage">AssistantsMessage<a class="headerlink" href="#assistantsmessage" title="Permanent link">&para;</a></h3>
+<p>메시지를 전송하고 응답을 받는 <code>Chatting</code> 구현체입니다.</p>
+<p><strong>생성자:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">AssistantsMessage</span><span class="p">(</span><span class="n">AssistantsAPIConnection</span><span class="w"> </span><span class="n">connApi</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">idThread</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="nf">AssistantsMessage</span><span class="p">(</span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="p">,</span><span class="w"> </span><span class="n">AssistantsAPIConnection</span><span class="w"> </span><span class="n">connApi</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">idThread</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>주요 메서드:</strong>
+- <code>JSONObject sendPrompt(String userMsg)</code> - Assistant에게 메시지를 전송하고 Run을 실행합니다.</p>
+<p><strong>동작 방식:</strong>
+1. Thread에 메시지를 추가합니다.
+2. Run을 생성하고 실행합니다.
+3. Run이 완료될 때까지 폴링 방식으로 대기합니다.
+4. 완료된 Run의 응답을 반환합니다.</p>
+<p><strong>반환 형식:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 응답 메시지&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action_queue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">AssistantsThread</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AssistantsThread</span><span class="p">(</span><span class="n">assistant</span><span class="p">);</span>
+<span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;아메리카노 주문해줘&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<p><strong>참고:</strong> 
+- Function Call 기능은 현재 TODO 상태입니다 (추후 구현 예정).</p>
+<hr />
+<h2 id="utility-classes">Utility Classes<a class="headerlink" href="#utility-classes" title="Permanent link">&para;</a></h2>
+<h3 id="actionqueuehandler">ActionQueueHandler<a class="headerlink" href="#actionqueuehandler" title="Permanent link">&para;</a></h3>
+<p>Action Queue를 파싱하고 실행하는 유틸리티 클래스입니다.</p>
+<h4 id="_8">메서드<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<h5 id="void-setcurrentviewinfostring-curviewinfo"><code>void setCurrentViewInfo(String curViewInfo)</code><a class="headerlink" href="#void-setcurrentviewinfostring-curviewinfo" title="Permanent link">&para;</a></h5>
+<p>현재 화면 정보를 저장합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>curViewInfo</code> - 현재 화면 정보 JSON 문자열 (배열 또는 객체)</p>
+<p><strong>예외:</strong> <code>ParseException</code></p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="n">String</span><span class="w"> </span><span class="n">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCurrentViewInfoFromClient</span><span class="p">();</span>
+<span class="n">handler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">viewInfo</span><span class="p">);</span>
+</code></pre></div></p>
+<h4 id="void-addcurrentviewinfojsonnode-additionalviewinfo"><code>void addCurrentViewInfo(JsonNode additionalViewInfo)</code><a class="headerlink" href="#void-addcurrentviewinfojsonnode-additionalviewinfo" title="Permanent link">&para;</a></h4>
+<p>현재 화면 정보에 추가 정보를 병합합니다. (버전 0.6.0 추가)</p>
+<p><strong>파라미터:</strong>
+- <code>additionalViewInfo</code> - 추가할 화면 정보 (JsonNode)</p>
+<h4 id="boolean-iscurrentviewinfo"><code>boolean isCurrentViewInfo()</code><a class="headerlink" href="#boolean-iscurrentviewinfo" title="Permanent link">&para;</a></h4>
+<p>현재 화면 정보가 저장되어 있는지 확인합니다.</p>
+<p><strong>반환값:</strong> <code>boolean</code> - 화면 정보 저장 여부</p>
+<h4 id="string-getcurviewprompt"><code>String getCurViewPrompt()</code><a class="headerlink" href="#string-getcurviewprompt" title="Permanent link">&para;</a></h4>
+<p>현재 화면 정보 설정에 대한 프롬프트를 반환합니다. 화면 정보가 변경되었을 때만 프롬프트를 반환합니다.</p>
+<p><strong>반환값:</strong> <code>String</code> - Current View Prompt (변경되지 않았으면 null)</p>
+<h4 id="string-getactionqueuepromptstring-usermsg"><code>String getActionQueuePrompt(String userMsg)</code><a class="headerlink" href="#string-getactionqueuepromptstring-usermsg" title="Permanent link">&para;</a></h4>
+<p>Action Queue 생성 요청 프롬프트를 반환합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>userMsg</code> - 사용자 메시지</p>
+<p><strong>반환값:</strong> <code>String</code> - Action Queue Prompt</p>
+<p><strong>주의:</strong> 현재 화면 정보가 필수로 저장되어 있어야 합니다.</p>
+<h4 id="jsonnode-getactionqueuestring-resmsg"><code>JsonNode getActionQueue(String resMsg)</code><a class="headerlink" href="#jsonnode-getactionqueuestring-resmsg" title="Permanent link">&para;</a></h4>
+<p>AI 응답 메시지에서 Action Queue를 추출합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>resMsg</code> - AI 응답 메시지</p>
+<p><strong>반환값:</strong> <code>JsonNode</code> - Action Queue JSON (또는 전체 응답 JSON)</p>
+<h4 id="void-clearcurrentviewinfo"><code>void clearCurrentViewInfo()</code><a class="headerlink" href="#void-clearcurrentviewinfo" title="Permanent link">&para;</a></h4>
+<p>저장된 현재 화면 정보를 삭제합니다.</p>
+<h4 id="void-markviewinfoassent"><code>void markViewInfoAsSent()</code><a class="headerlink" href="#void-markviewinfoassent" title="Permanent link">&para;</a></h4>
+<p>프롬프트 전송 후 호출하여 마지막 전송된 화면 정보를 업데이트합니다. (버전 0.6.0 추가)</p>
+<h4 id="boolean-isviewinfochanged"><code>boolean isViewInfoChanged()</code><a class="headerlink" href="#boolean-isviewinfochanged" title="Permanent link">&para;</a></h4>
+<p>화면 정보 변경 여부를 확인합니다. (버전 0.6.0 추가)</p>
+<p><strong>반환값:</strong> <code>boolean</code> - 변경 여부</p>
+<hr />
+<h3 id="configloader">ConfigLoader<a class="headerlink" href="#configloader" title="Permanent link">&para;</a></h3>
+<p>클래스패스에서 JSON 설정 파일을 로드하는 유틸리티 클래스입니다.</p>
+<h4 id="_9">메서드<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<h5 id="jsonnode-loadconfigfromclasspath"><code>JsonNode loadConfigFromClasspath()</code><a class="headerlink" href="#jsonnode-loadconfigfromclasspath" title="Permanent link">&para;</a></h5>
+<p>기본 파일명 (<code>config.json</code>)으로 설정 파일을 로드합니다.</p>
+<p><strong>반환값:</strong> <code>JsonNode</code> - 로드된 설정 파일의 JsonNode</p>
+<h5 id="jsonnode-loadconfigfromclasspathstring-conffilename"><code>JsonNode loadConfigFromClasspath(String confFileName)</code><a class="headerlink" href="#jsonnode-loadconfigfromclasspathstring-conffilename" title="Permanent link">&para;</a></h5>
+<p>지정한 파일명으로 설정 파일을 로드합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>confFileName</code> - 설정 파일명 (null인 경우 <code>config.json</code> 사용)</p>
+<p><strong>반환값:</strong> <code>JsonNode</code> - 로드된 설정 파일의 JsonNode (파일을 찾지 못하거나 파싱 오류 시 <code>null</code>)</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">JsonNode</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigLoader</span><span class="p">.</span><span class="na">loadConfigFromClasspath</span><span class="p">();</span>
+<span class="n">JsonNode</span><span class="w"> </span><span class="n">customConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigLoader</span><span class="p">.</span><span class="na">loadConfigFromClasspath</span><span class="p">(</span><span class="s">&quot;custom-config.json&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<hr />
+<h2 id="javascript-client-api">JavaScript Client API<a class="headerlink" href="#javascript-client-api" title="Permanent link">&para;</a></h2>
+<h3 id="smartuxcollector">SmartUXCollector<a class="headerlink" href="#smartuxcollector" title="Permanent link">&para;</a></h3>
+<p>웹 페이지의 UI 정보를 수집하는 JavaScript 클래스입니다.</p>
+<h4 id="_10">메서드<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<h5 id="collectuiinfo"><code>collectUIInfo()</code><a class="headerlink" href="#collectuiinfo" title="Permanent link">&para;</a></h5>
+<p>현재 페이지의 모든 UI 요소를 스캔하여 JSON으로 반환합니다.</p>
+<p><strong>반환값:</strong> UI 정보 JSON 객체</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">collector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXCollector</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">collector</span><span class="p">.</span><span class="nx">collectUIInfo</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">viewInfo</span><span class="p">));</span>
+</code></pre></div></p>
+<p><strong>반환 형식:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;elements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;menu_americano&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tagName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BUTTON&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;아메리카노&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;className&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;menu-item&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="smartuxclient">SmartUXClient<a class="headerlink" href="#smartuxclient" title="Permanent link">&para;</a></h3>
+<p>Action Queue를 실행하는 JavaScript 클래스입니다.</p>
+<h4 id="_11">메서드<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<h5 id="executeactionqueueactionqueue"><code>executeActionQueue(actionQueue)</code><a class="headerlink" href="#executeactionqueueactionqueue" title="Permanent link">&para;</a></h5>
+<p>Action Queue의 액션들을 순차적으로 실행합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>actionQueue</code> - Action Queue JSON 객체 또는 문자열</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXClient</span><span class="p">();</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">executeActionQueue</span><span class="p">(</span><span class="nx">actionQueue</span><span class="p">);</span>
+</code></pre></div></p>
+<h5 id="executeactionaction"><code>executeAction(action)</code><a class="headerlink" href="#executeactionaction" title="Permanent link">&para;</a></h5>
+<p>단일 액션을 실행합니다.</p>
+<p><strong>파라미터:</strong>
+- <code>action</code> - 액션 객체</p>
+<p><strong>예제:</strong>
+<div class="highlight"><pre><span></span><code><span class="nx">client</span><span class="p">.</span><span class="nx">executeAction</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">elementId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;menu_americano&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;click&quot;</span>
+<span class="p">});</span>
+</code></pre></div></p>
+<h4 id="_12">지원 액션 타입<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>click</strong>: 요소 클릭</li>
+<li><strong>setValue</strong>: 입력 필드에 값 설정</li>
+<li><strong>select</strong>: 드롭다운 선택</li>
+<li><strong>scroll</strong>: 스크롤</li>
+<li><strong>wait</strong>: 대기</li>
+</ul>
+<hr />
+<h2 id="_13">에러 처리<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="_14">예외 클래스<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h4 id="apiexception">APIException<a class="headerlink" href="#apiexception" title="Permanent link">&para;</a></h4>
+<p>API 호출 실패 시 발생하는 예외입니다.</p>
+<p><strong>메서드:</strong>
+- <code>getStatusCode()</code> - HTTP 상태 코드
+- <code>getErrorMessage()</code> - 에러 메시지
+- <code>getErrorType()</code> - 에러 타입</p>
+<h4 id="networkexception">NetworkException<a class="headerlink" href="#networkexception" title="Permanent link">&para;</a></h4>
+<p>네트워크 오류 시 발생하는 예외입니다.</p>
+<h3 id="_15">예외 처리 예제<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">actionQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="n">viewInfo</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">APIException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;API Error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">());</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Message: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getErrorMessage</span><span class="p">());</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NetworkException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Network Error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="_16">설정 옵션<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="_17">고급 옵션<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>현재 버전(0.6.0)에서는 Builder 패턴을 통한 고급 옵션 설정을 지원하지 않습니다. 기본 생성자를 사용하여 ChatRoom을 생성합니다:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// OpenAI Responses API</span>
+<span class="n">ResponsesChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResponsesChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+
+<span class="c1">// Google Gemini API</span>
+<span class="n">GeminiChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GeminiChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</code></pre></div>
+<p>향후 버전에서 고급 옵션(온도, 최대 토큰, 타임아웃 등) 지원이 추가될 예정입니다.</p>
+<hr />
+<h2 id="_18">버전 호환성<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Smart UX API</th>
+<th>Java</th>
+<th>OpenAI API</th>
+<th>Gemini API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.6.x</td>
+<td>17+</td>
+<td>v1</td>
+<td>v1</td>
+</tr>
+<tr>
+<td>0.5.x</td>
+<td>17+</td>
+<td>v1</td>
+<td>v1</td>
+</tr>
+<tr>
+<td>0.4.x</td>
+<td>17+</td>
+<td>v1</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>0.3.x</td>
+<td>17+</td>
+<td>v1 (Beta)</td>
+<td>v1 (Beta)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_19">추가 리소스<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../INSTALL/">설치 가이드</a></li>
+<li><a href="../EXAMPLES/">코드 예제</a></li>
+<li><a href="../TROUBLESHOOTING/">문제 해결</a></li>
+<li><a href="javadoc/">JavaDoc</a> (빌드 후 생성)</li>
+</ul>
+<hr />
+<h2 id="_20">질문 및 지원<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/kiunsea/smux-api/issues">GitHub Issues</a></li>
+<li><a href="https://github.com/kiunsea/smux-api/discussions">Discussions</a></li>
+<li>Email: kiunsea@gmail.com</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
