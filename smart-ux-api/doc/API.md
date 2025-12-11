@@ -77,12 +77,14 @@ public interface ChatRoom {
 #### 메서드
 
 - `getId()`: ChatRoom의 고유 ID를 반환합니다.
-- `getChatting()`: `Chatting` 인스턴스를 반환합니다.
+- `getChatting()`: `Chatting` 인스턴스를 반환합니다. 첫 호출 시 생성되며, 이후 호출 시 동일한 인스턴스를 반환합니다.
 - `close()`: ChatRoom을 종료하고 리소스를 정리합니다.
   - OpenAI Assistants API의 경우 Thread를 삭제합니다.
   - `IOException`, `ParseException`을 발생시킬 수 있습니다.
 - `setActionQueueHandler(ActionQueueHandler)`: Action Queue 핸들러를 설정합니다.
 - `getActionQueueHandler()`: 설정된 Action Queue 핸들러를 반환합니다.
+
+**참고:** 문서에서 언급된 `addSystemMessage()` 및 `createChatting()` 메서드는 현재 버전(0.6.0)에서는 지원되지 않습니다.
 
 #### 구현 클래스
 
@@ -334,10 +336,16 @@ public ActionQueueHandler(String formatUi, JsonNode configPrompt)
 
 #### `setCurrentViewInfo(String curViewInfo)`
 
-현재 화면 정보를 저장합니다.
+현재 화면 정보를 저장합니다. 화면 정보가 변경되었는지 자동으로 감지합니다.
 
 - 파라미터: `curViewInfo` - 현재 화면 정보 JSON 문자열 (배열 또는 객체)
 - 예외: `ParseException`
+
+#### `addCurrentViewInfo(JsonNode additionalViewInfo)` (버전 0.6.0 추가)
+
+현재 화면 정보에 추가 정보를 병합합니다.
+
+- 파라미터: `additionalViewInfo` - 추가할 화면 정보 (JsonNode)
 
 #### `isCurrentViewInfo()`
 
@@ -347,9 +355,19 @@ public ActionQueueHandler(String formatUi, JsonNode configPrompt)
 
 #### `getCurViewPrompt()`
 
-현재 화면 정보 설정에 대한 프롬프트를 반환합니다.
+현재 화면 정보 설정에 대한 프롬프트를 반환합니다. 화면 정보가 변경되었을 때만 프롬프트를 반환합니다.
 
-- 반환값: `String` - Current View Prompt
+- 반환값: `String` - Current View Prompt (변경되지 않았으면 null)
+
+#### `markViewInfoAsSent()` (버전 0.6.0 추가)
+
+프롬프트 전송 후 호출하여 마지막 전송된 화면 정보를 업데이트합니다. 화면 정보가 변경되어 프롬프트에 포함된 경우에만 호출해야 합니다.
+
+#### `boolean isViewInfoChanged()` (버전 0.6.0 추가)
+
+화면 정보 변경 여부를 확인합니다.
+
+- 반환값: `boolean` - 변경 여부
 
 #### `getActionQueuePrompt(String userMsg)`
 

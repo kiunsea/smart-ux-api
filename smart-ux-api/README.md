@@ -14,11 +14,11 @@
 
 ### 1️⃣ JAR 파일 추가
 
-* `lib/build/libs/smart-ux-api.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+* `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2️⃣ JS 라이브러리 포함
 
-* `lib/src/main/js/*.js` 파일을 웹 애플리케이션의 `[DOC ROOT]/smuxapi` 디렉터리에 추가합니다.
+* `smart-ux-api/lib/src/main/js/*.js` 파일을 웹 애플리케이션의 `[DOC ROOT]/smuxapi` 디렉터리에 추가합니다.
 * 웹 페이지에 다음 스크립트를 포함시킵니다:
 
 ```html
@@ -111,7 +111,7 @@ AI가 **UI를 제어할 때 필요한 작업 흐름(Work Flow)** 을 정의한 *
   - `ResponsesChatRoom`, `ResponsesChatting`
   - `GeminiChatRoom`, `GeminiChatting`
 * OpenAI Assistant
-  - `Assistant`
+  - `Assistants`
   - `AssistantsThread`
   - `AssistantsMessage`
 
@@ -136,12 +136,16 @@ String model = "gpt-4";
 // ChatRoom 생성 (대화 세션 관리)
 ResponsesChatRoom chatRoom = new ResponsesChatRoom(apiKey, model);
 
-// User Interaction Flow 문서 로드
-String uifDocument = loadUIFDocument("path/to/uif.json");
-chatRoom.addSystemMessage(uifDocument);
+// Action Queue Handler 설정
+ActionQueueHandler aqHandler = new ActionQueueHandler();
+chatRoom.setActionQueueHandler(aqHandler);
+
+// 현재 화면 정보 설정 (JavaScript에서 전달받음)
+String currentViewInfo = getCurrentViewInfoFromClient();
+aqHandler.setCurrentViewInfo(currentViewInfo);
 
 // Chatting 인스턴스 생성
-ResponsesChatting chatting = chatRoom.createChatting();
+Chatting chatting = chatRoom.getChatting();
 ```
 
 #### 프롬프트 전송 및 응답 수신
@@ -149,13 +153,13 @@ ResponsesChatting chatting = chatRoom.createChatting();
 // 사용자 프롬프트
 String userPrompt = "아이스 아메리카노 2잔 주문해줘";
 
-// 현재 화면 정보 수집 (JavaScript에서 전달받음)
-String currentViewInfo = getCurrentViewInfoFromClient();
-
 // AI에게 프롬프트 전송
-String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+JSONObject response = chatting.sendPrompt(userPrompt);
 
 // 응답 확인
+String message = (String) response.get("message");
+Object actionQueue = response.get("action_queue");
+System.out.println("AI 응답: " + message);
 System.out.println("Action Queue: " + actionQueue);
 ```
 
@@ -169,13 +173,17 @@ String model = "gemini-pro";
 // ChatRoom 생성
 GeminiChatRoom chatRoom = new GeminiChatRoom(apiKey, model);
 
-// User Interaction Flow 전송
-String uifDocument = loadUIFDocument("path/to/uif.json");
-chatRoom.addSystemMessage(uifDocument);
+// Action Queue Handler 설정
+ActionQueueHandler aqHandler = new ActionQueueHandler();
+chatRoom.setActionQueueHandler(aqHandler);
+
+// 현재 화면 정보 설정
+aqHandler.setCurrentViewInfo(currentViewInfo);
 
 // Chatting 생성 및 프롬프트 전송
-GeminiChatting chatting = chatRoom.createChatting();
-String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+Chatting chatting = chatRoom.getChatting();
+JSONObject response = chatting.sendPrompt(userPrompt);
+Object actionQueue = response.get("action_queue");
 ```
 
 ### OpenAI Assistants API 사용 예제
@@ -186,14 +194,23 @@ String apiKey = "your-openai-api-key";
 String assistantId = "asst_xxxxxxxxxxxxx";
 
 // Assistant 생성
-Assistant assistant = new Assistant(apiKey, assistantId);
+Assistants assistant = new Assistants(assistantId);
+assistant.setApiKey(apiKey);
 
 // Thread 생성 (대화 세션)
-AssistantsThread thread = assistant.createThread();
+AssistantsThread thread = new AssistantsThread(assistant);
+
+// Action Queue Handler 설정
+ActionQueueHandler aqHandler = new ActionQueueHandler();
+thread.setActionQueueHandler(aqHandler);
+
+// 현재 화면 정보 설정
+aqHandler.setCurrentViewInfo(currentViewInfo);
 
 // 메시지 전송
-AssistantsMessage message = thread.createMessage();
-String actionQueue = message.sendMessage(userPrompt, currentViewInfo);
+Chatting chatting = thread.getChatting();
+JSONObject response = chatting.sendPrompt(userPrompt);
+Object actionQueue = response.get("action_queue");
 ```
 
 ### Servlet 구현 예제
@@ -213,9 +230,9 @@ public class ChatServlet extends HttpServlet {
         // ChatRoom 초기화
         chatRoom = new ResponsesChatRoom(apiKey, model);
         
-        // UIF 문서 로드
-        String uifDocument = loadUIFDocument();
-        chatRoom.addSystemMessage(uifDocument);
+        // Action Queue Handler 초기화
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
     }
     
     @Override
@@ -225,14 +242,26 @@ public class ChatServlet extends HttpServlet {
         String userPrompt = req.getParameter("prompt");
         String currentViewInfo = req.getParameter("viewInfo");
         
+        // 현재 화면 정보 설정
+        ActionQueueHandler aqHandler = chatRoom.getActionQueueHandler();
+        if (currentViewInfo != null) {
+            try {
+                aqHandler.setCurrentViewInfo(currentViewInfo);
+            } catch (ParseException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("{\"error\":\"Invalid view info format\"}");
+                return;
+            }
+        }
+        
         // Chatting 생성 및 메시지 전송
-        ResponsesChatting chatting = chatRoom.createChatting();
-        String actionQueue = chatting.sendMessage(userPrompt, currentViewInfo);
+        Chatting chatting = chatRoom.getChatting();
+        JSONObject response = chatting.sendPrompt(userPrompt);
         
         // JSON 응답
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(actionQueue);
+        resp.getWriter().write(response.toJSONString());
     }
 }
 ```
@@ -273,11 +302,14 @@ fetch('/api/chat', {
 **구현체:**
 - `ResponsesChatRoom`: OpenAI Responses API용
 - `GeminiChatRoom`: Google Gemini API용
+- `AssistantsThread`: OpenAI Assistants API용
 
 **주요 메서드:**
-- `addSystemMessage(String message)`: 시스템 메시지 추가 (UIF 문서)
-- `createChatting()`: 새로운 Chatting 인스턴스 생성
-- `getChatHistory()`: 대화 이력 조회
+- `getId()`: ChatRoom의 고유 ID 반환
+- `getChatting()`: Chatting 인스턴스 반환
+- `close()`: ChatRoom 종료 및 리소스 정리
+- `setActionQueueHandler(ActionQueueHandler)`: Action Queue 핸들러 설정
+- `getActionQueueHandler()`: Action Queue 핸들러 반환
 
 #### Chatting 인터페이스
 개별 대화를 처리하는 인터페이스
@@ -285,24 +317,42 @@ fetch('/api/chat', {
 **구현체:**
 - `ResponsesChatting`: OpenAI Responses API용
 - `GeminiChatting`: Google Gemini API용
+- `AssistantsMessage`: OpenAI Assistants API용
 
 **주요 메서드:**
-- `sendMessage(String prompt, String viewInfo)`: 프롬프트 전송 및 Action Queue 수신
-- `getConversationHistory()`: 현재 대화 이력 조회
+- `sendPrompt(String userMsg)`: 프롬프트 전송 및 응답 수신 (JSONObject 반환)
+- `getMessageIdSet()`: 메시지 ID Set 반환 (일부 구현체는 null 반환)
+- `setActionQueueHandler(ActionQueueHandler)`: Action Queue 핸들러 설정
 
-#### Assistant (OpenAI Assistants API 전용)
-OpenAI Assistants API를 사용하는 경우 필요한 클래스
+#### Assistants (OpenAI Assistants API 전용)
+OpenAI Assistants API의 Assistant 정보를 관리하는 클래스
 
 **주요 메서드:**
-- `createThread()`: 새로운 Thread 생성
-- `retrieveThread(String threadId)`: 기존 Thread 조회
+- `getAssistantId()`: Assistant ID 반환
+- `getApiKey()`: API Key 반환
+- `setApiKey(String apiKey)`: API Key 설정
+
+#### AssistantsThread (OpenAI Assistants API 전용)
+OpenAI Assistants API의 Thread를 관리하는 ChatRoom 구현체
+
+**주요 메서드:**
+- `getId()`: Thread ID 반환
+- `getChatting()`: Chatting 인스턴스 반환
+- `close()`: Thread 삭제 및 리소스 정리
 
 #### ActionQueueHandler
-Action Queue를 파싱하고 실행하는 유틸리티 클래스 (선택사항)
+Action Queue를 처리하는 클래스 (선택사항)
 
 **주요 메서드:**
-- `parse(String actionQueue)`: JSON 파싱
-- `execute(ActionQueue queue)`: 액션 실행
+- `setCurrentViewInfo(String curViewInfo)`: 현재 화면 정보 저장
+- `addCurrentViewInfo(JsonNode additionalViewInfo)`: 현재 화면 정보에 추가 정보 병합 (버전 0.6.0)
+- `isCurrentViewInfo()`: 현재 화면 정보 저장 여부 확인
+- `getCurViewPrompt()`: 현재 화면 정보 프롬프트 반환 (변경된 경우만)
+- `getActionQueuePrompt(String userMsg)`: Action Queue 생성 요청 프롬프트 반환
+- `getActionQueue(String resMsg)`: AI 응답에서 Action Queue 추출
+- `clearCurrentViewInfo()`: 저장된 화면 정보 삭제
+- `markViewInfoAsSent()`: 화면 정보 전송 완료 표시 (버전 0.6.0)
+- `isViewInfoChanged()`: 화면 정보 변경 여부 확인 (버전 0.6.0)
 
 자세한 API 문서는 [API.md](../docs/API.md) 또는 [JavaDoc](../docs/javadoc/)을 참조하세요.
 

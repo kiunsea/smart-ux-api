@@ -29,20 +29,25 @@ public class SimpleChatbot {
         String apiKey = System.getenv("OPENAI_API_KEY");
         ResponsesChatRoom chatRoom = new ResponsesChatRoom(apiKey, "gpt-4");
         
-        // 2. UIF 문서 로드
-        String uifDocument = loadUIFDocument();
-        chatRoom.addSystemMessage(uifDocument);
+        // 2. Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
         
-        // 3. Chatting 인스턴스 생성
-        ResponsesChatting chatting = chatRoom.createChatting();
+        // 3. 현재 화면 정보 설정 (실제 사용 시 JavaScript에서 전달받음)
+        String currentViewInfo = getCurrentViewInfo();
+        aqHandler.setCurrentViewInfo(currentViewInfo);
         
-        // 4. 프롬프트 전송
+        // 4. Chatting 인스턴스 생성
+        Chatting chatting = chatRoom.getChatting();
+        
+        // 5. 프롬프트 전송
         String prompt = "아메리카노 2잔 주문해줘";
-        String viewInfo = getCurrentViewInfo();
+        JSONObject response = chatting.sendPrompt(prompt);
         
-        String actionQueue = chatting.sendMessage(prompt, viewInfo);
-        
-        // 5. 결과 출력
+        // 6. 결과 출력
+        String message = (String) response.get("message");
+        Object actionQueue = response.get("action_queue");
+        System.out.println("AI 응답: " + message);
         System.out.println("Action Queue: " + actionQueue);
     }
     
@@ -74,33 +79,25 @@ public class OpenAIResponsesExample {
             "gpt-4"
         );
         
-        // UIF 문서 추가
-        String uif = """
-        {
-            "service": "메가커피 키오스크",
-            "menus": [
-                {"id": "americano", "name": "아메리카노", "price": 2000},
-                {"id": "latte", "name": "라떼", "price": 3000}
-            ]
-        }
-        """;
-        chatRoom.addSystemMessage(uif);
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        
+        // 현재 화면 정보 설정
+        String currentView = getCurrentView();
+        aqHandler.setCurrentViewInfo(currentView);
         
         // 대화 시작
-        ResponsesChatting chatting = chatRoom.createChatting();
+        Chatting chatting = chatRoom.getChatting();
         
         // 첫 번째 프롬프트
-        String response1 = chatting.sendMessage(
-            "아메리카노 주문해줘",
-            getCurrentView()
-        );
+        JSONObject response1 = chatting.sendPrompt("아메리카노 주문해줘");
         System.out.println("Response 1: " + response1);
         
         // 두 번째 프롬프트 (컨텍스트 유지)
-        String response2 = chatting.sendMessage(
-            "2잔으로 바꿔줘",
-            getCurrentView()
-        );
+        // 화면 정보가 변경되었다면 다시 설정
+        aqHandler.setCurrentViewInfo(getCurrentView());
+        JSONObject response2 = chatting.sendPrompt("2잔으로 바꿔줘");
         System.out.println("Response 2: " + response2);
     }
     
@@ -123,22 +120,25 @@ public class OpenAIAssistantsExample {
         );
         
         // Thread 생성 (대화 세션)
-        AssistantsThread thread = assistant.createThread();
+        AssistantsThread thread = new AssistantsThread(assistant);
+        
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        thread.setActionQueueHandler(aqHandler);
+        
+        // 현재 화면 정보 설정
+        aqHandler.setCurrentViewInfo(getCurrentView());
         
         // 메시지 전송
-        AssistantsMessage message = thread.createMessage();
-        String actionQueue = message.sendMessage(
-            "아메리카노 주문하고 결제까지 해줘",
-            getCurrentView()
-        );
+        Chatting chatting = thread.getChatting();
+        JSONObject response = chatting.sendPrompt("아메리카노 주문하고 결제까지 해줘");
         
-        System.out.println("Action Queue: " + actionQueue);
+        System.out.println("Action Queue: " + response.get("action_queue"));
         
         // 같은 Thread에서 계속 대화 가능
-        String followUp = message.sendMessage(
-            "사이즈를 Large로 변경해줘",
-            getCurrentView()
-        );
+        // 화면 정보가 변경되었다면 다시 설정
+        aqHandler.setCurrentViewInfo(getCurrentView());
+        JSONObject followUp = chatting.sendPrompt("사이즈를 Large로 변경해줘");
         System.out.println("Follow-up: " + followUp);
     }
     
@@ -154,22 +154,19 @@ public class OpenAIAssistantsExample {
 public class AdvancedOpenAIExample {
     
     public void customConfiguration() {
-        ResponsesChatRoom chatRoom = new ResponsesChatRoom.Builder()
-            .apiKey("sk-...")
-            .model("gpt-4")
-            .temperature(0.7)        // 창의성 조절
-            .maxTokens(2000)         // 최대 응답 길이
-            .timeout(30000)          // 30초 타임아웃
-            .retryCount(3)           // 실패 시 3번 재시도
-            .topP(0.9)               // Nucleus sampling
-            .presencePenalty(0.6)    // 주제 다양성
-            .frequencyPenalty(0.5)   // 반복 감소
-            .build();
+        // 현재 버전(0.6.0)에서는 Builder 패턴을 지원하지 않습니다.
+        // 기본 생성자를 사용합니다.
+        ResponsesChatRoom chatRoom = new ResponsesChatRoom("sk-...", "gpt-4");
         
-        chatRoom.addSystemMessage(loadUIF());
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
         
-        ResponsesChatting chatting = chatRoom.createChatting();
-        String response = chatting.sendMessage("주문해줘", getView());
+        // 현재 화면 정보 설정
+        aqHandler.setCurrentViewInfo(getView());
+        
+        Chatting chatting = chatRoom.getChatting();
+        JSONObject response = chatting.sendPrompt("주문해줘");
         
         System.out.println(response);
     }
@@ -192,20 +189,20 @@ public class GeminiExample {
             "gemini-pro"
         );
         
-        // UIF 문서 추가
-        String uif = loadUIFDocument();
-        chatRoom.addSystemMessage(uif);
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        
+        // 현재 화면 정보 설정
+        aqHandler.setCurrentViewInfo(getCurrentViewInfo());
         
         // Chatting 생성
-        GeminiChatting chatting = chatRoom.createChatting();
+        Chatting chatting = chatRoom.getChatting();
         
         // 프롬프트 전송
-        String actionQueue = chatting.sendMessage(
-            "라떼 한 잔 주문하고 싶어요",
-            getCurrentViewInfo()
-        );
+        JSONObject response = chatting.sendPrompt("라떼 한 잔 주문하고 싶어요");
         
-        System.out.println("Gemini Response: " + actionQueue);
+        System.out.println("Gemini Response: " + response);
     }
     
     private String loadUIFDocument() {
@@ -224,22 +221,19 @@ public class GeminiExample {
 public class AdvancedGeminiExample {
     
     public void customGeminiConfig() {
-        GeminiChatRoom chatRoom = new GeminiChatRoom.Builder()
-            .apiKey("AIza...")
-            .model("gemini-1.5-pro")
-            .temperature(0.5)
-            .topP(0.9)
-            .topK(40)
-            .maxOutputTokens(1024)
-            .build();
+        // 현재 버전(0.6.0)에서는 Builder 패턴을 지원하지 않습니다.
+        // 기본 생성자를 사용합니다.
+        GeminiChatRoom chatRoom = new GeminiChatRoom("AIza...", "gemini-1.5-pro");
         
-        chatRoom.addSystemMessage(loadUIF());
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
         
-        GeminiChatting chatting = chatRoom.createChatting();
-        String response = chatting.sendMessage(
-            "메뉴 추천해줘",
-            getView()
-        );
+        // 현재 화면 정보 설정
+        aqHandler.setCurrentViewInfo(getView());
+        
+        Chatting chatting = chatRoom.getChatting();
+        JSONObject response = chatting.sendPrompt("메뉴 추천해줘");
         
         System.out.println(response);
     }
@@ -257,41 +251,37 @@ public class MultiTurnConversation {
     
     public void multiTurnChat() {
         ResponsesChatRoom chatRoom = new ResponsesChatRoom("sk-...", "gpt-4");
-        chatRoom.addSystemMessage(loadUIF());
         
-        ResponsesChatting chatting = chatRoom.createChatting();
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        
+        Chatting chatting = chatRoom.getChatting();
         
         // 첫 번째 요청
-        String step1 = chatting.sendMessage(
-            "아메리카노 주문할게요",
-            getView()
-        );
+        aqHandler.setCurrentViewInfo(getView());
+        JSONObject step1 = chatting.sendPrompt("아메리카노 주문할게요");
         executeActions(step1);
         
         // 두 번째 요청 (컨텍스트 유지)
-        String step2 = chatting.sendMessage(
-            "핫으로 변경해주세요",
-            getView()
-        );
+        aqHandler.setCurrentViewInfo(getView());
+        JSONObject step2 = chatting.sendPrompt("핫으로 변경해주세요");
         executeActions(step2);
         
         // 세 번째 요청
-        String step3 = chatting.sendMessage(
-            "수량 2개로 늘려주세요",
-            getView()
-        );
+        aqHandler.setCurrentViewInfo(getView());
+        JSONObject step3 = chatting.sendPrompt("수량 2개로 늘려주세요");
         executeActions(step3);
         
         // 최종 주문
-        String step4 = chatting.sendMessage(
-            "결제하기",
-            getView()
-        );
+        aqHandler.setCurrentViewInfo(getView());
+        JSONObject step4 = chatting.sendPrompt("결제하기");
         executeActions(step4);
-        
-        // 대화 이력 조회
-        List<Message> history = chatting.getConversationHistory();
-        System.out.println("Total messages: " + history.size());
+    }
+    
+    private void executeActions(JSONObject response) {
+        Object actionQueue = response.get("action_queue");
+        System.out.println("Executing: " + actionQueue);
     }
     
     private void executeActions(String actionQueue) {
@@ -306,21 +296,24 @@ public class MultiTurnConversation {
 ```java
 public class RetryExample {
     
-    public String sendWithRetry(String prompt, String viewInfo, int maxRetries) {
+    public JSONObject sendWithRetry(String prompt, int maxRetries) {
         ResponsesChatRoom chatRoom = new ResponsesChatRoom("sk-...", "gpt-4");
-        chatRoom.addSystemMessage(loadUIF());
-        ResponsesChatting chatting = chatRoom.createChatting();
+        
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        
+        Chatting chatting = chatRoom.getChatting();
         
         int attempt = 0;
         while (attempt < maxRetries) {
             try {
-                return chatting.sendMessage(prompt, viewInfo);
-            } catch (APIException e) {
+                return chatting.sendPrompt(prompt);
+            } catch (Exception e) {
                 attempt++;
                 System.err.println("Attempt " + attempt + " failed: " + e.getMessage());
                 
                 if (attempt >= maxRetries) {
-                    throw e;
+                    throw new RuntimeException(e);
                 }
                 
                 // 지수 백오프
@@ -345,18 +338,35 @@ public class ActionQueueProcessing {
     
     public void processActionQueue() {
         ResponsesChatRoom chatRoom = new ResponsesChatRoom("sk-...", "gpt-4");
-        chatRoom.addSystemMessage(loadUIF());
-        ResponsesChatting chatting = chatRoom.createChatting();
         
-        String rawResponse = chatting.sendMessage("주문해줘", getView());
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        aqHandler.setCurrentViewInfo(getView());
         
-        // JSON 파싱
-        JSONObject response = new JSONObject(rawResponse);
-        JSONArray actions = response.getJSONArray("actions");
+        Chatting chatting = chatRoom.getChatting();
+        JSONObject response = chatting.sendPrompt("주문해줘");
+        
+        // Action Queue 추출
+        Object actionQueueObj = response.get("action_queue");
+        if (actionQueueObj == null) {
+            System.out.println("Action Queue가 없습니다.");
+            return;
+        }
+        
+        // JSON 파싱 (action_queue가 JSON 문자열인 경우)
+        org.json.JSONObject aqJson;
+        if (actionQueueObj instanceof String) {
+            aqJson = new org.json.JSONObject((String) actionQueueObj);
+        } else {
+            // 이미 JSON 객체인 경우
+            aqJson = new org.json.JSONObject(actionQueueObj.toString());
+        }
+        
+        org.json.JSONArray actions = aqJson.getJSONArray("action_queue");
         
         // 각 액션 처리
         for (int i = 0; i < actions.length(); i++) {
-            JSONObject action = actions.getJSONObject(i);
+            org.json.JSONObject action = actions.getJSONObject(i);
             
             String elementId = action.getString("elementId");
             String actionType = action.getString("action");
@@ -405,13 +415,9 @@ public class SmartUXController {
         
         this.chatRoom = new ResponsesChatRoom(apiKey, model);
         
-        // UIF 문서 로드
-        Resource resource = resourceLoader.getResource("classpath:uif.json");
-        String uif = new String(
-            resource.getInputStream().readAllBytes(),
-            StandardCharsets.UTF_8
-        );
-        chatRoom.addSystemMessage(uif);
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
     }
     
     @PostMapping("/chat")
@@ -419,17 +425,20 @@ public class SmartUXController {
             @RequestBody ChatRequest request) {
         
         try {
-            ResponsesChatting chatting = chatRoom.createChatting();
-            String actionQueue = chatting.sendMessage(
-                request.getPrompt(),
-                request.getViewInfo()
-            );
+            // 현재 화면 정보 설정
+            ActionQueueHandler aqHandler = chatRoom.getActionQueueHandler();
+            if (request.getViewInfo() != null) {
+                aqHandler.setCurrentViewInfo(request.getViewInfo());
+            }
+            
+            Chatting chatting = chatRoom.getChatting();
+            JSONObject response = chatting.sendPrompt(request.getPrompt());
             
             return ResponseEntity.ok(
-                new ActionQueueResponse(actionQueue)
+                new ActionQueueResponse(response)
             );
             
-        } catch (APIException e) {
+        } catch (Exception e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ActionQueueResponse(
@@ -442,9 +451,12 @@ public class SmartUXController {
 
 // DTO 클래스
 record ChatRequest(String prompt, String viewInfo) {}
-record ActionQueueResponse(String actionQueue, String error) {
-    ActionQueueResponse(String actionQueue) {
-        this(actionQueue, null);
+record ActionQueueResponse(org.json.simple.JSONObject response, String error) {
+    ActionQueueResponse(org.json.simple.JSONObject response) {
+        this(response, null);
+    }
+    ActionQueueResponse(String error, String message) {
+        this(null, message);
     }
 }
 ```
@@ -472,7 +484,10 @@ public class SmartUXSessionFilter implements Filter {
             String model = getServletContext().getInitParameter("openai.model");
             
             chatRoom = new ResponsesChatRoom(apiKey, model);
-            chatRoom.addSystemMessage(loadUIF());
+            
+            // Action Queue Handler 설정
+            ActionQueueHandler aqHandler = new ActionQueueHandler();
+            chatRoom.setActionQueueHandler(aqHandler);
             
             session.setAttribute("chatRoom", chatRoom);
         }
@@ -480,10 +495,6 @@ public class SmartUXSessionFilter implements Filter {
         chain.doFilter(request, response);
     }
     
-    private String loadUIF() {
-        // UIF 로드 로직
-        return "{}";
-    }
 }
 ```
 
@@ -496,45 +507,43 @@ public class SmartUXSessionFilter implements Filter {
 ```java
 public class ComprehensiveErrorHandling {
     
-    public String sendMessageSafely(String prompt, String viewInfo) {
+    public JSONObject sendMessageSafely(String prompt, String viewInfo) {
         ResponsesChatRoom chatRoom = new ResponsesChatRoom("sk-...", "gpt-4");
-        chatRoom.addSystemMessage(loadUIF());
-        ResponsesChatting chatting = chatRoom.createChatting();
+        
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        
+        if (viewInfo != null) {
+            try {
+                aqHandler.setCurrentViewInfo(viewInfo);
+            } catch (ParseException e) {
+                System.err.println("화면 정보 파싱 실패: " + e.getMessage());
+                throw new RuntimeException("Invalid view info format", e);
+            }
+        }
+        
+        Chatting chatting = chatRoom.getChatting();
         
         try {
-            return chatting.sendMessage(prompt, viewInfo);
-            
-        } catch (APIException e) {
-            // API 에러 처리
-            switch (e.getStatusCode()) {
-                case 401:
-                    System.err.println("API Key가 유효하지 않습니다.");
-                    break;
-                case 429:
-                    System.err.println("Rate limit 초과. 잠시 후 다시 시도하세요.");
-                    break;
-                case 500:
-                    System.err.println("OpenAI 서버 오류.");
-                    break;
-                default:
-                    System.err.println("API Error: " + e.getMessage());
-            }
-            throw e;
-            
-        } catch (NetworkException e) {
-            // 네트워크 에러 처리
-            System.err.println("네트워크 연결 실패: " + e.getMessage());
-            throw e;
-            
-        } catch (JSONException e) {
-            // JSON 파싱 에러
-            System.err.println("응답 파싱 실패: " + e.getMessage());
-            throw new RuntimeException("Invalid response format", e);
+            return chatting.sendPrompt(prompt);
             
         } catch (Exception e) {
-            // 기타 에러
-            System.err.println("예상치 못한 오류: " + e.getMessage());
-            throw new RuntimeException("Unexpected error", e);
+            // 에러 처리
+            String errorMsg = e.getMessage();
+            if (errorMsg != null) {
+                if (errorMsg.contains("401")) {
+                    System.err.println("API Key가 유효하지 않습니다.");
+                } else if (errorMsg.contains("429")) {
+                    System.err.println("Rate limit 초과. 잠시 후 다시 시도하세요.");
+                } else if (errorMsg.contains("500")) {
+                    System.err.println("OpenAI 서버 오류.");
+                } else {
+                    System.err.println("API Error: " + errorMsg);
+                }
+            } else {
+                System.err.println("예상치 못한 오류: " + e.getClass().getSimpleName());
+            }
+            throw new RuntimeException("Failed to send message", e);
         }
     }
 }

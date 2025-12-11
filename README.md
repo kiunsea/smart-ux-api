@@ -73,12 +73,12 @@ cd smart-ux-api/lib
 
 3. **JAR 파일을 웹 애플리케이션에 추가**
 ```
-lib/build/libs/smart-ux-api-0.6.0.jar 를 /WEB-INF/lib/ 에 복사
+smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar 를 /WEB-INF/lib/ 에 복사
 ```
 
 4. **JavaScript 라이브러리 포함**
 ```
-lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
+smart-ux-api/lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
 ```
 
 5. **API Key 설정**

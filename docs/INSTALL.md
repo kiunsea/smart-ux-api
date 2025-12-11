@@ -45,7 +45,7 @@ gradlew.bat build
 ./gradlew build
 ```
 
-빌드 완료 후 `lib/build/libs/smart-ux-api-0.6.0.jar` 생성 확인
+빌드 완료 후 `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 생성 확인
 
 ### 2. JAR 파일 추가
 
@@ -60,7 +60,7 @@ your-web-app/
 
 ### 3. JavaScript 라이브러리 추가
 
-`smart-ux-api/lib/src/main/js/` 디렉터리의 JavaScript 파일들을 웹 루트 디렉터리에 복사합니다.
+`smart-ux-api/lib/src/main/js/` 디렉터리의 JavaScript 파일들을 웹 애플리케이션의 웹 루트 디렉터리에 복사합니다.
 
 ```
 your-web-app/
