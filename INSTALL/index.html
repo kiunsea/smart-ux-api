@@ -538,6 +538,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 프로젝트 구조 이해
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-smart-ux-api" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -688,7 +699,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         환경 변수 사용 (권장)
@@ -727,7 +738,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         설정 파일 사용
@@ -743,7 +754,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         설치 확인
@@ -804,7 +815,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         문제 해결
@@ -815,7 +826,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         다음 단계
@@ -1030,6 +1041,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 프로젝트 구조 이해
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-smart-ux-api" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1180,7 +1202,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         환경 변수 사용 (권장)
@@ -1219,7 +1241,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         설정 파일 사용
@@ -1235,7 +1257,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         설치 확인
@@ -1296,7 +1318,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         문제 해결
@@ -1307,7 +1329,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         다음 단계
@@ -1363,18 +1385,31 @@
 - <strong>Google Gemini API Key</strong>: <a href="https://aistudio.google.com/app/apikey">발급 받기</a></p>
 <hr />
 <h2 id="java">Java 웹 애플리케이션에 통합<a class="headerlink" href="#java" title="Permanent link">&para;</a></h2>
+<h3 id="_4">📁 프로젝트 구조 이해<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>이 저장소는 다음과 같은 구조입니다:
+- <strong>저장소 이름</strong>: <code>smart-ux-api</code> (GitHub)
+- <strong>메인 라이브러리</strong>: <code>smart-ux-api/lib/</code> 디렉터리
+- <strong>샘플 프로젝트</strong>: <code>smuxapi-war/</code> 디렉터리</p>
+<blockquote>
+<p>💡 <strong>참고</strong>: 저장소 이름과 메인 프로젝트 폴더 이름이 동일합니다. 이는 의도된 구조이며, 메인 라이브러리는 <code>smart-ux-api/lib/</code> 경로에 있습니다.</p>
+</blockquote>
 <h3 id="1-smart-ux-api">1. Smart UX API 빌드<a class="headerlink" href="#1-smart-ux-api" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 저장소 클론</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kiunsea/smux-api.git
-<span class="nb">cd</span><span class="w"> </span>smux-api/smart-ux-api/lib
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 저장소 클론</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kiunsea/smart-ux-api.git
+<span class="nb">cd</span><span class="w"> </span>smart-ux-api
 
-<span class="c1"># 빌드 (Windows)</span>
+<span class="c1"># 2. 메인 라이브러리 디렉터리로 이동</span>
+<span class="nb">cd</span><span class="w"> </span>smart-ux-api/lib
+
+<span class="c1"># 3. 빌드 실행 (Windows)</span>
 gradlew.bat<span class="w"> </span>build
 
-<span class="c1"># 빌드 (Linux/Mac)</span>
+<span class="c1"># 3. 빌드 실행 (Linux/Mac)</span>
 ./gradlew<span class="w"> </span>build
 </code></pre></div>
-<p>빌드 완료 후 <code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar</code> 생성 확인</p>
+<blockquote>
+<p>✅ <strong>빌드 완료 확인</strong>: <code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar</code> 파일이 생성되었는지 확인하세요.</p>
+</blockquote>
 <h3 id="2-jar">2. JAR 파일 추가<a class="headerlink" href="#2-jar" title="Permanent link">&para;</a></h3>
 <p>생성된 JAR 파일을 웹 애플리케이션의 <code>/WEB-INF/lib/</code> 디렉터리에 복사합니다.</p>
 <div class="highlight"><pre><span></span><code>your-web-app/
@@ -1548,7 +1583,7 @@ gradlew.bat<span class="w"> </span>build
 </code></pre></div>
 <hr />
 <h2 id="api-key">API Key 설정<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h2>
-<h3 id="_4">환경 변수 사용 (권장)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">환경 변수 사용 (권장)<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <h4 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">set</span> <span class="nv">OPENAI_API_KEY</span><span class="p">=</span>sk-...
 <span class="k">set</span> <span class="nv">GEMINI_API_KEY</span><span class="p">=</span>...
@@ -1557,7 +1592,7 @@ gradlew.bat<span class="w"> </span>build
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
 <span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span>...
 </code></pre></div>
-<h3 id="_5">설정 파일 사용<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_6">설정 파일 사용<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p><code>src/main/resources/apikey.json</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;openai&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -1573,7 +1608,7 @@ gradlew.bat<span class="w"> </span>build
 </code></pre></div></p>
 <p>⚠️ <strong>주의</strong>: <code>apikey.json</code> 파일은 <code>.gitignore</code>에 반드시 추가하세요!</p>
 <hr />
-<h2 id="_6">설치 확인<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_7">설치 확인<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="1">1. 빌드 테스트<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>smart-ux-api/lib
 ./gradlew<span class="w"> </span><span class="nb">test</span>
@@ -1596,11 +1631,11 @@ catalina.bat<span class="w"> </span>start<span class="w">   </span><span class="
 </code></pre></div>
 <p>UI 정보가 정상적으로 출력되면 성공입니다!</p>
 <hr />
-<h2 id="_7">문제 해결<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_8">문제 해결<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>설치 중 문제가 발생하면 <a href="../TROUBLESHOOTING/">TROUBLESHOOTING.md</a>를 참조하세요.</p>
-<p>추가 질문은 <a href="https://github.com/kiunsea/smux-api/discussions">Discussions</a>에서 문의해 주세요.</p>
+<p>추가 질문은 <a href="https://github.com/kiunsea/smart-ux-api/discussions">Discussions</a>에서 문의해 주세요.</p>
 <hr />
-<h2 id="_8">다음 단계<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_9">다음 단계<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../EXAMPLES/">코드 예제 보기</a></li>
 <li><a href="../API/">API 문서 읽기</a></li>
