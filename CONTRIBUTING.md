@@ -28,13 +28,31 @@
 - **Git** ([다운로드](https://git-scm.com/))
 - **IDE**: IntelliJ IDEA, Eclipse, 또는 VS Code
 
+### 📁 프로젝트 구조 이해
+
+이 저장소는 다음과 같은 구조입니다:
+
+```
+smart-ux-api/                    ← GitHub 저장소 (현재 위치)
+│
+├── smart-ux-api/                ← 메인 라이브러리 프로젝트
+│   └── lib/                     ← 실제 라이브러리 소스 코드
+│       ├── src/main/java/      ← Java 소스 코드
+│       └── build.gradle.kts    ← 빌드 설정
+│
+└── smuxapi-war/                 ← 샘플 애플리케이션
+    └── src/main/java/          ← 샘플 서블릿 코드
+```
+
+> 💡 **참고**: 저장소 이름과 메인 프로젝트 폴더 이름이 동일합니다. 메인 라이브러리는 `smart-ux-api/lib/` 경로에 있습니다.
+
 ### 개발 환경 설정 단계
 
 1. **저장소 Fork 및 Clone**
 ```bash
 # Fork 후 자신의 저장소 클론
-git clone https://github.com/your-username/smux-api.git
-cd smux-api
+git clone https://github.com/your-username/smart-ux-api.git
+cd smart-ux-api
 ```
 
 2. **Gradle 프로젝트 Import**
@@ -43,12 +61,17 @@ cd smux-api
 
 3. **프로젝트 빌드**
 ```bash
+# 메인 라이브러리 디렉터리로 이동
 cd smart-ux-api/lib
+
+# 빌드 실행
 ./gradlew build
 ```
 
 4. **테스트 실행**
 ```bash
+# smart-ux-api/lib 디렉터리에서 실행
+cd smart-ux-api/lib
 ./gradlew test
 ```
 

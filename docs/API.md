@@ -547,7 +547,7 @@ GeminiChatRoom chatRoom = new GeminiChatRoom(apiKey, model);
 
 ## 질문 및 지원
 
-- [GitHub Issues](https://github.com/kiunsea/smux-api/issues)
-- [Discussions](https://github.com/kiunsea/smux-api/discussions)
+- [GitHub Issues](https://github.com/kiunsea/smart-ux-api/issues)
+- [Discussions](https://github.com/kiunsea/smart-ux-api/discussions)
 - Email: kiunsea@gmail.com
 

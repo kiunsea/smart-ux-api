@@ -1,10 +1,37 @@
-# Smart UX API
+# Smart UX API - 메인 라이브러리
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
+
+> 📍 **현재 위치**: 이 파일은 `smart-ux-api/lib/` 디렉터리의 상위 디렉터리(`smart-ux-api/`)에 있습니다.  
+> 💡 **프로젝트 구조**: GitHub 저장소 이름이 `smart-ux-api`이고, 메인 라이브러리 프로젝트 폴더도 `smart-ux-api/`입니다.  
+> 🎯 **실제 라이브러리 소스**: `lib/` 디렉터리에 있습니다.
+
+---
+
+## 📁 이 디렉터리 구조
+
+```
+smart-ux-api/              ← 현재 위치 (메인 라이브러리 프로젝트 루트)
+│
+├── lib/                   ← 실제 라이브러리 모듈 (여기서 빌드!)
+│   ├── src/main/java/    ← Java 소스 코드
+│   ├── src/main/js/      ← JavaScript 클라이언트
+│   └── build/libs/       ← 빌드된 JAR 파일
+│
+├── doc/                   ← 라이브러리 문서
+├── bat/                   ← 배포 스크립트
+└── README.md             ← 이 파일
+```
+
+**빌드를 시작하려면**: `lib/` 디렉터리로 이동하세요.
+```bash
+cd lib
+./gradlew build
+```
 
 ---
 
@@ -47,7 +74,9 @@ OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합�
 
 ## 📋 사용 방법
 
-**사용 예제**는 GitHub Repository의 `smart-ux-api/smuxapi-war` 프로젝트를 참고하세요.
+**사용 예제**는 GitHub 저장소의 `smuxapi-war/` 디렉터리(저장소 루트의 샘플 프로젝트)를 참고하세요.
+
+> 💡 **경로 안내**: 저장소를 클론한 경우, `../smuxapi-war/` 경로에 샘플 프로젝트가 있습니다.
 
 ### 1️⃣ AI 모델 API 등록
 

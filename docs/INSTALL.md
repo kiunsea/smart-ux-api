@@ -31,21 +31,33 @@ Smart UX API를 프로젝트에 통합하는 상세 가이드입니다.
 
 ## Java 웹 애플리케이션에 통합
 
+### 📁 프로젝트 구조 이해
+
+이 저장소는 다음과 같은 구조입니다:
+- **저장소 이름**: `smart-ux-api` (GitHub)
+- **메인 라이브러리**: `smart-ux-api/lib/` 디렉터리
+- **샘플 프로젝트**: `smuxapi-war/` 디렉터리
+
+> 💡 **참고**: 저장소 이름과 메인 프로젝트 폴더 이름이 동일합니다. 이는 의도된 구조이며, 메인 라이브러리는 `smart-ux-api/lib/` 경로에 있습니다.
+
 ### 1. Smart UX API 빌드
 
 ```bash
-# 저장소 클론
-git clone https://github.com/kiunsea/smux-api.git
-cd smux-api/smart-ux-api/lib
+# 1. 저장소 클론
+git clone https://github.com/kiunsea/smart-ux-api.git
+cd smart-ux-api
 
-# 빌드 (Windows)
+# 2. 메인 라이브러리 디렉터리로 이동
+cd smart-ux-api/lib
+
+# 3. 빌드 실행 (Windows)
 gradlew.bat build
 
-# 빌드 (Linux/Mac)
+# 3. 빌드 실행 (Linux/Mac)
 ./gradlew build
 ```
 
-빌드 완료 후 `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 생성 확인
+> ✅ **빌드 완료 확인**: `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 파일이 생성되었는지 확인하세요.
 
 ### 2. JAR 파일 추가
 
@@ -332,7 +344,7 @@ UI 정보가 정상적으로 출력되면 성공입니다!
 
 설치 중 문제가 발생하면 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)를 참조하세요.
 
-추가 질문은 [Discussions](https://github.com/kiunsea/smux-api/discussions)에서 문의해 주세요.
+추가 질문은 [Discussions](https://github.com/kiunsea/smart-ux-api/discussions)에서 문의해 주세요.
 
 ---
 

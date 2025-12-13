@@ -614,9 +614,9 @@ chatRoom.setDebugMode(true);  // 요청/응답 로깅
 
 ### 문제가 해결되지 않을 때
 
-1. **GitHub Issues 검색**: [기존 이슈 확인](https://github.com/kiunsea/smux-api/issues)
-2. **새 이슈 등록**: [버그 신고](https://github.com/kiunsea/smux-api/issues/new?template=bug_report.md)
-3. **Discussions**: [질문하기](https://github.com/kiunsea/smux-api/discussions)
+1. **GitHub Issues 검색**: [기존 이슈 확인](https://github.com/kiunsea/smart-ux-api/issues)
+2. **새 이슈 등록**: [버그 신고](https://github.com/kiunsea/smart-ux-api/issues/new?template=bug_report.md)
+3. **Discussions**: [질문하기](https://github.com/kiunsea/smart-ux-api/discussions)
 4. **Email**: kiunsea@gmail.com
 
 ---

@@ -49,41 +49,94 @@ Smart UX API는 다음과 같은 플로우로 동작합니다:
 3. **액션 생성**: AI가 실행 가능한 Action Queue를 생성
 4. **자동 실행**: `smart-ux-client.js`가 Action Queue를 파싱하여 UI 제어
 
+## 📁 프로젝트 구조 이해하기
+
+이 저장소는 다음과 같은 구조로 구성되어 있습니다:
+
+```
+smart-ux-api/                    ← GitHub 저장소 (현재 위치)
+│
+├── 📖 README.md                 ← 이 파일 (프로젝트 개요 및 시작 가이드)
+├── 📚 docs/                     ← 프로젝트 문서 (API, 설치, 예제 등)
+│
+├── 📦 smart-ux-api/            ← 메인 라이브러리 프로젝트
+│   ├── lib/                     ← 실제 라이브러리 소스 코드
+│   │   ├── src/main/java/      ← Java 소스 코드
+│   │   ├── src/main/js/        ← JavaScript 클라이언트 라이브러리
+│   │   └── build/libs/         ← 빌드된 JAR 파일 (빌드 후 생성)
+│   ├── gradlew                  ← Gradle 래퍼
+│   └── README.md               ← 라이브러리 상세 문서
+│
+└── 🎯 smuxapi-war/              ← 샘플 애플리케이션 (실제 사용 예제)
+    ├── src/main/java/          ← 샘플 서블릿 코드
+    ├── src/main/webapp/        ← 샘플 웹 애플리케이션
+    └── README.md               ← 샘플 프로젝트 설명
+```
+
+### ⚠️ 중요: 저장소 이름과 프로젝트 폴더 이름이 동일합니다
+
+- **저장소 이름**: `smart-ux-api` (GitHub 저장소)
+- **메인 프로젝트 폴더**: `smart-ux-api/` (라이브러리 소스 코드)
+
+이는 의도된 구조이며, 다음과 같은 이유로 이렇게 구성되었습니다:
+- 저장소를 클론하면 바로 프로젝트 이름을 알 수 있음
+- 메인 라이브러리와 샘플 프로젝트를 명확히 구분
+- 멀티 모듈 Gradle 프로젝트 구조와 호환
+
+**처음 사용하시는 경우**: 저장소를 클론한 후 `smart-ux-api/lib/` 디렉터리로 이동하여 빌드를 시작하세요.
+
 ## 🚀 Quick Start
 
 ### 사전 요구 사항
 - Java 17 이상
-- Gradle 8.x
+- Gradle 8.x (프로젝트에 Gradle Wrapper 포함)
 - OpenAI API Key 또는 Google Gemini API Key
 - 웹 애플리케이션 서버 (Tomcat, Jetty 등)
 
 ### 5분만에 시작하기
 
-1. **저장소 클론**
+#### 1단계: 저장소 클론
 ```bash
-git clone https://github.com/kiunsea/smux-api.git
-cd smux-api
+git clone https://github.com/kiunsea/smart-ux-api.git
+cd smart-ux-api
 ```
 
-2. **라이브러리 빌드**
+#### 2단계: 메인 라이브러리 빌드
 ```bash
+# 메인 라이브러리 디렉터리로 이동
 cd smart-ux-api/lib
+
+# 빌드 실행 (Windows)
+gradlew.bat build
+
+# 빌드 실행 (Linux/Mac)
 ./gradlew build
 ```
 
-3. **JAR 파일을 웹 애플리케이션에 추가**
-```
-smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar 를 /WEB-INF/lib/ 에 복사
+> 💡 **팁**: 빌드가 완료되면 `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 파일이 생성됩니다.
+
+#### 3단계: JAR 파일을 웹 애플리케이션에 추가
+생성된 JAR 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+
+```bash
+# 예시: Tomcat 웹 애플리케이션에 복사
+cp smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar \
+   /path/to/your-webapp/WEB-INF/lib/
 ```
 
-4. **JavaScript 라이브러리 포함**
-```
-smart-ux-api/lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
+#### 4단계: JavaScript 라이브러리 포함
+JavaScript 클라이언트 라이브러리를 웹 루트 디렉터리에 복사합니다.
+
+```bash
+# JavaScript 파일 복사
+cp smart-ux-api/lib/src/main/js/*.js \
+   /path/to/your-webapp/js/
 ```
 
-5. **API Key 설정**
+#### 5단계: API Key 설정
+웹 애플리케이션의 `resources/` 디렉터리에 `apikey.json` 파일을 생성합니다.
+
 ```json
-// resources/apikey.json
 {
   "openai": {
     "apiKey": "your-api-key",
@@ -92,17 +145,41 @@ smart-ux-api/lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
 }
 ```
 
-6. **HTML에 스크립트 추가**
+> ⚠️ **보안 주의**: `apikey.json` 파일은 절대 Git에 커밋하지 마세요! `.gitignore`에 추가되어 있습니다.
+
+#### 6단계: HTML에 스크립트 추가
+웹 페이지에 JavaScript 라이브러리를 포함합니다.
+
 ```html
-<script src="/lib/smart-ux-client.js"></script>
-<script src="/lib/smart-ux-collector.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Web App</title>
+</head>
+<body>
+    <!-- 웹 애플리케이션 콘텐츠 -->
+    
+    <!-- Smart UX API 스크립트 (body 끝에 추가) -->
+    <script src="/js/smart-ux-client.js"></script>
+    <script src="/js/smart-ux-collector.js"></script>
+</body>
+</html>
 ```
 
-자세한 설치 가이드는 [INSTALL.md](docs/INSTALL.md)를 참조하세요.
+### 📦 프로젝트 구성 요약
 
-### 📦 프로젝트 구성
-- **smart-ux-api**: 메인 라이브러리 (Java + JavaScript)
-- **smuxapi-war**: 샘플 애플리케이션 (WAR 프로젝트)
+| 디렉터리 | 설명 | 용도 |
+|---------|------|------|
+| `smart-ux-api/lib/` | **메인 라이브러리** | 실제 사용할 라이브러리 소스 코드 및 빌드 결과물 |
+| `smuxapi-war/` | **샘플 프로젝트** | 실제 사용 예제를 보여주는 데모 애플리케이션 |
+| `docs/` | **문서** | API 레퍼런스, 설치 가이드, 예제 등 |
+
+### 🎯 다음 단계
+
+- **샘플 프로젝트 실행**: `smuxapi-war/` 디렉터리의 [README.md](smuxapi-war/README.md) 참조
+- **상세 설치 가이드**: [INSTALL.md](docs/INSTALL.md) 참조
+- **API 문서**: [API.md](docs/API.md) 참조
+- **코드 예제**: [EXAMPLES.md](docs/EXAMPLES.md) 참조
 
 ## 🌟 사용 사례
 
@@ -130,30 +207,83 @@ smart-ux-api/lib/src/main/js/*.js 를 웹 루트 디렉터리에 복사
 → AI가 검색 → 필터 설정 → 다운로드 실행
 ```
 
-## 디렉터리 구조
+## 📂 상세 디렉터리 구조
+
 ```
-smux-api/
-├── smart-ux-api/
-│   ├── bin/
-│   ├── docs/
-│   ├── gradle/
-│   ├── lib/
-│   │   ├── build/
-│   │   │   └── libs/
-│   │   └── src/
-│   │       └── main/
-│   │           ├── java/
-│   │           ├── js/
-│   │           └── resources/
-│   ├── LICENSE
-│   └── README.md
-├── smuxapi-war/
-│   ├── src/
-│   └── README.md
-└── README.md
+smart-ux-api/                          ← GitHub 저장소 루트
+│
+├── 📄 README.md                      ← 프로젝트 개요 (현재 파일)
+├── 📄 LICENSE                        ← Apache 2.0 라이선스
+├── 📄 SECURITY.md                    ← 보안 정책
+├── 📄 CONTRIBUTING.md                ← 기여 가이드
+├── 📄 CODE_OF_CONDUCT.md             ← 행동 강령
+│
+├── 📚 docs/                          ← 프로젝트 문서
+│   ├── API.md                        ← API 레퍼런스
+│   ├── INSTALL.md                    ← 설치 가이드
+│   ├── EXAMPLES.md                   ← 코드 예제
+│   └── TROUBLESHOOTING.md            ← 문제 해결 가이드
+│
+├── 📦 smart-ux-api/                  ← 메인 라이브러리 프로젝트
+│   ├── 📄 README.md                  ← 라이브러리 상세 문서
+│   ├── 📄 CHANGELOG.md               ← 변경 이력
+│   ├── ⚙️ settings.gradle.kts       ← Gradle 설정
+│   ├── 🔧 gradlew, gradlew.bat       ← Gradle 래퍼
+│   │
+│   ├── 📁 lib/                       ← 실제 라이브러리 모듈
+│   │   ├── 📄 build.gradle.kts       ← 빌드 설정
+│   │   ├── 📁 src/
+│   │   │   ├── main/
+│   │   │   │   ├── java/             ← Java 소스 코드
+│   │   │   │   ├── js/               ← JavaScript 클라이언트
+│   │   │   │   └── resources/        ← 설정 파일
+│   │   │   └── test/                 ← 테스트 코드
+│   │   └── 📁 build/                 ← 빌드 결과물 (생성됨)
+│   │       └── libs/
+│   │           └── smart-ux-api-0.6.0.jar  ← 빌드된 JAR
+│   │
+│   ├── 📁 doc/                       ← 라이브러리 문서
+│   └── 📁 bat/                       ← 배포 스크립트
+│
+└── 🎯 smuxapi-war/                   ← 샘플 애플리케이션
+    ├── 📄 README.md                  ← 샘플 프로젝트 설명
+    ├── 📄 CHANGELOG.md               ← 샘플 프로젝트 변경 이력
+    ├── 📄 build.gradle.kts           ← 빌드 설정
+    └── 📁 src/
+        └── main/
+            ├── java/                 ← 샘플 서블릿 코드
+            ├── resources/            ← 설정 파일
+            └── webapp/               ← 웹 리소스 (HTML, CSS, JS)
+                ├── index.html
+                └── WEB-INF/
 ```
 
+### 🔍 주요 경로 안내
+
+| 목적 | 경로 |
+|------|------|
+| **라이브러리 빌드** | `smart-ux-api/lib/` |
+| **빌드된 JAR 파일** | `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` |
+| **JavaScript 파일** | `smart-ux-api/lib/src/main/js/` |
+| **샘플 프로젝트** | `smuxapi-war/` |
+| **프로젝트 문서** | `docs/` |
+| **API 레퍼런스** | `docs/API.md` |
+
 ## ❓ FAQ
+
+### Q: 저장소 이름과 프로젝트 폴더 이름이 같은데 혼란스럽지 않나요?
+A: 처음에는 혼란스러울 수 있지만, 이는 의도된 구조입니다. 저장소를 클론하면:
+1. 루트의 `README.md`를 먼저 읽어 프로젝트 개요를 파악하세요
+2. 메인 라이브러리는 `smart-ux-api/lib/` 디렉터리에 있습니다
+3. 샘플 프로젝트는 `smuxapi-war/` 디렉터리에 있습니다
+4. 모든 문서는 `docs/` 디렉터리에 정리되어 있습니다
+
+### Q: 어디서부터 시작해야 하나요?
+A: 
+1. **빠른 시작**: 루트 `README.md`의 "Quick Start" 섹션을 따라하세요
+2. **상세 설치**: `docs/INSTALL.md`를 참조하세요
+3. **예제 확인**: `smuxapi-war/` 디렉터리의 샘플 프로젝트를 실행해보세요
+4. **API 학습**: `docs/API.md`와 `docs/EXAMPLES.md`를 참조하세요
 
 ### Q: 어떤 AI 모델을 사용할 수 있나요?
 A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다. 향후 Claude 등 다른 모델도 지원 예정입니다.
@@ -173,7 +303,7 @@ A: Smart UX API 자체는 무료입니다. OpenAI/Gemini API 사용료만 발생
 ### Q: 보안은 안전한가요?
 A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않습니다. 자세한 내용은 [SECURITY.md](SECURITY.md)를 참조하세요.
 
-더 많은 질문은 [Discussions](https://github.com/kiunsea/smux-api/discussions)에서 확인하세요!
+더 많은 질문은 [Discussions](https://github.com/kiunsea/smart-ux-api/discussions)에서 확인하세요!
 
 ## 📊 Roadmap
 
@@ -182,14 +312,14 @@ A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않�
 - [ ] 상세 문서 및 튜토리얼
 - [ ] 커뮤니티 에코시스템
 
-제안사항이 있으시면 [Feature Request](https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md)를 등록해 주세요!
+제안사항이 있으시면 [Feature Request](https://github.com/kiunsea/smart-ux-api/issues/new?template=feature_request.md)를 등록해 주세요!
 
 ## 🧑‍💻 기여 가이드
 
 기여를 환영합니다! 다음과 같은 방법으로 참여하실 수 있습니다:
 
-- 🐛 [버그 신고](https://github.com/kiunsea/smux-api/issues/new?template=bug_report.md)
-- ✨ [기능 제안](https://github.com/kiunsea/smux-api/issues/new?template=feature_request.md)
+- 🐛 [버그 신고](https://github.com/kiunsea/smart-ux-api/issues/new?template=bug_report.md)
+- ✨ [기능 제안](https://github.com/kiunsea/smart-ux-api/issues/new?template=feature_request.md)
 - 📝 문서 개선
 - 💻 Pull Request 제출
 

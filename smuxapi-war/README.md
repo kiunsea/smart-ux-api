@@ -1,4 +1,4 @@
-﻿# smuxapi-war 🧪
+﻿# smuxapi-war 🧪 - 샘플 애플리케이션
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
@@ -6,8 +6,29 @@
 ![Platform](https://img.shields.io/badge/platform-Web-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
+> 📍 **현재 위치**: 이 파일은 GitHub 저장소 `smart-ux-api`의 `smuxapi-war/` 디렉터리에 있습니다.  
+> 💡 **프로젝트 구조**: 저장소 루트에 `smart-ux-api/`(메인 라이브러리)와 `smuxapi-war/`(이 샘플 프로젝트)가 같은 레벨로 존재합니다.  
+> 🎯 **메인 라이브러리**: `../smart-ux-api/lib/` 디렉터리에 있습니다.
+
 📁 **smuxapi-war**는 **Smart UX API** 프로젝트의 **배포 라이브러리 테스트용 샘플 프로젝트**입니다.
 새로운 기능을 실험하고, 설정을 검증하며, 협업용 코드 베이스로도 활용할 수 있습니다.
+
+---
+
+## 📁 저장소 구조 안내
+
+```
+smart-ux-api/                    ← GitHub 저장소 루트
+│
+├── smart-ux-api/                ← 메인 라이브러리 프로젝트
+│   └── lib/                     ← 실제 라이브러리 소스
+│
+└── smuxapi-war/                 ← 현재 위치 (샘플 프로젝트)
+    ├── src/main/java/          ← 샘플 서블릿 코드
+    └── src/main/webapp/        ← 웹 애플리케이션
+```
+
+이 샘플 프로젝트는 메인 라이브러리(`../smart-ux-api/lib/`)를 사용하는 실제 사용 예제를 보여줍니다.
 
 ---
 
@@ -48,12 +69,18 @@ smuxapi-war/
 
 ### 2️⃣ **Gradle 빌드 및 실행**
 
+> 💡 **경로 안내**: 저장소를 클론한 경우, 저장소 루트에서 다음 명령을 실행하세요.
+
 #### WAR 파일 빌드
 
 ```bash
-# 프로젝트 루트에서 실행
+# 저장소 루트에서 실행 (smart-ux-api/)
 cd smart-ux-api
 ./gradlew :smuxapi-war:war
+
+# 또는 현재 디렉터리(smuxapi-war/)에서 실행
+cd smuxapi-war
+../smart-ux-api/gradlew :smuxapi-war:war
 
 # 생성된 WAR 파일 위치
 # smuxapi-war/build/libs/smuxapi-war-{version}.war
@@ -62,7 +89,7 @@ cd smart-ux-api
 #### Embedded Tomcat으로 실행 (톰캣 서버 없이)
 
 ```bash
-# 프로젝트 루트에서 실행
+# 저장소 루트에서 실행
 cd smart-ux-api
 ./gradlew :smuxapi-war:run
 
@@ -76,12 +103,16 @@ cd smart-ux-api
 #### Java로 직접 실행
 
 ```bash
-# 빌드 후 실행
+# 저장소 루트에서 빌드
 cd smart-ux-api
 ./gradlew :smuxapi-war:build
 
-# 실행
+# 실행 (Linux/Mac)
 java -cp "smuxapi-war/build/classes/java/main:smuxapi-war/build/resources/main:$(./gradlew :smuxapi-war:printClasspath -q)" \
+     com.smartuxapi.sample.EmbeddedTomcatServer --port=8080
+
+# 실행 (Windows)
+java -cp "smuxapi-war\build\classes\java\main;smuxapi-war\build\resources\main;%CLASSPATH%" \
      com.smartuxapi.sample.EmbeddedTomcatServer --port=8080
 ```
 
@@ -100,6 +131,7 @@ java -cp "smuxapi-war/build/classes/java/main:smuxapi-war/build/resources/main:$
 #### 방법 1: Gradle로 실행 (권장)
 
 ```bash
+# 저장소 루트에서 실행
 cd smart-ux-api
 ./gradlew :smuxapi-war:run
 ```
@@ -115,7 +147,7 @@ cd smart-ux-api
 #### 방법 2: Java로 직접 실행
 
 ```bash
-# 먼저 빌드
+# 저장소 루트에서 먼저 빌드
 cd smart-ux-api
 ./gradlew :smuxapi-war:build
 
@@ -131,7 +163,8 @@ java -cp "smuxapi-war/build/classes/java/main:smuxapi-war/build/resources/main:$
 #### 방법 3: WAR 파일을 외부 톰캣에 배포
 
 ```bash
-# WAR 파일 빌드
+# 저장소 루트에서 WAR 파일 빌드
+cd smart-ux-api
 ./gradlew :smuxapi-war:war
 
 # 생성된 WAR 파일을 톰캣의 webapps 디렉토리에 복사
