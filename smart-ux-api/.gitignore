@@ -11,3 +11,7 @@ target/
 # Ignore Gradle build output directory
 build
 /bin/
+
+# Project management and task tracking
+doc/tasks/
+**/tasks/

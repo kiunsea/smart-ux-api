@@ -1,3 +1,7 @@
 /build/
 /src/main/webapp/dev/
 /src/main/java/resources/suapi.properties
+
+# Project management and task tracking
+doc/tasks/
+**/tasks/

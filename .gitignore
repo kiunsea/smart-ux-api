@@ -109,3 +109,7 @@ mvnw.cmd
 *.tar.gz
 *.rar
 smuxapi-war/src/main/resources/smuxnexa.properties
+
+# Project management and task tracking
+doc/tasks/
+**/tasks/
