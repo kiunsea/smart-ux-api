@@ -31,17 +31,21 @@
 Smart UX API는 다음과 같은 플로우로 동작합니다:
 
 ```
-┌─────────────┐  자연어 명령   ┌──────────────────┐  UI 정보 수집   ┌─────────────┐
-│   사용자    │ ────────────> │  Smart UX        │ ─────────────> │   Web UI    │
-│   (User)    │               │  Collector (JS)  │                │  Elements   │
-└─────────────┘               └──────────────────┘                └─────────────┘
-                                      │
-                                      │ UI 구조 JSON
-                                      ▼
-┌─────────────┐  Action Queue  ┌──────────────────┐  Prompt +      ┌─────────────┐
-│   Web UI    │ <────────────  │  Smart UX        │  UI Info       │   AI API    │
-│   Control   │                │  Client (Java)   │ ─────────────> │ (GPT/Gemini)│
-└─────────────┘                └──────────────────┘                └─────────────┘
+┌─────────────┐  Natural Lang  ┌──────────────────┐  UI Info       
+│    User     │  Command       │  Smart UX        │  Collection    
+│   Web UI    │                │                  │
+│             │ ──────────────>│  Collector (JS)  │ ──────────────>
+│  Elements   │                │                  │
+└─────────────┘                └──────────────────┘                
+                                       │
+                                       │ UI Structure JSON
+                                       ▼
+┌─────────────┐  Action Queue  ┌──────────────────┐  Prompt +      
+│   Web UI    │ <──────────────│  Smart UX        │  UI Info       
+│   AI API    │                │                  │
+│   Control   │                │  Client (Java)   │ ──────────────>
+│ (GPT/Gemini)│                │                  │
+└─────────────┘                └──────────────────┘                
 ```
 
 1. **UI 수집**: `smart-ux-collector.js`가 웹 페이지의 DOM 요소를 스캔하여 JSON으로 변환
