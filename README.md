@@ -164,11 +164,22 @@ cp smart-ux-api/lib/src/main/js/*.js \
     <!-- 웹 애플리케이션 콘텐츠 -->
     
     <!-- Smart UX API 스크립트 (body 끝에 추가) -->
-    <script src="/js/smart-ux-client.js"></script>
+    <!-- smart-ux-collector.js: 자동 실행되어 UI 정보를 수집하고 window.uiSnapshot에 저장 -->
     <script src="/js/smart-ux-collector.js"></script>
+    
+    <!-- smart-ux-client.js: ES6 모듈로 로드 (필요시) -->
+    <script type="module">
+        import { doActions } from '/js/smart-ux-client.js';
+        window.doActions = doActions;  // 전역에서 사용할 수 있도록 저장
+    </script>
 </body>
 </html>
 ```
+
+> 💡 **참고**: 
+> - `smart-ux-collector.js`는 일반 스크립트로 로드하면 자동 실행됩니다
+> - `smart-ux-client.js`는 ES6 모듈이므로 `type="module"`로 로드하거나 `import` 문을 사용해야 합니다
+> - 수집된 UI 정보는 `window.uiSnapshot`에 자동으로 저장됩니다
 
 ### 📦 프로젝트 구성 요약
 

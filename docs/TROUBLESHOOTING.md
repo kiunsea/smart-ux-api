@@ -356,25 +356,40 @@ public class ConversationManager {
 
 ## JavaScript 클라이언트 문제
 
-### ❌ `SmartUXCollector is not defined`
+### ❌ JavaScript 스크립트 로드 오류
 
 **증상:**
 ```
 Uncaught ReferenceError: SmartUXCollector is not defined
+또는
+Cannot access 'doActions' before initialization
 ```
 
-**원인:** JavaScript 파일이 로드되지 않음
+**원인:** 
+- JavaScript 파일이 로드되지 않음
+- ES6 모듈로 로드해야 하는 스크립트를 일반 스크립트로 로드함
 
 **해결 방법:**
-```html
-<!-- 스크립트 순서 확인 -->
-<script src="/js/smart-ux-collector.js"></script>
-<script src="/js/smart-ux-client.js"></script>
 
-<!-- 또는 defer 사용 -->
-<script defer src="/js/smart-ux-collector.js"></script>
-<script defer src="/js/smart-ux-client.js"></script>
+#### smart-ux-collector.js 로드
+```html
+<!-- 일반 스크립트로 로드 (자동 실행) -->
+<script src="/js/smart-ux-collector.js"></script>
 ```
+
+#### smart-ux-client.js 로드
+```html
+<!-- ES6 모듈로 로드 (필수) -->
+<script type="module">
+    import { doActions } from '/js/smart-ux-client.js';
+    window.doActions = doActions;  // 전역에서 사용할 수 있도록 저장
+</script>
+```
+
+**참고:**
+- `smart-ux-collector.js`는 IIFE(즉시 실행 함수)로 구현되어 자동 실행됩니다
+- `smart-ux-client.js`는 ES6 모듈이므로 `type="module"`로 로드해야 합니다
+- 클래스가 아니므로 `new SmartUXCollector()` 같은 사용법은 지원하지 않습니다
 
 ---
 
@@ -397,9 +412,14 @@ console.log(document.getElementById('menu_americano'));
 
 #### 2. Collector 디버깅
 ```javascript
-const collector = new SmartUXCollector();
-const viewInfo = collector.collectUIInfo();
-console.log('Collected elements:', viewInfo);
+// smart-ux-collector.js가 자동으로 수집한 정보 확인
+// window.uiSnapshot에 저장되어 있음
+console.log('Collected elements:', window.uiSnapshot);
+
+// 수집된 정보가 없으면 스크립트가 로드되지 않았거나 아직 수집 전일 수 있음
+if (!window.uiSnapshot) {
+    console.warn('UI 정보가 아직 수집되지 않았습니다. 2초 후 다시 확인하세요.');
+}
 ```
 
 #### 3. 동적 로딩 대기

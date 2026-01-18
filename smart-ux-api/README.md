@@ -297,10 +297,20 @@ public class ChatServlet extends HttpServlet {
 
 ### JavaScript 클라이언트 사용 예제
 
-```javascript
-// UI 정보 수집
-const collector = new SmartUXCollector();
-const viewInfo = collector.collectUIInfo();
+```html
+<!-- HTML에 스크립트 포함 -->
+<!-- smart-ux-collector.js: 자동 실행되어 window.uiSnapshot에 정보 저장 -->
+<script src="/js/smart-ux-collector.js"></script>
+
+<!-- smart-ux-client.js: ES6 모듈로 로드 -->
+<script type="module">
+    import { doActions } from '/js/smart-ux-client.js';
+    window.doActions = doActions;  // 전역에서 사용할 수 있도록 저장
+</script>
+
+<script>
+// smart-ux-collector.js가 자동으로 수집한 정보 사용
+// window.uiSnapshot에 이미 저장되어 있음
 
 // 프롬프트 전송
 fetch('/api/chat', {
@@ -308,16 +318,23 @@ fetch('/api/chat', {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
         prompt: userInput,
-        viewInfo: viewInfo
+        viewInfo: JSON.stringify(window.uiSnapshot || [])
     })
 })
 .then(response => response.json())
-.then(actionQueue => {
+.then(data => {
     // Action Queue 실행
-    const client = new SmartUXClient();
-    client.executeActionQueue(actionQueue);
+    const actions = Array.isArray(data.action_queue) 
+        ? data.action_queue 
+        : JSON.parse(data.action_queue);
+    window.doActions(actions);
 });
+</script>
 ```
+
+> 💡 **참고**: 
+> - `smart-ux-collector.js`는 자동 실행되므로 별도로 호출할 필요가 없습니다
+> - `smart-ux-client.js`는 ES6 모듈이므로 `import` 문 또는 `<script type="module">`로 로드해야 합니다
 
 ---
 

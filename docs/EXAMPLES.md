@@ -556,9 +556,9 @@ public class ComprehensiveErrorHandling {
 ### 예제 1: 전체 플로우
 
 ```javascript
-// UI 정보 수집
-const collector = new SmartUXCollector();
-const viewInfo = collector.collectUIInfo();
+// smart-ux-collector.js는 자동으로 실행되며 window.uiSnapshot에 UI 정보를 저장합니다
+// 스크립트 태그로 로드하면 자동 실행됩니다:
+// <script src="/lib/smart-ux-collector.js"></script>
 
 // 사용자 프롬프트 가져오기
 const userPrompt = document.getElementById('promptInput').value;
@@ -571,45 +571,63 @@ fetch('/api/chat', {
     },
     body: JSON.stringify({
         prompt: userPrompt,
-        viewInfo: JSON.stringify(viewInfo)
+        viewInfo: JSON.stringify(window.uiSnapshot || [])  // 자동 수집된 정보 사용
     })
 })
 .then(response => response.json())
 .then(data => {
     // Action Queue 실행
-    const client = new SmartUXClient();
-    client.executeActionQueue(data.actionQueue);
+    // smart-ux-client.js를 모듈로 로드
+    import('/lib/smart-ux-client.js').then(module => {
+        const actions = Array.isArray(data.action_queue) 
+            ? data.action_queue 
+            : JSON.parse(data.action_queue);
+        return module.doActions(actions);
+    });
 })
 .catch(error => {
     console.error('Error:', error);
 });
 ```
 
+**참고:**
+- `smart-ux-collector.js`는 자동 실행되므로 별도로 호출할 필요가 없습니다
+- `smart-ux-client.js`는 ES6 모듈이므로 `import` 문 또는 `<script type="module">`로 로드해야 합니다
+
 ### 예제 2: 실시간 업데이트
 
 ```javascript
+// smart-ux-client.js를 모듈로 로드
+let doActions;
+import('/lib/smart-ux-client.js').then(module => {
+    doActions = module.doActions;
+});
+
 class SmartUXApp {
-    constructor() {
-        this.collector = new SmartUXCollector();
-        this.client = new SmartUXClient();
-    }
-    
     async sendPrompt(prompt) {
         try {
-            // 현재 화면 정보 수집
-            const viewInfo = this.collector.collectUIInfo();
+            // smart-ux-collector.js가 자동으로 수집한 정보 사용
+            // window.uiSnapshot에 이미 저장되어 있음
+            const viewInfo = window.uiSnapshot || [];
             
             // 서버로 전송
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, viewInfo })
+                body: JSON.stringify({ 
+                    prompt, 
+                    viewInfo: JSON.stringify(viewInfo) 
+                })
             });
             
             const data = await response.json();
             
             // Action Queue 실행
-            await this.client.executeActionQueue(data.actionQueue);
+            const actions = Array.isArray(data.action_queue) 
+                ? data.action_queue 
+                : JSON.parse(data.action_queue);
+            
+            await doActions(actions);
             
             // 성공 알림
             this.showNotification('명령이 실행되었습니다.', 'success');

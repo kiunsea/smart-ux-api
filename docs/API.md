@@ -398,82 +398,155 @@ JsonNode customConfig = ConfigLoader.loadConfigFromClasspath("custom-config.json
 
 ## JavaScript Client API
 
-### SmartUXCollector
+### smart-ux-collector.js
 
-웹 페이지의 UI 정보를 수집하는 JavaScript 클래스입니다.
+웹 페이지의 UI 정보를 자동으로 수집하고 서버로 전송하는 클라이언트 스크립트입니다.
 
-#### 메서드
+#### 주요 특징
 
-##### `collectUIInfo()`
-현재 페이지의 모든 UI 요소를 스캔하여 JSON으로 반환합니다.
+- **자동 실행**: 스크립트가 로드되면 자동으로 UI 정보를 수집하고 전송합니다
+- **DOM 변경 감지**: MutationObserver를 사용하여 DOM 변경 시 자동으로 재수집합니다
+- **전역 변수**: 수집된 UI 정보는 `window.uiSnapshot`에 저장됩니다
 
-**반환값:** UI 정보 JSON 객체
+#### 동작 방식
 
-**예제:**
+1. 페이지 로드 시 2초 후 자동으로 이벤트 바인딩된 요소 수집
+2. DOM 변경 감지 시 2초 대기 후 자동으로 재수집
+3. 수집된 정보를 `window.uiSnapshot`에 저장
+4. `SERVER_ENDPOINT`로 자동 전송 (기본값: `/suapi/collect`)
+
+#### 설정
+
+스크립트 내부의 `SERVER_ENDPOINT` 변수를 수정하여 서버 엔드포인트를 설정합니다:
+
 ```javascript
-const collector = new SmartUXCollector();
-const viewInfo = collector.collectUIInfo();
-console.log(JSON.stringify(viewInfo));
+const SERVER_ENDPOINT = '/suapi/collect';  // 실제 서버 URL로 교체
 ```
 
-**반환 형식:**
+#### 수집되는 정보 형식
+
+`window.uiSnapshot`에 저장되는 정보 형식:
+
 ```json
-{
-  "elements": [
-    {
-      "id": "menu_americano",
-      "tagName": "BUTTON",
-      "type": "button",
-      "text": "아메리카노",
-      "className": "menu-item",
-      "visible": true,
-      "enabled": true
+[
+  {
+    "id": "menu_americano",
+    "type": "click",
+    "label": "아메리카노",
+    "selector": "#menu_americano",
+    "xpath": "//*[@id='menu_americano']",
+    "properties": {
+      "enabled": true,
+      "visible": true
     }
-  ]
-}
+  }
+]
+```
+
+#### 사용 예제
+
+```html
+<!-- HTML에 스크립트 포함 -->
+<script src="/lib/smart-ux-collector.js"></script>
+
+<!-- JavaScript에서 수집된 정보 사용 -->
+<script>
+  // 자동으로 window.uiSnapshot에 저장됨
+  console.log(window.uiSnapshot);
+  
+  // 서버로 전송할 때 사용
+  const viewInfo = JSON.stringify(window.uiSnapshot);
+</script>
 ```
 
 ---
 
-### SmartUXClient
+### smart-ux-client.js
 
-Action Queue를 실행하는 JavaScript 클래스입니다.
+Action Queue를 실행하는 클라이언트 스크립트입니다.
 
-#### 메서드
+#### 주요 함수
 
-##### `executeActionQueue(actionQueue)`
+##### `doActions(actions)`
+
 Action Queue의 액션들을 순차적으로 실행합니다.
 
 **파라미터:**
-- `actionQueue` - Action Queue JSON 객체 또는 문자열
+- `actions` - Action 배열 (배열 형식)
+
+**반환값:** `Promise` - 비동기 함수입니다
 
 **예제:**
 ```javascript
-const client = new SmartUXClient();
-client.executeActionQueue(actionQueue);
+import { doActions } from '/lib/smart-ux-client.js';
+
+// 또는 스크립트 태그로 로드한 경우
+// <script type="module" src="/lib/smart-ux-client.js"></script>
+
+const actions = [
+  { type: "click", id: "menu_americano" },
+  { type: "setAttribute", id: "order_count", attrName: "value", attrValue: "2" },
+  { type: "click", id: "order_btn" }
+];
+
+await doActions(actions);
 ```
 
-##### `executeAction(action)`
-단일 액션을 실행합니다.
+**참고:**
+- `action.type` 또는 `action.action` 필드를 지원합니다 (하위 호환성)
+- ES6 모듈로 export되어 있으므로 `type="module"`로 로드하거나 import 문을 사용해야 합니다
 
-**파라미터:**
-- `action` - 액션 객체
+#### 지원하는 Action 타입
 
-**예제:**
+##### `click`
+
+요소를 클릭합니다.
+
 ```javascript
-client.executeAction({
-    elementId: "menu_americano",
-    action: "click"
-});
+{
+  "type": "click",
+  "id": "element-id"
+}
 ```
 
-#### 지원 액션 타입
+##### `scroll`
 
-- **click**: 요소 클릭
-- **setValue**: 입력 필드에 값 설정
-- **select**: 드롭다운 선택
-- **scroll**: 스크롤
-- **wait**: 대기
+페이지를 스크롤합니다.
+
+```javascript
+{
+  "type": "scroll",
+  "position": 500
+}
+```
+
+##### `setAttribute`
+
+요소의 속성을 설정합니다.
+
+```javascript
+{
+  "type": "setAttribute",
+  "id": "element-id",
+  "attrName": "value",
+  "attrValue": "new-value"
+}
+```
+
+##### `navigate`
+
+페이지를 이동합니다. 남은 액션은 localStorage에 저장되어 다음 페이지에서 자동 실행됩니다.
+
+```javascript
+{
+  "type": "navigate",
+  "url": "/next-page.html"
+}
+```
+
+#### 페이지 이동 시 액션 유지
+
+`navigate` 액션 실행 시, 남은 액션은 `localStorage.pendingActions`에 저장되어 다음 페이지 로드 시 자동으로 실행됩니다.
 
 ---
 

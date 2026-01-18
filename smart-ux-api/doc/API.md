@@ -468,17 +468,24 @@ ActionQueueHandler aqHandler = new ActionQueueHandler(ActionQueueHandler.FORMAT_
 
 ### smart-ux-collector.js
 
-웹 페이지의 UI 정보를 수집하고 서버로 전송하는 클라이언트 스크립트입니다.
+웹 페이지의 UI 정보를 자동으로 수집하고 서버로 전송하는 클라이언트 스크립트입니다.
 
-#### 주요 기능
+#### 주요 특징
 
-- DOM 변경 감지 (MutationObserver)
-- 이벤트 바인딩된 요소 수집
-- 현재 화면 정보를 서버로 자동 전송
+- **자동 실행**: 스크립트가 로드되면 자동으로 UI 정보를 수집하고 전송합니다
+- **DOM 변경 감지**: MutationObserver를 사용하여 DOM 변경 시 자동으로 재수집합니다
+- **전역 변수**: 수집된 UI 정보는 `window.uiSnapshot`에 저장됩니다
+
+#### 동작 방식
+
+1. 페이지 로드 시 2초 후 자동으로 이벤트 바인딩된 요소 수집
+2. DOM 변경 감지 시 2초 대기 후 자동으로 재수집
+3. 수집된 정보를 `window.uiSnapshot`에 저장
+4. `SERVER_ENDPOINT`로 자동 전송 (기본값: `/suapi/collect`)
 
 #### 설정
 
-스크립트 내부의 `SERVER_ENDPOINT` 변수를 수정하여 서버 엔드포인트를 설정합니다.
+스크립트 내부의 `SERVER_ENDPOINT` 변수를 수정하여 서버 엔드포인트를 설정합니다:
 
 ```javascript
 const SERVER_ENDPOINT = '/suapi/collect';  // 실제 서버 URL로 교체
@@ -496,11 +503,41 @@ const SERVER_ENDPOINT = '/suapi/collect';  // 실제 서버 URL로 교체
 - `properties.enabled`: 활성화 여부
 - `properties.visible`: 표시 여부
 
-#### 동작 방식
+#### 수집된 정보 형식
 
-1. 페이지 로드 시 2초 후 자동 수집 및 전송
-2. DOM 변경 감지 시 2초 대기 후 자동 수집 및 전송
-3. 수집된 정보를 `window.uiSnapshot`에 저장
+`window.uiSnapshot`에 저장되는 형식:
+
+```json
+[
+  {
+    "id": "menu_americano",
+    "type": "click",
+    "label": "아메리카노",
+    "selector": "#menu_americano",
+    "xpath": "//*[@id='menu_americano']",
+    "properties": {
+      "enabled": true,
+      "visible": true
+    }
+  }
+]
+```
+
+#### 사용 예제
+
+```html
+<!-- HTML에 스크립트 포함 -->
+<script src="/lib/smart-ux-collector.js"></script>
+
+<!-- JavaScript에서 수집된 정보 사용 -->
+<script>
+  // 자동으로 window.uiSnapshot에 저장됨
+  console.log(window.uiSnapshot);
+  
+  // 서버로 전송할 때 사용
+  const viewInfo = JSON.stringify(window.uiSnapshot);
+</script>
+```
 
 ### smart-ux-client.js
 
@@ -510,9 +547,11 @@ Action Queue를 실행하는 클라이언트 스크립트입니다.
 
 ##### `doActions(actions)`
 
-Action Queue를 실행합니다.
+Action Queue의 액션들을 순차적으로 실행합니다.
 
-- 파라미터: `actions` - Action 배열
+- **파라미터**: `actions` - Action 배열 (배열 형식)
+- **반환값**: `Promise` - 비동기 함수입니다
+- **ES6 모듈**: `export async function`으로 export되어 있으므로 모듈로 로드해야 합니다
 
 #### 지원하는 Action 타입
 
@@ -526,6 +565,8 @@ Action Queue를 실행합니다.
   "id": "element-id"
 }
 ```
+
+**참고**: `action.type` 또는 `action.action` 필드를 지원합니다 (하위 호환성)
 
 ##### `scroll`
 
@@ -565,11 +606,17 @@ Action Queue를 실행합니다.
 #### 사용 예제
 
 ```javascript
+// ES6 모듈로 로드
+import { doActions } from '/lib/smart-ux-client.js';
+
+// 또는 HTML에서 모듈로 로드
+// <script type="module" src="/lib/smart-ux-client.js"></script>
+
 // Action Queue 실행
 const actions = [
-  { "type": "click", "id": "menu_americano" },
-  { "type": "setAttribute", "id": "order_count", "attrName": "value", "attrValue": "2" },
-  { "type": "click", "id": "order_btn" }
+  { type: "click", id: "menu_americano" },
+  { type: "setAttribute", id: "order_count", attrName: "value", attrValue: "2" },
+  { type: "click", id: "order_btn" }
 ];
 
 await doActions(actions);
@@ -577,7 +624,7 @@ await doActions(actions);
 
 #### 페이지 이동 시 액션 유지
 
-`navigate` 액션 실행 시, 남은 액션은 localStorage에 저장되어 다음 페이지 로드 시 자동으로 실행됩니다.
+`navigate` 액션 실행 시, 남은 액션은 `localStorage.pendingActions`에 저장되어 다음 페이지 로드 시 자동으로 실행됩니다.
 
 ---
 
@@ -710,13 +757,23 @@ public class UICollectorServlet extends HttpServlet {
 
 ### JavaScript 클라이언트 사용 예제
 
-```javascript
-// UI 정보 수집 및 전송 (smart-ux-collector.js가 자동으로 처리)
+```html
+<!-- HTML에 스크립트 포함 -->
+<!-- smart-ux-collector.js: 자동 실행되어 window.uiSnapshot에 정보 저장 -->
+<script src="/lib/smart-ux-collector.js"></script>
 
+<!-- smart-ux-client.js: ES6 모듈로 로드 -->
+<script type="module">
+    import { doActions } from '/lib/smart-ux-client.js';
+    window.doActions = doActions;  // 전역에서 사용할 수 있도록 저장
+</script>
+
+<script>
 // 프롬프트 전송 및 Action Queue 실행
 async function sendPrompt(userInput) {
     try {
         // 프롬프트 전송
+        // smart-ux-collector.js가 자동으로 수집한 정보 사용
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
@@ -740,7 +797,7 @@ async function sendPrompt(userInput) {
             const actions = Array.isArray(result.action_queue) 
                 ? result.action_queue 
                 : JSON.parse(result.action_queue);
-            await doActions(actions);
+            await window.doActions(actions);
         }
         
     } catch (error) {
@@ -759,6 +816,7 @@ document.getElementById('send-btn').addEventListener('click', () => {
     const userInput = document.getElementById('user-input').value;
     sendPrompt(userInput);
 });
+</script>
 ```
 
 ### Gemini API 사용 예제
