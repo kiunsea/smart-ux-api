@@ -1434,11 +1434,23 @@ gradlew.bat<span class="w"> </span>build
     <span class="cm">&lt;!-- 웹 애플리케이션 콘텐츠 --&gt;</span>
 
     <span class="cm">&lt;!-- Smart UX API 스크립트 (body 끝에 추가) --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- smart-ux-collector.js: 자동 실행되어 UI 정보를 수집하고 window.uiSnapshot에 저장 --&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-collector.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+    <span class="cm">&lt;!-- smart-ux-client.js: ES6 모듈로 로드 (필요시) --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">doActions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;/js/smart-ux-client.js&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">window</span><span class="p">.</span><span class="nx">doActions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doActions</span><span class="p">;</span><span class="w">  </span><span class="c1">// 전역에서 사용할 수 있도록 저장</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
+<blockquote>
+<p>💡 <strong>참고</strong>: 
+- <code>smart-ux-collector.js</code>는 일반 스크립트로 로드하면 자동 실행됩니다
+- <code>smart-ux-client.js</code>는 ES6 모듈이므로 <code>type="module"</code>로 로드하거나 <code>import</code> 문을 사용해야 합니다
+- 수집된 UI 정보는 <code>window.uiSnapshot</code>에 자동으로 저장됩니다</p>
+</blockquote>
 <hr />
 <h2 id="spring-boot">Spring Boot 프로젝트에 통합<a class="headerlink" href="#spring-boot" title="Permanent link">&para;</a></h2>
 <h3 id="1-gradle">1. Gradle 의존성 추가<a class="headerlink" href="#1-gradle" title="Permanent link">&para;</a></h3>
@@ -1625,11 +1637,13 @@ catalina.bat<span class="w"> </span>start<span class="w">   </span><span class="
 <p>개발자 콘솔에서 JavaScript 오류가 없는지 확인합니다.</p>
 <h3 id="4-api">4. API 테스트<a class="headerlink" href="#4-api" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 브라우저 콘솔에서 테스트</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">collector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SmartUXCollector</span><span class="p">();</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">viewInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">collector</span><span class="p">.</span><span class="nx">collectUIInfo</span><span class="p">();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">viewInfo</span><span class="p">);</span>
+<span class="c1">// smart-ux-collector.js가 자동으로 수집한 정보 확인</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">uiSnapshot</span><span class="p">);</span>
 </code></pre></div>
 <p>UI 정보가 정상적으로 출력되면 성공입니다!</p>
+<blockquote>
+<p>💡 <strong>참고</strong>: <code>smart-ux-collector.js</code>는 자동 실행되므로 별도로 호출할 필요가 없습니다. 페이지 로드 시 자동으로 UI 정보를 수집하고 <code>window.uiSnapshot</code>에 저장합니다.</p>
+</blockquote>
 <hr />
 <h2 id="_8">문제 해결<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>설치 중 문제가 발생하면 <a href="../TROUBLESHOOTING/">TROUBLESHOOTING.md</a>를 참조하세요.</p>

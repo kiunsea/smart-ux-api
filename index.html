@@ -1670,11 +1670,23 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
     <span class="cm">&lt;!-- 웹 애플리케이션 콘텐츠 --&gt;</span>
 
     <span class="cm">&lt;!-- Smart UX API 스크립트 (body 끝에 추가) --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- smart-ux-collector.js: 자동 실행되어 UI 정보를 수집하고 window.uiSnapshot에 저장 --&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/smart-ux-collector.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+    <span class="cm">&lt;!-- smart-ux-client.js: ES6 모듈로 로드 (필요시) --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">doActions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;/js/smart-ux-client.js&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">window</span><span class="p">.</span><span class="nx">doActions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doActions</span><span class="p">;</span><span class="w">  </span><span class="c1">// 전역에서 사용할 수 있도록 저장</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
+<blockquote>
+<p>💡 <strong>참고</strong>: 
+- <code>smart-ux-collector.js</code>는 일반 스크립트로 로드하면 자동 실행됩니다
+- <code>smart-ux-client.js</code>는 ES6 모듈이므로 <code>type="module"</code>로 로드하거나 <code>import</code> 문을 사용해야 합니다
+- 수집된 UI 정보는 <code>window.uiSnapshot</code>에 자동으로 저장됩니다</p>
+</blockquote>
 <h3 id="_7">📦 프로젝트 구성 요약<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
