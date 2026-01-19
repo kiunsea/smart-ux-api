@@ -1594,8 +1594,8 @@
 │   ├── gradlew                  ← Gradle 래퍼
 │   └── README.md               ← 라이브러리 상세 문서
 │
-└── 🎯 smuxapi-war/              ← 샘플 애플리케이션 (실제 사용 예제)
-    ├── src/main/java/          ← 샘플 서블릿 코드
+└── 🎯 smuxapi-demo/            ← 샘플 애플리케이션 (실제 사용 예제)
+    ├── src/main/java/          ← 샘플 Spring Boot 코드
     ├── src/main/webapp/        ← 샘플 웹 애플리케이션
     └── README.md               ← 샘플 프로젝트 설명
 </code></pre></div>
@@ -1703,7 +1703,7 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 <td>실제 사용할 라이브러리 소스 코드 및 빌드 결과물</td>
 </tr>
 <tr>
-<td><code>smuxapi-war/</code></td>
+<td><code>smuxapi-demo/</code></td>
 <td><strong>샘플 프로젝트</strong></td>
 <td>실제 사용 예제를 보여주는 데모 애플리케이션</td>
 </tr>
@@ -1716,7 +1716,7 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 </table>
 <h3 id="_8">🎯 다음 단계<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>샘플 프로젝트 실행</strong>: <code>smuxapi-war/</code> 디렉터리의 <a href="smuxapi-war/README.md">README.md</a> 참조</li>
+<li><strong>샘플 프로젝트 실행</strong>: <code>smuxapi-demo/</code> 디렉터리의 <a href="smuxapi-demo/README.md">README.md</a> 참조</li>
 <li><strong>상세 설치 가이드</strong>: <a href="docs/INSTALL.md">INSTALL.md</a> 참조</li>
 <li><strong>API 문서</strong>: <a href="docs/API.md">API.md</a> 참조</li>
 <li><strong>코드 예제</strong>: <a href="docs/EXAMPLES.md">EXAMPLES.md</a> 참조</li>
@@ -1773,13 +1773,13 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 │   ├── 📁 doc/                       ← 라이브러리 문서
 │   └── 📁 bat/                       ← 배포 스크립트
 │
-└── 🎯 smuxapi-war/                   ← 샘플 애플리케이션
+└── 🎯 smuxapi-demo/                  ← 샘플 애플리케이션
     ├── 📄 README.md                  ← 샘플 프로젝트 설명
     ├── 📄 CHANGELOG.md               ← 샘플 프로젝트 변경 이력
     ├── 📄 build.gradle.kts           ← 빌드 설정
     └── 📁 src/
         └── main/
-            ├── java/                 ← 샘플 서블릿 코드
+            ├── java/                 ← 샘플 Spring Boot 코드
             ├── resources/            ← 설정 파일
             └── webapp/               ← 웹 리소스 (HTML, CSS, JS)
                 ├── index.html
@@ -1808,7 +1808,7 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 </tr>
 <tr>
 <td><strong>샘플 프로젝트</strong></td>
-<td><code>smuxapi-war/</code></td>
+<td><code>smuxapi-demo/</code></td>
 </tr>
 <tr>
 <td><strong>프로젝트 문서</strong></td>
@@ -1825,13 +1825,13 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 <p>A: 처음에는 혼란스러울 수 있지만, 이는 의도된 구조입니다. 저장소를 클론하면:
 1. 루트의 <code>README.md</code>를 먼저 읽어 프로젝트 개요를 파악하세요
 2. 메인 라이브러리는 <code>smart-ux-api/lib/</code> 디렉터리에 있습니다
-3. 샘플 프로젝트는 <code>smuxapi-war/</code> 디렉터리에 있습니다
+3. 샘플 프로젝트는 <code>smuxapi-demo/</code> 디렉터리에 있습니다
 4. 모든 문서는 <code>docs/</code> 디렉터리에 정리되어 있습니다</p>
 <h3 id="q_1">Q: 어디서부터 시작해야 하나요?<a class="headerlink" href="#q_1" title="Permanent link">&para;</a></h3>
 <p>A: 
 1. <strong>빠른 시작</strong>: 루트 <code>README.md</code>의 "Quick Start" 섹션을 따라하세요
 2. <strong>상세 설치</strong>: <code>docs/INSTALL.md</code>를 참조하세요
-3. <strong>예제 확인</strong>: <code>smuxapi-war/</code> 디렉터리의 샘플 프로젝트를 실행해보세요
+3. <strong>예제 확인</strong>: <code>smuxapi-demo/</code> 디렉터리의 샘플 프로젝트를 실행해보세요
 4. <strong>API 학습</strong>: <code>docs/API.md</code>와 <code>docs/EXAMPLES.md</code>를 참조하세요</p>
 <h3 id="q-ai">Q: 어떤 AI 모델을 사용할 수 있나요?<a class="headerlink" href="#q-ai" title="Permanent link">&para;</a></h3>
 <p>A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다. 향후 Claude 등 다른 모델도 지원 예정입니다.</p>
