@@ -113,3 +113,4 @@ smuxapi-war/src/main/resources/smuxnexa.properties
 # Project management and task tracking
 doc/tasks/
 **/tasks/
+smuxapi-demo/packaging/distribution/smuxapi-demo.yml

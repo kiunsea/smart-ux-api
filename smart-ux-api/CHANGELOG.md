@@ -9,6 +9,20 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.6.1] - 2026-01-20
+
+### Added
+- YAML 설정 파일 지원: `PropertiesUtil`에 YAML 파일 파싱 기능 추가 (SnakeYAML 라이브러리 사용)
+- YAML 형식의 설정 파일 읽기 기능: `.yml`, `.yaml` 확장자 파일 지원
+
+### Changed
+- 문서 업데이트: 모든 문서에서 `smuxapi-war` 프로젝트 참조를 `smuxapi-demo`로 변경
+- 프로젝트 구조 문서 정리: 제거된 `smuxapi-war` 프로젝트 관련 내용 정리
+
+### Removed
+- `smuxapi-war` 프로젝트 제거: Spring Boot 기반 `smuxapi-demo` 프로젝트로 대체
+
+---
 ## [0.6.0] - 2025-01-XX
 
 ### Added

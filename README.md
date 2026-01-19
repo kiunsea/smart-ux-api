@@ -71,8 +71,8 @@ smart-ux-api/                    ← GitHub 저장소 (현재 위치)
 │   ├── gradlew                  ← Gradle 래퍼
 │   └── README.md               ← 라이브러리 상세 문서
 │
-└── 🎯 smuxapi-war/              ← 샘플 애플리케이션 (실제 사용 예제)
-    ├── src/main/java/          ← 샘플 서블릿 코드
+└── 🎯 smuxapi-demo/            ← 샘플 애플리케이션 (실제 사용 예제)
+    ├── src/main/java/          ← 샘플 Spring Boot 코드
     ├── src/main/webapp/        ← 샘플 웹 애플리케이션
     └── README.md               ← 샘플 프로젝트 설명
 ```
@@ -186,12 +186,12 @@ cp smart-ux-api/lib/src/main/js/*.js \
 | 디렉터리 | 설명 | 용도 |
 |---------|------|------|
 | `smart-ux-api/lib/` | **메인 라이브러리** | 실제 사용할 라이브러리 소스 코드 및 빌드 결과물 |
-| `smuxapi-war/` | **샘플 프로젝트** | 실제 사용 예제를 보여주는 데모 애플리케이션 |
+| `smuxapi-demo/` | **샘플 프로젝트** | 실제 사용 예제를 보여주는 데모 애플리케이션 |
 | `docs/` | **문서** | API 레퍼런스, 설치 가이드, 예제 등 |
 
 ### 🎯 다음 단계
 
-- **샘플 프로젝트 실행**: `smuxapi-war/` 디렉터리의 [README.md](smuxapi-war/README.md) 참조
+- **샘플 프로젝트 실행**: `smuxapi-demo/` 디렉터리의 [README.md](smuxapi-demo/README.md) 참조
 - **상세 설치 가이드**: [INSTALL.md](docs/INSTALL.md) 참조
 - **API 문서**: [API.md](docs/API.md) 참조
 - **코드 예제**: [EXAMPLES.md](docs/EXAMPLES.md) 참조
@@ -260,13 +260,13 @@ smart-ux-api/                          ← GitHub 저장소 루트
 │   ├── 📁 doc/                       ← 라이브러리 문서
 │   └── 📁 bat/                       ← 배포 스크립트
 │
-└── 🎯 smuxapi-war/                   ← 샘플 애플리케이션
+└── 🎯 smuxapi-demo/                  ← 샘플 애플리케이션
     ├── 📄 README.md                  ← 샘플 프로젝트 설명
     ├── 📄 CHANGELOG.md               ← 샘플 프로젝트 변경 이력
     ├── 📄 build.gradle.kts           ← 빌드 설정
     └── 📁 src/
         └── main/
-            ├── java/                 ← 샘플 서블릿 코드
+            ├── java/                 ← 샘플 Spring Boot 코드
             ├── resources/            ← 설정 파일
             └── webapp/               ← 웹 리소스 (HTML, CSS, JS)
                 ├── index.html
@@ -280,7 +280,7 @@ smart-ux-api/                          ← GitHub 저장소 루트
 | **라이브러리 빌드** | `smart-ux-api/lib/` |
 | **빌드된 JAR 파일** | `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` |
 | **JavaScript 파일** | `smart-ux-api/lib/src/main/js/` |
-| **샘플 프로젝트** | `smuxapi-war/` |
+| **샘플 프로젝트** | `smuxapi-demo/` |
 | **프로젝트 문서** | `docs/` |
 | **API 레퍼런스** | `docs/API.md` |
 
@@ -290,14 +290,14 @@ smart-ux-api/                          ← GitHub 저장소 루트
 A: 처음에는 혼란스러울 수 있지만, 이는 의도된 구조입니다. 저장소를 클론하면:
 1. 루트의 `README.md`를 먼저 읽어 프로젝트 개요를 파악하세요
 2. 메인 라이브러리는 `smart-ux-api/lib/` 디렉터리에 있습니다
-3. 샘플 프로젝트는 `smuxapi-war/` 디렉터리에 있습니다
+3. 샘플 프로젝트는 `smuxapi-demo/` 디렉터리에 있습니다
 4. 모든 문서는 `docs/` 디렉터리에 정리되어 있습니다
 
 ### Q: 어디서부터 시작해야 하나요?
 A: 
 1. **빠른 시작**: 루트 `README.md`의 "Quick Start" 섹션을 따라하세요
 2. **상세 설치**: `docs/INSTALL.md`를 참조하세요
-3. **예제 확인**: `smuxapi-war/` 디렉터리의 샘플 프로젝트를 실행해보세요
+3. **예제 확인**: `smuxapi-demo/` 디렉터리의 샘플 프로젝트를 실행해보세요
 4. **API 학습**: `docs/API.md`와 `docs/EXAMPLES.md`를 참조하세요
 
 ### Q: 어떤 AI 모델을 사용할 수 있나요?

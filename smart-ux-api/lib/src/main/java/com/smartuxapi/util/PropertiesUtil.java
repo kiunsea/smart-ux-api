@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.yaml.snakeyaml.Yaml;
+
 /**
  * @author KIUNSEA
  *
@@ -49,14 +51,28 @@ public class PropertiesUtil {
     }
     
     public static String get(String key) {
-
-        // ClassLoader.getResourceAsStream("some/pkg/resource.properties");
-        // Class.getResourceAsStream("/some/pkg/resource.properties");
-        // ResourceBundle.getBundle("some.pkg.resource");
+        String value = null;
+        String filePath = (USER_PROPERTIES_PATH != null) ? USER_PROPERTIES_PATH : DEFAULT_PROPERTIES_PATH;
+        
+        // YAML 파일인지 확인
+        if (filePath.endsWith(".yml") || filePath.endsWith(".yaml")) {
+            value = getFromYaml(filePath, key);
+        } else {
+            // Properties 파일 읽기
+            value = getFromProperties(filePath, key);
+        }
+        
+        return value;
+    }
+    
+    /**
+     * Properties 파일에서 값을 읽어옵니다.
+     */
+    private static String getFromProperties(String filePath, String key) {
         String value = null;
         InputStream is = null;
         try {
-            is = (USER_PROPERTIES_PATH != null) ? new FileInputStream(USER_PROPERTIES_PATH) : new FileInputStream(DEFAULT_PROPERTIES_PATH);
+            is = new FileInputStream(filePath);
             Reader reader = new InputStreamReader(is, "UTF-8");
             Properties p = null;
             try {
@@ -65,6 +81,33 @@ public class PropertiesUtil {
                 value = p.getProperty(key);
             } finally {
                 reader.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) is.close();
+            } catch (IOException e) {}
+        }
+        return value;
+    }
+    
+    /**
+     * YAML 파일에서 값을 읽어옵니다.
+     */
+    @SuppressWarnings("unchecked")
+    private static String getFromYaml(String filePath, String key) {
+        String value = null;
+        InputStream is = null;
+        try {
+            is = new FileInputStream(filePath);
+            Yaml yaml = new Yaml();
+            Map<String, Object> data = yaml.load(is);
+            if (data != null && data.containsKey(key)) {
+                Object obj = data.get(key);
+                value = (obj != null) ? obj.toString() : null;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

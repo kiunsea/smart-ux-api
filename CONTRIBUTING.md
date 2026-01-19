@@ -40,8 +40,8 @@ smart-ux-api/                    ← GitHub 저장소 (현재 위치)
 │       ├── src/main/java/      ← Java 소스 코드
 │       └── build.gradle.kts    ← 빌드 설정
 │
-└── smuxapi-war/                 ← 샘플 애플리케이션
-    └── src/main/java/          ← 샘플 서블릿 코드
+└── smuxapi-demo/               ← 샘플 애플리케이션
+    └── src/main/java/          ← 샘플 Spring Boot 코드
 ```
 
 > 💡 **참고**: 저장소 이름과 메인 프로젝트 폴더 이름이 동일합니다. 메인 라이브러리는 `smart-ux-api/lib/` 경로에 있습니다.

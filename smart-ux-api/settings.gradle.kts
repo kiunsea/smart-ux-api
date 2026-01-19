@@ -13,4 +13,5 @@ plugins {
 rootProject.name = "smart-ux-api"
 include("lib")
 include("smuxapi-war")
+project(":lib").projectDir = file("lib")
 project(":smuxapi-war").projectDir = file("../smuxapi-war")

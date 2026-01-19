@@ -652,7 +652,7 @@ app.sendPrompt('아메리카노 주문해줘');
 
 ## 더 많은 예제
 
-완전한 동작 예제는 [smuxapi-war 프로젝트](../smuxapi-war/)를 참조하세요.
+완전한 동작 예제는 [smuxapi-demo 프로젝트](../smuxapi-demo/)를 참조하세요.
 
 - 키오스크 주문 시스템
 - 음성 명령 통합

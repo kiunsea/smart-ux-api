@@ -1,0 +1,8 @@
+#------------------------------------------------------------------------
+# SYS PROPERTIES
+#------------------------------------------------------------------------
+OPENAI_ASSIST_ID: your assistant id
+OPENAI_API_KEY: your openai api key
+OPENAI_MODEL: openai ai model
+GEMINI_MODEL: google gemini ai model (gemini-2.5-flash ...)
+GEMINI_API_KEY: your gemini api key

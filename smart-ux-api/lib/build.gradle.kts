@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.smartuxapi.ai"  // 그룹 ID 설정
-version = "0.5.1"            // 프로젝트 버전 설정
+version = "0.6.1"            // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -20,17 +20,17 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter test framework.
-    testImplementation(libs.junit.jupiter)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
     
     // JUnit Platform Suite API (통합 테스트 스위트용)
     testImplementation("org.junit.platform:junit-platform-suite-api:1.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-suite-engine:1.10.1")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api(libs.commons.math3)
+    api("org.apache.commons:commons-math3:3.6.1")
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation(libs.guava)
+    implementation("com.google.guava:guava:33.2.1-jre")
     
     implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
     
@@ -43,6 +43,9 @@ dependencies {
     
     implementation("org.apache.logging.log4j:log4j-api:2.21.0")   // Log4j API
     implementation("org.apache.logging.log4j:log4j-core:2.21.0")  // Log4j Core
+    
+    // SnakeYAML (YAML 파일 파싱용)
+    implementation("org.yaml:snakeyaml:2.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
