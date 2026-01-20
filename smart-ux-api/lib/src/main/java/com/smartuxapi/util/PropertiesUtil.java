@@ -109,8 +109,6 @@ public class PropertiesUtil {
                 Object obj = data.get(key);
                 value = (obj != null) ? obj.toString() : null;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

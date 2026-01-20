@@ -2,7 +2,6 @@ package com.smartuxapi.demo.config;
 
 import java.io.File;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,6 +20,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
     
     @PostConstruct
     public void init() {
+        // 로그 경로 설정 및 디렉터리 생성
+        setupLogDirectory();
+        
         // PropertiesUtil 경로 설정
         // 실행 디렉터리의 smuxapi-demo.yml 파일을 사용
         String jarDir = getJarDirectory();
@@ -44,6 +46,47 @@ public class ApplicationConfig implements WebMvcConfigurer {
                 // 리소스를 찾을 수 없으면 기본 경로 사용
                 PropertiesUtil.USER_PROPERTIES_PATH = "smuxapi-demo.yml";
             }
+        }
+    }
+    
+    /**
+     * 로그 디렉터리 설정 및 생성
+     * - JAR 배포 시: 배포 위치의 log 폴더 (smuxapi-demo.bat과 같은 위치)
+     * - WAR 배포 시: C:/LOGS 폴더
+     */
+    private void setupLogDirectory() {
+        try {
+            String logPath;
+            
+            // 시스템 프로퍼티로 배포 타입 확인 (main 메서드에서 설정됨)
+            String deploymentType = System.getProperty("deployment.type");
+            
+            if ("war".equals(deploymentType)) {
+                // WAR 배포 시: C:/LOGS 사용
+                logPath = "C:/LOGS";
+            } else {
+                // JAR 배포 시: 배포 위치의 log 폴더 사용 (smuxapi-demo.bat과 같은 위치)
+                String jarDir = getJarDirectory();
+                logPath = jarDir + File.separator + "log";
+            }
+            
+            // 로그 경로를 시스템 프로퍼티로 설정 (log4j2.xml에서 사용)
+            System.setProperty("logPath", logPath);
+            
+            // 로그 디렉터리 생성
+            File logDir = new File(logPath);
+            if (!logDir.exists()) {
+                boolean created = logDir.mkdirs();
+                if (created) {
+                    System.out.println("로그 디렉터리 생성 완료: " + logPath);
+                } else {
+                    System.err.println("경고: 로그 디렉터리 생성 실패: " + logPath);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("경고: 로그 디렉터리 설정 중 오류 발생: " + e.getMessage());
+            // 기본값으로 C:/LOGS 설정
+            System.setProperty("logPath", "C:/LOGS");
         }
     }
     

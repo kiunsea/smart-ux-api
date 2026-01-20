@@ -92,6 +92,9 @@ tasks.war {
     archiveBaseName.set("smuxapi")
     archiveVersion.set("")  // 버전 번호 제거하여 smuxapi.war로 생성
     
+    // WAR 파일 출력 경로를 packaging/distribution으로 설정
+    destinationDirectory.set(file("packaging/distribution"))
+    
     // 중복 파일 처리 전략 설정
     // Spring Boot가 의존성을 자동으로 포함하므로, src/main/webapp/WEB-INF/lib/의 JAR와 중복 시 제외
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -128,7 +131,7 @@ tasks.test {
 
 // Custom JRE 생성 태스크 (jlink 사용)
 tasks.register("createJre") {
-    val jreDir = file("${buildDir}/jre")
+    val jreDir = layout.buildDirectory.dir("jre").get().asFile
     
     outputs.dir(jreDir)
     
@@ -180,7 +183,7 @@ tasks.register<Zip>("packageDist") {
         into("/")
     }
     
-    from("${buildDir}/jre") {
+    from(layout.buildDirectory.dir("jre")) {
         into("jre")
     }
     

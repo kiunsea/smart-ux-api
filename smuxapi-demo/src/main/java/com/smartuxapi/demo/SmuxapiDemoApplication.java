@@ -20,6 +20,9 @@ public class SmuxapiDemoApplication extends SpringBootServletInitializer {
      */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        // WAR 배포 타입 표시
+        System.setProperty("deployment.type", "war");
+        
         // WAR 배포 시 'war' 프로파일 활성화하여 context-path를 /로 설정
         return application.sources(SmuxapiDemoApplication.class)
                 .profiles("war");
@@ -29,6 +32,9 @@ public class SmuxapiDemoApplication extends SpringBootServletInitializer {
      * 독립 실행형 JAR 실행을 위한 main 메서드
      */
     public static void main(String[] args) {
+        // JAR 배포 타입 표시
+        System.setProperty("deployment.type", "jar");
+        
         // Spring Boot 애플리케이션 시작
         SpringApplication.run(SmuxapiDemoApplication.class, args);
         

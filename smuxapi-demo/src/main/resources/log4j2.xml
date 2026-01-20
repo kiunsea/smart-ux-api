@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration status="WARN">
+    <!-- 시스템 프로퍼티 기본값 설정 -->
+    <Properties>
+        <Property name="logPath">${sys:logPath:-C:/LOGS}</Property>
+    </Properties>
+    
     <!-- 로그 출력 방식 -->
     <Appenders>
         <!-- 콘솔 출력 방식 -->
         <Console name="stdout" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
         </Console>
-        <!-- 파일 저장 방식 -->
-        <File name="file_dev" fileName="logs/smuxapi-demo.log">
-              <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
-        </File>
+        
+        <!-- 파일 저장 방식: 시스템 프로퍼티로 설정된 경로에 저장 -->
+        <RollingFile name="file_dev" 
+                     fileName="${logPath}/smuxapi-demo.log"
+                     filePattern="${logPath}/smuxapi-demo-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" charset="UTF-8"/>
+            <Policies>
+                <!-- 날짜별 롤링 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 파일 크기별 롤링 (10MB) -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- 최대 보관 파일 수 (30일) -->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
     </Appenders>
     
     <Loggers>
-        <Logger name = "com.smartuxapi"  level="DEBUG" additivity = 'false'>
+        <Logger name="com.smartuxapi" level="DEBUG" additivity="false">
             <AppenderRef ref="stdout"/>
             <AppenderRef ref="file_dev"/>
         </Logger>
+        
+        <!-- Root Logger -->
+        <Root level="INFO">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="file_dev"/>
+        </Root>
     </Loggers>
 </Configuration>
