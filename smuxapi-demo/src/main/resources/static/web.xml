@@ -13,8 +13,6 @@
 		<session-timeout>30</session-timeout> <!-- 분 단위 -->
 	</session-config>
 	
-	<!-- Session Listener 등록 -->
-	<listener>
-		<listener-class>com.smartuxapi.sample.listen.SessionListener</listener-class>
-	</listener>
+	<!-- Session Listener는 Spring Boot의 @WebListener 또는 ServletListenerRegistrationBean으로 등록 가능 -->
+	<!-- 필요시 com.smartuxapi.demo.listener 패키지에 리스너 클래스를 생성하여 사용 -->
 </web-app>

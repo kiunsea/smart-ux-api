@@ -1,5 +1,6 @@
 plugins {
     java
+    war
     id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
 }
@@ -30,6 +31,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
+    
+    // WAR 배포를 위한 Tomcat 제공 (외부 Tomcat에서 실행 시 필요)
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     
     // Log4j2
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
@@ -79,6 +83,43 @@ tasks.bootJar {
     archiveBaseName.set("smuxapi-demo")
     archiveVersion.set(project.version.toString())
     mainClass.set("com.smartuxapi.demo.SmuxapiDemoApplication")
+}
+
+// WAR 파일 설정
+tasks.war {
+    enabled = true
+    // WAR 파일 이름을 smuxapi.war로 설정하여 context path를 /smuxapi로 고정
+    archiveBaseName.set("smuxapi")
+    archiveVersion.set("")  // 버전 번호 제거하여 smuxapi.war로 생성
+    
+    // 중복 파일 처리 전략 설정
+    // Spring Boot가 의존성을 자동으로 포함하므로, src/main/webapp/WEB-INF/lib/의 JAR와 중복 시 제외
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
+    // src/main/webapp의 내용을 포함하되, WEB-INF/lib/의 JAR 파일들은 제외
+    // Spring Boot WAR 플러그인이 자동으로 의존성을 포함하므로 수동 JAR는 불필요
+    from("src/main/webapp") {
+        exclude("WEB-INF/lib/*.jar")
+        exclude("WEB-INF/lib/*-sources.jar")
+    }
+    
+    doLast {
+        val warFile = archiveFile.get().asFile
+        println("✅ WAR 파일 생성 완료!")
+        println("📦 파일 위치: ${warFile.absolutePath}")
+        println("📊 파일 크기: ${String.format("%.2f", warFile.length() / 1024.0 / 1024.0)} MB")
+        println("")
+        println("WAR 배포 방법:")
+        println("  1. WAR 파일을 Tomcat의 webapps 디렉터리에 복사")
+        println("  2. Tomcat 서버 시작")
+        println("  3. 브라우저에서 http://localhost:8080/smuxapi 접속")
+        println("")
+        println("⚠️  참고:")
+        println("  - WAR 파일 이름: smuxapi.war")
+        println("  - Tomcat context path: /smuxapi (META-INF/context.xml 설정)")
+        println("  - Spring Boot context-path: / (application-war.yml 설정)")
+        println("  - 최종 접속 URL: http://localhost:8080/smuxapi")
+    }
 }
 
 tasks.test {
@@ -155,12 +196,12 @@ tasks.register<Zip>("packageDist") {
     }
 }
 
-// 배포 태스크: 빌드, 배포 패키지 생성
+// 배포 태스크: 빌드, 배포 패키지 생성 (JAR + WAR)
 tasks.register("deploy") {
     group = "distribution"
-    description = "빌드하고 배포 패키지를 생성합니다."
+    description = "빌드하고 배포 패키지를 생성합니다 (JAR + WAR)."
     
-    dependsOn("packageDist")
+    dependsOn("packageDist", "war")
     
     doFirst {
         println("=".repeat(60))
@@ -171,25 +212,42 @@ tasks.register("deploy") {
     doLast {
         val packageDistTask = tasks.named<Zip>("packageDist").get()
         val distFile = packageDistTask.archiveFile.get().asFile
+        val warTask = tasks.named<War>("war").get()
+        val warFile = warTask.archiveFile.get().asFile
         
         println("")
         println("=".repeat(60))
         println("✅ 배포 완료!")
         println("=".repeat(60))
-        println("📦 배포 파일: ${distFile.absolutePath}")
-        println("📁 배포 디렉토리: ${distFile.parent}")
-        println("📊 파일 크기: ${String.format("%.2f", distFile.length() / 1024.0 / 1024.0)} MB")
+        println("")
+        println("📦 독립 실행 패키지 (ZIP):")
+        println("   위치: ${distFile.absolutePath}")
+        println("   크기: ${String.format("%.2f", distFile.length() / 1024.0 / 1024.0)} MB")
+        println("")
+        println("📦 WAR 배포 파일:")
+        println("   위치: ${warFile.absolutePath}")
+        println("   크기: ${String.format("%.2f", warFile.length() / 1024.0 / 1024.0)} MB")
         println("")
         println("배포 파일 구성:")
-        println("  - smuxapi-demo-${project.version}.jar (Spring Boot 실행 JAR)")
-        println("  - smuxapi-demo.bat (실행 스크립트)")
-        println("  - README.md (사용 가이드)")
-        println("  - jre/ (번들된 Java Runtime Environment)")
+        println("  ZIP 패키지:")
+        println("    - smuxapi-demo-${project.version}.jar (Spring Boot 실행 JAR)")
+        println("    - smuxapi-demo.bat (실행 스크립트)")
+        println("    - README.md (사용 가이드)")
+        println("    - jre/ (번들된 Java Runtime Environment)")
+        println("")
+        println("  WAR 파일:")
+        println("    - smuxapi.war (Tomcat 배포용)")
         println("")
         println("사용 방법:")
-        println("  1. ZIP 파일을 원하는 위치에 압축 해제")
-        println("  2. smuxapi-demo.bat 실행")
-        println("  3. 브라우저에서 http://localhost:8080/smuxapi/ 접속")
+        println("  독립 실행 (ZIP):")
+        println("    1. ZIP 파일을 원하는 위치에 압축 해제")
+        println("    2. smuxapi-demo.bat 실행")
+        println("    3. 브라우저에서 http://localhost:8080/smuxapi/ 접속")
+        println("")
+        println("  WAR 배포 (Tomcat):")
+        println("    1. WAR 파일을 Tomcat의 webapps 디렉터리에 복사")
+        println("    2. Tomcat 서버 시작")
+        println("    3. 브라우저에서 http://localhost:8080/smuxapi 접속")
         println("=".repeat(60))
     }
 }
