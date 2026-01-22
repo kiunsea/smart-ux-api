@@ -89,6 +89,28 @@
 
                             const startButton = document.getElementById('start-recognition');
                             const output = document.getElementById('output');
+
+                            // 점 애니메이션을 위한 변수
+                            let dotAnimationInterval = null;
+                            let baseText = ''; // 음성 인식 결과를 저장
+
+                            // 점 애니메이션 시작 함수
+                            const startDotAnimation = () => {
+                                let dotCount = 1;
+                                output.textContent = baseText + ' Interpreting.';
+                                dotAnimationInterval = setInterval(() => {
+                                    dotCount = (dotCount % 3) + 1; // 1 -> 2 -> 3 -> 1 반복
+                                    output.textContent = baseText + ' Interpreting' + '.'.repeat(dotCount);
+                                }, 400); // 400ms 간격으로 변경
+                            };
+
+                            // 점 애니메이션 중지 함수
+                            const stopDotAnimation = () => {
+                                if (dotAnimationInterval) {
+                                    clearInterval(dotAnimationInterval);
+                                    dotAnimationInterval = null;
+                                }
+                            };
                     
                             // Check if the browser supports Web Speech API
                             if (!('webkitSpeechRecognition' in window)) {
@@ -106,7 +128,8 @@
                     
                                 recognition.onresult = (event) => {
                                     const transcript = event.results[0][0].transcript;
-                                    output.textContent = `You said: ${transcript}`;
+                                    baseText = `You said: ${transcript}`;
+                                    output.textContent = baseText;
 
                                     var path = "./action";
                                     var params = "user_msg=" + encodeURIComponent(transcript);
@@ -115,6 +138,7 @@
                                     var _ajax = new XMLHttpRequest();
                                     _ajax.onreadystatechange = function () {
                                         if (checkAjaxSuc(_ajax)) {
+                                            stopDotAnimation(); // 응답 받으면 애니메이션 중지
                                         	output.textContent = 'Speech will appear here...';
                                             var resMsg = _ajax.responseText;
                                             if (resMsg.length > 0) {
@@ -129,9 +153,10 @@
                                         }
                                     };
                                     sendPost(_ajax, path, params);
-                                    output.textContent += '  >>>  Interpreting...';
+                                    startDotAnimation(); // 점 애니메이션 시작
                                     document.body.classList.add('waiting');
                                     setTimeout(function() {
+                                        stopDotAnimation(); // 타임아웃 시에도 애니메이션 중지
                                         document.body.classList.remove('waiting');
                                     }, 20000);
                                 };

@@ -9,6 +9,25 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.6.1] - 2026-01-22
+
+### Added
+- WAR 배포 기능: Tomcat 서버에 WAR 파일로 배포 가능
+- 서버 포트 동적 설정: `smuxapi-demo.yml`의 `SERVER_PORT` 설정으로 서버 포트 변경 가능
+- BrowserLauncher 동적 포트 지원: 설정된 포트에 맞춰 브라우저 URL 자동 생성
+- mega_speech.html 점 애니메이션: 마이크 버튼 클릭 시 "Interpreting" 점 애니메이션 추가
+- war.bat 빌드 스크립트: WAR 파일 빌드를 위한 배치 스크립트 추가
+
+### Changed
+- 설정 키 이름 변경: `DEMO_PORT` → `SERVER_PORT`로 통일
+- WAR 파일 출력 경로: `build/libs/` → `packaging/distribution/`으로 변경
+- 로그 저장 위치: 배포 타입에 따라 동적으로 결정 (JAR: 배포 위치/log, WAR: C:/LOGS)
+- packaging/distribution/README.md: ZIP 및 WAR 배포 가이드 추가
+
+### Fixed
+- Eclipse IDE Validation Error: ERROR_DUPLICATE_WEB_INF_LIB 오류 해결
+
+---
 ## [0.6.0] - 2026-01-20
 
 ### Added

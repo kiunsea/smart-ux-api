@@ -114,3 +114,4 @@ smuxapi-war/src/main/resources/smuxnexa.properties
 doc/tasks/
 **/tasks/
 smuxapi-demo/packaging/distribution/smuxapi-demo.yml
+smuxapi-demo/packaging/distribution/smuxapi-demo/
