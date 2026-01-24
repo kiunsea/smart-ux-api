@@ -143,6 +143,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">file 내에 BOM이 존재하는지 여부 검사</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#clearAll()" class="member-name-link">clearAll()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">모든 세션 데이터 클리어 (테스트용)</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/ActionQueueHandler.html#clearCurrentViewInfo()" class="member-name-link">clearCurrentViewInfo()</a> - Method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/gemini/ConversationHistory.html#clearHistory()" class="member-name-link">clearHistory()</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/ConversationHistory.html" title="class in com.smartuxapi.ai.gemini">ConversationHistory</a></dt>
@@ -169,6 +173,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/package-summary.html">com.smartuxapi.ai</a> - package com.smartuxapi.ai</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/package-summary.html">com.smartuxapi.ai.debug</a> - package com.smartuxapi.ai.debug</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/package-summary.html">com.smartuxapi.ai.debug.model</a> - package com.smartuxapi.ai.debug.model</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/gemini/package-summary.html">com.smartuxapi.ai.gemini</a> - package com.smartuxapi.ai.gemini</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/package-summary.html">com.smartuxapi.ai.openai</a> - package com.smartuxapi.ai.openai</dt>
@@ -179,9 +187,26 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsAPIConnection.html#completedRun(java.lang.String,java.lang.String)" class="member-name-link">completedRun(String, String)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsAPIConnection.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsAPIConnection</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#completeTurn(java.lang.String,java.lang.String,com.fasterxml.jackson.databind.JsonNode)" class="member-name-link">completeTurn(String, String, JsonNode)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">대화 턴 완료 (AI 응답 수신 후 호출)</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#completeTurn(java.lang.String,org.json.simple.JSONObject)" class="member-name-link">completeTurn(String, JSONObject)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">대화 턴 완료 (JSONObject 응답 사용)</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/ConfigLoader.html" class="type-name-link" title="class in com.smartuxapi.ai">ConfigLoader</a> - Class in <a href="com/smartuxapi/ai/package-summary.html">com.smartuxapi.ai</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ConfigLoader.html#%3Cinit%3E()" class="member-name-link">ConfigLoader()</a> - Constructor for class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ConfigLoader.html" title="class in com.smartuxapi.ai">ConfigLoader</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html" class="type-name-link" title="class in com.smartuxapi.ai.debug.model">ConversationData</a> - Class in <a href="com/smartuxapi/ai/debug/model/package-summary.html">com.smartuxapi.ai.debug.model</a></dt>
+<dd>
+<div class="block">ChatRoom 전체 대화 데이터 모델
+ 하나의 ChatRoom 세션의 모든 대화 내용을 담습니다.</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#%3Cinit%3E()" class="member-name-link">ConversationData()</a> - Constructor for class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">ConversationData(String, String, String)</a> - Constructor for class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/gemini/ConversationHistory.html" class="type-name-link" title="class in com.smartuxapi.ai.gemini">ConversationHistory</a> - Class in <a href="com/smartuxapi/ai/gemini/package-summary.html">com.smartuxapi.ai.gemini</a></dt>
 <dd>
@@ -196,6 +221,15 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/smartuxapi/ai/gemini/ConversationHistory.html#%3Cinit%3E()" class="member-name-link">ConversationHistory()</a> - Constructor for class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/ConversationHistory.html" title="class in com.smartuxapi.ai.gemini">ConversationHistory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/ConversationHistory.html#%3Cinit%3E()" class="member-name-link">ConversationHistory()</a> - Constructor for class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ConversationHistory.html" title="class in com.smartuxapi.ai.openai">ConversationHistory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" class="type-name-link" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a> - Class in <a href="com/smartuxapi/ai/debug/model/package-summary.html">com.smartuxapi.ai.debug.model</a></dt>
+<dd>
+<div class="block">대화 턴별 데이터 모델
+ 하나의 요청-응답 쌍을 나타냅니다.</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#%3Cinit%3E()" class="member-name-link">ConversationTurn()</a> - Constructor for class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#%3Cinit%3E(int)" class="member-name-link">ConversationTurn(int)</a> - Constructor for class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/util/JSONUtil.html#convertToJSONArray(org.json.simple.JSONArray)" class="member-name-link">convertToJSONArray(JSONArray)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/JSONUtil.html" title="class in com.smartuxapi.util">JSONUtil</a></dt>
 <dd>
@@ -230,6 +264,24 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html" class="type-name-link" title="class in com.smartuxapi.ai.debug">DebugConfig</a> - Class in <a href="com/smartuxapi/ai/debug/package-summary.html">com.smartuxapi.ai.debug</a></dt>
+<dd>
+<div class="block">디버그 모드 설정 관리 클래스
+ config.json 파일에서 설정을 로드합니다.</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html" class="type-name-link" title="class in com.smartuxapi.ai.debug">DebugLogger</a> - Class in <a href="com/smartuxapi/ai/debug/package-summary.html">com.smartuxapi.ai.debug</a></dt>
+<dd>
+<div class="block">디버그 로거 클래스
+ ChatRoom의 대화 내용을 파일로 저장합니다.</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#%3Cinit%3E()" class="member-name-link">DebugLogger()</a> - Constructor for class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">기본 생성자 (싱글톤 DebugConfig 사용)</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#%3Cinit%3E(com.smartuxapi.ai.debug.DebugConfig)" class="member-name-link">DebugLogger(DebugConfig)</a> - Constructor for class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">지정된 설정으로 생성</div>
+</dd>
 <dt><a href="com/smartuxapi/util/FileUtil.html#deleteFile(java.io.File)" class="member-name-link">deleteFile(File)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/FileUtil.html" title="class in com.smartuxapi.util">FileUtil</a></dt>
 <dd>
 <div class="block">디렉토리인 경우 내부를 비우고 File 을 삭제한다.</div>
@@ -239,6 +291,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#endSession(java.lang.String)" class="member-name-link">endSession(String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">ChatRoom 세션 종료 (ChatRoom.close() 시 호출)</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsFunctionCall.html#execFunction(java.lang.String,com.fasterxml.jackson.databind.JsonNode)" class="member-name-link">execFunction(String, JsonNode)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsFunctionCall.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsFunctionCall</a></dt>
 <dd>
 <div class="block">function 을 실행</div>
@@ -284,7 +340,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html#%3Cinit%3E(java.lang.String,java.lang.String)" class="member-name-link">GeminiChatRoom(String, String)</a> - Constructor for class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html" title="class in com.smartuxapi.ai.gemini">GeminiChatRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/gemini/GeminiChatting.html" class="type-name-link" title="class in com.smartuxapi.ai.gemini">GeminiChatting</a> - Class in <a href="com/smartuxapi/ai/gemini/package-summary.html">com.smartuxapi.ai.gemini</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gemini API를 사용하는 Chatting 구현체</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/gemini/GeminiChatting.html#%3Cinit%3E(com.smartuxapi.ai.gemini.GeminiAPIConnection)" class="member-name-link">GeminiChatting(GeminiAPIConnection)</a> - Constructor for class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatting.html" title="class in com.smartuxapi.ai.gemini">GeminiChatting</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/gemini/GeminiAPIConnection.html#generateContent(org.json.JSONArray)" class="member-name-link">generateContent(JSONArray)</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiAPIConnection.html" title="class in com.smartuxapi.ai.gemini">GeminiAPIConnection</a></dt>
@@ -296,6 +354,12 @@ loadScripts(document, 'script');</script>
 <div class="block">Responses API에 대화 기록을 전송하고 응답을 받습니다.</div>
 </dd>
 <dt><a href="com/smartuxapi/util/PropertiesUtil.html#get(java.lang.String)" class="member-name-link">get(String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/PropertiesUtil.html" title="class in com.smartuxapi.util">PropertiesUtil</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#getAbsoluteOutputPath()" class="member-name-link">getAbsoluteOutputPath()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">절대 경로로 변환된 출력 경로 반환</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getActionQueue()" class="member-name-link">getActionQueue()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ActionQueueHandler.html#getActionQueue(java.lang.String)" class="member-name-link">getActionQueue(String)</a> - Method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></dt>
 <dd>&nbsp;</dd>
@@ -312,9 +376,15 @@ loadScripts(document, 'script');</script>
 <div class="block">현재 화면 정보에 대한 Action Queue 생성 요청 Prompt 를 반환.<br/>
  현재 화면 정보(CurViewInfo)가 필수로 저장되어 있어야 한다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getAiProvider()" class="member-name-link">getAiProvider()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getAiResponse()" class="member-name-link">getAiResponse()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/Assistants.html#getApiKey()" class="member-name-link">getApiKey()</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/Assistants.html" title="class in com.smartuxapi.ai.openai.assistants">Assistants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/Assistants.html#getAssistantId()" class="member-name-link">getAssistantId()</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/Assistants.html" title="class in com.smartuxapi.ai.openai.assistants">Assistants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getChatRoomId()" class="member-name-link">getChatRoomId()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ChatRoom.html#getChatting()" class="member-name-link">getChatting()</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/ChatRoom.html" title="interface in com.smartuxapi.ai">ChatRoom</a></dt>
 <dd>
@@ -328,11 +398,23 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html#getChatting()" class="member-name-link">getChatting()</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html" title="class in com.smartuxapi.ai.openai">ResponsesChatRoom</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getConversations()" class="member-name-link">getConversations()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getCreatedAt()" class="member-name-link">getCreatedAt()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ActionQueueHandler.html#getCurViewPrompt()" class="member-name-link">getCurViewPrompt()</a> - Method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></dt>
 <dd>
 <div class="block">현재 화면 정보 설정에 대한 프롬프트를 반환
  화면 정보가 변경되었을 때만 프롬프트를 반환합니다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/ChatRoom.html#getDebugLogger()" class="member-name-link">getDebugLogger()</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/ChatRoom.html" title="interface in com.smartuxapi.ai">ChatRoom</a></dt>
+<dd>
+<div class="block">디버그 로거 반환</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html#getDebugLogger()" class="member-name-link">getDebugLogger()</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html" title="class in com.smartuxapi.ai.gemini">GeminiChatRoom</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html#getDebugLogger()" class="member-name-link">getDebugLogger()</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html" title="class in com.smartuxapi.ai.openai">ResponsesChatRoom</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/util/PropertiesUtil.html#getDefaultPropertiesPath()" class="member-name-link">getDefaultPropertiesPath()</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/PropertiesUtil.html" title="class in com.smartuxapi.util">PropertiesUtil</a></dt>
 <dd>
 <div class="block">프로그램에서 프로퍼티 파일 기본 경로 확인</div>
@@ -344,6 +426,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/smartuxapi/util/FileUtil.html#getFileCRC32Long(java.lang.String)" class="member-name-link">getFileCRC32Long(String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/FileUtil.html" title="class in com.smartuxapi.util">FileUtil</a></dt>
 <dd>
 <div class="block">File의 32bit CRC값을 long으로 리턴한다</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#getFilePrefix()" class="member-name-link">getFilePrefix()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">파일명 접두사 반환</div>
 </dd>
 <dt><a href="com/smartuxapi/util/FileUtil.html#getFileSize(java.io.File)" class="member-name-link">getFileSize(File)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/FileUtil.html" title="class in com.smartuxapi.util">FileUtil</a></dt>
 <dd>
@@ -357,6 +443,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">파일 이름 + 확장자를 추출해낸다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getFullPrompt()" class="member-name-link">getFullPrompt()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsFunctionCall.html#getFunctionJson()" class="member-name-link">getFunctionJson()</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsFunctionCall.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsFunctionCall</a></dt>
 <dd>
 <div class="block">assistant function 의 json 내용을 반환한다.<br/>
@@ -378,6 +466,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html#getId()" class="member-name-link">getId()</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html" title="class in com.smartuxapi.ai.openai">ResponsesChatRoom</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#getInstance()" class="member-name-link">getInstance()</a> - Static method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">싱글톤 인스턴스 반환</div>
+</dd>
 <dt><a href="com/smartuxapi/util/JSONUtil.html#getJsonArrayFromList(java.util.List)" class="member-name-link">getJsonArrayFromList(List&lt;Map&lt;String, Object&gt;&gt;)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/JSONUtil.html" title="class in com.smartuxapi.util">JSONUtil</a></dt>
 <dd>
 <div class="block">List<Map>을 json으로 변환한다.</div>
@@ -394,6 +486,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">List<Map>을 jsonString으로 변환한다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getLastUpdatedAt()" class="member-name-link">getLastUpdatedAt()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/util/JSONUtil.html#getListMapFromJsonArray(org.json.simple.JSONArray)" class="member-name-link">getListMapFromJsonArray(JSONArray)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/JSONUtil.html" title="class in com.smartuxapi.util">JSONUtil</a></dt>
 <dd>
 <div class="block">JsonArray를 List&lt;Map&lt;String, String>>으로 변환한다.</div>
@@ -416,7 +510,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html#getMessageIdSet()" class="member-name-link">getMessageIdSet()</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatting.html" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a></dt>
 <dd>
 <div class="block">Dummy
- Gemini API에서는 불필요한 함수이다.</div>
+ OpenAI Responses API에서는 불필요한 함수이다.</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getModelName()" class="member-name-link">getModelName()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#getOutputPath()" class="member-name-link">getOutputPath()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">출력 경로 반환 (설정 값 그대로)</div>
 </dd>
 <dt><a href="com/smartuxapi/util/JSONUtil.html#getParamString(org.json.simple.JSONObject,java.lang.String)" class="member-name-link">getParamString(JSONObject, String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/JSONUtil.html" title="class in com.smartuxapi.util">JSONUtil</a></dt>
 <dd>
@@ -434,12 +534,34 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">파일 이름만 추출해낸다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getTimestamp()" class="member-name-link">getTimestamp()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#getTotalTurns()" class="member-name-link">getTotalTurns()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getTurn()" class="member-name-link">getTurn()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getUserMessage()" class="member-name-link">getUserMessage()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#getViewInfo()" class="member-name-link">getViewInfo()</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
 <dt><a href="com/smartuxapi/ai/ActionQueueHandler.html#isCurrentViewInfo()" class="member-name-link">isCurrentViewInfo()</a> - Method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></dt>
 <dd>
 <div class="block">현재 화면 정보가 저장되어 있는지 확인</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#isDebugMode()" class="member-name-link">isDebugMode()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">디버그 모드 활성화 여부 반환</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#isEnabled()" class="member-name-link">isEnabled()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">디버그 모드 활성화 여부 확인</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#isInitialized()" class="member-name-link">isInitialized()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">설정이 정상적으로 초기화되었는지 확인</div>
 </dd>
 <dt><a href="com/smartuxapi/util/StringUtil.html#isNumber(java.lang.String)" class="member-name-link">isNumber(String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/StringUtil.html" title="class in com.smartuxapi.util">StringUtil</a></dt>
 <dd>
@@ -488,7 +610,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/smartuxapi/ai/ConfigLoader.html#loadConfigFromClasspath(java.lang.String)" class="member-name-link">loadConfigFromClasspath(String)</a> - Static method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ConfigLoader.html" title="class in com.smartuxapi.ai">ConfigLoader</a></dt>
 <dd>
-<div class="block">클래스패스 루트에서 JSON 설정 파일을 로드하고 JsonNode로 반환합니다.</div>
+<div class="block">설정 파일을 로드합니다.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
@@ -556,6 +678,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">파일의 내용을 읽어 String List로 리턴한다.</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#reload()" class="member-name-link">reload()</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">설정 다시 로드 (테스트용)</div>
+</dd>
 <dt><a href="com/smartuxapi/util/StringUtil.html#removeAllWhiteSpace(java.lang.String)" class="member-name-link">removeAllWhiteSpace(String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/StringUtil.html" title="class in com.smartuxapi.util">StringUtil</a></dt>
 <dd>
 <div class="block">모든 공백 문자를 제거한다</div>
@@ -587,7 +713,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html#%3Cinit%3E(java.lang.String,java.lang.String)" class="member-name-link">ResponsesChatRoom(String, String)</a> - Constructor for class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html" title="class in com.smartuxapi.ai.openai">ResponsesChatRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html" class="type-name-link" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a> - Class in <a href="com/smartuxapi/ai/openai/package-summary.html">com.smartuxapi.ai.openai</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">OpenAI Responses API를 사용하는 Chatting 구현체</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html#%3Cinit%3E(com.smartuxapi.ai.openai.ResponsesAPIConnection)" class="member-name-link">ResponsesChatting(ResponsesAPIConnection)</a> - Constructor for class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatting.html" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsAPIConnection.html#retrieveRun(java.lang.String,java.lang.String)" class="member-name-link">retrieveRun(String, String)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsAPIConnection.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsAPIConnection</a></dt>
@@ -595,20 +723,26 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#saveToFile(java.lang.String)" class="member-name-link">saveToFile(String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">ChatRoom 데이터를 파일로 저장</div>
+</dd>
 <dt><a href="com/smartuxapi/ai/Chatting.html#sendPrompt(java.lang.String)" class="member-name-link">sendPrompt(String)</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/Chatting.html" title="interface in com.smartuxapi.ai">Chatting</a></dt>
 <dd>
 <div class="block">입력한 사용자 메세지를 thread 에 추가하고 run 한다</div>
 </dd>
 <dt><a href="com/smartuxapi/ai/gemini/GeminiChatting.html#sendPrompt(java.lang.String)" class="member-name-link">sendPrompt(String)</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatting.html" title="class in com.smartuxapi.ai.gemini">GeminiChatting</a></dt>
 <dd>
-<div class="block">대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
+<div class="block">대화 히스토리를 관리하고 Gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
 </dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsMessage.html#sendPrompt(java.lang.String)" class="member-name-link">sendPrompt(String)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsMessage.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsMessage</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html#sendPrompt(java.lang.String)" class="member-name-link">sendPrompt(String)</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatting.html" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a></dt>
 <dd>
-<div class="block">대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
+<div class="block">대화 히스토리를 관리하고 AI에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setActionQueue(com.fasterxml.jackson.databind.JsonNode)" class="member-name-link">setActionQueue(JsonNode)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ChatRoom.html#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler(ActionQueueHandler)</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/ChatRoom.html" title="interface in com.smartuxapi.ai">ChatRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/Chatting.html#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler(ActionQueueHandler)</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/Chatting.html" title="interface in com.smartuxapi.ai">Chatting</a></dt>
@@ -625,17 +759,79 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler(ActionQueueHandler)</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatting.html" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setAiProvider(java.lang.String)" class="member-name-link">setAiProvider(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setAiResponse(java.lang.String)" class="member-name-link">setAiResponse(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/Assistants.html#setApiKey(java.lang.String)" class="member-name-link">setApiKey(String)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/Assistants.html" title="class in com.smartuxapi.ai.openai.assistants">Assistants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setChatRoomId(java.lang.String)" class="member-name-link">setChatRoomId(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setConversations(java.util.List)" class="member-name-link">setConversations(List&lt;ConversationTurn&gt;)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setCreatedAt(java.lang.String)" class="member-name-link">setCreatedAt(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/ActionQueueHandler.html#setCurrentViewInfo(java.lang.String)" class="member-name-link">setCurrentViewInfo(String)</a> - Method in class com.smartuxapi.ai.<a href="com/smartuxapi/ai/ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></dt>
 <dd>
 <div class="block">현재 화면 정보 저장</div>
 </dd>
+<dt><a href="com/smartuxapi/ai/ChatRoom.html#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger)" class="member-name-link">setDebugLogger(DebugLogger)</a> - Method in interface com.smartuxapi.ai.<a href="com/smartuxapi/ai/ChatRoom.html" title="interface in com.smartuxapi.ai">ChatRoom</a></dt>
+<dd>
+<div class="block">디버그 로거 설정</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger)" class="member-name-link">setDebugLogger(DebugLogger)</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatRoom.html" title="class in com.smartuxapi.ai.gemini">GeminiChatRoom</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger)" class="member-name-link">setDebugLogger(DebugLogger)</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatRoom.html" title="class in com.smartuxapi.ai.openai">ResponsesChatRoom</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/gemini/GeminiChatting.html#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger,java.lang.String)" class="member-name-link">setDebugLogger(DebugLogger, String)</a> - Method in class com.smartuxapi.ai.gemini.<a href="com/smartuxapi/ai/gemini/GeminiChatting.html" title="class in com.smartuxapi.ai.gemini">GeminiChatting</a></dt>
+<dd>
+<div class="block">디버그 로거 설정</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/openai/ResponsesChatting.html#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger,java.lang.String)" class="member-name-link">setDebugLogger(DebugLogger, String)</a> - Method in class com.smartuxapi.ai.openai.<a href="com/smartuxapi/ai/openai/ResponsesChatting.html" title="class in com.smartuxapi.ai.openai">ResponsesChatting</a></dt>
+<dd>
+<div class="block">디버그 로거 설정</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#setDebugMode(boolean)" class="member-name-link">setDebugMode(boolean)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">디버그 모드 설정 (프로그래밍 방식)</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#setFilePrefix(java.lang.String)" class="member-name-link">setFilePrefix(String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">파일명 접두사 설정</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setFullPrompt(java.lang.String)" class="member-name-link">setFullPrompt(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/smartuxapi/ai/openai/assistants/AssistantsThread.html#setFunctionMap(java.util.Map)" class="member-name-link">setFunctionMap(Map)</a> - Method in class com.smartuxapi.ai.openai.assistants.<a href="com/smartuxapi/ai/openai/assistants/AssistantsThread.html" title="class in com.smartuxapi.ai.openai.assistants">AssistantsThread</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setLastUpdatedAt(java.lang.String)" class="member-name-link">setLastUpdatedAt(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setModelName(java.lang.String)" class="member-name-link">setModelName(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugConfig.html#setOutputPath(java.lang.String)" class="member-name-link">setOutputPath(String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugConfig.html" title="class in com.smartuxapi.ai.debug">DebugConfig</a></dt>
+<dd>
+<div class="block">출력 경로 설정</div>
+</dd>
 <dt><a href="com/smartuxapi/util/PropertiesUtil.html#setPropertiesFilePath(java.lang.String)" class="member-name-link">setPropertiesFilePath(String)</a> - Static method in class com.smartuxapi.util.<a href="com/smartuxapi/util/PropertiesUtil.html" title="class in com.smartuxapi.util">PropertiesUtil</a></dt>
 <dd>
 <div class="block">프로퍼티 파일 경로를 지정한다</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setTimestamp(java.lang.String)" class="member-name-link">setTimestamp(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationData.html#setTotalTurns(int)" class="member-name-link">setTotalTurns(int)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationData.html" title="class in com.smartuxapi.ai.debug.model">ConversationData</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setTurn(int)" class="member-name-link">setTurn(int)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setUserMessage(java.lang.String)" class="member-name-link">setUserMessage(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/model/ConversationTurn.html#setViewInfo(java.lang.String)" class="member-name-link">setViewInfo(String)</a> - Method in class com.smartuxapi.ai.debug.model.<a href="com/smartuxapi/ai/debug/model/ConversationTurn.html" title="class in com.smartuxapi.ai.debug.model">ConversationTurn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#startSession(java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">startSession(String, String, String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">ChatRoom 세션 시작 (새 ChatRoom 생성 시 호출)</div>
+</dd>
+<dt><a href="com/smartuxapi/ai/debug/DebugLogger.html#startTurn(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">startTurn(String, String, String, String)</a> - Method in class com.smartuxapi.ai.debug.<a href="com/smartuxapi/ai/debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></dt>
+<dd>
+<div class="block">새 대화 턴 시작</div>
 </dd>
 <dt><a href="com/smartuxapi/util/StringUtil.html" class="type-name-link" title="class in com.smartuxapi.util">StringUtil</a> - Class in <a href="com/smartuxapi/util/package-summary.html">com.smartuxapi.util</a></dt>
 <dd>&nbsp;</dd>

@@ -113,7 +113,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static com.fasterxml.jackson.databind.JsonNode</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#loadConfigFromClasspath(java.lang.String)" class="member-name-link">loadConfigFromClasspath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;confFileName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">클래스패스 루트에서 JSON 설정 파일을 로드하고 JsonNode로 반환합니다.</div>
+<div class="block">설정 파일을 로드합니다.</div>
 </div>
 </div>
 </div>
@@ -161,8 +161,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="loadConfigFromClasspath(java.lang.String)">
 <h3>loadConfigFromClasspath</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.fasterxml.jackson.databind.JsonNode</span>&nbsp;<span class="element-name">loadConfigFromClasspath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;confFileName)</span></div>
-<div class="block">클래스패스 루트에서 JSON 설정 파일을 로드하고 JsonNode로 반환합니다.</div>
+<div class="block">설정 파일을 로드합니다.
+ 로딩 우선순위:
+ 1. JAR 실행 디렉터리 (배포 환경)
+ 2. classpath (개발 환경, JAR 내부 리소스)</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>confFileName</code> - 설정 파일 이름 (null이면 기본값 config.json 사용)</dd>
 <dt>Returns:</dt>
 <dd>로드된 설정 파일의 JsonNode 객체, 파일을 찾지 못하거나 파싱 오류 시 null</dd>
 </dl>

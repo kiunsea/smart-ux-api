@@ -83,6 +83,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GeminiChatting</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../Chatting.html" title="interface in com.smartuxapi.ai">Chatting</a></span></div>
+<div class="block">Gemini API를 사용하는 Chatting 구현체</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -119,11 +120,17 @@ implements <a href="../Chatting.html" title="interface in com.smartuxapi.ai">Cha
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.json.simple.JSONObject</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendPrompt(java.lang.String)" class="member-name-link">sendPrompt</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;userMsg)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
+<div class="block">대화 히스토리를 관리하고 Gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler</a><wbr>(<a href="../ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a>&nbsp;aqHandler)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger,java.lang.String)" class="member-name-link">setDebugLogger</a><wbr>(<a href="../debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a>&nbsp;debugLogger,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chatRoomId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">디버그 로거 설정</div>
+</div>
 </div>
 </div>
 </div>
@@ -156,11 +163,19 @@ implements <a href="../Chatting.html" title="interface in com.smartuxapi.ai">Cha
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="setDebugLogger(com.smartuxapi.ai.debug.DebugLogger,java.lang.String)">
+<h3>setDebugLogger</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDebugLogger</span><wbr><span class="parameters">(<a href="../debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a>&nbsp;debugLogger,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chatRoomId)</span></div>
+<div class="block">디버그 로거 설정</div>
+</section>
+</li>
+<li>
 <section class="detail" id="sendPrompt(java.lang.String)">
 <h3>sendPrompt</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.json.simple.JSONObject</span>&nbsp;<span class="element-name">sendPrompt</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;userMsg)</span>
                                       throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a></span></div>
-<div class="block">대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
+<div class="block">대화 히스토리를 관리하고 Gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Chatting.html#sendPrompt(java.lang.String)">sendPrompt</a></code>&nbsp;in interface&nbsp;<code><a href="../Chatting.html" title="interface in com.smartuxapi.ai">Chatting</a></code></dd>

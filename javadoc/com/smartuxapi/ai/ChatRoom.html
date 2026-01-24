@@ -87,7 +87,7 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -108,12 +108,22 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Chatting instance 를 반환</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getId()" class="member-name-link">getId</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler</a><wbr>(<a href="ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a>&nbsp;aqHandler)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getDebugLogger()" class="member-name-link">getDebugLogger</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">디버그 로거 반환</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getId()" class="member-name-link">getId</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setActionQueueHandler(com.smartuxapi.ai.ActionQueueHandler)" class="member-name-link">setActionQueueHandler</a><wbr>(<a href="ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a>&nbsp;aqHandler)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#setDebugLogger(com.smartuxapi.ai.debug.DebugLogger)" class="member-name-link">setDebugLogger</a><wbr>(<a href="debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a>&nbsp;debugLogger)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">디버그 로거 설정</div>
+</div>
 </div>
 </div>
 </div>
@@ -171,6 +181,27 @@ org.json.simple.parser.ParseException</span></div>
 <section class="detail" id="getActionQueueHandler()">
 <h3>getActionQueueHandler</h3>
 <div class="member-signature"><span class="return-type"><a href="ActionQueueHandler.html" title="class in com.smartuxapi.ai">ActionQueueHandler</a></span>&nbsp;<span class="element-name">getActionQueueHandler</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setDebugLogger(com.smartuxapi.ai.debug.DebugLogger)">
+<h3>setDebugLogger</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDebugLogger</span><wbr><span class="parameters">(<a href="debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a>&nbsp;debugLogger)</span></div>
+<div class="block">디버그 로거 설정</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>debugLogger</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getDebugLogger()">
+<h3>getDebugLogger</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="debug/DebugLogger.html" title="class in com.smartuxapi.ai.debug">DebugLogger</a></span>&nbsp;<span class="element-name">getDebugLogger</span>()</div>
+<div class="block">디버그 로거 반환</div>
+<dl class="notes">
+<dt>Returns:</dt>
+</dl>
 </section>
 </li>
 </ul>

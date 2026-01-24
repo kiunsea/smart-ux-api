@@ -1,4 +1,6 @@
 com.smartuxapi.ai
+com.smartuxapi.ai.debug
+com.smartuxapi.ai.debug.model
 com.smartuxapi.ai.gemini
 com.smartuxapi.ai.openai
 com.smartuxapi.ai.openai.assistants
