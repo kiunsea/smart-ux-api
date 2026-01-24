@@ -116,3 +116,4 @@ doc/tasks/
 smuxapi-demo/packaging/distribution/smuxapi-demo.yml
 smuxapi-demo/packaging/distribution/smuxapi-demo/
 smuxapi-demo/src/main/resources/smuxapi-demo.yml
+smuxapi-demo/src/main/resources/config.json
