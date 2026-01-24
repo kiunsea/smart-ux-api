@@ -1633,12 +1633,12 @@ gradlew.bat<span class="w"> </span>build
 ./gradlew<span class="w"> </span>build
 </code></pre></div>
 <blockquote>
-<p>💡 <strong>팁</strong>: 빌드가 완료되면 <code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar</code> 파일이 생성됩니다.</p>
+<p>💡 <strong>팁</strong>: 빌드가 완료되면 <code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar</code> 파일이 생성됩니다.</p>
 </blockquote>
 <h4 id="3-jar">3단계: JAR 파일을 웹 애플리케이션에 추가<a class="headerlink" href="#3-jar" title="Permanent link">&para;</a></h4>
 <p>생성된 JAR 파일을 웹 애플리케이션의 <code>/WEB-INF/lib/</code> 디렉터리에 복사합니다.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 예시: Tomcat 웹 애플리케이션에 복사</span>
-cp<span class="w"> </span>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar<span class="w"> </span><span class="se">\</span>
+cp<span class="w"> </span>smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>/path/to/your-webapp/WEB-INF/lib/
 </code></pre></div>
 <h4 id="4-javascript">4단계: JavaScript 라이브러리 포함<a class="headerlink" href="#4-javascript" title="Permanent link">&para;</a></h4>
@@ -1650,10 +1650,10 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 <h4 id="5-api-key">5단계: API Key 설정<a class="headerlink" href="#5-api-key" title="Permanent link">&para;</a></h4>
 <p>웹 애플리케이션의 <code>resources/</code> 디렉터리에 <code>apikey.json</code> 파일을 생성합니다.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;openai&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;apiKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-api-key&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">&quot;OPENAI_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-openai-api-key&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;OPENAI_MODEL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;GEMINI_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-gemini-api-key&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;GEMINI_MODEL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gemini-2.5-flash&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <blockquote>
@@ -1768,7 +1768,7 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 │   │   │   └── test/                 ← 테스트 코드
 │   │   └── 📁 build/                 ← 빌드 결과물 (생성됨)
 │   │       └── libs/
-│   │           └── smart-ux-api-0.6.0.jar  ← 빌드된 JAR
+│   │           └── smart-ux-api-0.6.2.jar  ← 빌드된 JAR
 │   │
 │   ├── 📁 doc/                       ← 라이브러리 문서
 │   └── 📁 bat/                       ← 배포 스크립트
@@ -1800,7 +1800,7 @@ cp<span class="w"> </span>smart-ux-api/lib/src/main/js/*.js<span class="w"> </sp
 </tr>
 <tr>
 <td><strong>빌드된 JAR 파일</strong></td>
-<td><code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar</code></td>
+<td><code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar</code></td>
 </tr>
 <tr>
 <td><strong>JavaScript 파일</strong></td>
