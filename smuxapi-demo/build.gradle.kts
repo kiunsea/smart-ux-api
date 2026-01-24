@@ -1,6 +1,7 @@
 plugins {
     java
     war
+    eclipse
     id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
 }
@@ -85,6 +86,32 @@ tasks.bootJar {
     mainClass.set("com.smartuxapi.demo.SmuxapiDemoApplication")
 }
 
+// bootRun task 설정: smuxapi-demo.yml의 SERVER_PORT를 적용
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    doFirst {
+        // smuxapi-demo.yml에서 SERVER_PORT 읽기
+        val yamlFile = file("src/main/resources/smuxapi-demo.yml")
+        if (yamlFile.exists()) {
+            try {
+                val content = yamlFile.readText()
+                // SERVER_PORT: 9090 형식의 값을 정규식으로 추출
+                val regex = Regex("^SERVER_PORT\\s*:\\s*(\\d+)", RegexOption.MULTILINE)
+                val match = regex.find(content)
+                if (match != null) {
+                    val port = match.groupValues[1].trim()
+                    if (port.isNotEmpty()) {
+                        // bootRun의 systemProperty에 설정
+                        systemProperty("server.port", port)
+                        println("✅ bootRun: smuxapi-demo.yml에서 SERVER_PORT 설정을 읽었습니다: $port")
+                    }
+                }
+            } catch (e: Exception) {
+                println("⚠️ 경고: bootRun에서 smuxapi-demo.yml 읽기 중 오류 발생: ${e.message}")
+            }
+        }
+    }
+}
+
 // WAR 파일 설정
 tasks.war {
     enabled = true
@@ -127,6 +154,18 @@ tasks.war {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+// ============================================================
+// smart-ux-api JAR 갱신 태스크
+// ============================================================
+
+// smart-ux-api 프로젝트 경로
+val smartUxApiProjectDir = file("../smart-ux-api")
+val gradlewScript = if (System.getProperty("os.name").lowercase().contains("windows")) {
+    file("../smart-ux-api/gradlew.bat")
+} else {
+    file("../smart-ux-api/gradlew")
 }
 
 // Custom JRE 생성 태스크 (jlink 사용)

@@ -32,7 +32,7 @@
 
 ### 1. JAR 파일 추가
 
-`lib/build/libs/smart-ux-api-0.6.0.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+`lib/build/libs/smart-ux-api-0.6.1.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2. JavaScript 파일 추가
 
@@ -84,7 +84,7 @@ public interface ChatRoom {
 - `setActionQueueHandler(ActionQueueHandler)`: Action Queue 핸들러를 설정합니다.
 - `getActionQueueHandler()`: 설정된 Action Queue 핸들러를 반환합니다.
 
-**참고:** 문서에서 언급된 `addSystemMessage()` 및 `createChatting()` 메서드는 현재 버전(0.6.0)에서는 지원되지 않습니다.
+**참고:** 문서에서 언급된 `addSystemMessage()` 및 `createChatting()` 메서드는 현재 버전(0.6.1)에서는 지원되지 않습니다.
 
 #### 구현 클래스
 
@@ -341,7 +341,7 @@ public ActionQueueHandler(String formatUi, JsonNode configPrompt)
 - 파라미터: `curViewInfo` - 현재 화면 정보 JSON 문자열 (배열 또는 객체)
 - 예외: `ParseException`
 
-#### `addCurrentViewInfo(JsonNode additionalViewInfo)` (버전 0.6.0 추가)
+#### `addCurrentViewInfo(JsonNode additionalViewInfo)` (버전 0.6.1 추가)
 
 현재 화면 정보에 추가 정보를 병합합니다.
 
@@ -359,11 +359,11 @@ public ActionQueueHandler(String formatUi, JsonNode configPrompt)
 
 - 반환값: `String` - Current View Prompt (변경되지 않았으면 null)
 
-#### `markViewInfoAsSent()` (버전 0.6.0 추가)
+#### `markViewInfoAsSent()` (버전 0.6.1 추가)
 
 프롬프트 전송 후 호출하여 마지막 전송된 화면 정보를 업데이트합니다. 화면 정보가 변경되어 프롬프트에 포함된 경우에만 호출해야 합니다.
 
-#### `boolean isViewInfoChanged()` (버전 0.6.0 추가)
+#### `boolean isViewInfoChanged()` (버전 0.6.1 추가)
 
 화면 정보 변경 여부를 확인합니다.
 
@@ -406,12 +406,23 @@ JSONObject response = chatting.sendPrompt("아이스 아메리카노 주문해�
 Object actionQueue = response.get("action_queue");
 ```
 
-### Config 파일 구조
+### 설정 파일
 
-`config.json` 파일은 클래스패스 루트 (`src/main/resources/`)에 위치해야 합니다.
+Smart UX API는 두 가지 주요 설정 파일을 사용합니다:
+
+#### 1. config.json
+
+메인 설정 파일로, 디버그 모드 및 프롬프트 설정을 포함합니다.
+
+**위치**:
+- 개발 환경: `src/main/resources/config.json`
+- 배포 환경: JAR 파일과 같은 디렉터리 (우선 적용)
 
 ```json
 {
+  "debug-mode": false,
+  "debug-output-path": "./conversation_log/",
+  "debug-file-prefix": "chatroom",
   "prompt": {
     "cur_view_info": [
       " 다음의 내용은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 ui element structure 이다.",
@@ -428,11 +439,49 @@ Object actionQueue = response.get("action_queue");
 }
 ```
 
+**설정 항목**:
+
+| 항목 | 타입 | 기본값 | 설명 |
+|------|------|--------|------|
+| `debug-mode` | boolean | `false` | 디버그 모드 활성화 여부. 활성화 시 대화 내용이 파일로 저장됩니다. |
+| `debug-output-path` | string | `"./conversation_log/"` | 디버그 로그 파일 저장 경로 (상대/절대 경로 모두 지원) |
+| `debug-file-prefix` | string | `"chatroom"` | 디버그 로그 파일명 접두사 |
+| `prompt` | object | - | Action Queue 생성을 위한 프롬프트 템플릿 |
+
+#### 2. apikey.json (선택)
+
+API 키를 별도 파일로 관리할 때 사용합니다. 템플릿 파일 `def.apikey.json`을 복사하여 사용하세요.
+
+**위치**:
+- 개발 환경: `src/main/resources/apikey.json`
+- 배포 환경: JAR 파일과 같은 디렉터리 (우선 적용)
+
+```json
+{
+    "GEMINI_API_KEY": "your-gemini-api-key",
+    "GEMINI_MODEL": "gemini-pro",
+    "OPENAI_API_KEY": "your-openai-api-key",
+    "OPENAI_ASSIST_ID": "asst_xxxxxxxxxxxxx",
+    "OPENAI_MODEL": "gpt-4"
+}
+```
+
+**주의**: `apikey.json` 파일은 절대 버전 관리 시스템(Git 등)에 커밋하지 마세요. `.gitignore`에 추가하는 것을 권장합니다.
+
 ---
 
 ## ConfigLoader
 
-클래스패스에서 JSON 설정 파일을 로드하는 유틸리티 클래스입니다.
+JSON 설정 파일을 로드하는 유틸리티 클래스입니다.
+
+### 파일 로딩 우선순위
+
+ConfigLoader는 다음 순서로 설정 파일을 찾습니다:
+
+1. **JAR 실행 디렉터리** (배포 환경) - JAR 파일과 같은 폴더에 있는 설정 파일
+2. **classpath** (개발 환경) - `src/main/resources/` 또는 JAR 내부 리소스
+
+이를 통해 배포 시 JAR 파일과 같은 폴더에 설정 파일을 두면 JAR 내부 기본 설정을 덮어쓸 수 있습니다.
 
 ### 메서드
 
@@ -928,7 +977,7 @@ public class AssistantChatServlet extends HttpServlet {
 
 ## 버전 정보
 
-- **현재 버전**: 0.6.0
+- **현재 버전**: 0.6.1
 - **Java 버전**: 17 이상
 - **라이선스**: Apache License 2.0
 

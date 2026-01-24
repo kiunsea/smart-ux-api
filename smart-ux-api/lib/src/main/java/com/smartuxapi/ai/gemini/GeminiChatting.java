@@ -1,31 +1,40 @@
 package com.smartuxapi.ai.gemini;
 
-import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.debug.DebugLogger;
 
 /**
- * 
+ * Gemini API를 사용하는 Chatting 구현체
  */
 public class GeminiChatting implements Chatting {
-    
+
     private GeminiAPIConnection connApi = null;
     private ConversationHistory conversationHistory = null;
     private ActionQueueHandler aqHandler = null;
-    
+    private DebugLogger debugLogger = null;
+    private String chatRoomId = null;
+
     public GeminiChatting(GeminiAPIConnection connApi) {
         this.connApi = connApi;
         this.conversationHistory = new ConversationHistory();
     }
-    
+
     /**
-     * 대화 히스토리를 관리하고 gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달
+     * 디버그 로거 설정
+     */
+    public void setDebugLogger(DebugLogger debugLogger, String chatRoomId) {
+        this.debugLogger = debugLogger;
+        this.chatRoomId = chatRoomId;
+    }
+
+    /**
+     * 대화 히스토리를 관리하고 Gemini에게 메세지 전송시 마지막에 현재 화면 정보도 함께 전달
      */
     @Override
     public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
@@ -40,6 +49,11 @@ public class GeminiChatting implements Chatting {
             curViewPrompt = this.aqHandler.getCurViewPrompt();
         } else {
             usrPrompt = userMsg;
+        }
+
+        // 디버그 로깅: 턴 시작
+        if (debugLogger != null && debugLogger.isEnabled()) {
+            debugLogger.startTurn(chatRoomId, userMsg, usrPrompt, curViewPrompt);
         }
 
         // 1. 사용자 메시지를 대화 기록에 추가하고, Gemini에 보낼 전체 기록을 가져옴
@@ -60,13 +74,21 @@ public class GeminiChatting implements Chatting {
         org.json.simple.JSONObject resJson = new org.json.simple.JSONObject();
         resJson.put("message", geminiResponse);
 
+        JsonNode actionQueue = null;
         if (this.aqHandler != null) {
             JsonNode aqObj = this.aqHandler.getActionQueue(geminiResponse);
             if (aqObj != null && aqObj.hasNonNull("action_queue")) {
-                resJson.put("action_queue", aqObj.get("action_queue"));
+                actionQueue = aqObj.get("action_queue");
+                resJson.put("action_queue", actionQueue);
             } else {
+                actionQueue = aqObj;
                 resJson.put("action_queue", aqObj);
             }
+        }
+
+        // 디버그 로깅: 턴 완료
+        if (debugLogger != null && debugLogger.isEnabled()) {
+            debugLogger.completeTurn(chatRoomId, geminiResponse, actionQueue);
         }
 
         return resJson;

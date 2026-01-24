@@ -128,11 +128,15 @@ server:
 실행 디렉터리의 `smuxapi-demo.yml` 파일을 수정 (배포 패키지에 포함됨):
 
 ```yaml
+# AI API 설정
 OPENAI_ASSIST_ID: your assistant id
 OPENAI_API_KEY: your openai api key
-OPENAI_MODEL: openai ai model
-GEMINI_MODEL: google gemini ai model (gemini-2.5-flash ...)
+OPENAI_MODEL: gpt-4.1
+GEMINI_MODEL: gemini-2.5-flash
 GEMINI_API_KEY: your gemini api key
+
+# 서버 포트 설정 (기본값: 8080)
+SERVER_PORT: 9090
 ```
 
 ## 📦 배포 및 테스트
@@ -153,9 +157,10 @@ GEMINI_API_KEY: your gemini api key
    ```yaml
    OPENAI_ASSIST_ID: your_actual_assistant_id
    OPENAI_API_KEY: your_actual_openai_api_key
-   OPENAI_MODEL: gpt-4
-   GEMINI_MODEL: gemini-2.0-flash-exp
+   OPENAI_MODEL: gpt-4.1
+   GEMINI_MODEL: gemini-2.5-flash
    GEMINI_API_KEY: your_actual_gemini_api_key
+   SERVER_PORT: 9090
    ```
 
 4. **실행 및 테스트**

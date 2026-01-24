@@ -41,7 +41,7 @@ cd lib
 
 ### 1️⃣ JAR 파일 추가
 
-* `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+* `smart-ux-api/lib/build/libs/smart-ux-api-0.6.1.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2️⃣ JS 라이브러리 포함
 
@@ -90,6 +90,50 @@ OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합�
 
 * Google Gemini API
   - [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하세요.
+
+### 1️⃣-1 설정 파일 구성
+
+라이브러리는 두 가지 설정 파일을 사용합니다:
+
+#### config.json (필수)
+
+디버그 모드 및 프롬프트 설정을 관리합니다.
+
+```json
+{
+  "debug-mode": false,
+  "debug-output-path": "./conversation_log/",
+  "debug-file-prefix": "chatroom",
+  "prompt": { ... }
+}
+```
+
+| 설정 | 설명 |
+|------|------|
+| `debug-mode` | `true`로 설정 시 대화 내용이 JSON 파일로 저장됩니다 |
+| `debug-output-path` | 로그 파일 저장 경로 |
+| `debug-file-prefix` | 로그 파일명 접두사 |
+
+#### apikey.json (선택)
+
+API 키를 별도 파일로 관리할 수 있습니다. `def.apikey.json`을 복사하여 사용하세요.
+
+```json
+{
+    "GEMINI_API_KEY": "your-api-key",
+    "GEMINI_MODEL": "gemini-pro",
+    "OPENAI_API_KEY": "your-api-key",
+    "OPENAI_ASSIST_ID": "asst_xxxxxxxxxxxxx",
+    "OPENAI_MODEL": "gpt-4"
+}
+```
+
+> ⚠️ **보안 주의**: `apikey.json` 파일은 `.gitignore`에 추가하여 버전 관리에서 제외하세요.
+
+#### 설정 파일 로딩 우선순위
+
+1. **JAR 실행 디렉터리** (배포 환경) - JAR과 같은 폴더의 설정 파일 우선 적용
+2. **classpath** (개발 환경) - `src/main/resources/` 내 파일
 
 ### 2️⃣ User Interaction Flow 문서 작성
 

@@ -1,4 +1,7 @@
 {
+  "debug-mode": false,
+  "debug-output-path": "./conversation_log/",
+  "debug-file-prefix": "chatroom",
   "prompt": {
     "cur_view_info": [
         " 다음의 내용은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 ui element structure 이다.",

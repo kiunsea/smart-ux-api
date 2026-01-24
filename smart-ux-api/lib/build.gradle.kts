@@ -182,3 +182,80 @@ tasks.test {
         override fun afterTest(testDescriptor: org.gradle.api.tasks.testing.TestDescriptor, result: org.gradle.api.tasks.testing.TestResult) {}
     })
 }
+
+// ============================================================
+// deploy 태스크: JAR 빌드 및 배포
+// ============================================================
+
+tasks.register("deploy") {
+    group = "distribution"
+    description = "JAR를 빌드하고 doribox와 smuxapi-demo에 배포합니다."
+    
+    dependsOn("jar")
+    
+    // 배포 대상 디렉터리 (lib 모듈 기준 상대 경로)
+    val doriboxLibsDir = file("../../../doribox/libs")
+    
+    doFirst {
+        println("=".repeat(60))
+        println("🚀 smart-ux-api 배포 프로세스 시작")
+        println("=".repeat(60))
+        println("배포 대상:")
+        println("  - doribox: ${doriboxLibsDir.absolutePath}")
+        println()
+    }
+    
+    doLast {
+        val jarTask = tasks.named<Jar>("jar").get()
+        val jarFile = jarTask.archiveFile.get().asFile
+        
+        if (!jarFile.exists()) {
+            throw GradleException("JAR 파일을 찾을 수 없습니다: ${jarFile.absolutePath}")
+        }
+        
+        println("[1/4] 빌드된 JAR 파일 확인")
+        println("   -> ${jarFile.name} (${String.format("%.2f", jarFile.length() / 1024.0 / 1024.0)} MB)")
+        println()
+        
+        // 3. doribox libs에서 이전 버전 JAR 삭제
+        println("[2/4] doribox libs에서 이전 버전 JAR 삭제 중...")
+        if (doriboxLibsDir.exists()) {
+            val deletedCount = doriboxLibsDir.listFiles { file ->
+                file.isFile && file.name.startsWith("smart-ux-api-") && file.name.endsWith(".jar")
+            }?.count { oldJar ->
+                println("   -> 삭제: ${oldJar.name}")
+                oldJar.delete()
+            } ?: 0
+            if (deletedCount == 0) {
+                println("   -> 삭제할 이전 버전이 없습니다.")
+            }
+        } else {
+            println("   -> 경고: doribox libs 디렉터리가 없습니다: ${doriboxLibsDir.absolutePath}")
+            println("      (디렉터리를 생성합니다)")
+            doriboxLibsDir.mkdirs()
+        }
+        println()
+        
+        // 4. 최신 JAR 복사
+        println("[4/4] 최신 JAR 복사 중...")
+              
+        // doribox에 복사
+        val targetDoriboxJar = file("${doriboxLibsDir.absolutePath}/${jarFile.name}")
+        jarFile.copyTo(targetDoriboxJar, overwrite = true)
+        println("   -> doribox: ${targetDoriboxJar.absolutePath}")
+        
+        println()
+        println("=".repeat(60))
+        println("✅ 배포 완료!")
+        println("=".repeat(60))
+        println()
+        println("📦 배포된 JAR 파일:")
+        println("   이름: ${jarFile.name}")
+        println("   크기: ${String.format("%.2f", jarFile.length() / 1024.0 / 1024.0)} MB")
+        println()
+        println("📂 배포 위치:")
+        println("   - doribox: ${targetDoriboxJar.absolutePath}")
+        println()
+        println("=".repeat(60))
+    }
+}

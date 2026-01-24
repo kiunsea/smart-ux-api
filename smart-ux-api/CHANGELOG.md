@@ -9,6 +9,25 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.6.2] - 2026-01-24
+
+### Added
+- 디버그 모드 기능: AI 대화 내용을 JSON 파일로 저장하는 디버깅 기능 추가
+- `DebugConfig.java`: 싱글턴 패턴으로 구현된 디버그 설정 관리 클래스
+- `DebugLogger.java`: 대화 내용을 JSON 파일로 저장하는 로거 클래스
+- `ConversationData.java`, `ConversationTurn.java`: 대화 데이터 모델 클래스
+- 설정 파일 로딩 우선순위: JAR 실행 디렉터리에서 먼저 설정 파일을 찾고, 없으면 classpath에서 로드
+
+### Changed
+- `ConfigLoader.java`: JAR 실행 디렉터리 우선 로딩 기능 추가 (`getJarDirectory()`, `loadFromJarDirectory()` 메서드)
+- `config.json`: `setting.json` 내용 통합 (debug-mode, debug-output-path, debug-file-prefix 설정)
+- 문서 업데이트: API.md, README.md, TEST_GUIDE.md에 설정 파일(config.json, apikey.json) 가이드 추가
+- 버전 표기 업데이트: 0.6.0 → 0.6.1 → 0.6.2
+
+### Removed
+- `setting.json` 파일 제거: `config.json`으로 통합
+
+---
 ## [0.6.1] - 2026-01-20
 
 ### Added

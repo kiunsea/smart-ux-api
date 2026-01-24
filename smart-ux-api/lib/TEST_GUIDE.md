@@ -175,6 +175,37 @@ export OPENAI_API_KEY=your_key_here
 export GEMINI_API_KEY=your_key_here
 ```
 
+### 설정 파일
+
+테스트 실행 시 다음 설정 파일들이 사용됩니다:
+
+#### config.json
+
+`src/main/resources/config.json` 파일에서 디버그 모드 및 프롬프트 설정을 로드합니다.
+
+```json
+{
+  "debug-mode": false,
+  "debug-output-path": "./conversation_log/",
+  "debug-file-prefix": "chatroom",
+  "prompt": { ... }
+}
+```
+
+- `debug-mode`: `true`로 설정하면 테스트 중 대화 내용이 파일로 저장됩니다.
+- `debug-output-path`: 로그 파일 저장 경로
+
+#### apikey.json (선택)
+
+API 통합 테스트를 실행하려면 `def.apikey.json`을 복사하여 `apikey.json`으로 이름을 변경하고 실제 API 키를 입력하세요.
+
+```bash
+cp src/main/resources/def.apikey.json src/main/resources/apikey.json
+# apikey.json 파일을 편집하여 실제 API 키 입력
+```
+
+> ⚠️ `apikey.json` 파일은 `.gitignore`에 포함되어 있어 커밋되지 않습니다.
+
 ## 📝 테스트 작성 가이드
 
 새로운 테스트를 추가할 때는 다음 규칙을 따르세요:

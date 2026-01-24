@@ -9,14 +9,12 @@ import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.demo.service.ChatRoomService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Action Queue 처리 컨트롤러
@@ -26,10 +24,10 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/action")
 public class ActionQueueController {
-    
+
     private static final Logger log = LogManager.getLogger(ActionQueueController.class);
     private final ChatRoomService chatRoomService;
-    
+
     public ActionQueueController(ChatRoomService chatRoomService) {
         this.chatRoomService = chatRoomService;
     }
@@ -43,8 +41,9 @@ public class ActionQueueController {
     @GetMapping
     @SuppressWarnings("unchecked")
     public JSONObject handleGet(HttpServletRequest req) {
-        
+
         ChatRoom chatRoom = chatRoomService.getChatRoom(req);
+
         JSONObject resObj = new JSONObject();
         String userMsg = req.getParameter("user_msg");
         log.debug("UserMsg : " + userMsg);

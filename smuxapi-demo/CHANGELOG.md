@@ -9,6 +9,20 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.6.2] - 2026-01-24
+
+### Changed
+- `smuxapi-demo.yml` 설정 파일 정리: 모델명 업데이트 (gpt-4 → gpt-4.1, gemini-2.0-flash-exp → gemini-2.5-flash)
+- README.md 문서 업데이트: SERVER_PORT 설정 및 최신 모델명 반영
+
+### Removed
+- SCENARIO COLLECTION 기능 제거: 시나리오 수집 관련 코드 및 설정 완전 제거
+  - `ChatRoomService.java`에서 `wrapWithCollector` 메서드 제거
+  - `ActionQueueController.java`에서 collector 관련 코드 제거
+  - `ScenarioController.java` 파일 삭제
+  - `smuxapi-demo.yml`에서 SCENARIO COLLECTION SETTINGS 섹션 제거
+
+---
 ## [0.6.1] - 2026-01-22
 
 ### Added

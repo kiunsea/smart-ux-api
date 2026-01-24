@@ -1,0 +1,30 @@
+#------------------------------------------------------------------------
+# SYS PROPERTIES
+#------------------------------------------------------------------------
+# 서버 포트 설정 (JAR 실행 시 적용, 설정하지 않으면 기본값 8080 사용)
+# SERVER_PORT: 8080
+
+OPENAI_ASSIST_ID: your assistant id
+OPENAI_API_KEY: your openai api key
+OPENAI_MODEL: openai ai model
+GEMINI_MODEL: google gemini ai model (gemini-2.5-flash ...)
+GEMINI_API_KEY: your gemini api key
+
+#------------------------------------------------------------------------
+# SCENARIO COLLECTION SETTINGS
+#------------------------------------------------------------------------
+smuxapi:
+  scenario:
+    # 시나리오 데이터 수집 활성화
+    collect-enabled: false
+    
+    # 수집된 데이터 저장 경로
+	# - 상대 경로: "./scenarios/" (JAR/프로젝트 루트 기준)
+	# - 절대 경로: "C:/data/scenarios/" 또는 "D:/logs/scenarios/"
+	# - 설정하지 않으면 기본값: "./scenarios/"
+    output-path: "./scenarios/"
+    
+    # 파일명 접두사
+	# - 저장되는 파일명: {file-prefix}-{timestamp}-{sessionId}-turn{번호}.json
+    # - 예: test-scenario-20260122-143025-ABC123-turn001.json
+    file-prefix: "test-scenario"

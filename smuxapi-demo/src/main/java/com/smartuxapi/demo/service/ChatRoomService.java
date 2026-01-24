@@ -21,12 +21,12 @@ import jakarta.servlet.http.HttpSession;
 /**
  * ChatRoom 서비스 클래스
  * Spring Boot에서 사용하기 위해 수정된 버전
- * 
+ *
  * @author KIUNSEA
  */
 @Service
 public class ChatRoomService {
-    
+
     private Logger log = LogManager.getLogger(ChatRoomService.class);
     
     /**
@@ -35,9 +35,9 @@ public class ChatRoomService {
      * @return
      */
     public ChatRoom getChatRoom(HttpServletRequest req) {
-        
+
         HttpSession sess = req.getSession(true);
-        
+
         Object amObj = sess.getAttribute("AI_MODEL");
         String aiModel = null;
         if (amObj != null) {
@@ -46,20 +46,19 @@ public class ChatRoomService {
             aiModel = req.getParameter("ai_model");
             sess.setAttribute("AI_MODEL", aiModel);
         }
-        
+
         if (aiModel == null) {
             log.info("[Warning] 선택된 AI모델이 없습니다. 진행을 중지합니다.");
             return null;
         }
-        
+
         Object crObj = sess.getAttribute("CHAT_ROOM");
         ChatRoom chatRoom = null;
         if (crObj != null) {
             chatRoom = (ChatRoom) crObj;
         } else {
-            
             chatRoom = createChatRoom(aiModel);
-            
+
             try {
                 JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
                 chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
@@ -68,34 +67,31 @@ public class ChatRoomService {
             }
             sess.setAttribute("CHAT_ROOM", chatRoom);
         }
-        
+
         return chatRoom;
     }
-    
+
     /**
      * ChatRoom을 생성하고 세션에 저장 (JSON Body Parameter)
-     * 
+     *
      * @param aiModel
      * @param sess
      * @return
      */
     public ChatRoom getChatRoom(String aiModel, HttpSession sess) {
-        
+
         if (aiModel == null || aiModel.trim().length() < 1) {
             log.info("[Warning] 사용할 AI모델을 선택해야 합니다.");
             return null;
         }
-        
+
         Object crObj = sess.getAttribute("CHAT_ROOM");
         ChatRoom chatRoom = null;
         if (crObj != null) {
-            
             chatRoom = (ChatRoom) crObj;
-            
         } else {
-            
             chatRoom = createChatRoom(aiModel);
-            
+
             try {
                 JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
                 chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
@@ -104,7 +100,7 @@ public class ChatRoomService {
             }
             sess.setAttribute("CHAT_ROOM", chatRoom);
         }
-        
+
         return chatRoom;
     }
     
@@ -144,4 +140,5 @@ public class ChatRoomService {
         
         return chatRoom;
     }
+    
 }
