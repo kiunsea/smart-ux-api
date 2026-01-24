@@ -1,5 +1,5 @@
 {
-    "_comment": "이 파일을 복사하여 apikey.json으로 저장하고 실제 API 키 값으로 변경하세요.",
+    "_comment": "이 파일은 API 키 설정 템플릿입니다. def.apikey.json을 복사하여 apikey.json으로 저장하고 실제 값으로 변경하세요.",
     "_설명": {
         "GEMINI_API_KEY": "Google Gemini API 키 (Gemini 서비스 사용 시 필수) - Google Cloud Console에서 API Key를 생성하여 발급 가능",
         "GEMINI_MODEL": "Gemini 모델명 (예: gemini-1.5-flash, gemini-2.5-flash) - 사용할 Google Gemini 모델을 지정합니다",

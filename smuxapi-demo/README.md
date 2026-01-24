@@ -128,16 +128,51 @@ server:
 실행 디렉터리의 `smuxapi-demo.yml` 파일을 수정 (배포 패키지에 포함됨):
 
 ```yaml
-# AI API 설정
+#------------------------------------------------------------------------
+# SYS PROPERTIES
+#------------------------------------------------------------------------
+
+# OpenAI Assistant ID (OpenAI Assistants API 사용 시 선택사항)
+# OpenAI Assistants API를 사용할 때 필요한 Assistant ID
+# OpenAI Platform에서 Assistant를 생성하면 발급되는 ID
 OPENAI_ASSIST_ID: your assistant id
+
+# OpenAI API 키 (OpenAI 서비스 사용 시 필수)
+# OpenAI API를 사용하기 위한 인증 키
+# OpenAI Platform (https://platform.openai.com)에서 발급 가능
 OPENAI_API_KEY: your openai api key
+
+# OpenAI 모델명 (예: gpt-4o-mini, gpt-4, gpt-4.1-mini, gpt-4.1)
+# 사용할 OpenAI 모델을 지정합니다
+# 최신 모델: gpt-4.1, gpt-4.1-mini, gpt-4o-mini 등
 OPENAI_MODEL: gpt-4.1
+
+# Gemini 모델명 (예: gemini-1.5-flash, gemini-2.5-flash)
+# 사용할 Google Gemini 모델을 지정합니다
+# 최신 모델: gemini-2.5-flash, gemini-1.5-flash 등
 GEMINI_MODEL: gemini-2.5-flash
+
+# Google Gemini API 키 (Gemini 서비스 사용 시 필수)
+# Google Gemini API를 사용하기 위한 인증 키
+# Google Cloud Console (https://console.cloud.google.com)에서 API Key를 생성하여 발급 가능
 GEMINI_API_KEY: your gemini api key
 
-# 서버 포트 설정 (기본값: 8080)
+# 서버 포트 설정 (JAR 실행 시 적용, 설정하지 않으면 기본값 8080 사용)
+# smuxapi-demo를 JAR로 실행할 때 사용할 서버 포트
+# bootRun 실행 시에는 application.yml의 server.port 설정이 우선 적용됩니다
 SERVER_PORT: 9090
 ```
+
+**설정 항목 설명**:
+
+| 설정 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| `OPENAI_ASSIST_ID` | string | Assistants API 사용 시 선택 | OpenAI Assistant ID. OpenAI Platform에서 Assistant를 생성하면 발급되는 ID |
+| `OPENAI_API_KEY` | string | OpenAI 사용 시 필수 | OpenAI API 키. [OpenAI Platform](https://platform.openai.com)에서 발급 가능 |
+| `OPENAI_MODEL` | string | OpenAI 사용 시 필수 | OpenAI 모델명. 예: `gpt-4o-mini`, `gpt-4`, `gpt-4.1-mini`, `gpt-4.1` |
+| `GEMINI_MODEL` | string | Gemini 사용 시 필수 | Gemini 모델명. 예: `gemini-1.5-flash`, `gemini-2.5-flash` |
+| `GEMINI_API_KEY` | string | Gemini 사용 시 필수 | Google Gemini API 키. [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하여 발급 가능 |
+| `SERVER_PORT` | integer | 선택 | 서버 포트. JAR 실행 시 적용. 설정하지 않으면 기본값 8080 사용 |
 
 ## 📦 배포 및 테스트
 
@@ -155,11 +190,22 @@ SERVER_PORT: 9090
 3. **API 키 설정**
    - 압축 해제된 폴더의 `smuxapi-demo.yml` 파일을 열어 API 키 설정
    ```yaml
+   # OpenAI Assistant ID (OpenAI Assistants API 사용 시 선택사항)
    OPENAI_ASSIST_ID: your_actual_assistant_id
+   
+   # OpenAI API 키 (OpenAI 서비스 사용 시 필수)
    OPENAI_API_KEY: your_actual_openai_api_key
+   
+   # OpenAI 모델명 (예: gpt-4o-mini, gpt-4, gpt-4.1-mini, gpt-4.1)
    OPENAI_MODEL: gpt-4.1
+   
+   # Gemini 모델명 (예: gemini-1.5-flash, gemini-2.5-flash)
    GEMINI_MODEL: gemini-2.5-flash
+   
+   # Google Gemini API 키 (Gemini 서비스 사용 시 필수)
    GEMINI_API_KEY: your_actual_gemini_api_key
+   
+   # 서버 포트 설정 (JAR 실행 시 적용, 설정하지 않으면 기본값 8080 사용)
    SERVER_PORT: 9090
    ```
 

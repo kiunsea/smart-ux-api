@@ -443,10 +443,12 @@ Smart UX API는 두 가지 주요 설정 파일을 사용합니다:
 
 | 항목 | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
-| `debug-mode` | boolean | `false` | 디버그 모드 활성화 여부. 활성화 시 대화 내용이 파일로 저장됩니다. |
-| `debug-output-path` | string | `"./conversation_log/"` | 디버그 로그 파일 저장 경로 (상대/절대 경로 모두 지원) |
-| `debug-file-prefix` | string | `"chatroom"` | 디버그 로그 파일명 접두사 |
-| `prompt` | object | - | Action Queue 생성을 위한 프롬프트 템플릿 |
+| `debug-mode` | boolean | `false` | 디버그 모드 활성화 여부. `true`로 설정 시 AI 대화 내용이 JSON 파일로 저장됩니다 |
+| `debug-output-path` | string | `"./conversation_log/"` | 디버그 로그 파일 저장 경로. 상대 경로 또는 절대 경로 지정 가능. JAR 실행 시 JAR 파일과 같은 디렉터리 기준 |
+| `debug-file-prefix` | string | `"chatroom"` | 디버그 로그 파일명 접두사. 저장되는 파일명 형식: `{prefix}-{timestamp}-{sessionId}.json` |
+| `prompt` | object | - | Action Queue 생성을 위한 프롬프트 템플릿 설정 |
+| `prompt.cur_view_info` | array | - | 현재 화면 정보 프롬프트 템플릿. `${CurViewInfo}` 변수는 실제 화면 정보로 대체됩니다 |
+| `prompt.action_queue` | array | - | Action Queue 생성 프롬프트 템플릿. `${UserMsg}` 변수는 사용자 메시지로 대체됩니다 |
 
 #### 2. apikey.json (선택)
 
@@ -465,6 +467,16 @@ API 키를 별도 파일로 관리할 때 사용합니다. 템플릿 파일 `def
     "OPENAI_MODEL": "gpt-4"
 }
 ```
+
+**설정 항목**:
+
+| 항목 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| `GEMINI_API_KEY` | string | Gemini 사용 시 필수 | Google Gemini API 키. [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하여 발급 가능 |
+| `GEMINI_MODEL` | string | Gemini 사용 시 필수 | Gemini 모델명. 예: `gemini-1.5-flash`, `gemini-2.5-flash` |
+| `OPENAI_API_KEY` | string | OpenAI 사용 시 필수 | OpenAI API 키. [OpenAI Platform](https://platform.openai.com)에서 발급 가능 |
+| `OPENAI_ASSIST_ID` | string | Assistants API 사용 시 선택 | OpenAI Assistant ID. OpenAI Platform에서 Assistant를 생성하면 발급되는 ID |
+| `OPENAI_MODEL` | string | OpenAI 사용 시 필수 | OpenAI 모델명. 예: `gpt-4o-mini`, `gpt-4`, `gpt-4.1-mini`, `gpt-4.1` |
 
 **주의**: `apikey.json` 파일은 절대 버전 관리 시스템(Git 등)에 커밋하지 마세요. `.gitignore`에 추가하는 것을 권장합니다.
 

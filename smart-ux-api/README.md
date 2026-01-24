@@ -108,11 +108,14 @@ OpenAI **Assistants API**를 사용하는 경우 필요한 기능을 제공합�
 }
 ```
 
-| 설정 | 설명 |
-|------|------|
-| `debug-mode` | `true`로 설정 시 대화 내용이 JSON 파일로 저장됩니다 |
-| `debug-output-path` | 로그 파일 저장 경로 |
-| `debug-file-prefix` | 로그 파일명 접두사 |
+| 설정 | 타입 | 기본값 | 설명 |
+|------|------|--------|------|
+| `debug-mode` | boolean | `false` | 디버그 모드 활성화 여부. `true`로 설정 시 AI 대화 내용이 JSON 파일로 저장됩니다 |
+| `debug-output-path` | string | `"./conversation_log/"` | 디버그 로그 파일 저장 경로. 상대 경로 또는 절대 경로 지정 가능. JAR 실행 시 JAR 파일과 같은 디렉터리 기준 |
+| `debug-file-prefix` | string | `"chatroom"` | 디버그 로그 파일명 접두사. 저장되는 파일명 형식: `{prefix}-{timestamp}-{sessionId}.json` |
+| `prompt` | object | - | Action Queue 생성을 위한 프롬프트 템플릿 설정 |
+| `prompt.cur_view_info` | array | - | 현재 화면 정보 프롬프트 템플릿. `${CurViewInfo}` 변수는 실제 화면 정보로 대체됩니다 |
+| `prompt.action_queue` | array | - | Action Queue 생성 프롬프트 템플릿. `${UserMsg}` 변수는 사용자 메시지로 대체됩니다 |
 
 #### apikey.json (선택)
 
@@ -127,6 +130,14 @@ API 키를 별도 파일로 관리할 수 있습니다. `def.apikey.json`을 복
     "OPENAI_MODEL": "gpt-4"
 }
 ```
+
+| 설정 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| `GEMINI_API_KEY` | string | Gemini 사용 시 필수 | Google Gemini API 키. [Google Cloud Console](https://console.cloud.google.com)에서 API Key를 생성하여 발급 가능 |
+| `GEMINI_MODEL` | string | Gemini 사용 시 필수 | Gemini 모델명. 예: `gemini-1.5-flash`, `gemini-2.5-flash` |
+| `OPENAI_API_KEY` | string | OpenAI 사용 시 필수 | OpenAI API 키. [OpenAI Platform](https://platform.openai.com)에서 발급 가능 |
+| `OPENAI_ASSIST_ID` | string | Assistants API 사용 시 선택 | OpenAI Assistant ID. OpenAI Platform에서 Assistant를 생성하면 발급되는 ID |
+| `OPENAI_MODEL` | string | OpenAI 사용 시 필수 | OpenAI 모델명. 예: `gpt-4o-mini`, `gpt-4`, `gpt-4.1-mini`, `gpt-4.1` |
 
 > ⚠️ **보안 주의**: `apikey.json` 파일은 `.gitignore`에 추가하여 버전 관리에서 제외하세요.
 

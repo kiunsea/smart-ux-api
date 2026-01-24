@@ -1,0 +1,28 @@
+{
+  "_comment": "이 파일은 Smart UX API 라이브러리의 메인 설정 파일입니다.",
+  "_설명": {
+    "debug-mode": "디버그 모드 활성화 여부 (boolean, 기본값: false) - true로 설정 시 AI 대화 내용이 JSON 파일로 저장됩니다",
+    "debug-output-path": "디버그 로그 파일 저장 경로 (string, 기본값: './conversation_log/') - 상대 경로 또는 절대 경로 지정 가능",
+    "debug-file-prefix": "디버그 로그 파일명 접두사 (string, 기본값: 'chatroom') - 저장되는 파일명 형식: {prefix}-{timestamp}-{sessionId}.json",
+    "prompt": {
+      "cur_view_info": "현재 화면 정보 프롬프트 템플릿 (array of string) - AI에게 전달할 화면 정보 프롬프트의 각 라인",
+      "action_queue": "Action Queue 생성 프롬프트 템플릿 (array of string) - 사용자 명령을 Action Queue로 변환하기 위한 프롬프트의 각 라인"
+    }
+  },
+  "debug-mode": false,
+  "debug-output-path": "./conversation_log/",
+  "debug-file-prefix": "chatroom",
+  "prompt": {
+    "cur_view_info": [
+        " 다음의 내용은 사용자가 현재 보고있는 화면에서 사용자 액션이 가능한 ui element structure 이다.",
+        " `${CurViewInfo}`",
+        " 이 화면 정보를 이용해서 action_queue 의 내용을 작성해야 한다."
+    ],
+    "action_queue": [
+        " 사용자의 `${UserMsg}` 명령을 수행 할 수 있도록 id가 action_queue 인 JSON 내용을 작성해야 한다.",
+        " action_queue의 내용은 현재 화면 정보의 ui element structure 를 참고해서 작성해야 한다.",
+        " action_queue는 root에 작성하고 값은 array로 action queue내용이 담겨 있어야 한다.",
+        " action_queue format은 다음과 같다. {'action_queue':[{'attribute':'value'}]}"
+    ]
+  }
+}
