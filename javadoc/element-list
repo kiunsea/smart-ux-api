@@ -1,7 +1,12 @@
 com.smartuxapi.ai
+com.smartuxapi.ai.cache
+com.smartuxapi.ai.cache.gemini
+com.smartuxapi.ai.cache.openai
 com.smartuxapi.ai.debug
 com.smartuxapi.ai.debug.model
 com.smartuxapi.ai.gemini
 com.smartuxapi.ai.openai
 com.smartuxapi.ai.openai.assistants
+com.smartuxapi.ai.vision
+com.smartuxapi.ai.vision.impl
 com.smartuxapi.util
