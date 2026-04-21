@@ -25,6 +25,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
     "com.smartuxapi.ai",
     "com.smartuxapi.ai.openai",
     "com.smartuxapi.ai.gemini",
+    "com.smartuxapi.ai.cache",
     "com.smartuxapi.util"
 })
 public class AllTests {

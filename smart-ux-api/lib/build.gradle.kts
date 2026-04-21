@@ -8,10 +8,11 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    jacoco
 }
 
 group = "com.smartuxapi.ai"  // 그룹 ID 설정
-version = "0.6.2"            // 프로젝트 버전 설정
+version = "0.7.0"            // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -21,10 +22,14 @@ repositories {
 dependencies {
     // Use JUnit Jupiter test framework.
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-    
+
     // JUnit Platform Suite API (통합 테스트 스위트용)
     testImplementation("org.junit.platform:junit-platform-suite-api:1.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-suite-engine:1.10.1")
+
+    // Mockito (단위 테스트 모킹 프레임워크)
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -181,6 +186,21 @@ tasks.test {
         override fun beforeTest(testDescriptor: org.gradle.api.tasks.testing.TestDescriptor) {}
         override fun afterTest(testDescriptor: org.gradle.api.tasks.testing.TestDescriptor, result: org.gradle.api.tasks.testing.TestResult) {}
     })
+}
+
+// JaCoCo 코드 커버리지 설정
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/test/html"))
+    }
 }
 
 // ============================================================

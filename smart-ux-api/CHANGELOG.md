@@ -9,6 +9,45 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.7.0] - 2026-04-22
+
+### Added
+- **Prompt Caching** (Provider 중립 캐시 API — T1-a)
+  - `com.smartuxapi.ai.cache`: `CacheHint` / `CacheMetrics` / `CacheStrategy` / `NoOpCacheStrategy`
+  - OpenAI 자동 프리픽스 캐싱 (`OpenAiPromptCacheStrategy`) — `usage.prompt_tokens_details.cached_tokens` 파싱
+  - Gemini 명시적 context caching (`GeminiContextCacheStrategy`) — `cachedContents` REST 리소스 생성/참조/삭제
+  - `ChatRoom` / `Chatting` 에 `markAsCacheable` / `setCacheStrategy` / `getLastCacheMetrics` 기본 메서드 추가
+  - OpenAI `ConversationHistory`: 캐시 프리픽스를 `system` 메시지로 매 요청 앞에 배치 (내부 히스토리 불오염)
+  - 가이드: `doc/caching-guide.md`
+- **Vision API** (OpenAI GPT-4 Vision 기반 이미지 텍스트 추출 — T1-b)
+  - `com.smartuxapi.ai.vision`: `VisionService` / `VisionException` / `ImageScanInfo` / `VisionServiceFactory`
+  - `impl.OpenAiVisionService` — checked 예외 기반 에러 전파 (Tool Use 호환)
+  - `ActionQueueHandler` 에 `addImageScanInfo` / `addImageScanInfoList` / `getImageScanInfoList` / `clearImageScanInfo` 추가
+    - `imageUrl` 기준 dedupe 기본 적용
+    - `curViewInfo` JSON 의 `imageScanInfo` 키로 자동 병합 (원본 오염 없는 shallow copy)
+  - 가이드: `doc/vision-guide.md`
+- **테스트 인프라 확장**
+  - JaCoCo 코드 커버리지 플러그인 도입
+  - Mockito (mockito-core, mockito-junit-jupiter) 테스트 의존성 추가
+  - 신규 유닛 테스트: `ActionQueueHandlerErrorTest`, `ConfigLoaderTest`, `ActionQueueUtilTest`, `DebugConfigTest`, `DebugLoggerTest`
+  - 테스트 리소스 `invalid.json` 추가
+  - 시나리오 기반 테스트 계획 문서: `doc/working/full-scenario-test-plan.md`
+- 총 단위 테스트 수: 196 → 266 (+70건 추가)
+
+### Changed
+- `ChatRoom` / `Chatting` 인터페이스 — 기본(`default`) 메서드 추가로 기존 구현체 하위 호환 유지
+- `ResponsesAPIConnection.generateContent(JSONArray, CacheStrategy)` 오버로드 추가 — 기존 시그니처 유지
+- `GeminiAPIConnection.generateContent(JSONArray, CacheStrategy)` 오버로드 추가 — 요청에 `cachedContent` 자동 참조
+- `README.md`: `config.json (필수)` → `(선택)` 으로 정정
+- 버전 표기 업데이트: 0.6.2 → 0.7.0
+
+### Removed
+- Eclipse 프로젝트 설정 파일 `.settings/org.eclipse.buildship.core.prefs` 제거 (IDE 종속성 정리)
+
+### 설계 문서
+- `doc/tasks/20260421_tool_use_design_sketch.md` (로컬 전용, gitignore 대상) — v0.8.0 T2-b Tool Use 와의 API 정합을 위한 사전 설계
+
+---
 ## [0.6.2] - 2026-01-24
 
 ### Added
