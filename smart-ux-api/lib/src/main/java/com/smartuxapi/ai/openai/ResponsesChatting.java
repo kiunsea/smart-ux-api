@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.cache.CacheHint;
+import com.smartuxapi.ai.cache.CacheStrategy;
+import com.smartuxapi.ai.cache.NoOpCacheStrategy;
 import com.smartuxapi.ai.debug.DebugLogger;
 
 /**
@@ -19,6 +22,7 @@ public class ResponsesChatting implements Chatting {
     private ActionQueueHandler aqHandler = null;
     private DebugLogger debugLogger = null;
     private String chatRoomId = null;
+    private CacheStrategy cacheStrategy = NoOpCacheStrategy.INSTANCE;
 
     public ResponsesChatting(ResponsesAPIConnection connApi) {
         this.connApi = connApi;
@@ -59,8 +63,8 @@ public class ResponsesChatting implements Chatting {
         // 1. 사용자 메시지를 대화 기록에 추가하고, AI에 보낼 전체 기록을 가져옴
         JSONArray convHistory = this.conversationHistory.addUserPrompt(usrPrompt, curViewPrompt);
 
-        // 2. Responses API 호출 (전체 대화 기록 전송)
-        String aiResponse = this.connApi.generateContent(convHistory);
+        // 2. Responses API 호출 (전체 대화 기록 전송, 캐시 전략 주입)
+        String aiResponse = this.connApi.generateContent(convHistory, this.cacheStrategy);
 
         // 3. AI 응답을 대화 기록에 추가
         this.conversationHistory.addModelResponse(aiResponse);
@@ -106,5 +110,36 @@ public class ResponsesChatting implements Chatting {
     @Override
     public void setActionQueueHandler(ActionQueueHandler aqHandler) {
         this.aqHandler = aqHandler;
+    }
+
+    @Override
+    public void setCacheStrategy(CacheStrategy strategy) {
+        this.cacheStrategy = (strategy == null) ? NoOpCacheStrategy.INSTANCE : strategy;
+    }
+
+    @Override
+    public CacheStrategy getCacheStrategy() {
+        return this.cacheStrategy;
+    }
+
+    /**
+     * 캐시 힌트를 적용한다. OpenAI 경로에서는 전략의 prime() 호출과 함께
+     * {@link ConversationHistory#setCacheablePrefix(String)} 로 대화 프리픽스에도 반영한다.
+     * null 전달 시 양쪽 모두 해제.
+     */
+    @Override
+    public void applyCacheHint(CacheHint hint) throws Exception {
+        if (hint == null) {
+            this.conversationHistory.setCacheablePrefix(null);
+            this.cacheStrategy.invalidate();
+            return;
+        }
+        this.cacheStrategy.prime(hint);
+        this.conversationHistory.setCacheablePrefix(hint.getContent());
+    }
+
+    /** 디버깅/테스트용 내부 대화 기록 접근자. */
+    ConversationHistory getConversationHistory() {
+        return this.conversationHistory;
     }
 }

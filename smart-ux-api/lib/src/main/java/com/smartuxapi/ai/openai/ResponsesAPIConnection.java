@@ -15,32 +15,47 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartuxapi.ai.cache.CacheStrategy;
 
 /**
  * API에 연결한다.
  * ref : https://platform.openai.com/docs/api-reference/responses
  */
 public class ResponsesAPIConnection {
-    
+
     private Logger log = LogManager.getLogger(ResponsesAPIConnection.class);
     private static final String OPENAI_API_URL_BASE = "https://api.openai.com/v1/responses";
-    
+
     private String apiKey = null;
     private String modelName = null;
-    
+
     public ResponsesAPIConnection(String apiKey, String modelName) {
         this.apiKey = apiKey.trim();
         this.modelName = modelName.trim();
     }
-    
+
     /**
      * Responses API에 대화 기록을 전송하고 응답을 받습니다.
-     * 
+     *
      * @param conversationHistory 전체 대화 기록 (User, Model 메시지 포함)
      * @return AI 모델의 응답 텍스트
      * @throws Exception API 호출 중 발생한 예외
      */
     public String generateContent(JSONArray conversationHistory) throws Exception {
+        return generateContent(conversationHistory, null);
+    }
+
+    /**
+     * Responses API에 대화 기록을 전송하고 응답을 받습니다. 캐시 전략이 주입되면 응답의
+     * {@code usage.prompt_tokens_details.cached_tokens} 를 파싱하여 메트릭을 갱신합니다.
+     *
+     * @param conversationHistory 전체 대화 기록
+     * @param cacheStrategy 캐시 전략 (null 허용 — 메트릭 기록 생략)
+     * @return AI 모델의 응답 텍스트
+     * @throws Exception API 호출 중 발생한 예외
+     * @since 0.7.0
+     */
+    public String generateContent(JSONArray conversationHistory, CacheStrategy cacheStrategy) throws Exception {
         URL url = new URL(OPENAI_API_URL_BASE);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -76,6 +91,15 @@ public class ResponsesAPIConnection {
 
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode jsonRes = mapper.readTree(response.toString());
+
+                // 캐시 전략이 주입된 경우 메트릭 기록 (usage.prompt_tokens_details.cached_tokens)
+                if (cacheStrategy != null) {
+                    try {
+                        cacheStrategy.recordMetricsFromResponse(jsonRes);
+                    } catch (Exception metricsEx) {
+                        log.warn("캐시 메트릭 기록 실패 (무시하고 계속): " + metricsEx.getMessage());
+                    }
+                }
 
                 // 1. "output" 배열 값 추출
                 JsonNode outputArray = jsonRes.get("output");
