@@ -17,12 +17,37 @@ public class ConversationHistory {
 
     private final JSONArray convHistory = new JSONArray();
 
+    /** 캐시 대상 프리픽스 (있으면 매 요청마다 system 메시지로 앞에 붙는다). */
+    private String cacheablePrefix = null;
+
+    /**
+     * 캐시 대상 프리픽스를 설정한다. 이후 {@link #addUserPrompt(String, String)} 가
+     * 반환하는 전체 기록의 맨 앞에 role="system" 메시지로 삽입된다.
+     *
+     * <p>내부 대화 기록({@code convHistory}) 자체에는 추가되지 않아 중복 누적이 방지된다.
+     *
+     * @param content 프리픽스 콘텐츠. null 전달 시 프리픽스 해제.
+     * @since 0.7.0
+     */
+    public void setCacheablePrefix(String content) {
+        this.cacheablePrefix = content;
+    }
+
+    /**
+     * 현재 설정된 캐시 프리픽스 (없으면 null).
+     *
+     * @since 0.7.0
+     */
+    public String getCacheablePrefix() {
+        return cacheablePrefix;
+    }
+
     /**
      * 사용자 메시지를 대화 기록에 추가하고, AI API 호출을 위한 전체 기록을 반환합니다.
-     * 
+     *
      * @param userPrompt 사용자 입력 프롬프트 (필수)
      * @param curViewPrompt 현재 화면 프롬프트 (필수 아님, null available)
-     * @return AI API에 전송할 전체 대화 기록
+     * @return AI API에 전송할 전체 대화 기록 (캐시 프리픽스가 설정된 경우 맨 앞에 포함됨)
      */
     public JSONArray addUserPrompt(String userPrompt, String curViewPrompt) {
 
@@ -34,16 +59,32 @@ public class ConversationHistory {
         userContent.put("content", userPrompt);
         convHistory.put(userContent);
 
+        JSONArray base;
         if (curViewPrompt != null) {
             // 반환용 JSONArray 작성
             JSONObject rtnContent = new JSONObject();
             rtnContent.put("role", "user");
             rtnContent.put("content", userPrompt + ", " + curViewPrompt);
             rtnValue.put(rtnContent);
-            return rtnValue;
+            base = rtnValue;
         } else {
-            return this.convHistory;
+            base = this.convHistory;
         }
+
+        // 캐시 프리픽스가 있으면 맨 앞에 system 메시지로 추가 (별도 배열 반환, 내부 상태 불변)
+        if (this.cacheablePrefix != null && !this.cacheablePrefix.isEmpty()) {
+            JSONArray withPrefix = new JSONArray();
+            JSONObject systemMsg = new JSONObject();
+            systemMsg.put("role", "system");
+            systemMsg.put("content", this.cacheablePrefix);
+            withPrefix.put(systemMsg);
+            for (int i = 0; i < base.length(); i++) {
+                withPrefix.put(base.get(i));
+            }
+            return withPrefix;
+        }
+
+        return base;
     }
 
     /**

@@ -13,31 +13,54 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartuxapi.ai.cache.CacheStrategy;
+import com.smartuxapi.ai.cache.gemini.GeminiContextCacheStrategy;
+
 /**
  * API에 연결한다.
  * ref : https://ai.google.dev/gemini-api/docs?hl=ko#rest
  */
 public class GeminiAPIConnection {
-    
+
     private Logger log = LogManager.getLogger(GeminiAPIConnection.class);
     private static final String GEMINI_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/";
-    
+
     private String apiKey = null;
     private String modelName = null;
-    
+
     public GeminiAPIConnection(String apiKey, String modelName) {
         this.apiKey = apiKey.trim();
         this.modelName = modelName.trim();
     }
-    
+
+    public String getApiKey() { return apiKey; }
+    public String getModelName() { return modelName; }
+
     /**
      * Gemini API에 대화 기록을 전송하고 응답을 받습니다.
-     * 
-     * @param conversationHistory 전체 대화 기록 (User, Model 메시지 포함)
+     *
+     * @param contentsArray 전체 대화 기록 (User, Model 메시지 포함)
      * @return Gemini 모델의 응답 텍스트
      * @throws Exception API 호출 중 발생한 예외
      */
     public String generateContent(JSONArray contentsArray) throws Exception {
+        return generateContent(contentsArray, null);
+    }
+
+    /**
+     * Gemini API에 대화 기록을 전송하고 응답을 받습니다. 캐시 전략이 주입되고
+     * 해당 전략이 {@link GeminiContextCacheStrategy} 이며 prime 되어 있다면
+     * 요청에 {@code cachedContent} 필드를 포함시키고, 응답 메트릭을 기록합니다.
+     *
+     * @param contentsArray 전체 대화 기록
+     * @param cacheStrategy 캐시 전략 (null 허용)
+     * @return Gemini 모델의 응답 텍스트
+     * @throws Exception API 호출 중 발생한 예외
+     * @since 0.7.0
+     */
+    public String generateContent(JSONArray contentsArray, CacheStrategy cacheStrategy) throws Exception {
         String urlStr = GEMINI_API_URL_BASE + modelName + ":generateContent?key=" + apiKey;
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -52,6 +75,15 @@ public class GeminiAPIConnection {
         // 요청 바디 생성
         JSONObject requestBody = new JSONObject();
         requestBody.put("contents", contentsArray);
+
+        // 캐시 리소스 참조 주입 (Gemini context caching)
+        if (cacheStrategy instanceof GeminiContextCacheStrategy) {
+            String cacheName = ((GeminiContextCacheStrategy) cacheStrategy).getCacheResourceName();
+            if (cacheName != null && !cacheName.isEmpty()) {
+                requestBody.put("cachedContent", cacheName);
+                log.debug("Gemini request using cachedContent: {}", cacheName);
+            }
+        }
 
         // 요청 바디 전송
         try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
@@ -70,6 +102,17 @@ public class GeminiAPIConnection {
                 }
                 
                 JSONObject jsonResponse = new JSONObject(response.toString());
+
+                // 캐시 전략이 주입된 경우 메트릭 기록 (usageMetadata.cachedContentTokenCount)
+                if (cacheStrategy != null) {
+                    try {
+                        JsonNode jacksonNode = new ObjectMapper().readTree(response.toString());
+                        cacheStrategy.recordMetricsFromResponse(jacksonNode);
+                    } catch (Exception metricsEx) {
+                        log.warn("캐시 메트릭 기록 실패 (무시하고 계속): " + metricsEx.getMessage());
+                    }
+                }
+
                 JSONArray candidates = jsonResponse.getJSONArray("candidates");
                 if (candidates.length() > 0) {
                     JSONObject firstCandidate = candidates.getJSONObject(0);
