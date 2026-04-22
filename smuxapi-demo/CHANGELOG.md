@@ -9,6 +9,29 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.8.0] - 2026-04-22
+
+### Added
+- **Structured Output 데모 엔드포인트** (`POST /demo/structured`)
+  - smart-ux-api v0.8.0 T2-a 의 `sendPromptWithSchema` 사용
+  - 사전 정의 스키마 2종: `userProfile`, `uiIntent`
+  - 요청: `{ai_model, user_msg, schema}` → 응답: `{message, action_queue, structured}`
+- **Tool Use 데모 엔드포인트** (`POST /demo/tools`)
+  - smart-ux-api v0.8.0 T2-b 의 `sendPromptWithTools` 사용 (auto-loop, max 5 rounds)
+  - 기본 tool: `getTime` (네트워크 호출 없음, 데모 안전)
+  - 옵션 tool: `scanImage` (`VisionTools.scanImageTool` — `enable_vision=true` 기본값)
+  - 요청: `{ai_model, user_msg, enable_vision}` → 응답: `{message, action_queue, tool_calls}`
+
+### Changed
+- smart-ux-api 의존성 `project(":lib")` 가 자동으로 v0.8.0 픽업 (Gradle 서브모듈 참조)
+- 버전 `0.6.0` → `0.8.0` (smart-ux-api 와 정렬)
+- `tasks.bootWar { enabled = false }` 추가 — 외부 Tomcat 배포용 `tasks.war` 만 사용 (bootWar 의 기본 duplicate 검사로 jackson-annotations 등 중복 충돌 방지)
+
+### Compatibility
+- 기존 `/action` `/collect` 엔드포인트 동작 변화 없음 (smoke test 회귀 통과)
+- smart-ux-api 신규 API 는 모두 `default` 메서드 — 기존 ChatRoom/Chatting 경로 무수정 동작
+
+---
 ## [0.6.2] - 2026-01-24
 
 ### Changed
