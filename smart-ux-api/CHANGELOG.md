@@ -9,6 +9,23 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.8.1] - 2026-04-22
+
+### Added
+- **Gemini Vision 구현** (T1-b 공급자 확장 — `GeminiVisionService`)
+  - `gemini-1.5-flash` 기본 모델, `VisionService` 인터페이스 100% 호환
+  - HTTPS URL 은 자동 다운로드 후 base64 inline 전달 (Gemini 는 image URL 직접 지원 X)
+  - data URI (`data:image/...;base64,...`) 는 별도 다운로드 없이 페이로드 직접 사용
+  - 이미지 다운로드 크기 상한 20MB
+  - `VisionServiceFactory.createGemini(apiKey[, model])` + `createGeminiFromEnv()` 팩토리 추가
+- **GeminiChattingToolUseTest** — T2-b Gemini 쪽 Mockito 통합 테스트 (6건)
+  - v0.8.0 의 `ResponsesChattingToolUseTest` 와 대칭: null tools 위임, 1/2-round auto loop, 미등록 tool→error, manual first round, manual continuation
+- **GeminiVisionServiceTest** — 단위 테스트 7건 (활성 상태, 입력 검증, MIME 추정)
+
+### Coverage
+- 테스트 수: 358 → 384 (+26건)
+
+---
 ## [0.8.0] - 2026-04-22
 
 ### Added
