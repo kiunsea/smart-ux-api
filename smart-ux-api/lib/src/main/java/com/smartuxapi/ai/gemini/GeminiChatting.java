@@ -4,18 +4,26 @@ import java.util.Set;
 
 import org.json.JSONArray;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.cache.CacheHint;
 import com.smartuxapi.ai.cache.CacheStrategy;
 import com.smartuxapi.ai.cache.NoOpCacheStrategy;
 import com.smartuxapi.ai.debug.DebugLogger;
+import com.smartuxapi.ai.schema.ResponseSchema;
 
 /**
  * Gemini API를 사용하는 Chatting 구현체
  */
 public class GeminiChatting implements Chatting {
+
+    private static final Logger LOG = LogManager.getLogger(GeminiChatting.class);
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     private GeminiAPIConnection connApi = null;
     private ConversationHistory conversationHistory = null;
@@ -42,6 +50,20 @@ public class GeminiChatting implements Chatting {
      */
     @Override
     public org.json.simple.JSONObject sendPrompt(String userMsg) throws Exception {
+        return sendInternal(userMsg, null);
+    }
+
+    /**
+     * Structured Output — JSON Schema 강제 응답.
+     * @since 0.8.0
+     */
+    @Override
+    public org.json.simple.JSONObject sendPromptWithSchema(String userMsg, ResponseSchema schema) throws Exception {
+        if (schema == null) return sendPrompt(userMsg);
+        return sendInternal(userMsg, schema);
+    }
+
+    private org.json.simple.JSONObject sendInternal(String userMsg, ResponseSchema schema) throws Exception {
 
         boolean reqActionQueue = this.aqHandler != null && this.aqHandler.isCurrentViewInfo();
 
@@ -63,8 +85,8 @@ public class GeminiChatting implements Chatting {
         // 1. 사용자 메시지를 대화 기록에 추가하고, Gemini에 보낼 전체 기록을 가져옴
         JSONArray convHistory = this.conversationHistory.addUserPrompt(usrPrompt, curViewPrompt);
 
-        // 2. Gemini API 호출 (전체 대화 기록 전송, 캐시 전략 주입)
-        String geminiResponse = this.connApi.generateContent(convHistory, this.cacheStrategy);
+        // 2. Gemini API 호출 (전체 대화 기록 전송, 캐시 전략 + 선택적 응답 스키마 주입)
+        String geminiResponse = this.connApi.generateContent(convHistory, this.cacheStrategy, schema);
 
         // 3. Gemini 응답을 대화 기록에 추가
         this.conversationHistory.addModelResponse(geminiResponse);
@@ -88,6 +110,17 @@ public class GeminiChatting implements Chatting {
                 actionQueue = aqObj;
                 resJson.put("action_queue", aqObj);
             }
+        }
+
+        // Structured Output — 응답 원문을 JsonNode 로 파싱하여 structured 필드에 병기
+        if (schema != null) {
+            JsonNode structured = null;
+            try {
+                structured = JSON_MAPPER.readTree(geminiResponse);
+            } catch (Exception parseEx) {
+                LOG.warn("Structured output JSON 파싱 실패 (schema={}): {}", schema.getName(), parseEx.getMessage());
+            }
+            resJson.put("structured", structured);
         }
 
         // 디버그 로깅: 턴 완료
