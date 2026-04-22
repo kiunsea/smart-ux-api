@@ -9,6 +9,26 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [Unreleased] - v0.8.0 (in-progress)
+
+### Added
+- **Structured Output** (Provider 중립 JSON Schema 강제 응답 — T2-a)
+  - `com.smartuxapi.ai.schema`: `ResponseSchema` / `SchemaBuilder`
+  - OpenAI Responses: `text.format = { type: "json_schema", ... }` 매핑
+  - Gemini: `generationConfig.responseMimeType + responseSchema` 매핑
+  - `Chatting.sendPromptWithSchema(userMsg, schema)` default 메서드 추가
+  - `ResponsesChatting` / `GeminiChatting` override — 응답 원문을 자동 파싱하여 `structured` 키 (JsonNode) 로 병기
+  - 파싱 실패는 예외가 아닌 WARN 로그 + `structured=null` (호출자가 fallback 결정)
+  - `SchemaBuilder`: object 루트 + 5 타입 (string/integer/boolean/array/nested object) — strict 호환 `additionalProperties: false` 자동 주입
+  - T2-b Tool Use 와 `SchemaBuilder.build()` JsonNode 포맷 공유
+  - 가이드: `doc/structured-output-guide.md`
+  - 신규 테스트: `SchemaBuilderTest`, `ResponseSchemaTest`, `ResponsesChattingStructuredOutputTest`, `GeminiChattingStructuredOutputTest` (+22건)
+
+### Changed
+- `ResponsesAPIConnection.generateContent(JSONArray, CacheStrategy, ResponseSchema)` 오버로드 추가 — 기존 2-인자 시그니처 유지
+- `GeminiAPIConnection.generateContent(JSONArray, CacheStrategy, ResponseSchema)` 오버로드 추가
+
+---
 ## [0.7.0] - 2026-04-22
 
 ### Added

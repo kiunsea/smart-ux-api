@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.cache.CacheStrategy;
 import com.smartuxapi.ai.cache.gemini.GeminiContextCacheStrategy;
+import com.smartuxapi.ai.schema.ResponseSchema;
 
 /**
  * API에 연결한다.
@@ -46,7 +47,7 @@ public class GeminiAPIConnection {
      * @throws Exception API 호출 중 발생한 예외
      */
     public String generateContent(JSONArray contentsArray) throws Exception {
-        return generateContent(contentsArray, null);
+        return generateContent(contentsArray, null, null);
     }
 
     /**
@@ -61,6 +62,23 @@ public class GeminiAPIConnection {
      * @since 0.7.0
      */
     public String generateContent(JSONArray contentsArray, CacheStrategy cacheStrategy) throws Exception {
+        return generateContent(contentsArray, cacheStrategy, null);
+    }
+
+    /**
+     * Gemini API에 대화 기록을 전송하고 응답을 받습니다. {@code responseSchema} 가 주입되면
+     * 요청에 {@code generationConfig.responseMimeType = "application/json"} 과
+     * {@code responseSchema} 를 포함시켜 구조화된 JSON 응답을 강제합니다.
+     *
+     * @param contentsArray 전체 대화 기록
+     * @param cacheStrategy 캐시 전략 (null 허용)
+     * @param responseSchema 응답 JSON Schema (null 허용)
+     * @return Gemini 모델의 응답 텍스트 (schema 주입 시 JSON 문자열)
+     * @throws Exception API 호출 중 발생한 예외
+     * @since 0.8.0
+     */
+    public String generateContent(JSONArray contentsArray, CacheStrategy cacheStrategy,
+                                  ResponseSchema responseSchema) throws Exception {
         String urlStr = GEMINI_API_URL_BASE + modelName + ":generateContent?key=" + apiKey;
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -83,6 +101,18 @@ public class GeminiAPIConnection {
                 requestBody.put("cachedContent", cacheName);
                 log.debug("Gemini request using cachedContent: {}", cacheName);
             }
+        }
+
+        // 구조화 응답(JSON Schema) 주입 — Gemini generationConfig 규격
+        if (responseSchema != null) {
+            JSONObject genConfig = requestBody.optJSONObject("generationConfig");
+            if (genConfig == null) {
+                genConfig = new JSONObject();
+            }
+            genConfig.put("responseMimeType", "application/json");
+            // Jackson JsonNode → org.json 브릿지
+            genConfig.put("responseSchema", new JSONObject(responseSchema.getSchema().toString()));
+            requestBody.put("generationConfig", genConfig);
         }
 
         // 요청 바디 전송

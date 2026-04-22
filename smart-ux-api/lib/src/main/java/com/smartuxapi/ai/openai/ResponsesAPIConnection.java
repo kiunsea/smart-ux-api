@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.cache.CacheStrategy;
+import com.smartuxapi.ai.schema.ResponseSchema;
 
 /**
  * API에 연결한다.
@@ -42,7 +43,7 @@ public class ResponsesAPIConnection {
      * @throws Exception API 호출 중 발생한 예외
      */
     public String generateContent(JSONArray conversationHistory) throws Exception {
-        return generateContent(conversationHistory, null);
+        return generateContent(conversationHistory, null, null);
     }
 
     /**
@@ -56,6 +57,22 @@ public class ResponsesAPIConnection {
      * @since 0.7.0
      */
     public String generateContent(JSONArray conversationHistory, CacheStrategy cacheStrategy) throws Exception {
+        return generateContent(conversationHistory, cacheStrategy, null);
+    }
+
+    /**
+     * Responses API에 대화 기록을 전송하고 응답을 받습니다. {@code responseSchema} 가 주입되면
+     * 요청에 {@code text.format = json_schema} 구성을 포함시켜 구조화된 JSON 응답을 강제합니다.
+     *
+     * @param conversationHistory 전체 대화 기록
+     * @param cacheStrategy 캐시 전략 (null 허용)
+     * @param responseSchema 응답 JSON Schema (null 허용 — 자유형 텍스트)
+     * @return AI 모델의 응답 텍스트 (schema 주입 시 JSON 문자열)
+     * @throws Exception API 호출 중 발생한 예외
+     * @since 0.8.0
+     */
+    public String generateContent(JSONArray conversationHistory, CacheStrategy cacheStrategy,
+                                  ResponseSchema responseSchema) throws Exception {
         URL url = new URL(OPENAI_API_URL_BASE);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -72,6 +89,22 @@ public class ResponsesAPIConnection {
         
         // AI모델 설정
         requestBody.put("model", this.modelName);
+
+        // 구조화 응답(JSON Schema) 주입 — Responses API text.format 규격
+        if (responseSchema != null) {
+            JSONObject formatNode = new JSONObject();
+            formatNode.put("type", "json_schema");
+            formatNode.put("name", responseSchema.getName());
+            formatNode.put("strict", responseSchema.isStrict());
+            if (responseSchema.getDescription() != null) {
+                formatNode.put("description", responseSchema.getDescription());
+            }
+            // Jackson JsonNode → org.json 객체로 브릿지
+            formatNode.put("schema", new JSONObject(responseSchema.getSchema().toString()));
+            JSONObject textNode = new JSONObject();
+            textNode.put("format", formatNode);
+            requestBody.put("text", textNode);
+        }
 
         // 요청 바디 전송
         try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
