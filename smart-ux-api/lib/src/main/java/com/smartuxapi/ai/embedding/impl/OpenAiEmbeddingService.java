@@ -16,6 +16,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.smartuxapi.ai.cost.CostEntry;
+import com.smartuxapi.ai.cost.CostTable;
+import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.embedding.EmbeddingException;
 import com.smartuxapi.ai.embedding.EmbeddingResult;
 import com.smartuxapi.ai.embedding.EmbeddingService;
@@ -136,6 +140,16 @@ public class OpenAiEmbeddingService implements EmbeddingService {
             if (usage != null) {
                 JsonNode pt = usage.get("prompt_tokens");
                 if (pt != null) promptTokens = pt.asInt(0);
+            }
+
+            // CostTracker 기록 — embedding 은 output 토큰 없음
+            try {
+                TokenUsageExtractor.Usage u = TokenUsageExtractor.fromOpenAi(json);
+                double cost = CostTable.calculate(this.model, u.inputTokens, u.outputTokens);
+                CostTracker.INSTANCE.record(new CostEntry(
+                        "openai", this.model, u.inputTokens, u.outputTokens, cost, false, "embedding"));
+            } catch (Exception te) {
+                log.warn("CostTracker 기록 실패 (무시): " + te.getMessage());
             }
 
             log.debug("OpenAI embedding 완료: batch={}, dim={}, tokens={}",

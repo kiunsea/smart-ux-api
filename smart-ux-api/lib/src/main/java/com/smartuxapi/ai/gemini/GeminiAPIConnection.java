@@ -20,6 +20,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.cache.CacheStrategy;
 import com.smartuxapi.ai.cache.gemini.GeminiContextCacheStrategy;
+import com.smartuxapi.ai.cost.CostEntry;
+import com.smartuxapi.ai.cost.CostTable;
+import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.schema.ResponseSchema;
 import com.smartuxapi.ai.tools.ToolCall;
 import com.smartuxapi.ai.tools.ToolDefinition;
@@ -140,15 +144,19 @@ public class GeminiAPIConnection {
                 
                 JSONObject jsonResponse = new JSONObject(response.toString());
 
+                JsonNode jacksonNode = new ObjectMapper().readTree(response.toString());
+
                 // 캐시 전략이 주입된 경우 메트릭 기록 (usageMetadata.cachedContentTokenCount)
                 if (cacheStrategy != null) {
                     try {
-                        JsonNode jacksonNode = new ObjectMapper().readTree(response.toString());
                         cacheStrategy.recordMetricsFromResponse(jacksonNode);
                     } catch (Exception metricsEx) {
                         log.warn("캐시 메트릭 기록 실패 (무시하고 계속): " + metricsEx.getMessage());
                     }
                 }
+
+                // CostTracker 기록
+                recordCost(jacksonNode, responseSchema != null ? "structured" : "chat");
 
                 JSONArray candidates = jsonResponse.getJSONArray("candidates");
                 if (candidates.length() > 0) {
@@ -268,6 +276,8 @@ public class GeminiAPIConnection {
             }
         }
 
+        recordCost(jsonRes, "tool_use");
+
         JsonNode candidates = jsonRes.get("candidates");
         if (candidates == null || !candidates.isArray() || candidates.size() == 0) {
             return ToolTurnResult.finalText("응답에서 candidates 를 찾을 수 없습니다.", "{}");
@@ -307,5 +317,19 @@ public class GeminiAPIConnection {
             return ToolTurnResult.toolCalls(calls, rawContent);
         }
         return ToolTurnResult.finalText(textBuf.toString(), rawContent);
+    }
+
+    /**
+     * 응답 파싱 후 CostTracker 에 토큰/비용 기록. 실패는 무시 (로깅만).
+     */
+    private void recordCost(JsonNode responseJson, String callKind) {
+        try {
+            TokenUsageExtractor.Usage u = TokenUsageExtractor.fromGemini(responseJson);
+            double cost = CostTable.calculate(this.modelName, u.inputTokens, u.outputTokens);
+            CostTracker.INSTANCE.record(new CostEntry(
+                    "gemini", this.modelName, u.inputTokens, u.outputTokens, cost, false, callKind));
+        } catch (Exception e) {
+            log.warn("CostTracker 기록 실패 (무시): " + e.getMessage());
+        }
     }
 }

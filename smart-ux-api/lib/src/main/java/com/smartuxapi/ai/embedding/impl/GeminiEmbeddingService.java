@@ -16,6 +16,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.smartuxapi.ai.cost.CostEntry;
+import com.smartuxapi.ai.cost.CostTable;
+import com.smartuxapi.ai.cost.CostTracker;
 import com.smartuxapi.ai.embedding.EmbeddingException;
 import com.smartuxapi.ai.embedding.EmbeddingResult;
 import com.smartuxapi.ai.embedding.EmbeddingService;
@@ -147,8 +150,15 @@ public class GeminiEmbeddingService implements EmbeddingService {
                 vectors[i] = vec;
             }
 
-            // Gemini batchEmbedContents 응답은 토큰 usage 를 제공하지 않음
+            // Gemini batchEmbedContents 응답은 토큰 usage 를 제공하지 않음 — 0 으로 기록
             int promptTokens = 0;
+            try {
+                double cost = CostTable.calculate(this.model, 0, 0);  // 0 토큰 → 0 비용
+                CostTracker.INSTANCE.record(new CostEntry(
+                        "gemini", this.model, 0, 0, cost, false, "embedding"));
+            } catch (Exception te) {
+                log.warn("CostTracker 기록 실패 (무시): " + te.getMessage());
+            }
             log.debug("Gemini embedding 완료: batch={}, dim={}", vectors.length, vectors[0].length);
             return new EmbeddingResult(vectors, this.model, promptTokens);
         } catch (EmbeddingException ee) {
