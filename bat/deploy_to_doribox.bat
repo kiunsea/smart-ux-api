@@ -19,7 +19,7 @@ if "%~1"=="" (
 ) else (
     set "DORIBOX_ROOT=%~1"
 )
-set "DORIBOX_LIBS=%DORIBOX_ROOT%\\libs"
+set "DORIBOX_LIBS=%DORIBOX_ROOT%\libs"
 
 echo ============================================================
 echo  smart-ux-api 빌드 및 DoriBox 배포
@@ -45,7 +45,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-set "LIB_JAR_DIR=%PROJECT_ROOT%\\lib\\build\\libs"
+set "LIB_JAR_DIR=%PROJECT_ROOT%\lib\build\libs"
 
 echo [2/3] 최신 JAR 파일을 찾는 중...
 set "LATEST_JAR="
@@ -55,7 +55,7 @@ if not exist "%LIB_JAR_DIR%" (
     exit /b 1
 )
 
-for /f "delims=" %%F in ('dir /b /a:-d /o:-d "%LIB_JAR_DIR%\\smart-ux-api-*.jar"') do (
+for /f "delims=" %%F in ('dir /b /a:-d /o:-d "%LIB_JAR_DIR%\smart-ux-api-*.jar"') do (
     set "LATEST_JAR=%%F"
     goto :FoundJar
 )
@@ -75,7 +75,7 @@ if not exist "%DORIBOX_LIBS%" (
 )
 
 echo [3/3] JAR 파일을 복사합니다...
-copy /Y "%LIB_JAR_DIR%\\%LATEST_JAR%" "%DORIBOX_LIBS%" >nul
+copy /Y "%LIB_JAR_DIR%\%LATEST_JAR%" "%DORIBOX_LIBS%" >nul
 if errorlevel 1 (
     echo [오류] JAR 복사에 실패했습니다.
     popd

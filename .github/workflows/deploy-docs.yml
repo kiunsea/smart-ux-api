@@ -6,7 +6,7 @@ on:
     paths:
       - 'docs/**'
       - 'README.md'
-      - 'smart-ux-api/README.md'
+      - 'lib/README.md'
       - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
@@ -44,7 +44,6 @@ jobs:
         cache: 'gradle'
     
     - name: Generate JavaDoc
-      working-directory: ./smart-ux-api
       run: |
         chmod +x gradlew
         ./gradlew :lib:javadoc
@@ -54,7 +53,7 @@ jobs:
         mkdir -p site_src/docs
         cp README.md site_src/docs/index.md
         cp docs/*.md site_src/docs/
-        cp -r smart-ux-api/lib/build/docs/javadoc site_src/docs/ || true
+        cp -r lib/build/docs/javadoc site_src/docs/ || true
     
     - name: Create mkdocs.yml
       run: |

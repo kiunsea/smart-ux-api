@@ -31,23 +31,18 @@ jobs:
         echo "Release version: $VERSION"
     
     - name: Grant execute permission for gradlew
-      working-directory: ./smart-ux-api
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      working-directory: ./smart-ux-api
       run: ./gradlew :lib:build -x test
 
     - name: Run tests
-      working-directory: ./smart-ux-api
       run: ./gradlew :lib:test
 
     - name: Generate JavaDoc
-      working-directory: ./smart-ux-api
       run: ./gradlew :lib:javadoc
 
     - name: Package JavaDoc
-      working-directory: ./smart-ux-api
       run: |
         cd lib/build/docs
         zip -r ../../../javadoc-${{ steps.get_version.outputs.VERSION }}.zip javadoc
@@ -55,7 +50,7 @@ jobs:
     - name: Copy JavaScript files
       run: |
         mkdir -p js-dist
-        cp smart-ux-api/lib/src/main/js/*.js js-dist/
+        cp lib/src/main/js/*.js js-dist/
         cd js-dist
         zip -r ../smart-ux-client-${{ steps.get_version.outputs.VERSION }}.zip .
     
@@ -96,7 +91,7 @@ jobs:
           ### ⚠️ 주의사항
           
           - Java 17 이상 필요
-          - 이전 버전에서 업그레이드 시 [CHANGELOG](https://github.com/kiunsea/smux-api/blob/main/smart-ux-api/CHANGELOG.md) 참조
+          - 이전 버전에서 업그레이드 시 [CHANGELOG](https://github.com/kiunsea/smux-api/blob/main/lib/CHANGELOG.md) 참조
         draft: false
         prerelease: false
     
@@ -106,7 +101,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./smart-ux-api/lib/build/libs/smart-ux-api-${{ steps.get_version.outputs.VERSION }}.jar
+        asset_path: ./lib/build/libs/smart-ux-api-${{ steps.get_version.outputs.VERSION }}.jar
         asset_name: smart-ux-api-${{ steps.get_version.outputs.VERSION }}.jar
         asset_content_type: application/java-archive
     
@@ -126,7 +121,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./smart-ux-api/javadoc-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_path: ./javadoc-${{ steps.get_version.outputs.VERSION }}.zip
         asset_name: javadoc-${{ steps.get_version.outputs.VERSION }}.zip
         asset_content_type: application/zip
     
@@ -134,7 +129,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./smart-ux-api/lib/build/docs/javadoc
+        publish_dir: ./lib/build/docs/javadoc
         destination_dir: javadoc/${{ steps.get_version.outputs.VERSION }}
 
   notify:

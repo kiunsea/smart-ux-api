@@ -13,7 +13,7 @@ fi
 
 VERSION="$1"
 TAG_NAME="v${VERSION}"
-JAR_FILE="smart-ux-api/lib/build/libs/smart-ux-api-${VERSION}.jar"
+JAR_FILE="lib/build/libs/smart-ux-api-${VERSION}.jar"
 
 echo "========================================"
 echo "smart-ux-api 릴리즈 생성"
@@ -28,8 +28,7 @@ if [ ! -f "${JAR_FILE}" ]; then
     echo "[오류] JAR 파일을 찾을 수 없습니다: ${JAR_FILE}"
     echo ""
     echo "JAR 파일을 먼저 빌드하세요:"
-    echo "  cd smart-ux-api/lib"
-    echo "  ./gradlew build"
+    echo "  ./gradlew :lib:build"
     exit 1
 fi
 
@@ -59,7 +58,7 @@ echo "[2/3] GitHub CLI 확인 완료"
 echo ""
 
 # CHANGELOG에서 릴리즈 노트 추출
-RELEASE_NOTES=$(grep -A 50 "## \[${VERSION}\]" smart-ux-api/CHANGELOG.md | head -20 || echo "Release ${TAG_NAME}")
+RELEASE_NOTES=$(grep -A 50 "## \[${VERSION}\]" lib/CHANGELOG.md | head -20 || echo "Release ${TAG_NAME}")
 
 if [ -z "${RELEASE_NOTES}" ] || [ "${RELEASE_NOTES}" = "Release ${TAG_NAME}" ]; then
     echo "[경고] CHANGELOG.md에서 ${VERSION} 버전 정보를 찾을 수 없습니다."
