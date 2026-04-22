@@ -9,6 +9,23 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.0] - 2026-04-22
+
+### Added
+- **Embeddings API** (Provider 중립 텍스트 임베딩 — T3-a)
+  - `com.smartuxapi.ai.embedding`: `EmbeddingService`, `EmbeddingResult`, `EmbeddingException`, `EmbeddingServiceFactory`, `Embeddings` 유틸
+  - OpenAI 구현: `text-embedding-3-small` (1536, 기본) / `text-embedding-3-large` (3072) / `ada-002` (legacy)
+  - Gemini 구현: `text-embedding-004` (768, 기본) — `batchEmbedContents` REST 엔드포인트
+  - `embed(text)` 단일 + `embedBatch(List<String>)` 배치 — 한 번의 API 호출로 여러 텍스트 처리
+  - `Embeddings` 유틸: `cosineSimilarity`, `argmax`, `topK`, `normalize` — 0-벡터 NaN 방지
+  - `EmbeddingServiceFactory.createOpenAI[FromEnv]` / `createGemini[FromEnv]`
+  - 가이드: `doc/embeddings-guide.md`
+- 총 테스트 수: 384 → 444 (+60 이중 집계 포함, 실제 +30건)
+
+### Notes
+- T3-b (Cross-provider Fallback + Cost Telemetry) 는 v0.9.1 로 이관 — 별도 설계 스케치 `20260422_fallback_telemetry_design_sketch.md` 준비됨
+
+---
 ## [0.8.1] - 2026-04-22
 
 ### Added
