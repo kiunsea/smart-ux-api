@@ -9,6 +9,16 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.1] - 2026-04-23
+
+### Changed
+- **프로젝트 구조 재편**: repo 루트가 Gradle multi-project 루트가 되어 `settings.gradle.kts` 불필요 → 삭제. `project(":lib")` 의존은 루트 `include` 로 자동 해결
+- smart-ux-api 의존성 `project(":lib")` 가 자동으로 v0.9.2 픽업
+
+### Notes
+- 기능/API 변경 없음. `./gradlew :smuxapi-demo:bootWar` 동작 v0.9.0 과 동일
+
+---
 ## [0.9.0] - 2026-04-22
 
 ### Added

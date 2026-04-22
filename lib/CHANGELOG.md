@@ -9,6 +9,28 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.2] - 2026-04-23
+
+### Changed
+- **프로젝트 구조 재편** (repo-level refactor)
+  - 기존 `smart-ux-api/smart-ux-api/lib/` 3단 중첩(gradle init 스캐폴드) 구조에서 `smart-ux-api/lib/` 2단 구조로 평탄화
+  - 루트에 `settings.gradle.kts` + `build.gradle.kts` 신설 — doribox 동일 패턴의 multi-project (`include lib`, `include smuxapi-demo`)
+  - wrapper, gradle.properties, CHANGELOG, README, doc, bat/deploy_to_doribox 등 모두 루트로 승격 (git mv 로 히스토리 보존)
+  - Eclipse 추적 파일(.classpath, .project, .settings/) 전부 제거
+  - `smuxapi-demo/settings.gradle.kts` 삭제 → 루트로 통합 (`project(":lib")` 의존은 multi-project 자동 해결)
+  - `smuxapi-war`(구버전 이름) 잔재 참조 정리
+- **CI/Release 경로 갱신**: ci.yml/release.yml/deploy-docs.yml 의 `working-directory: ./smart-ux-api` 제거, `smart-ux-api/lib/...` → `lib/...`
+- **create-release.sh/.bat** JAR/CHANGELOG 경로 갱신
+- **bat/deploy_to_doribox.bat** 위치 이동 + 경로 로직 정비
+
+### Fixed
+- 깨진 include 참조 (`include("smuxapi-war")` / `../smuxapi-war` — 실제 폴더 없음) 제거
+
+### Notes
+- 기능/API 변경 없음. 코드 동작은 v0.9.1 과 완전히 동일
+- Eclipse에서 repo 루트 1회 import 로 lib + smuxapi-demo 자동 포함
+
+---
 ## [0.9.1] - 2026-04-23
 
 ### Added
