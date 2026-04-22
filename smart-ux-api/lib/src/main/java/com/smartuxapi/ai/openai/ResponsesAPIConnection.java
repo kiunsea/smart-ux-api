@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartuxapi.ai.cache.CacheStrategy;
+import com.smartuxapi.ai.cost.CostEntry;
+import com.smartuxapi.ai.cost.CostTable;
+import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.schema.ResponseSchema;
 import com.smartuxapi.ai.tools.ToolCall;
 import com.smartuxapi.ai.tools.ToolDefinition;
@@ -139,6 +143,9 @@ public class ResponsesAPIConnection {
                         log.warn("캐시 메트릭 기록 실패 (무시하고 계속): " + metricsEx.getMessage());
                     }
                 }
+
+                // CostTracker 기록
+                recordCost(jsonRes, responseSchema != null ? "structured" : "chat");
 
                 // 1. "output" 배열 값 추출
                 JsonNode outputArray = jsonRes.get("output");
@@ -265,6 +272,8 @@ public class ResponsesAPIConnection {
             }
         }
 
+        recordCost(jsonRes, "tool_use");
+
         JsonNode outputArray = jsonRes.get("output");
         if (outputArray == null || !outputArray.isArray()) {
             return ToolTurnResult.finalText("응답에서 output 을 찾을 수 없습니다.",
@@ -308,5 +317,19 @@ public class ResponsesAPIConnection {
             return ToolTurnResult.toolCalls(calls, rawOutput.toString());
         }
         return ToolTurnResult.finalText(finalText != null ? finalText : "", rawOutput.toString());
+    }
+
+    /**
+     * 응답 파싱 후 CostTracker 에 토큰/비용 기록. 예외는 로그만 남기고 무시 (메인 흐름 보호).
+     */
+    private void recordCost(JsonNode responseJson, String callKind) {
+        try {
+            TokenUsageExtractor.Usage u = TokenUsageExtractor.fromOpenAi(responseJson);
+            double cost = CostTable.calculate(this.modelName, u.inputTokens, u.outputTokens);
+            CostTracker.INSTANCE.record(new CostEntry(
+                    "openai", this.modelName, u.inputTokens, u.outputTokens, cost, false, callKind));
+        } catch (Exception e) {
+            log.warn("CostTracker 기록 실패 (무시): " + e.getMessage());
+        }
     }
 }
