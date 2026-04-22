@@ -1408,14 +1408,14 @@ gradlew.bat<span class="w"> </span>build
 ./gradlew<span class="w"> </span>build
 </code></pre></div>
 <blockquote>
-<p>✅ <strong>빌드 완료 확인</strong>: <code>smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar</code> 파일이 생성되었는지 확인하세요.</p>
+<p>✅ <strong>빌드 완료 확인</strong>: <code>lib/build/libs/smart-ux-api-0.9.3.jar</code> 파일이 생성되었는지 확인하세요.</p>
 </blockquote>
 <h3 id="2-jar">2. JAR 파일 추가<a class="headerlink" href="#2-jar" title="Permanent link">&para;</a></h3>
 <p>생성된 JAR 파일을 웹 애플리케이션의 <code>/WEB-INF/lib/</code> 디렉터리에 복사합니다.</p>
 <div class="highlight"><pre><span></span><code>your-web-app/
 ├── WEB-INF/
 │   └── lib/
-│       └── smart-ux-api-0.6.0.jar  ← 여기에 복사
+│       └── smart-ux-api-0.9.3.jar  ← 여기에 복사
 </code></pre></div>
 <h3 id="3-javascript">3. JavaScript 라이브러리 추가<a class="headerlink" href="#3-javascript" title="Permanent link">&para;</a></h3>
 <p><code>smart-ux-api/lib/src/main/js/</code> 디렉터리의 JavaScript 파일들을 웹 애플리케이션의 웹 루트 디렉터리에 복사합니다.</p>
@@ -1456,7 +1456,7 @@ gradlew.bat<span class="w"> </span>build
 <h3 id="1-gradle">1. Gradle 의존성 추가<a class="headerlink" href="#1-gradle" title="Permanent link">&para;</a></h3>
 <p><code>build.gradle</code> 또는 <code>build.gradle.kts</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s">&quot;libs/smart-ux-api-0.6.0.jar&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s">&quot;libs/smart-ux-api-0.9.3.jar&quot;</span><span class="p">))</span>
 
 <span class="w">    </span><span class="c1">// 필요한 의존성들 (이미 있다면 생략)</span>
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.fasterxml.jackson.core:jackson-databind:2.15.3&quot;</span><span class="p">)</span>
