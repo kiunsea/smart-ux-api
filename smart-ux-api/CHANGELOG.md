@@ -9,6 +9,48 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.8.0] - 2026-04-22
+
+### Added
+- **Structured Output** (Provider 중립 JSON Schema 강제 응답 — T2-a)
+  - `com.smartuxapi.ai.schema`: `ResponseSchema` / `SchemaBuilder`
+  - OpenAI Responses: `text.format = { type: "json_schema", ... }` 매핑
+  - Gemini: `generationConfig.responseMimeType + responseSchema` 매핑
+  - `Chatting.sendPromptWithSchema(userMsg, schema)` default 메서드 추가
+  - `ResponsesChatting` / `GeminiChatting` override — 응답 원문을 자동 파싱하여 `structured` 키 (JsonNode) 로 병기
+  - 파싱 실패는 예외가 아닌 WARN 로그 + `structured=null` (호출자가 fallback 결정)
+  - `SchemaBuilder`: object 루트 + 5 타입 (string/integer/boolean/array/nested object) — strict 호환 `additionalProperties: false` 자동 주입
+  - T2-b Tool Use 와 `SchemaBuilder.build()` JsonNode 포맷 공유
+  - 가이드: `doc/structured-output-guide.md`
+  - 신규 테스트: `SchemaBuilderTest`, `ResponseSchemaTest`, `ResponsesChattingStructuredOutputTest`, `GeminiChattingStructuredOutputTest` (+22건)
+
+- **Tool Use / Function Calling** (Provider 중립 T2-b)
+  - `com.smartuxapi.ai.tools`: `ToolDefinition` / `ToolHandler` / `ToolCall` / `ToolResult` / `ToolRegistry` / `ToolTurnResult`
+  - OpenAI Responses API `tools` 연동 (request/response 양방향)
+  - Gemini `functionDeclarations` 연동 (클라이언트 UUID 부여)
+  - `Chatting.sendPromptWithTools(msg, registry)` — **자동 루프** (최대 5 라운드 / `DEFAULT_MAX_TOOL_ROUNDS`)
+  - `Chatting.sendPromptExpectingToolCalls(msg, registry)` + `continueWithToolResults(results, registry)` — **수동 dispatch**
+  - 등록되지 않은 tool 호출은 `ToolResult.error` 로 LLM 에 피드백 (자동 복구 가능)
+  - Handler 예외 자동 캐치 → `ToolResult.error`
+  - Output 크기 상한 256KB — 초과 시 자동 축약
+  - `ConversationHistory` (OpenAI/Gemini 양쪽) 에 tool_call / tool_result 아이템 지원 추가
+  - `ChatRoom.setToolRegistry/getToolRegistry` default 메서드
+- **VisionTools.scanImageTool** (T1-b × T2-b 통합)
+  - Vision 모듈을 Tool 로 감싸 LLM 이 자동 호출 가능
+  - `ActionQueueHandler` 주입 시 `addImageScanInfo` 자동 호출 (imageUrl 기준 dedupe)
+- 가이드: `doc/tool-use-guide.md`
+- 신규 테스트: `ToolRegistryTest`, `ToolCallResultTest`, `ToolTurnResultTest`, `ResponsesChattingToolUseTest`, `VisionToolsTest` (+25건)
+- 총 단위 테스트 수: 266 → 358 (+92건, T2-a +22 + T2-b +25, 각 suite 이중 집계 포함)
+
+### Changed
+- `ResponsesAPIConnection.generateContent(JSONArray, CacheStrategy, ResponseSchema)` 오버로드 추가 — 기존 2-인자 시그니처 유지
+- `GeminiAPIConnection.generateContent(JSONArray, CacheStrategy, ResponseSchema)` 오버로드 추가
+- `ResponsesAPIConnection.generateContentWithTools(...)` 추가 — Tool Use 전용 경로 (ToolTurnResult 반환)
+- `GeminiAPIConnection.generateContentWithTools(...)` 추가
+- `openai.ConversationHistory`: `addAssistantOutputItems`, `addToolResult` 추가
+- `gemini.ConversationHistory`: `addModelContent`, `addToolResults` 추가
+
+---
 ## [0.7.0] - 2026-04-22
 
 ### Added

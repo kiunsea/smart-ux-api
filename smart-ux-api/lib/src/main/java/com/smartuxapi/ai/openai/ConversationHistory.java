@@ -89,7 +89,7 @@ public class ConversationHistory {
 
     /**
      * AI 모델의 응답을 대화 기록에 추가합니다.
-     * 
+     *
      * @param modelResponse AI 모델의 응답 텍스트
      */
     public void addModelResponse(String modelResponse) {
@@ -101,6 +101,35 @@ public class ConversationHistory {
 
         convHistory.put(modelContent);
         // chatSessions 맵에 이미 참조가 있으므로 별도로 put할 필요는 없음
+    }
+
+    /**
+     * Responses API 응답의 {@code output[]} 항목들을 그대로 히스토리에 추가한다.
+     * Tool Use 턴에서 다음 호출 시 재전송되어야 하는 {@code function_call} 등 raw 아이템 보존.
+     *
+     * @param outputItems Responses API 응답 output 배열 — 각 아이템은 provider 규격 그대로.
+     * @since 0.8.0
+     */
+    public void addAssistantOutputItems(JSONArray outputItems) {
+        if (outputItems == null) return;
+        for (int i = 0; i < outputItems.length(); i++) {
+            convHistory.put(outputItems.get(i));
+        }
+    }
+
+    /**
+     * Tool 실행 결과를 {@code function_call_output} 아이템으로 히스토리에 추가한다.
+     *
+     * @param callId {@link ToolCall#getId()} 와 동일
+     * @param outputJsonString 결과 JSON (문자열)
+     * @since 0.8.0
+     */
+    public void addToolResult(String callId, String outputJsonString) {
+        JSONObject item = new JSONObject();
+        item.put("type", "function_call_output");
+        item.put("call_id", callId);
+        item.put("output", outputJsonString);
+        convHistory.put(item);
     }
 
     /**

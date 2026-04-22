@@ -49,7 +49,7 @@ public class ConversationHistory {
 
     /**
      * AI 모델의 응답을 대화 기록에 추가합니다.
-     * 
+     *
      * @param modelResponse AI 모델의 응답 텍스트
      */
     public void addModelResponse(String modelResponse) {
@@ -63,6 +63,33 @@ public class ConversationHistory {
 
         this.convHistory.put(modelContent);
         // chatSessions 맵에 이미 참조가 있으므로 별도로 put할 필요는 없음
+    }
+
+    /**
+     * Gemini 응답의 {@code candidates[0].content} 를 그대로 히스토리에 추가한다.
+     * Tool Use 턴에서 {@code functionCall} parts 가 다음 호출 시 replay 되도록 보존.
+     *
+     * @param modelContent Gemini 응답의 content 객체 — 보통 {@code {role:"model", parts:[...]}}
+     * @since 0.8.0
+     */
+    public void addModelContent(JSONObject modelContent) {
+        if (modelContent == null) return;
+        this.convHistory.put(modelContent);
+    }
+
+    /**
+     * Tool 실행 결과를 {@code functionResponse} parts 로 히스토리에 추가한다.
+     * 여러 호출 결과를 한 번의 user 턴에 묶어 넣는다.
+     *
+     * @param functionResponseParts 각 원소는 {@code { functionResponse: { name, response }}}
+     * @since 0.8.0
+     */
+    public void addToolResults(JSONArray functionResponseParts) {
+        if (functionResponseParts == null || functionResponseParts.length() == 0) return;
+        JSONObject userContent = new JSONObject();
+        userContent.put("role", "user");
+        userContent.put("parts", functionResponseParts);
+        this.convHistory.put(userContent);
     }
 
     /**
