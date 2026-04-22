@@ -9,6 +9,7 @@ import com.smartuxapi.ai.cache.CacheMetrics;
 import com.smartuxapi.ai.cache.CacheStrategy;
 import com.smartuxapi.ai.cache.NoOpCacheStrategy;
 import com.smartuxapi.ai.debug.DebugLogger;
+import com.smartuxapi.ai.tools.ToolRegistry;
 
 /**
  * Chatting 저장소
@@ -94,5 +95,18 @@ public interface ChatRoom {
 	default CacheMetrics getLastCacheMetrics() {
 		return getCacheStrategy().getLastMetrics();
 	}
+
+	/**
+	 * 편의용 — ChatRoom 레벨에서 ToolRegistry 를 보관. 실제 사용은
+	 * {@link Chatting#sendPromptWithTools(String, ToolRegistry)} 호출 시 직접 전달하는 방식 권장.
+	 * @since 0.8.0
+	 */
+	default void setToolRegistry(ToolRegistry registry) { /* default no-op */ }
+
+	/**
+	 * 현재 등록된 ToolRegistry (없으면 null).
+	 * @since 0.8.0
+	 */
+	default ToolRegistry getToolRegistry() { return null; }
 
 }
