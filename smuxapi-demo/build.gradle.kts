@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.smartuxapi"
-version = "0.6.0"
+version = "0.8.0"
 
 repositories {
     mavenCentral()
@@ -84,6 +84,13 @@ tasks.bootJar {
     archiveBaseName.set("smuxapi-demo")
     archiveVersion.set(project.version.toString())
     mainClass.set("com.smartuxapi.demo.SmuxapiDemoApplication")
+}
+
+// Spring Boot 의 bootWar 는 기본적으로 duplicate 검사가 엄격하여
+// 의존성 JAR 중복(jackson-annotations 등) 시 실패한다. 본 프로젝트는
+// 별도 `tasks.war` 로 배포용 WAR 를 생성하므로 bootWar 는 비활성화한다.
+tasks.bootWar {
+    enabled = false
 }
 
 // bootRun task 설정: smuxapi-demo.yml의 SERVER_PORT를 적용
