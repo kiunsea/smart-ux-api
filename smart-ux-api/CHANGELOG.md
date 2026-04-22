@@ -9,7 +9,7 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
-## [Unreleased] - v0.8.0 (in-progress)
+## [0.8.0] - 2026-04-22
 
 ### Added
 - **Structured Output** (Provider 중립 JSON Schema 강제 응답 — T2-a)
@@ -24,7 +24,6 @@
   - 가이드: `doc/structured-output-guide.md`
   - 신규 테스트: `SchemaBuilderTest`, `ResponseSchemaTest`, `ResponsesChattingStructuredOutputTest`, `GeminiChattingStructuredOutputTest` (+22건)
 
-### Added (cont'd)
 - **Tool Use / Function Calling** (Provider 중립 T2-b)
   - `com.smartuxapi.ai.tools`: `ToolDefinition` / `ToolHandler` / `ToolCall` / `ToolResult` / `ToolRegistry` / `ToolTurnResult`
   - OpenAI Responses API `tools` 연동 (request/response 양방향)
@@ -41,6 +40,7 @@
   - `ActionQueueHandler` 주입 시 `addImageScanInfo` 자동 호출 (imageUrl 기준 dedupe)
 - 가이드: `doc/tool-use-guide.md`
 - 신규 테스트: `ToolRegistryTest`, `ToolCallResultTest`, `ToolTurnResultTest`, `ResponsesChattingToolUseTest`, `VisionToolsTest` (+25건)
+- 총 단위 테스트 수: 266 → 358 (+92건, T2-a +22 + T2-b +25, 각 suite 이중 집계 포함)
 
 ### Changed
 - `ResponsesAPIConnection.generateContent(JSONArray, CacheStrategy, ResponseSchema)` 오버로드 추가 — 기존 2-인자 시그니처 유지
