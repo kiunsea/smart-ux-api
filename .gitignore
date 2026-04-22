@@ -63,17 +63,14 @@ nul
 **/*apikey*.json
 **/smuapi.properties
 **/smuxapi.properties
-smart-ux-api/lib/src/main/resources/dev.apikey.json
-smart-ux-api/lib/src/main/resources/apikey.json
-smart-ux-api/lib/src/test/resources/dev.apikey.json
-smuapi-war/src/main/java/resources/smuapi.properties
-smuxapi-war/src/main/java/resources/smuapi.properties
-smuxapi-war/src/main/java/resources/smuxapi.properties
+lib/src/main/resources/dev.apikey.json
+lib/src/main/resources/apikey.json
+lib/src/test/resources/dev.apikey.json
 
 # Build Artifacts
-smart-ux-api/lib/bin/
-smart-ux-api/lib/build/
-smuxapi-war/build/
+lib/bin/
+lib/build/
+smuxapi-demo/build/
 dist/
 target/
 
@@ -83,7 +80,7 @@ test-output/
 **/logs/
 
 # Documentation Build
-smart-ux-api/docs/SmartUxAPI.emm
+lib/doc/SmartUxAPI.emm
 /site/
 docs/_build/
 
@@ -108,7 +105,6 @@ mvnw.cmd
 *.zip
 *.tar.gz
 *.rar
-smuxapi-war/src/main/resources/smuxnexa.properties
 
 # Project management and task tracking
 doc/tasks/

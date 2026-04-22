@@ -13,7 +13,7 @@ if "%1"=="" (
 
 set VERSION=%1
 set TAG_NAME=v%VERSION%
-set JAR_FILE=smart-ux-api\lib\build\libs\smart-ux-api-%VERSION%.jar
+set JAR_FILE=lib\build\libs\smart-ux-api-%VERSION%.jar
 
 echo ========================================
 echo smart-ux-api 릴리즈 생성
@@ -28,8 +28,7 @@ if not exist "%JAR_FILE%" (
     echo [오류] JAR 파일을 찾을 수 없습니다: %JAR_FILE%
     echo.
     echo JAR 파일을 먼저 빌드하세요:
-    echo   cd smart-ux-api\lib
-    echo   gradlew.bat build
+    echo   gradlew.bat :lib:build
     exit /b 1
 )
 
@@ -60,7 +59,7 @@ echo.
 
 REM CHANGELOG에서 릴리즈 노트 추출
 set RELEASE_NOTES=
-for /f "tokens=*" %%a in ('findstr /C:"## [%VERSION%]" smart-ux-api\CHANGELOG.md') do (
+for /f "tokens=*" %%a in ('findstr /C:"## [%VERSION%]" lib\CHANGELOG.md') do (
     set RELEASE_NOTES=%%a
 )
 

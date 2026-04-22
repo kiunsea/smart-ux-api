@@ -30,15 +30,12 @@ jobs:
         cache: 'gradle'
     
     - name: Grant execute permission for gradlew
-      working-directory: ./smart-ux-api
       run: chmod +x gradlew
     
     - name: Build with Gradle
-      working-directory: ./smart-ux-api
       run: ./gradlew build
     
     - name: Run tests
-      working-directory: ./smart-ux-api
       run: ./gradlew test
     
     - name: Generate test report
@@ -46,7 +43,7 @@ jobs:
       uses: dorny/test-reporter@v1
       with:
         name: Test Results (Java ${{ matrix.java }})
-        path: smart-ux-api/lib/build/test-results/**/*.xml
+        path: lib/build/test-results/**/*.xml
         reporter: java-junit
         token: ${{ secrets.GITHUB_TOKEN }}
         fail-on-error: false
@@ -57,18 +54,17 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: smart-ux-api-jar
-        path: smart-ux-api/lib/build/libs/*.jar
+        path: lib/build/libs/*.jar
         retention-days: 7
     
     - name: Check code style
-      working-directory: ./smart-ux-api
       run: ./gradlew checkstyleMain checkstyleTest || true
     
     - name: Upload coverage to Codecov
       if: matrix.java == '17'
       uses: codecov/codecov-action@v4
       with:
-        files: ./smart-ux-api/lib/build/reports/jacoco/test/jacocoTestReport.xml
+        files: ./lib/build/reports/jacoco/test/jacocoTestReport.xml
         flags: unittests
         name: codecov-umbrella
         fail_ci_if_error: false
@@ -93,7 +89,7 @@ jobs:
     
     - name: Check for TODO/FIXME
       run: |
-        if grep -r "TODO\|FIXME" --include="*.java" smart-ux-api/lib/src/main/java; then
+        if grep -r "TODO\|FIXME" --include="*.java" lib/src/main/java; then
           echo "⚠️ Warning: Found TODO/FIXME in code"
         fi
       continue-on-error: true
@@ -113,7 +109,6 @@ jobs:
         distribution: 'temurin'
     
     - name: Run OWASP Dependency Check
-      working-directory: ./smart-ux-api
       run: |
         chmod +x gradlew
         ./gradlew dependencyCheckAnalyze || true
@@ -122,6 +117,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: dependency-check-report
-        path: smart-ux-api/lib/build/reports/dependency-check-report.html
+        path: lib/build/reports/dependency-check-report.html
       if: always()
 
