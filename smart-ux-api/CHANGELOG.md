@@ -9,6 +9,30 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.1] - 2026-04-23
+
+### Added
+- **Cross-provider Fallback** (T3-b)
+  - `com.smartuxapi.ai.fallback`: `FallbackChatRoom` (데코레이터), `FallbackPolicy`, `FallbackPolicies` (프리셋), `ProviderSlot` + `OpenAiSlot` / `GeminiSlot`, `FailureReason` (6종 분류), `FallbackExhaustedException`
+  - OpenAI primary → Gemini fallback / 역방향 프리셋
+  - 기본 trigger: `TIMEOUT` / `RATE_LIMIT` / `SERVER_ERROR` / `NETWORK_ERROR` (UNAUTHORIZED/UNKNOWN 제외)
+  - 호출 단위 전환 — Tool Use auto-loop 의 round 중간에는 전환하지 않음 (대화 일관성)
+  - 모든 slot 에 `ActionQueueHandler` / `DebugLogger` / `CacheStrategy` / `ToolRegistry` broadcast
+- **Cost Telemetry**
+  - `com.smartuxapi.ai.cost`: `CostTracker` (INSTANCE 싱글톤 + 독립 instance), `CostEntry`, `CostSummary`, `CostTable` (정적 단가 + 런타임 override), `TokenUsageExtractor`
+  - 2026-Q2 공개 단가 11종 하드코딩 (OpenAI/Gemini chat+embedding)
+  - callKind 자동 분류: `chat` / `structured` / `tool_use` / `vision` / `embedding`
+  - `setMaxEntries(N)` FIFO ring buffer, `setEnabled(false)` off
+- 기존 `ResponsesAPIConnection` / `GeminiAPIConnection` / `OpenAiVisionService` / `GeminiVisionService` / `OpenAiEmbeddingService` / `GeminiEmbeddingService` 에 `CostTracker.INSTANCE.record()` 주입 — 호출자 코드 수정 불필요
+- 가이드: `doc/fallback-telemetry-guide.md`
+- 신규 테스트 48건: `CostTableTest`, `CostTrackerTest`, `TokenUsageExtractorTest`, `FailureReasonTest`, `FallbackPolicyTest`, `FallbackChatRoomTest` (Mockito 통합 시나리오 8건)
+- 총 테스트 수: 444 → 540 (+96 이중 집계 포함, 실제 +48건)
+
+### Notes
+- Fallback `CostEntry.isFallbackTriggered` 는 현재 항상 `false` 로 기록됨 — FallbackChatRoom 레벨의 표시 로직은 v0.9.2+ 에서 보강 예정
+- 모든 기존 API 시그니처 유지 — 하위 호환
+
+---
 ## [0.9.0] - 2026-04-22
 
 ### Added

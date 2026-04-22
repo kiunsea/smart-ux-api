@@ -17,6 +17,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.smartuxapi.ai.cost.CostEntry;
+import com.smartuxapi.ai.cost.CostTable;
+import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.vision.ImageScanInfo;
 import com.smartuxapi.ai.vision.VisionException;
 import com.smartuxapi.ai.vision.VisionService;
@@ -162,6 +166,7 @@ public class GeminiVisionService implements VisionService {
 
             String response = readStream(conn.getInputStream());
             JsonNode json = MAPPER.readTree(response);
+            recordCost(json);
             JsonNode candidates = json.get("candidates");
             if (candidates == null || !candidates.isArray() || candidates.size() == 0) {
                 throw new VisionException("Gemini Vision 응답에 candidates 가 없습니다: " + response);
@@ -236,6 +241,17 @@ public class GeminiVisionService implements VisionService {
         if (lower.endsWith(".bmp")) return "image/bmp";
         if (lower.endsWith(".heic") || lower.endsWith(".heif")) return "image/heic";
         return "image/jpeg";
+    }
+
+    private void recordCost(JsonNode responseJson) {
+        try {
+            TokenUsageExtractor.Usage u = TokenUsageExtractor.fromGemini(responseJson);
+            double cost = CostTable.calculate(this.model, u.inputTokens, u.outputTokens);
+            CostTracker.INSTANCE.record(new CostEntry(
+                    "gemini", this.model, u.inputTokens, u.outputTokens, cost, false, "vision"));
+        } catch (Exception e) {
+            log.warn("CostTracker 기록 실패 (무시): " + e.getMessage());
+        }
     }
 
     private static String readStream(java.io.InputStream in) throws java.io.IOException {
