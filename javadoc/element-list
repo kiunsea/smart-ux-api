@@ -2,11 +2,17 @@ com.smartuxapi.ai
 com.smartuxapi.ai.cache
 com.smartuxapi.ai.cache.gemini
 com.smartuxapi.ai.cache.openai
+com.smartuxapi.ai.cost
 com.smartuxapi.ai.debug
 com.smartuxapi.ai.debug.model
+com.smartuxapi.ai.embedding
+com.smartuxapi.ai.embedding.impl
+com.smartuxapi.ai.fallback
 com.smartuxapi.ai.gemini
 com.smartuxapi.ai.openai
 com.smartuxapi.ai.openai.assistants
+com.smartuxapi.ai.schema
+com.smartuxapi.ai.tools
 com.smartuxapi.ai.vision
 com.smartuxapi.ai.vision.impl
 com.smartuxapi.util
