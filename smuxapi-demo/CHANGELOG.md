@@ -9,6 +9,21 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.0] - 2026-04-22
+
+### Added
+- **Embedding 의미 검색 데모 엔드포인트** (`POST /demo/embedding/search`)
+  - smart-ux-api v0.9.0 T3-a 의 `EmbeddingService.embedBatch` + `Embeddings.topK` 사용
+  - 요청: `{provider, query, candidates[], top_k}` (provider: "openai"|"gemini", top_k 기본 3)
+  - 응답: `{query, provider, model, dimension, prompt_tokens, matches: [{index, label, score}]}`
+  - query + candidates 를 **단일 배치 호출** (API 호출 1회) — cosine 은 로컬 계산
+  - 안전장치: candidates 상한 100, 빈 문자열 거부
+
+### Changed
+- smart-ux-api 의존성 `project(":lib")` 가 자동으로 v0.9.0 픽업
+- 버전 `0.8.0` → `0.9.0` (smart-ux-api 와 정렬)
+
+---
 ## [0.8.0] - 2026-04-22
 
 ### Added
