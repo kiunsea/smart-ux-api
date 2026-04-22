@@ -1,4 +1,4 @@
-# Smart UX API - 메인 라이브러리
+﻿# Smart UX API - 메인 라이브러리
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
@@ -41,7 +41,7 @@ cd lib
 
 ### 1️⃣ JAR 파일 추가
 
-* `smart-ux-api/lib/build/libs/smart-ux-api-0.6.1.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+* `lib/build/libs/smart-ux-api-0.9.3.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2️⃣ JS 라이브러리 포함
 

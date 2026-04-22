@@ -1,4 +1,4 @@
-# Smart UX API - API 문서
+﻿# Smart UX API - API 문서
 
 ## 목차
 
@@ -32,7 +32,7 @@
 
 ### 1. JAR 파일 추가
 
-`lib/build/libs/smart-ux-api-0.6.1.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
+`lib/build/libs/smart-ux-api-0.9.3.jar` 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ### 2. JavaScript 파일 추가
 

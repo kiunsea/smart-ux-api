@@ -1,4 +1,4 @@
-# Installation Guide
+﻿# Installation Guide
 
 Smart UX API를 프로젝트에 통합하는 상세 가이드입니다.
 
@@ -57,7 +57,7 @@ gradlew.bat build
 ./gradlew build
 ```
 
-> ✅ **빌드 완료 확인**: `smart-ux-api/lib/build/libs/smart-ux-api-0.6.0.jar` 파일이 생성되었는지 확인하세요.
+> ✅ **빌드 완료 확인**: `lib/build/libs/smart-ux-api-0.9.3.jar` 파일이 생성되었는지 확인하세요.
 
 ### 2. JAR 파일 추가
 
@@ -67,7 +67,7 @@ gradlew.bat build
 your-web-app/
 ├── WEB-INF/
 │   └── lib/
-│       └── smart-ux-api-0.6.0.jar  ← 여기에 복사
+│       └── smart-ux-api-0.9.3.jar  ← 여기에 복사
 ```
 
 ### 3. JavaScript 라이브러리 추가
@@ -120,7 +120,7 @@ your-web-app/
 
 ```kotlin
 dependencies {
-    implementation(files("libs/smart-ux-api-0.6.0.jar"))
+    implementation(files("libs/smart-ux-api-0.9.3.jar"))
     
     // 필요한 의존성들 (이미 있다면 생략)
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")

@@ -9,6 +9,18 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.3] - 2026-04-22
+
+### Docs
+- **루트 README.md**: JAR 경로 `smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar` → `lib/build/libs/smart-ux-api-0.9.3.jar` (4곳). refactor 후 2단 구조 반영 + 최신 버전
+- **lib/README.md**: JAR 참조 `smart-ux-api-0.6.1.jar` → `smart-ux-api-0.9.3.jar`, 경로 `smart-ux-api/lib/build/libs/` → `lib/build/libs/`
+- **docs/INSTALL.md**: 빌드 산출물 확인/복사/Gradle 의존성 예제 3곳의 경로·버전 갱신
+- **lib/doc/API.md**: JAR 통합 예제의 버전 갱신
+
+### Notes
+- 기능/API 변경 없음. 문서 정합성만 확보
+
+---
 ## [0.9.2] - 2026-04-23
 
 ### Changed

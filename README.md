@@ -1,4 +1,4 @@
-# Smart UX API 프로젝트
+﻿# Smart UX API 프로젝트
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![Java](https://img.shields.io/badge/language-Java-orange)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
@@ -117,14 +117,14 @@ gradlew.bat build
 ./gradlew build
 ```
 
-> 💡 **팁**: 빌드가 완료되면 `smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar` 파일이 생성됩니다.
+> 💡 **팁**: 빌드가 완료되면 `lib/build/libs/smart-ux-api-0.9.3.jar` 파일이 생성됩니다.
 
 #### 3단계: JAR 파일을 웹 애플리케이션에 추가
 생성된 JAR 파일을 웹 애플리케이션의 `/WEB-INF/lib/` 디렉터리에 복사합니다.
 
 ```bash
 # 예시: Tomcat 웹 애플리케이션에 복사
-cp smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar \
+cp lib/build/libs/smart-ux-api-0.9.3.jar \
    /path/to/your-webapp/WEB-INF/lib/
 ```
 
@@ -255,7 +255,7 @@ smart-ux-api/                          ← GitHub 저장소 루트
 │   │   │   └── test/                 ← 테스트 코드
 │   │   └── 📁 build/                 ← 빌드 결과물 (생성됨)
 │   │       └── libs/
-│   │           └── smart-ux-api-0.6.2.jar  ← 빌드된 JAR
+│   │           └── smart-ux-api-0.9.3.jar  ← 빌드된 JAR
 │   │
 │   ├── 📁 doc/                       ← 라이브러리 문서
 │   └── 📁 bat/                       ← 배포 스크립트
@@ -278,7 +278,7 @@ smart-ux-api/                          ← GitHub 저장소 루트
 | 목적 | 경로 |
 |------|------|
 | **라이브러리 빌드** | `smart-ux-api/lib/` |
-| **빌드된 JAR 파일** | `smart-ux-api/lib/build/libs/smart-ux-api-0.6.2.jar` |
+| **빌드된 JAR 파일** | `lib/build/libs/smart-ux-api-0.9.3.jar` |
 | **JavaScript 파일** | `smart-ux-api/lib/src/main/js/` |
 | **샘플 프로젝트** | `smuxapi-demo/` |
 | **프로젝트 문서** | `docs/` |
