@@ -15,6 +15,7 @@ import com.smartuxapi.ai.Chatting;
 import com.smartuxapi.ai.cache.CacheHint;
 import com.smartuxapi.ai.cache.CacheMetrics;
 import com.smartuxapi.ai.cache.CacheStrategy;
+import com.smartuxapi.ai.cost.FallbackContext;
 import com.smartuxapi.ai.debug.DebugLogger;
 import com.smartuxapi.ai.schema.ResponseSchema;
 import com.smartuxapi.ai.tools.ToolRegistry;
@@ -165,6 +166,8 @@ public final class FallbackChatRoom implements ChatRoom {
         for (int i = 0; i < chain.size(); i++) {
             ProviderSlot slot = chain.get(i);
             boolean isLast = (i == chain.size() - 1);
+            boolean isFallbackAttempt = (i > 0);
+            if (isFallbackAttempt) FallbackContext.enterFallback();
             try {
                 return op.call(slot);
             } catch (Throwable t) {
@@ -188,6 +191,8 @@ public final class FallbackChatRoom implements ChatRoom {
                                 slot.getName(), opName, reason, t.getMessage());
                     }
                 }
+            } finally {
+                if (isFallbackAttempt) FallbackContext.exit();
             }
         }
         FallbackExhaustedException fe = new FallbackExhaustedException(
