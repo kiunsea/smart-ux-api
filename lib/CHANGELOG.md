@@ -9,6 +9,27 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.4] - 2026-04-24
+
+### Added
+- **`FallbackContext` ThreadLocal** (`com.smartuxapi.ai.cost.FallbackContext`)
+  - `FallbackChatRoom.runWithFallback` 이 chain 의 2번째 이상 slot 호출 직전 `enterFallback()` 설정, finally 에서 `exit()` 로 해제
+  - `APIConnection` (OpenAI/Gemini) + `VisionService` 구현체 (OpenAI/Gemini) + `EmbeddingService` 구현체 (OpenAI/Gemini) 6곳 의 `recordCost()` 가 `FallbackContext.isFallback()` 을 읽어 `CostEntry.isFallbackTriggered` 필드를 정확히 세팅
+  - v0.9.1 의 알려진 gap 해소 — 이제 fallback 으로 회복된 호출의 `CostEntry` 는 `isFallbackTriggered=true` 로 기록됨
+
+### Fixed
+- **`:lib:deploy` 태스크 경로** — v0.9.2 구조 평탄화 후 `doriboxLibsDir` 이 `../../../doribox/libs` 로 남아있어 잘못된 위치(`DEV/doribox/`) 로 복사되던 문제. `lib/` 기준 `../../doribox/libs` 로 수정
+
+### Tests
+- **신규 7건**:
+  - `FallbackContextTest` (4) — 초기값 / enter-exit / 재진입 / Thread 독립성
+  - `FallbackChatRoomTest` (3) — primary 호출 중 isFallback=false / fallback 호출 중 isFallback=true / 예외 전파 시 finally 로 해제
+- 총 테스트 수: 540 → 554 (+14 이중 집계 포함, 실제 +7건)
+
+### Notes
+- API 시그니처/동작 변경 없음 — 기존 소비자 코드에 영향 없음. telemetry 정확도만 개선.
+
+---
 ## [0.9.3] - 2026-04-22
 
 ### Docs

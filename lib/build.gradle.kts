@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.smartuxapi.ai"  // 그룹 ID 설정
-version = "0.9.3"            // 프로젝트 버전 설정
+version = "0.9.4"            // 프로젝트 버전 설정
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -214,7 +214,8 @@ tasks.register("deploy") {
     dependsOn("jar")
     
     // 배포 대상 디렉터리 (lib 모듈 기준 상대 경로)
-    val doriboxLibsDir = file("../../../doribox/libs")
+    // v0.9.2 평탄화 후: lib/ → repo root(..)  → github(../..) → ../../doribox
+    val doriboxLibsDir = file("../../doribox/libs")
     
     doFirst {
         println("=".repeat(60))

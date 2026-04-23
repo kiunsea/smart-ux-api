@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.Chatting;
+import com.smartuxapi.ai.cost.FallbackContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -171,5 +172,77 @@ class FallbackChatRoomTest {
         assertFalse(ok, "한 쪽 close 실패 → false");
         verify(openai.room, times(1)).close();
         verify(gemini.room, times(1)).close();
+    }
+
+    // ========================================================================
+    // v0.9.4 — FallbackContext ThreadLocal 주입 검증
+    // ========================================================================
+
+    @Test
+    @DisplayName("FallbackContext — primary 호출 중 isFallback()=false")
+    void testContextFalseOnPrimary() throws Exception {
+        Pair openai = setupChatRoom();
+        Pair gemini = setupChatRoom();
+        final Boolean[] captured = new Boolean[1];
+        when(openai.chatting.sendPrompt("hi")).thenAnswer(inv -> {
+            captured[0] = FallbackContext.isFallback();
+            return okResponse("ok");
+        });
+
+        FallbackChatRoom fc = new FallbackChatRoom(
+                FallbackPolicies.openaiPrimaryGeminiFallback(openai.room, gemini.room));
+        fc.getChatting().sendPrompt("hi");
+
+        assertEquals(Boolean.FALSE, captured[0], "primary 호출 중에는 isFallback=false");
+        assertFalse(FallbackContext.isFallback(), "호출 완료 후 ThreadLocal 해제");
+    }
+
+    @Test
+    @DisplayName("FallbackContext — fallback 호출 중 isFallback()=true, 종료 후 false")
+    void testContextTrueOnFallback() throws Exception {
+        Pair openai = setupChatRoom();
+        Pair gemini = setupChatRoom();
+        final Boolean[] primaryCtx = new Boolean[1];
+        final Boolean[] fallbackCtx = new Boolean[1];
+
+        when(openai.chatting.sendPrompt("hi")).thenAnswer(inv -> {
+            primaryCtx[0] = FallbackContext.isFallback();
+            throw new IOException("OpenAI API 호출 실패: 500 - Internal Server Error");
+        });
+        when(gemini.chatting.sendPrompt("hi")).thenAnswer(inv -> {
+            fallbackCtx[0] = FallbackContext.isFallback();
+            return okResponse("from-gemini");
+        });
+
+        FallbackChatRoom fc = new FallbackChatRoom(
+                FallbackPolicies.openaiPrimaryGeminiFallback(openai.room, gemini.room));
+        fc.getChatting().sendPrompt("hi");
+
+        assertEquals(Boolean.FALSE, primaryCtx[0], "primary 호출 시에는 아직 fallback 아님");
+        assertEquals(Boolean.TRUE, fallbackCtx[0], "2번째 slot 호출 중 isFallback=true");
+        assertFalse(FallbackContext.isFallback(), "chain 종료 후 ThreadLocal 해제");
+    }
+
+    @Test
+    @DisplayName("FallbackContext — 예외 전파 후에도 ThreadLocal 해제 (finally 경로)")
+    void testContextClearedOnException() {
+        Pair openai = setupChatRoom();
+        Pair gemini = setupChatRoom();
+        try {
+            when(openai.chatting.sendPrompt("hi"))
+                    .thenThrow(new IOException("500 error"));
+            when(gemini.chatting.sendPrompt("hi"))
+                    .thenThrow(new IOException("503 error"));
+        } catch (Exception e) {
+            fail(e);
+        }
+
+        FallbackChatRoom fc = new FallbackChatRoom(
+                FallbackPolicies.openaiPrimaryGeminiFallback(openai.room, gemini.room));
+        assertThrows(FallbackExhaustedException.class,
+                () -> fc.getChatting().sendPrompt("hi"));
+
+        assertFalse(FallbackContext.isFallback(),
+                "chain 전체 실패 후에도 ThreadLocal 은 깨끗해야 한다");
     }
 }

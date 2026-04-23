@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartuxapi.ai.cost.CostEntry;
 import com.smartuxapi.ai.cost.CostTable;
 import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.FallbackContext;
 import com.smartuxapi.ai.embedding.EmbeddingException;
 import com.smartuxapi.ai.embedding.EmbeddingResult;
 import com.smartuxapi.ai.embedding.EmbeddingService;
@@ -155,7 +156,8 @@ public class GeminiEmbeddingService implements EmbeddingService {
             try {
                 double cost = CostTable.calculate(this.model, 0, 0);  // 0 토큰 → 0 비용
                 CostTracker.INSTANCE.record(new CostEntry(
-                        "gemini", this.model, 0, 0, cost, false, "embedding"));
+                        "gemini", this.model, 0, 0, cost,
+                        FallbackContext.isFallback(), "embedding"));
             } catch (Exception te) {
                 log.warn("CostTracker 기록 실패 (무시): " + te.getMessage());
             }

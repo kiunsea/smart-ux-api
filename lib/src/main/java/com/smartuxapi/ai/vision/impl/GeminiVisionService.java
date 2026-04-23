@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smartuxapi.ai.cost.CostEntry;
 import com.smartuxapi.ai.cost.CostTable;
 import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.FallbackContext;
 import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.vision.ImageScanInfo;
 import com.smartuxapi.ai.vision.VisionException;
@@ -248,7 +249,8 @@ public class GeminiVisionService implements VisionService {
             TokenUsageExtractor.Usage u = TokenUsageExtractor.fromGemini(responseJson);
             double cost = CostTable.calculate(this.model, u.inputTokens, u.outputTokens);
             CostTracker.INSTANCE.record(new CostEntry(
-                    "gemini", this.model, u.inputTokens, u.outputTokens, cost, false, "vision"));
+                    "gemini", this.model, u.inputTokens, u.outputTokens, cost,
+                    FallbackContext.isFallback(), "vision"));
         } catch (Exception e) {
             log.warn("CostTracker 기록 실패 (무시): " + e.getMessage());
         }

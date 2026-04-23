@@ -23,6 +23,7 @@ import com.smartuxapi.ai.cache.gemini.GeminiContextCacheStrategy;
 import com.smartuxapi.ai.cost.CostEntry;
 import com.smartuxapi.ai.cost.CostTable;
 import com.smartuxapi.ai.cost.CostTracker;
+import com.smartuxapi.ai.cost.FallbackContext;
 import com.smartuxapi.ai.cost.TokenUsageExtractor;
 import com.smartuxapi.ai.schema.ResponseSchema;
 import com.smartuxapi.ai.tools.ToolCall;
@@ -327,7 +328,8 @@ public class GeminiAPIConnection {
             TokenUsageExtractor.Usage u = TokenUsageExtractor.fromGemini(responseJson);
             double cost = CostTable.calculate(this.modelName, u.inputTokens, u.outputTokens);
             CostTracker.INSTANCE.record(new CostEntry(
-                    "gemini", this.modelName, u.inputTokens, u.outputTokens, cost, false, callKind));
+                    "gemini", this.modelName, u.inputTokens, u.outputTokens, cost,
+                    FallbackContext.isFallback(), callKind));
         } catch (Exception e) {
             log.warn("CostTracker 기록 실패 (무시): " + e.getMessage());
         }
