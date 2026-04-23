@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.smartuxapi"
-version = "0.9.2"
+version = "0.10.0"
 
 repositories {
     mavenCentral()
@@ -51,7 +51,10 @@ dependencies {
     implementation("org.json:json:20250517")
     
     // 테스트
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        // log4j2 를 본 구현체와 통일하기 위해 logback 을 제외
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
 }
 
