@@ -9,6 +9,35 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.10.0] - 2026-04-24
+
+### Added
+- **Scenario Collector — Full Scenario Test Case Phase 1** (`com.smartuxapi.demo.collector`)
+  - `PromptResponseCollector` (`@Component`) — 세션/턴 단위로 UI 정보, 사용자/API 프롬프트, 응답 메시지, action_queue 수집
+  - `ChattingCollector` — `Chatting` Decorator, `sendPrompt` / `sendPromptWithSchema` / `sendPromptWithTools` / `sendPromptExpectingToolCalls` / `continueWithToolResults` 계열 호출 시 turn 캡처
+  - `ActionQueueHandlerCollector` — `ActionQueueHandler` 서브클래스, `getCurViewPrompt` / `getActionQueuePrompt` 호출 시점에 ui_info / api_prompt 캡처 (userMsg 를 `{userMsg}` placeholder 로 치환)
+  - `CollectorChatRoom` — `ChatRoom` Decorator, `getChatting()` 호출 시 `ChattingCollector` 로 래핑
+  - `ScenarioTurn` — 개별 턴 POJO (turnNo, uiInfo, userPrompt, apiPrompt, resMsg, actionQueue)
+- **`smuxapi-demo.yml` 새 키** — `smuxapi.scenario.collect-enabled` (기본 false), `output-path`, `file-prefix`
+- **`ChatRoomService` 통합** — collect-enabled=true 일 때 ChatRoom 자동 wrapping. 비활성 시 기존 코드 경로 완전히 우회 (오버헤드 없음)
+- **JSON 저장 포맷** — `{schemaVersion, sessionId, aiModel, savedAt, turnCount, turns: [{turnNo, uiInfo, userPrompt, apiPrompt, resMsg, actionQueue}]}`. 파일명: `{prefix}-{sessionId}-{yyyyMMdd_HHmmss}.json`
+
+### Changed
+- 버전 `0.9.2` → `0.10.0` (minor bump — 신규 기능 추가)
+- `testImplementation("spring-boot-starter-test")` 에 `spring-boot-starter-logging` exclude 추가 — log4j2 / logback 충돌 해결
+
+### Tests
+- **신규 13건**:
+  - `PromptResponseCollectorTest` (5) — disabled no-op, 기본 플로우+JSON 검증, 빈 상태, reset, sessionId sanitize
+  - `ChattingCollectorTest` (4) — sendPrompt 캡처, disabled passthrough, 예외 전파, getDelegate
+  - `ActionQueueHandlerCollectorTest` (4) — userMsg 치환, no-match, null/empty, null fullPrompt
+
+### Notes
+- **하위 호환**: `collect-enabled=false` (기본) 인 경우 수집 코드는 완전히 우회. 기존 사용자는 영향 없음
+- **Phase 2 (수동 데이터 수집 테스트)**: 사용자가 `collect-enabled: true` 로 변경 후 실제 시나리오 실행 → `./scenarios/` JSON 확인
+- **Phase 3 (smart-ux-api 테스트 러너)**: 후속 릴리스에서 `FullScenarioTestCase`, `ScenarioDataLoader`, `ActionQueueValidator` 등 구현 예정
+
+---
 ## [0.9.2] - 2026-04-22
 
 ### Changed

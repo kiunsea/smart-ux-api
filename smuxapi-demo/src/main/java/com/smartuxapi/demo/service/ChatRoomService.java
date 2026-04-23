@@ -3,6 +3,7 @@ package com.smartuxapi.demo.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,9 @@ import com.smartuxapi.ai.gemini.GeminiChatRoom;
 import com.smartuxapi.ai.openai.ResponsesChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistants;
 import com.smartuxapi.ai.openai.assistants.AssistantsThread;
+import com.smartuxapi.demo.collector.ActionQueueHandlerCollector;
+import com.smartuxapi.demo.collector.CollectorChatRoom;
+import com.smartuxapi.demo.collector.PromptResponseCollector;
 import com.smartuxapi.util.PropertiesUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +32,10 @@ import jakarta.servlet.http.HttpSession;
 public class ChatRoomService {
 
     private Logger log = LogManager.getLogger(ChatRoomService.class);
+
+    /** Optional — scenario 수집 활성화 시 wrapping 에 사용. */
+    @Autowired(required = false)
+    private PromptResponseCollector scenarioCollector;
     
     /**
      * ChatRoom을 생성하고 세션에 저장 (Query Parameter)
@@ -135,10 +143,18 @@ public class ChatRoomService {
         }
         
         if (chatRoom != null) {
-            chatRoom.setActionQueueHandler(new ActionQueueHandler());
+            // scenario 수집 활성화 시 CollectorChatRoom 으로 wrapping + ActionQueueHandlerCollector 사용
+            if (scenarioCollector != null && scenarioCollector.isEnabled()) {
+                scenarioCollector.initSession(chatRoom.getId(), aiModel);
+                chatRoom = new CollectorChatRoom(chatRoom, scenarioCollector);
+                chatRoom.setActionQueueHandler(new ActionQueueHandlerCollector(scenarioCollector));
+                log.info("[{}] scenario collection 활성화 — CollectorChatRoom wrapping", chatRoom.getId());
+            } else {
+                chatRoom.setActionQueueHandler(new ActionQueueHandler());
+            }
         }
-        
+
         return chatRoom;
     }
-    
+
 }
