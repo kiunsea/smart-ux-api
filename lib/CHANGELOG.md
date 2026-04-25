@@ -9,6 +9,28 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.6] - 2026-04-25
+
+### Added
+- **`FullScenarioTestCaseRealLlmIT`** — opt-in 실 LLM 통합 테스트
+  - `@EnabledIfEnvironmentVariable` 패턴 — `OPENAI_API_KEY` + `SCENARIO_FILE` 환경변수 둘 다 설정 시에만 실행
+  - 단일 파일 또는 디렉터리 경로 모두 지원 (디렉터리는 모든 `*.json` 일괄 재현)
+  - `aiModel` 필드 기준 자동 분기: `chatgpt`/`openai` → `ResponsesChatRoom`, `gemini` → `GeminiChatRoom`
+  - `OPENAI_MODEL` / `GEMINI_MODEL` 환경변수로 모델 override 가능 (기본 `gpt-4.1-mini` / `gemini-2.5-flash`)
+  - 턴별 결과 stdout 출력 (PASS/FAIL/ERROR_RUNTIME/SKIPPED + diff 미리보기)
+
+### Verified
+- Phase 2 에서 캡처된 실제 시나리오 JSON (`test-scenario-{sessionId}-{ts}.json`, 2 turn) 재현
+  - 결과: 2 PASS / 0 FAIL / 0 ERROR / 6,051ms / 추정 비용 ~$0.002
+  - Turn #1 (학습 프롬프트): 3,768ms PASS, Turn #2 ("hello"): 2,283ms PASS
+  - 두 턴 모두 `action_queue: null` (캡처 시 UI 컨텍스트 없음) → null/null exactMatch
+- End-to-end 흐름 6단계 검증: Loader → ChatRoomFactory → sendPrompt → extractActionQueue → Validator → TestResult
+
+### Notes
+- 더 의미있는 정합성 검증은 실제 브라우저 + `/collect` 흐름으로 새 시나리오 캡처 후 가능 (action_queue 값 발생 시)
+- LLM 비결정성 때문에 IT 테스트 assertion 은 약화: ERROR_RUNTIME 만 fail, FAIL 은 허용 (diff 출력 후 사용자 검토)
+
+---
 ## [0.9.5] - 2026-04-25
 
 ### Added
