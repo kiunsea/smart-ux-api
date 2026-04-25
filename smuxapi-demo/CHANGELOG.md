@@ -9,6 +9,23 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.10.1] - 2026-04-25
+
+### Added
+- **`/demo/scenario/*` 운영 엔드포인트** (`ScenarioController`)
+  - `GET  /demo/scenario/status` — 활성화 여부, 누적 턴 수
+  - `POST /demo/scenario/save` — 누적된 턴을 JSON 파일로 저장 후 경로 반환
+  - `POST /demo/scenario/reset?save=true|false` — 누적 데이터 초기화 (옵션으로 저장 후 reset)
+  - `GET  /demo/scenario/preview` — 누적 turn 들의 요약 (필드 길이/100자 미리보기) — 디버그용
+- v0.10.0 의 `PromptResponseCollector.saveToFile()` 진입 경로 부재 문제 해결 — 이제 사용자가 명시적으로 호출 가능
+
+### Changed
+- 버전 `0.10.0` → `0.10.1`
+
+### Verified
+- `--smuxapi.scenario.collect-enabled=true` override 로 bootRun 실행 → `/action` 2회 호출 → `/save` POST → `smuxapi-demo/scenarios/test-scenario-{sessionId}-{ts}.json` 정상 생성. 한글 메시지 / 2턴 / sessionId / aiModel / schemaVersion 모두 정상 직렬화
+
+---
 ## [0.10.0] - 2026-04-24
 
 ### Added
