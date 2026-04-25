@@ -9,6 +9,31 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.9.5] - 2026-04-25
+
+### Added
+- **Full Scenario Test Case — Phase 3 (smart-ux-api 테스트 러너)**
+  `lib/src/test/java/com/smartuxapi/scenario/` 패키지 신설:
+  - `ScenarioData` / `ScenarioTurn` — smuxapi-demo 의 v0.10.0+ Collector 가 저장한 JSON 스키마 호환 모델
+  - `ScenarioDataLoader` — 단일 파일 / classpath 리소스 / 디렉터리 로딩 (`*.json` 만)
+  - `ActionQueueValidator` + `ActionDiff` (Kind: VALUE_DIFFERS / EXPECTED_MISSING / ACTUAL_EXTRA) + `ValidationResult` — Jackson tree deep 비교, JSON Pointer 스타일 path
+  - `TurnTestResult` (PASS / FAIL / ERROR_RUNTIME / SKIPPED) + `ScenarioTestResult` 집계 (passed/failed/errored/skipped/totalElapsedMs/isAllPassed)
+  - `ChatRoomFactory` — 시나리오마다 ChatRoom 생성 (호출자가 OpenAI/Gemini/Mock 선택)
+  - `FullScenarioTestCase` harness — `run(ScenarioData)` 로 각 턴 sendPrompt 재현 → action_queue 비교 → ScenarioTestResult 반환
+- **Test fixture**: `lib/src/test/resources/scenarios/sample-2turn.json` — 2턴 시나리오 샘플
+- **신규 테스트 21건**:
+  - `ScenarioDataLoaderTest` (4) — classpath/file/directory 로딩, 미존재 처리
+  - `ActionQueueValidatorTest` (9) — exact match / scalar 차이 / EXPECTED_MISSING / ACTUAL_EXTRA / 배열 길이 / 타입 불일치 / null 처리
+  - `ScenarioTestResultTest` (4) — TurnTestResult.pass/fail/error/skipped + 집계
+  - `FullScenarioTestCaseHarnessTest` (4, Mockito) — all pass / partial fail / runtime error / factory null
+
+### Notes
+- 이 테스트 러너는 `@Test` 가 아닌 일반 클래스 — 실제 LLM 호출이 필요하므로 사용자가 main 함수나 자체 스크립트에서 의도적으로 실행 (비용 발생)
+- 후속 (선택): `ResultWriter` (파일 출력), `ReportGenerator` (markdown/HTML 리포트). 현 시점은 in-memory 결과만 반환
+- 총 테스트 수: 554 → 596 (+42 이중 집계 포함, 실제 +21건)
+- API 동작 변경 없음 — 테스트 코드만 추가 (lib JAR 산출물에는 영향 없음)
+
+---
 ## [0.9.4] - 2026-04-24
 
 ### Added
