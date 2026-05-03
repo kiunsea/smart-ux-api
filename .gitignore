@@ -119,3 +119,6 @@ smuxapi-demo/src/main/resources/config.json
 # 실 환경 수집 결과물은 반복 실행 산출물이므로 커밋하지 않음.
 # Phase 3 테스트에서 의도적으로 커밋할 fixture 는 lib/src/test/resources/ 에 저장.
 **/scenarios/
+# 단, lib 의 테스트 fixture (Phase 3 ScenarioDataLoaderTest 의 classpath 리소스) 는 예외.
+!lib/src/test/resources/scenarios/
+!lib/src/test/resources/scenarios/**

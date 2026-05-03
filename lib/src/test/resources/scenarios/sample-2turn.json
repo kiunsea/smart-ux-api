@@ -1,0 +1,30 @@
+{
+  "schemaVersion" : 1,
+  "sessionId" : "fixture-2turn",
+  "aiModel" : "chatgpt",
+  "savedAt" : "2026-04-25T12:00:00+09:00",
+  "turnCount" : 2,
+  "turns" : [ {
+    "turnNo" : 1,
+    "uiInfo" : "{\"buttons\":[\"order\",\"cancel\"]}",
+    "userPrompt" : "주문하기 눌러줘",
+    "apiPrompt" : "UI: {ui} / User: {userMsg}",
+    "resMsg" : "주문 버튼을 클릭합니다.",
+    "actionQueue" : {
+      "actions": [
+        { "type": "click", "target": "order" }
+      ]
+    }
+  }, {
+    "turnNo" : 2,
+    "uiInfo" : null,
+    "userPrompt" : "취소",
+    "apiPrompt" : null,
+    "resMsg" : "취소 합니다.",
+    "actionQueue" : {
+      "actions": [
+        { "type": "click", "target": "cancel" }
+      ]
+    }
+  } ]
+}
