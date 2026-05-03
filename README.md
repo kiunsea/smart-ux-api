@@ -199,6 +199,7 @@ cp lib/src/main/js/*.js \
 - **상세 설치 가이드**: [INSTALL.md](docs/INSTALL.md) 참조
 - **API 문서**: [API.md](docs/API.md) 참조
 - **코드 예제**: [EXAMPLES.md](docs/EXAMPLES.md) 참조
+- **릴리스 이력**: [CHANGELOG.md](CHANGELOG.md) — 프로젝트 전체 인덱스 / 모듈별 상세는 [`lib/CHANGELOG.md`](lib/CHANGELOG.md), [`smuxapi-demo/CHANGELOG.md`](smuxapi-demo/CHANGELOG.md)
 
 ## 🌟 사용 사례
 
@@ -232,6 +233,7 @@ cp lib/src/main/js/*.js \
 smart-ux-api/                          ← GitHub 저장소 루트 = Gradle multi-project 루트
 │
 ├── 📄 README.md                      ← 프로젝트 개요 (현재 파일)
+├── 📄 CHANGELOG.md                   ← 프로젝트 전체 릴리스 인덱스 (모듈 CHANGELOG deep link)
 ├── 📄 LICENSE                        ← Apache 2.0 라이선스
 ├── 📄 SECURITY.md                    ← 보안 정책
 ├── 📄 CONTRIBUTING.md                ← 기여 가이드
@@ -293,6 +295,7 @@ smart-ux-api/                          ← GitHub 저장소 루트 = Gradle mult
 | **프로젝트 문서** | `docs/` |
 | **API 레퍼런스** | `docs/API.md` |
 | **라이브러리 모듈 문서** | `lib/README.md`, `lib/doc/` |
+| **릴리스 이력 (전체)** | `CHANGELOG.md` (루트) — 모듈 상세는 `lib/CHANGELOG.md`, `smuxapi-demo/CHANGELOG.md` |
 
 ## ❓ FAQ
 
