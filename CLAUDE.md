@@ -29,9 +29,9 @@
 | Patch | `0.0.Z` | 버그 수정, 문서 갱신, 테스트 추가, 내부 리팩터링 |
 
 판단 규칙:
-- **lib/** 코드 변경 → `lib/build.gradle.kts` 의 `version` 을 bump.
-- **smuxapi-demo/** 코드 변경 → `smuxapi-demo/build.gradle.kts` 의 `version` 을 bump.
-- 양쪽 모두 변경 → 양쪽 모두 각자의 tier 로 bump.
+- **lib/** 코드 변경 → `lib/build.gradle.kts` 의 `version` 을 bump. **이때 smuxapi-demo 영향을 반드시 함께 검토** (API 시그니처/동작 변경이 demo 코드/리소스/설정에 영향을 주는지). 영향 있으면 같은 PR 안에서 demo 도 함께 수정 + demo `version` 도 함께 bump.
+- **smuxapi-demo/** 코드만 변경되고 lib 변경이 없는 경우 → **단독 릴리스 금지**. demo 변경은 항상 lib 릴리스 사이클에 묶여야 한다 (다음 lib 변경/릴리스 시점까지 대기, 또는 같은 PR 에 lib 변경을 함께 포함). 예외적으로 정합성 회복 (CI 패치 등) 만을 위한 demo 만의 변경은 `version` bump 없이 patch commit 으로만 처리.
+- 양쪽 모두 변경 → 양쪽 모두 각자의 tier 로 bump (이게 정상 패턴).
 - 루트 문서 (README, docs/, CHANGELOG 자체 등) 만 변경 → 버전 bump 생략, 단 lib/demo CHANGELOG 어디에도 기록은 남기지 않고 root CHANGELOG 가 직접 변경 사실을 갖되, 새 태그 / 새 모듈 버전은 만들지 않음.
 - 의도가 모호하면 변경 분석 후 한 줄로 사용자에게 확인: 예) "lib 변경이라 patch bump 0.9.6 → 0.9.7 로 진행 — OK?". 단, 명백한 patch (오타/문서) 는 자동 결정.
 
@@ -140,10 +140,13 @@ Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 
 ## 📦 모듈 / 버전 정책 요약
 
-- **lib 태그** = 리포지토리 태그 (`v0.x.y`). 릴리스 단위.
-- **smuxapi-demo 버전** (`0.10.x` 등) = 모듈 내부에서만 추적, 별도 태그 없음.
-- 루트 `CHANGELOG.md` = lib 태그 + demo 단독 릴리스를 한눈에 보는 인덱스.
+- **lib 태그** = 리포지토리 태그 (`v0.x.y`). 릴리스 단위. 이 태그가 GitHub Release 출시 트리거.
+- **smuxapi-demo 단독 릴리스는 운영하지 않음.** demo 변경은 다음 lib 릴리스에 함께 포함되어 출시된다. 즉 demo 만을 위한 GitHub Release / 태그 / 별도 출시 단계는 없음.
+- **lib 변경 시 demo 영향 검토 의무.** lib 의 공개 API / 동작 / 리소스 / 설정 변경이 demo 에 영향을 주는지 반드시 확인하고, 영향 있으면 같은 PR 안에 demo 수정도 묶어 함께 릴리스.
+- **smuxapi-demo 버전** (`0.10.x` 등) = 모듈 내부에서만 추적되는 식별자. 별도 태그 없음. lib 태그와 함께 동반 출시되는 시점에 의미 부여.
+- 루트 `CHANGELOG.md` = lib 태그 (= 릴리스) 인덱스. lib 태그 행에 동반된 demo 변경을 `lib · demo` 형식으로 함께 기록.
 - 모듈 CHANGELOG = 상세 항목 (Added/Changed/Fixed).
+- **(과거 history)** 본 정책 도입 이전에 demo 단독 릴리스가 운영된 시기가 있어 루트 CHANGELOG 에 그 history 가 보존되어 있음 (이전 정책 사용 흔적). 신규 작업은 본 정책을 따른다.
 
 ## 🧪 테스트 / 빌드 명령 (참조)
 
