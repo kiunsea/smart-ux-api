@@ -52,7 +52,8 @@ public class SmuxapiDemoApplication extends SpringBootServletInitializer {
         SpringApplication.run(SmuxapiDemoApplication.class, args);
         
         // 브라우저 자동 실행 (독립 실행형 JAR에서만)
-        BrowserLauncher.launchWhenReady();
+        // headless / SMUXAPI_NO_BROWSER / --smuxapi.no-browser 시 자동 생략
+        BrowserLauncher.launchWhenReady(args);
     }
     
     /**

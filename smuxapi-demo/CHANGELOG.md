@@ -14,14 +14,26 @@
 ### Added
 - **`easy_kiosc_uif.json`** 을 `smuxapi-demo/src/main/resources/` 에 추가
   - 기존에는 lib 의 test 리소스 (`test.easy_kiosc_uif.json`) 만 존재하여 main classpath 에서 미발견 → `ChatRoomService` 가 `"다음의 내용을 학습해 -> null"` prompt 를 LLM 에 전송하던 결함
+- **`BrowserLauncher.launchWhenReady(String[] args)`** — 비대화형 / headless 환경 자동 감지
+  - 환경변수 `SMUXAPI_NO_BROWSER=true`
+  - 실행 인자 `--smuxapi.no-browser` / `--smuxapi.no-browser=true`
+  - 시스템 프로퍼티 `java.awt.headless=true`
+  - `Desktop.isDesktopSupported()=false`
+  - 위 중 하나라도 만족하면 브라우저 자동 실행을 생략하고 URL 만 로깅 (JVM 조기 종료 방지)
+- 신규 테스트 `BrowserLauncherTest` (6) — args / headless / null safety 분기 검증
+
+### Changed
+- `SmuxapiDemoApplication.main(args)` — `BrowserLauncher.launchWhenReady(args)` 로 인자 전달
 
 ### Fixed
 - **`ChatRoomService.getChatRoom()`** — UIF JSON 학습 prompt graceful fallback (`sendUifLearningPrompt(...)` 헬퍼 추출)
   - classpath 에 `easy_kiosc_uif.json` 이 없으면 학습 prompt 자체를 생략 (warn 로그)
   - 두 오버로드 (Query Parameter / JSON Body Parameter) 모두 동일 헬퍼 사용 — 중복 try-catch 블록 제거
+- **`BrowserLauncher.openBrowser()`** Windows fallback 의 `rundll32` spawn 으로 인한 비대화형 환경 JVM 조기 종료 가능성 → 위 환경 감지로 사전 차단
 
 ### Notes
 - v0.9.6 IT (`FullScenarioTestCaseRealLlmIT`) 의 의미있는 매칭 실패 원인 중 하나였던 잘못된 학습 prompt 결함 해소
+- bootRun / JAR 실행 모두 `--smuxapi.no-browser` 옵션으로 브라우저 launch 우회 가능 — CI / SSH / Phase 3 IT 통합 실행 시 유용
 
 ---
 ## [0.10.1] - 2026-04-25

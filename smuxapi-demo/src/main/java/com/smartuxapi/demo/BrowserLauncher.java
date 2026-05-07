@@ -42,6 +42,28 @@ public class BrowserLauncher {
      * 별도 스레드에서 실행되어 메인 애플리케이션 시작을 차단하지 않습니다.
      */
     public static void launchWhenReady() {
+        launchWhenReady(new String[0]);
+    }
+
+    /**
+     * 서버가 준비될 때까지 대기한 후 브라우저를 실행합니다.
+     * <p>
+     * 다음 중 하나라도 만족하면 브라우저 실행을 생략한다 (headless 환경 / SSH 세션 대비):
+     * <ul>
+     *   <li>환경변수 {@code SMUXAPI_NO_BROWSER=true}</li>
+     *   <li>실행 인자 {@code --smuxapi.no-browser=true}</li>
+     *   <li>시스템 프로퍼티 {@code java.awt.headless=true}</li>
+     *   <li>{@link Desktop#isDesktopSupported()} false</li>
+     * </ul>
+     *
+     * @param args main 메서드의 실행 인자 (no-browser 플래그 검사를 위해)
+     */
+    public static void launchWhenReady(String[] args) {
+        if (shouldSkipBrowser(args)) {
+            logger.info("브라우저 자동 실행 생략 — headless / no-browser 옵션 감지. URL: {}", getAppUrl());
+            return;
+        }
+
         Thread browserThread = new Thread(
             () -> {
                 try {
@@ -61,6 +83,46 @@ public class BrowserLauncher {
 
         browserThread.setDaemon(true);
         browserThread.start();
+    }
+
+    /**
+     * 브라우저 자동 실행을 생략해야 하는지 판단한다.
+     */
+    static boolean shouldSkipBrowser(String[] args) {
+        // 1) 환경변수
+        String env = System.getenv("SMUXAPI_NO_BROWSER");
+        if (env != null && Boolean.parseBoolean(env.trim())) {
+            return true;
+        }
+
+        // 2) 실행 인자 (--smuxapi.no-browser / --smuxapi.no-browser=true)
+        if (args != null) {
+            for (String arg : args) {
+                if (arg == null) {
+                    continue;
+                }
+                String trimmed = arg.trim();
+                if (trimmed.equals("--smuxapi.no-browser")) {
+                    return true;
+                }
+                if (trimmed.startsWith("--smuxapi.no-browser=")
+                        && Boolean.parseBoolean(trimmed.substring("--smuxapi.no-browser=".length()))) {
+                    return true;
+                }
+            }
+        }
+
+        // 3) headless JVM
+        if (Boolean.getBoolean("java.awt.headless")) {
+            return true;
+        }
+
+        // 4) Desktop API 자체 미지원
+        if (!Desktop.isDesktopSupported()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
