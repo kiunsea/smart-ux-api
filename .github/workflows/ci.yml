@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+# Node 20 런타임의 deprecated GitHub Actions (actions/checkout@v4,
+# actions/setup-java@v4, actions/upload-artifact@v4 등) 를 Node 24 로
+# 강제 실행하여 매 push 마다의 deprecation 경고 노이즈를 제거한다.
+# 추후 각 action 의 v5 마이그레이션이 완료되면 본 env 를 제거할 수 있다.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   build:
     name: Build and Test
