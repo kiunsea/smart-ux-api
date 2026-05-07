@@ -44,6 +44,7 @@
 
 | Demo Ver | 날짜 | 헤드라인 | 상세 |
 |---------|------|---------|------|
+| **0.10.2** | 2026-05-07 | `easy_kiosc_uif.json` 학습 자원 추가 + BrowserLauncher headless / `--smuxapi.no-browser` 옵션 | [demo §0.10.2](smuxapi-demo/CHANGELOG.md#0102---2026-05-07) |
 | **0.10.1** | 2026-04-25 | `/demo/scenario/*` 운영 엔드포인트 (status / save / reset / preview) | [demo §0.10.1](smuxapi-demo/CHANGELOG.md#0101---2026-04-25) |
 | **0.10.0** | 2026-04-24 | Scenario Collector — Full Scenario Test Case Phase 1 | [demo §0.10.0](smuxapi-demo/CHANGELOG.md#0100---2026-04-24) |
 | **0.9.2** | 2026-04-22 | (lib v0.9.3 자동 픽업, 문서 정합성) | [demo §0.9.2](smuxapi-demo/CHANGELOG.md#092---2026-04-22) |

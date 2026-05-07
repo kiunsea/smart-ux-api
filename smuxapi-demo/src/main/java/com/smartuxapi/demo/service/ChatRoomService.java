@@ -66,13 +66,7 @@ public class ChatRoomService {
             chatRoom = (ChatRoom) crObj;
         } else {
             chatRoom = createChatRoom(aiModel);
-
-            try {
-                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
-                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            sendUifLearningPrompt(chatRoom);
             sess.setAttribute("CHAT_ROOM", chatRoom);
         }
 
@@ -99,17 +93,33 @@ public class ChatRoomService {
             chatRoom = (ChatRoom) crObj;
         } else {
             chatRoom = createChatRoom(aiModel);
-
-            try {
-                JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
-                chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            sendUifLearningPrompt(chatRoom);
             sess.setAttribute("CHAT_ROOM", chatRoom);
         }
 
         return chatRoom;
+    }
+
+    /**
+     * UIF (`easy_kiosc_uif.json`) 학습 prompt 를 ChatRoom 에 전송한다.
+     * classpath 에 자원이 없으면 학습 prompt 자체를 생략하여
+     * "다음의 내용을 학습해 -> null" 같은 잘못된 prompt 가 LLM 으로 가는 것을 방지한다.
+     */
+    private void sendUifLearningPrompt(ChatRoom chatRoom) {
+        if (chatRoom == null) {
+            return;
+        }
+        try {
+            JsonNode uifJson = ConfigLoader.loadConfigFromClasspath("easy_kiosc_uif.json");
+            if (uifJson == null) {
+                log.warn("[{}] easy_kiosc_uif.json classpath 자원 없음 — 학습 prompt 생략",
+                        chatRoom.getId());
+                return;
+            }
+            chatRoom.getChatting().sendPrompt("다음의 내용을 학습해 -> " + uifJson);
+        } catch (Exception e) {
+            log.error("UIF 학습 prompt 전송 실패", e);
+        }
     }
     
     private ChatRoom createChatRoom(String aiModel) {
