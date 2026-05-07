@@ -118,7 +118,13 @@ public class BrowserLauncher {
         }
 
         // 4) Desktop API 자체 미지원
-        if (!Desktop.isDesktopSupported()) {
+        // Linux headless 환경 등에서 Desktop 클래스 정적 초기화가 AWTError /
+        // ExceptionInInitializerError 를 던질 수 있어 Throwable 까지 포착한다.
+        try {
+            if (!Desktop.isDesktopSupported()) {
+                return true;
+            }
+        } catch (Throwable t) {
             return true;
         }
 
