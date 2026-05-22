@@ -9,6 +9,7 @@ Smart UX API의 상세한 API 레퍼런스 문서입니다.
 - [Core Interfaces](#core-interfaces)
 - [OpenAI Responses API](#openai-responses-api)
 - [Google Gemini API](#google-gemini-api)
+- [Anthropic Claude API](#anthropic-claude-api)
 - [OpenAI Assistants API](#openai-assistants-api)
 - [Utility Classes](#utility-classes)
 - [JavaScript Client API](#javascript-client-api)
@@ -24,6 +25,8 @@ Smart UX API의 상세한 API 레퍼런스 문서입니다.
 #### 구현체
 - `ResponsesChatRoom`: OpenAI Responses API
 - `GeminiChatRoom`: Google Gemini API
+- `ClaudeChatRoom`: Anthropic Claude API
+- `AssistantsThread`: OpenAI Assistants API
 
 #### 메서드
 
@@ -48,6 +51,8 @@ Chatting chatting = chatRoom.getChatting();
 #### 구현체
 - `ResponsesChatting`: OpenAI Responses API
 - `GeminiChatting`: Google Gemini API
+- `ClaudeChatting`: Anthropic Claude API
+- `AssistantsMessage`: OpenAI Assistants API
 
 #### 메서드
 
@@ -199,6 +204,67 @@ Gemini API를 호출하여 응답을 받습니다.
 
 **참고:** 
 - `getMessageIdSet()` 메서드는 `null`을 반환합니다.
+
+---
+
+## Anthropic Claude API
+
+> v0.10.0 추가. Anthropic Messages API 기반 provider 입니다.
+
+### ClaudeChatRoom
+
+**생성자:**
+```java
+public ClaudeChatRoom(String apiKey, String model)
+public ClaudeChatRoom(String apiKey, String model, String anthropicVersion)
+```
+
+**파라미터:**
+- `apiKey` - Anthropic Claude API Key (`sk-ant-...`)
+- `model` - 사용할 모델 (예: `"claude-sonnet-4-6"`, `"claude-opus-4-7"`, `"claude-haiku-4-5-20251001"`)
+- `anthropicVersion` - (선택) `anthropic-version` 헤더 값. 생략 시 기본값 `2023-06-01`
+
+**예제:**
+```java
+ClaudeChatRoom chatRoom = new ClaudeChatRoom(
+    "sk-ant-...",
+    "claude-sonnet-4-6"
+);
+```
+
+### ClaudeChatting
+
+`ClaudeChatRoom.getChatting()`을 통해 생성됩니다.
+
+#### 주요 메서드
+
+##### `JSONObject sendPrompt(String userMsg)`
+Anthropic Messages API를 호출하여 응답을 받습니다.
+
+**API 엔드포인트:** `https://api.anthropic.com/v1/messages`
+
+**동작 방식:**
+1. `ActionQueueHandler`가 설정되어 있고 현재 화면 정보가 있으면, 화면 정보와 사용자 메시지를 결합한 프롬프트를 생성합니다.
+2. 대화 이력(ConversationHistory)에 사용자 메시지를 추가합니다.
+3. Claude API를 호출하여 응답을 받습니다.
+4. 응답을 대화 이력에 추가합니다.
+5. `ActionQueueHandler`를 통해 Action Queue를 추출합니다.
+
+**반환 형식:**
+```json
+{
+  "message": "AI 응답 메시지",
+  "action_queue": {
+    "action_queue": [...]
+  }
+}
+```
+
+**참고:**
+- `getMessageIdSet()` 메서드는 `null`을 반환합니다 (OpenAI Responses / Gemini API와 동일).
+- `sendPromptWithTools()` (Tool Use), `sendPromptWithSchema()` (구조화 응답), `markAsCacheable()` (프롬프트 캐싱)를 OpenAI / Gemini provider 와 동일하게 지원합니다.
+- 구조화 응답은 Anthropic 이 네이티브 JSON Schema 응답 필드를 제공하지 않으므로, 스키마를 단일 tool 의 `input_schema` 로 등록하고 `tool_choice` 로 호출을 강제하는 방식으로 구현됩니다.
+- `max_tokens` 는 기본값 `4096` 으로 요청됩니다.
 
 ---
 
@@ -600,12 +666,13 @@ GeminiChatRoom chatRoom = new GeminiChatRoom(apiKey, model);
 
 ## 버전 호환성
 
-| Smart UX API | Java | OpenAI API | Gemini API |
-|--------------|------|------------|------------|
-| 0.6.x        | 17+  | v1         | v1         |
-| 0.5.x        | 17+  | v1         | v1         |
-| 0.4.x        | 17+  | v1         | N/A        |
-| 0.3.x        | 17+  | v1 (Beta)  | v1 (Beta)  |
+| Smart UX API | Java | OpenAI API | Gemini API | Anthropic API |
+|--------------|------|------------|------------|---------------|
+| 0.10.x       | 17+  | v1         | v1         | `2023-06-01`  |
+| 0.6.x        | 17+  | v1         | v1         | N/A           |
+| 0.5.x        | 17+  | v1         | v1         | N/A           |
+| 0.4.x        | 17+  | v1         | N/A        | N/A           |
+| 0.3.x        | 17+  | v1 (Beta)  | v1 (Beta)  | N/A           |
 
 ---
 

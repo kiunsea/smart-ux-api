@@ -23,6 +23,7 @@
   * Google Gemini API 지원
   * OpenAI Responses API 지원
   * OpenAI Assistants API 지원
+  * Anthropic Claude API 지원 (v0.10.0)
 - 📋 AI로부터 화면 제어를 위한 액션 프로세스 정의서 수신
 - ⚡ 액션 프로세스로 화면 상에서 필요한 액션을 자동 실행
 
@@ -98,7 +99,7 @@ gradlew.bat :lib:build          # Windows
 ### 사전 요구 사항
 - Java 17 이상
 - Gradle 8.x (프로젝트에 Gradle Wrapper 포함)
-- OpenAI API Key 또는 Google Gemini API Key
+- OpenAI API Key / Google Gemini API Key / Anthropic Claude API Key 중 하나 이상
 - 웹 애플리케이션 서버 (Tomcat, Jetty 등)
 
 ### 5분만에 시작하기
@@ -148,9 +149,13 @@ cp lib/src/main/js/*.js \
     "OPENAI_API_KEY": "your-openai-api-key",
     "OPENAI_MODEL": "gpt-4.1",
     "GEMINI_API_KEY": "your-gemini-api-key",
-    "GEMINI_MODEL": "gemini-2.5-flash"
+    "GEMINI_MODEL": "gemini-2.5-flash",
+    "CLAUDE_API_KEY": "your-anthropic-api-key",
+    "CLAUDE_MODEL": "claude-sonnet-4-6"
 }
 ```
+
+> 💡 사용할 provider 의 키만 설정하면 됩니다. Claude API 키는 [Anthropic Console](https://console.anthropic.com) 에서 발급합니다 (`sk-ant-...` 형식).
 
 > ⚠️ **보안 주의**: `apikey.json` 파일은 절대 Git에 커밋하지 마세요! `.gitignore`에 추가되어 있습니다.
 
@@ -314,7 +319,7 @@ A: v0.9.2 부터 루트가 Gradle multi-project 루트로 평탄화되었습니�
 - `gradlew tasks --all` — 전체 사용 가능 태스크 조회
 
 ### Q: 어떤 AI 모델을 사용할 수 있나요?
-A: OpenAI GPT (Responses API, Assistants API), Google Gemini를 지원합니다. 향후 Claude 등 다른 모델도 지원 예정입니다.
+A: OpenAI GPT (Responses API, Assistants API), Google Gemini, Anthropic Claude를 지원합니다 (Claude는 v0.10.0부터). 세 provider 모두 동일한 `ChatRoom` / `Chatting` 인터페이스로 사용하며, 채팅·Tool Use·구조화 응답·프롬프트 캐싱을 지원합니다.
 
 ### Q: 기존 웹 애플리케이션에 쉽게 통합할 수 있나요?
 A: 네! JAR 파일과 JavaScript 라이브러리만 추가하면 바로 사용 가능합니다. 기존 코드 수정 최소화.
@@ -326,7 +331,7 @@ A: 순수 HTML5, React, Vue.js 등 모든 웹 기반 UI 프레임워크에서 �
 A: Apache 2.0 라이선스로 상업적 이용이 자유롭습니다.
 
 ### Q: API 비용은 얼마나 드나요?
-A: Smart UX API 자체는 무료입니다. OpenAI/Gemini API 사용료만 발생합니다.
+A: Smart UX API 자체는 무료입니다. OpenAI / Gemini / Anthropic 등 사용하는 AI provider 의 API 사용료만 발생합니다.
 
 ### Q: 보안은 안전한가요?
 A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않습니다. 자세한 내용은 [SECURITY.md](SECURITY.md)를 참조하세요.
@@ -359,6 +364,7 @@ A: API Key는 서버에서만 관리되며, 클라이언트에 노출되지 않�
 
 - [OpenAI](https://openai.com) - GPT API 제공
 - [Google](https://ai.google.dev) - Gemini API 제공
+- [Anthropic](https://www.anthropic.com) - Claude API 제공
 - [Apache Software Foundation](https://www.apache.org) - 오픈소스 라이선스
 - 모든 기여자분들께 감사드립니다!
 

@@ -2,8 +2,8 @@
 
 smart-ux-api v0.7.0 은 Provider 중립 프롬프트 캐시 API 를 제공합니다.
 대형 UI Object Map, 시스템 지침 등 **안정적으로 재사용되는 콘텐츠**를 힌트로 등록하면
-OpenAI 는 자동 프리픽스 캐싱, Gemini 는 명시적 context caching 을 통해 토큰 비용이 최대 90%
-절감됩니다.
+OpenAI 는 자동 프리픽스 캐싱, Gemini 는 명시적 context caching, Claude(v0.10.0+) 는
+`cache_control: ephemeral` 을 통해 토큰 비용이 최대 90% 절감됩니다.
 
 ---
 
@@ -84,7 +84,41 @@ chat.close();
 
 ---
 
-## 4. 캐시 전략 교체
+## 4. Claude (Anthropic ephemeral 캐싱)
+
+```java
+ChatRoom chat = new ClaudeChatRoom(apiKey, "claude-sonnet-4-6");
+
+// 안정적인 프리픽스 등록 (로컬 작업 — 네트워크 호출 없음)
+String uiObjectMap = loadUiObjectMap();
+chat.markAsCacheable(CacheHint.of(uiObjectMap, "ui-object-map"));
+
+// 반복 호출 시 프리픽스가 자동 캐시됨
+Chatting chatting = chat.getChatting();
+JSONObject resp = chatting.sendPrompt("이 화면에서 주문해줘");
+
+CacheMetrics m = chat.getLastCacheMetrics();
+log.info(m.toString());
+chat.close();
+```
+
+### Claude 측 동작
+
+- 등록된 힌트는 top-level `system` 블록으로 배치되고 `cache_control: {type:"ephemeral"}` 가 부여됨
+- 응답 본문의 `usage.cache_read_input_tokens` 를 캐시 히트로, `cache_creation_input_tokens` 를
+  캐시 생성으로 파싱하여 메트릭 제공
+- 힌트 등록은 로컬 작업 — `prime()` 시 네트워크 호출이 없으며, `close()` 도 local no-op
+  (ephemeral 캐시는 Anthropic 측 TTL 로 자연 만료됨)
+
+### ⚠️ Claude 캐시 사용 조건
+
+- 모델별 **최소 토큰 수** 이상이어야 캐시 대상 (일반적으로 1,024 토큰 이상 권장)
+- ephemeral 캐시는 짧은 TTL — 동일 프리픽스를 **수 분 이내** 재사용해야 히트
+- `CacheHint.withTtl(...)` 의 TTL 값은 Claude 경로에서는 사용되지 않음 (Gemini 전용)
+
+---
+
+## 5. 캐시 전략 교체
 
 기본 전략 대신 커스텀 구현으로 교체 가능 (예: 모킹, 로깅 wrapping):
 
@@ -96,9 +130,9 @@ chat.setCacheStrategy(myInstrumentedStrategy);
 
 ---
 
-## 5. 권장 패턴
+## 6. 권장 패턴
 
-### 5.1 ActionQueueHandler 와 결합
+### 6.1 ActionQueueHandler 와 결합
 
 `ActionQueueHandler` 의 `curViewInfo` 가 자주 변하는 반면 UI Object Map 은 거의 변하지 않습니다.
 UI Object Map 만 `markAsCacheable` 로 등록하면, 화면 변경이 캐시 히트율을 깎지 않습니다.
@@ -109,27 +143,28 @@ chat.markAsCacheable(CacheHint.of(uiObjectMapJson, "ui-map"));
 // 이후 aqHandler.setCurrentViewInfo(...) 로 자주 바뀌는 부분 갱신
 ```
 
-### 5.2 히트율 모니터링
+### 6.2 히트율 모니터링
 
 `ChatRoom.getLastCacheMetrics()` 를 모든 호출 후 기록하여 히트율 회귀를 감지하세요.
 평균 히트율이 70% 이하로 떨어지면 프리픽스 콘텐츠가 불안정하다는 신호입니다.
 
-### 5.3 Gemini TTL 과 close() 타이밍
+### 6.3 Gemini TTL 과 close() 타이밍
 
 Gemini 캐시 리소스는 **요청 건당 과금이 아니라 저장 시간 과금**입니다.
 오래 유지할수록 비용이 누적되므로, 사용이 끝나면 `chat.close()` 로 즉시 해제하는 것을 권장합니다.
 
 ---
 
-## 6. 관련 문서
+## 7. 관련 문서
 
 - 설계 배경: [`doc/tasks/20260421_tool_use_design_sketch.md`](./tasks/20260421_tool_use_design_sketch.md)
 - doribox 측 활용 방향: `doribox/doc/20260421-doribox-smartuxapi-upgrade-directions.md` 항목 B3
 
 ---
 
-## 7. 변경 이력
+## 8. 변경 이력
 
 | 버전 | 변경 |
 |------|------|
 | 0.7.0 | 초기 도입 — OpenAI 자동 프리픽스 + Gemini context caching |
+| 0.10.0 | Claude provider 캐싱 추가 — `cache_control: ephemeral` 기반 |

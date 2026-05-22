@@ -119,6 +119,19 @@ System.out.println("API Key: " + apiKey.substring(0, 7) + "...");
 export GEMINI_API_KEY="AIza..."
 ```
 
+#### Claude (Anthropic)
+```bash
+# 1. API Key 확인 — sk-ant-... 형식
+# https://console.anthropic.com
+
+# 2. 환경 변수 설정
+export CLAUDE_API_KEY="sk-ant-..."
+```
+
+> 💡 Claude 호출이 `400 invalid_request_error` 와 함께 "credit balance is too low" 메시지를
+> 반환하면 키는 유효하나 크레딧이 부족한 상태입니다. [Anthropic Console](https://console.anthropic.com)
+> 의 Plans & Billing 에서 크레딧을 충전하세요. (인증 실패는 `401 authentication_error` 로 구분됩니다.)
+
 ---
 
 ### ❌ `429 Too Many Requests` - Rate Limit 초과
