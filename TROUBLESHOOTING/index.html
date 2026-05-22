@@ -663,6 +663,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#claude-anthropic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude (Anthropic)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1376,6 +1387,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#claude-anthropic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude (Anthropic)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2027,6 +2049,18 @@ System.out.println<span class="o">(</span><span class="s2">&quot;API Key: &quot;
 <span class="c1"># 2. 환경 변수 설정</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;AIza...&quot;</span>
 </code></pre></div>
+<h4 id="claude-anthropic">Claude (Anthropic)<a class="headerlink" href="#claude-anthropic" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. API Key 확인 — sk-ant-... 형식</span>
+<span class="c1"># https://console.anthropic.com</span>
+
+<span class="c1"># 2. 환경 변수 설정</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CLAUDE_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>💡 Claude 호출이 <code>400 invalid_request_error</code> 와 함께 "credit balance is too low" 메시지를
+반환하면 키는 유효하나 크레딧이 부족한 상태입니다. <a href="https://console.anthropic.com">Anthropic Console</a>
+의 Plans &amp; Billing 에서 크레딧을 충전하세요. (인증 실패는 <code>401 authentication_error</code> 로 구분됩니다.)</p>
+</blockquote>
 <hr />
 <h3 id="429-too-many-requests-rate-limit">❌ <code>429 Too Many Requests</code> - Rate Limit 초과<a class="headerlink" href="#429-too-many-requests-rate-limit" title="Permanent link">&para;</a></h3>
 <p><strong>증상:</strong>

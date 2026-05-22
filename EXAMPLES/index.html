@@ -658,6 +658,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-claude-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Claude API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-anthropic-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: anthropic-version 헤더 지정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1052,6 +1091,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-claude-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 1: Claude API 기본 사용
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-anthropic-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        예제 2: anthropic-version 헤더 지정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1257,6 +1335,7 @@
 <li><a href="#기본-사용법">기본 사용법</a></li>
 <li><a href="#openai-예제">OpenAI 예제</a></li>
 <li><a href="#gemini-예제">Gemini 예제</a></li>
+<li><a href="#claude-예제">Claude 예제</a></li>
 <li><a href="#고급-시나리오">고급 시나리오</a></li>
 <li><a href="#프레임워크-통합">프레임워크 통합</a></li>
 <li><a href="#에러-처리">에러 처리</a></li>
@@ -1464,6 +1543,73 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<hr />
+<h2 id="claude">Claude 예제<a class="headerlink" href="#claude" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>v0.10.0 추가. Anthropic Claude provider 는 OpenAI / Gemini 와 동일한 <code>ChatRoom</code> / <code>Chatting</code>
+인터페이스를 사용하므로, 클래스명만 <code>ClaudeChatRoom</code> 으로 바꾸면 됩니다.</p>
+</blockquote>
+<h3 id="1-claude-api">예제 1: Claude API 기본 사용<a class="headerlink" href="#1-claude-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClaudeExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">chatWithClaude</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ClaudeChatRoom 생성 (apiKey 는 sk-ant-... 형식)</span>
+<span class="w">        </span><span class="n">ClaudeChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClaudeChatRoom</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;sk-ant-...&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;claude-sonnet-4-6&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Action Queue Handler 설정</span>
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 현재 화면 정보 설정</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getCurrentViewInfo</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// Chatting 생성</span>
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 프롬프트 전송</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;아이스 아메리카노 한 잔 주문해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Claude Response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentViewInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;elements\&quot;: [...] }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-anthropic-version">예제 2: anthropic-version 헤더 지정<a class="headerlink" href="#2-anthropic-version" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClaudeVersionExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">customApiVersion</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// anthropic-version 헤더를 명시적으로 지정 (보통은 생략 — 기본값 2023-06-01)</span>
+<span class="w">        </span><span class="n">ClaudeChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClaudeChatRoom</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;sk-ant-...&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;claude-opus-4-7&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;2023-06-01&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">ActionQueueHandler</span><span class="w"> </span><span class="n">aqHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ActionQueueHandler</span><span class="p">();</span>
+<span class="w">        </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">setActionQueueHandler</span><span class="p">(</span><span class="n">aqHandler</span><span class="p">);</span>
+<span class="w">        </span><span class="n">aqHandler</span><span class="p">.</span><span class="na">setCurrentViewInfo</span><span class="p">(</span><span class="n">getView</span><span class="p">());</span>
+
+<span class="w">        </span><span class="n">Chatting</span><span class="w"> </span><span class="n">chatting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">.</span><span class="na">getChatting</span><span class="p">();</span>
+<span class="w">        </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chatting</span><span class="p">.</span><span class="na">sendPrompt</span><span class="p">(</span><span class="s">&quot;메뉴 추천해줘&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;{ \&quot;currentScreen\&quot;: \&quot;menu\&quot; }&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>💡 Tool Use(<code>sendPromptWithTools</code>) · 구조화 응답(<code>sendPromptWithSchema</code>) · 프롬프트 캐싱
+(<code>markAsCacheable</code>) 사용법은 OpenAI / Gemini 예제와 동일합니다. <code>lib/doc/</code> 의 기능별 가이드를 참조하세요.</p>
+</blockquote>
 <hr />
 <h2 id="_4">고급 시나리오<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="1">예제 1: 다중 턴 대화<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
