@@ -106,6 +106,9 @@ mvnw.cmd
 *.tar.gz
 *.rar
 
+# Local-only deploy helper (개발자 로컬 환경 전용 — doribox 배포 스크립트)
+bat/deploy_to_doribox.bat
+
 # Project management and task tracking
 doc/tasks/
 **/tasks/
