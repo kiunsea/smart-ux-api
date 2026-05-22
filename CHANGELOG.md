@@ -23,6 +23,7 @@
 
 | Tag | 날짜 | 헤드라인 | 모듈 변동 | 상세 |
 |-----|------|---------|---------|------|
+| **v0.10.0** | 2026-05-23 | Anthropic Claude provider 추가 (세 번째 LLM provider) | lib · demo | [lib §0.10.0](lib/CHANGELOG.md#0100---2026-05-23) · [demo §0.11.0](smuxapi-demo/CHANGELOG.md#0110---2026-05-23) |
 | **v0.9.6** | 2026-04-25 | Real LLM IT — Phase 3 검증 통합 테스트 | lib | [lib §0.9.6](lib/CHANGELOG.md#096---2026-04-25) |
 | **v0.9.5** | 2026-04-25 | Full Scenario Test Case Phase 3 (테스트 러너) | lib | [lib §0.9.5](lib/CHANGELOG.md#095---2026-04-25) |
 | **v0.9.4** | 2026-04-24 | `isFallbackTriggered` 정확성 + `:lib:deploy` 경로 보정 | lib | [lib §0.9.4](lib/CHANGELOG.md#094---2026-04-24) |

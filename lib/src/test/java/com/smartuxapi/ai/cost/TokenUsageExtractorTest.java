@@ -65,9 +65,37 @@ class TokenUsageExtractorTest {
     }
 
     @Test
+    @DisplayName("Claude — usage.input_tokens/output_tokens 파싱")
+    void testClaude() throws Exception {
+        String json = "{\"usage\":{\"input_tokens\":300,\"output_tokens\":120}}";
+        TokenUsageExtractor.Usage u = TokenUsageExtractor.fromClaude(MAPPER.readTree(json));
+        assertEquals(300, u.inputTokens);
+        assertEquals(120, u.outputTokens);
+    }
+
+    @Test
+    @DisplayName("Claude — 캐시 토큰은 input 에 합산")
+    void testClaudeWithCacheTokens() throws Exception {
+        String json = "{\"usage\":{\"input_tokens\":100,\"output_tokens\":50,"
+                + "\"cache_creation_input_tokens\":200,\"cache_read_input_tokens\":400}}";
+        TokenUsageExtractor.Usage u = TokenUsageExtractor.fromClaude(MAPPER.readTree(json));
+        assertEquals(700, u.inputTokens, "input + cache_creation + cache_read");
+        assertEquals(50, u.outputTokens);
+    }
+
+    @Test
+    @DisplayName("Claude usage 없으면 ZERO")
+    void testClaudeMissingUsage() throws Exception {
+        TokenUsageExtractor.Usage u = TokenUsageExtractor.fromClaude(MAPPER.readTree("{}"));
+        assertEquals(0, u.inputTokens);
+        assertEquals(0, u.outputTokens);
+    }
+
+    @Test
     @DisplayName("null input → ZERO")
     void testNullInput() {
         assertSame(TokenUsageExtractor.Usage.ZERO, TokenUsageExtractor.fromOpenAi(null));
         assertSame(TokenUsageExtractor.Usage.ZERO, TokenUsageExtractor.fromGemini(null));
+        assertSame(TokenUsageExtractor.Usage.ZERO, TokenUsageExtractor.fromClaude(null));
     }
 }

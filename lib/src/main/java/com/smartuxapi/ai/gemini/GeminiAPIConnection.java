@@ -159,15 +159,37 @@ public class GeminiAPIConnection {
                 // CostTracker 기록
                 recordCost(jacksonNode, responseSchema != null ? "structured" : "chat");
 
-                JSONArray candidates = jsonResponse.getJSONArray("candidates");
-                if (candidates.length() > 0) {
+                // 방어적 파싱: Gemini 응답은 finishReason=MAX_TOKENS/SAFETY/OTHER 등에서
+                // content 필드가 통째로 누락될 수 있음. getJSONObject 를 쓰면 즉시 throw 하므로
+                // optJSONObject + optJSONArray 로 안전하게 조회하고, 비정상 응답이면
+                // promptFeedback / finishReason 을 포함한 진단 메시지를 반환.
+                JSONArray candidates = jsonResponse.optJSONArray("candidates");
+                if (candidates != null && candidates.length() > 0) {
                     JSONObject firstCandidate = candidates.getJSONObject(0);
-                    JSONObject content = firstCandidate.getJSONObject("content");
-                    JSONArray parts = content.getJSONArray("parts");
-                    if (parts.length() > 0) {
-                        return parts.getJSONObject(0).getString("text");
+                    JSONObject content = firstCandidate.optJSONObject("content");
+                    if (content != null) {
+                        JSONArray parts = content.optJSONArray("parts");
+                        if (parts != null && parts.length() > 0) {
+                            String text = parts.getJSONObject(0).optString("text", null);
+                            if (text != null && !text.isEmpty()) {
+                                return text;
+                            }
+                        }
                     }
+                    // content 누락 — 진단 정보 포함하여 안내
+                    String finishReason = firstCandidate.optString("finishReason", "UNKNOWN");
+                    log.warn("Gemini 응답에 content 누락 (finishReason={}). 전체 응답: {}",
+                            finishReason, response);
+                    return "응답에서 텍스트를 찾을 수 없습니다 (finishReason=" + finishReason + ")";
                 }
+                // candidates 자체 없음 — promptFeedback 확인
+                JSONObject promptFeedback = jsonResponse.optJSONObject("promptFeedback");
+                if (promptFeedback != null) {
+                    String blockReason = promptFeedback.optString("blockReason", "UNKNOWN");
+                    log.warn("Gemini 요청 차단 (blockReason={}). 전체 응답: {}", blockReason, response);
+                    return "Gemini 요청이 차단되었습니다 (blockReason=" + blockReason + ")";
+                }
+                log.warn("Gemini 응답에서 candidates 를 찾을 수 없음. 전체 응답: {}", response);
                 return "응답에서 텍스트를 찾을 수 없습니다.";
             }
         } else { // 오류 응답

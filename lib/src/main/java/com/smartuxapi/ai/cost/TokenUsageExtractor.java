@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 /**
  * Provider 응답 JSON 에서 토큰 사용량을 추출하는 유틸.
  *
- * <p>두 provider 의 필드명이 상이:
+ * <p>provider 별 필드명이 상이:
  * <ul>
  *   <li>OpenAI Responses API: {@code usage.input_tokens} / {@code usage.output_tokens}</li>
  *   <li>OpenAI Chat Completions / Embeddings: {@code usage.prompt_tokens} / {@code usage.completion_tokens}</li>
  *   <li>Gemini: {@code usageMetadata.promptTokenCount} / {@code usageMetadata.candidatesTokenCount}</li>
+ *   <li>Anthropic Messages API: {@code usage.input_tokens} / {@code usage.output_tokens}
+ *       (+ {@code cache_creation_input_tokens} / {@code cache_read_input_tokens})</li>
  * </ul>
  *
  * @since 0.9.1
@@ -56,6 +58,25 @@ public final class TokenUsageExtractor {
         if (usage == null) return Usage.ZERO;
         int in = usage.path("promptTokenCount").asInt(0);
         int out = usage.path("candidatesTokenCount").asInt(0);
+        return new Usage(in, out);
+    }
+
+    /**
+     * Anthropic Messages API 응답에서 usage 파싱.
+     *
+     * <p>Anthropic 의 {@code usage.input_tokens} 는 캐시 토큰을 포함하지 않고
+     * {@code cache_creation_input_tokens} / {@code cache_read_input_tokens} 로 별도 보고된다.
+     * {@link CostTable} 은 단일 input 단가만 가지므로, 캐시 토큰을 input 에 합산하여
+     * 누락 없이 (근사) 비용을 계산한다. (cache_read 는 실제로 더 저렴해 약간 과다 계상될 수 있음)
+     */
+    public static Usage fromClaude(JsonNode responseJson) {
+        if (responseJson == null) return Usage.ZERO;
+        JsonNode usage = responseJson.get("usage");
+        if (usage == null) return Usage.ZERO;
+        int in = usage.path("input_tokens").asInt(0)
+                + usage.path("cache_creation_input_tokens").asInt(0)
+                + usage.path("cache_read_input_tokens").asInt(0);
+        int out = usage.path("output_tokens").asInt(0);
         return new Usage(in, out);
     }
 }

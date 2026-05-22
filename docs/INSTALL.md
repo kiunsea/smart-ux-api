@@ -26,6 +26,7 @@ Smart UX API를 프로젝트에 통합하는 상세 가이드입니다.
 다음 중 하나 이상 필요:
 - **OpenAI API Key**: [발급 받기](https://platform.openai.com/api-keys)
 - **Google Gemini API Key**: [발급 받기](https://aistudio.google.com/app/apikey)
+- **Anthropic Claude API Key**: [발급 받기](https://console.anthropic.com) — `sk-ant-...` 형식. 발급 후 Billing 메뉴에서 결제 수단 등록 및 크레딧 충전 필요.
 
 ---
 
@@ -180,7 +181,33 @@ openai.model=gpt-4
 # Gemini API 설정 (선택)
 gemini.api.key=${GEMINI_API_KEY}
 gemini.model=gemini-pro
+
+# Anthropic Claude API 설정 (선택)
+anthropic.api.key=${CLAUDE_API_KEY}
+anthropic.model=claude-sonnet-4-6
+# anthropic.api.version=2023-06-01   # 선택: 미지정 시 라이브러리 기본값 사용
 ```
+
+#### Claude(Anthropic) 사용 예시 — Controller 주입
+
+```java
+@RestController
+@RequestMapping("/api/chat/claude")
+public class ClaudeController {
+
+    private final ClaudeChatRoom chatRoom;
+
+    @Autowired
+    public ClaudeController(
+            @Value("${anthropic.api.key}") String apiKey,
+            @Value("${anthropic.model}") String model) {
+        // 키와 모델만 주입하면 됨 — 라이브러리는 키 저장 방식을 강제하지 않음
+        this.chatRoom = new ClaudeChatRoom(apiKey, model);
+    }
+}
+```
+
+> 💡 **Claude API 버전 지정이 필요한 경우** 3-인자 생성자 사용: `new ClaudeChatRoom(apiKey, model, "2023-06-01")`. 일반적으로는 2-인자 생성자로 충분합니다.
 
 ---
 
@@ -282,32 +309,37 @@ public class SmartUXServlet extends HttpServlet {
 ```batch
 set OPENAI_API_KEY=sk-...
 set GEMINI_API_KEY=...
+set CLAUDE_API_KEY=sk-ant-...
 ```
 
 #### Linux/Mac
 ```bash
 export OPENAI_API_KEY=sk-...
 export GEMINI_API_KEY=...
+export CLAUDE_API_KEY=sk-ant-...
 ```
 
 ### 설정 파일 사용
 
-`src/main/resources/apikey.json`:
+`src/main/resources/apikey.json` (lib 테스트 및 동일 패턴을 따르는 외부 프로젝트용):
 ```json
 {
-  "openai": {
-    "apiKey": "sk-...",
-    "model": "gpt-4",
-    "assistantId": "asst_..." // Assistants API 사용 시
-  },
-  "gemini": {
-    "apiKey": "...",
-    "model": "gemini-pro"
-  }
+  "OPENAI_API_KEY": "sk-...",
+  "OPENAI_MODEL": "gpt-4.1",
+  "OPENAI_ASSIST_ID": "asst_...",
+
+  "GEMINI_API_KEY": "...",
+  "GEMINI_MODEL": "gemini-2.5-flash",
+
+  "CLAUDE_API_KEY": "sk-ant-...",
+  "CLAUDE_MODEL": "claude-sonnet-4-6",
+  "CLAUDE_API_VERSION": ""
 }
 ```
 
-⚠️ **주의**: `apikey.json` 파일은 `.gitignore`에 반드시 추가하세요!
+> 💡 키 이름은 `lib/src/main/resources/def.apikey.json` 템플릿을 참고하세요. `ConfigLoader.loadConfigFromClasspath("apikey.json")` 으로 로드합니다.
+
+⚠️ **주의**: `apikey.json` 과 `dev.apikey.json` 파일은 절대 git에 커밋하지 마세요. 저장소의 `.gitignore` 에 이미 `**/apikey.json`, `**/dev.apikey.json` 패턴이 등록되어 있습니다.
 
 ---
 

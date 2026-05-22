@@ -5,11 +5,17 @@
         "GEMINI_MODEL": "Gemini 모델명 (예: gemini-1.5-flash, gemini-2.5-flash) - 사용할 Google Gemini 모델을 지정합니다",
         "OPENAI_API_KEY": "OpenAI API 키 (OpenAI 서비스 사용 시 필수) - OpenAI Platform에서 발급 가능",
         "OPENAI_ASSIST_ID": "OpenAI Assistant ID (OpenAI Assistants API 사용 시 선택사항) - OpenAI Platform에서 Assistant를 생성하면 발급되는 ID",
-        "OPENAI_MODEL": "OpenAI 모델명 (예: gpt-4o-mini, gpt-4, gpt-4.1-mini, gpt-4.1) - 사용할 OpenAI 모델을 지정합니다"
+        "OPENAI_MODEL": "OpenAI 모델명 (예: gpt-4o-mini, gpt-4, gpt-4.1-mini, gpt-4.1) - 사용할 OpenAI 모델을 지정합니다",
+        "CLAUDE_API_KEY": "Anthropic Claude API 키 (Claude 서비스 사용 시 필수) - https://console.anthropic.com 에서 발급 (형식: sk-ant-...)",
+        "CLAUDE_MODEL": "Claude 모델명 (예: claude-sonnet-4-6, claude-opus-4-6, claude-haiku-4-5-20251001) - 사용할 Anthropic Claude 모델을 지정합니다",
+        "CLAUDE_API_VERSION": "Anthropic API 버전 (선택사항, 미지정 시 라이브러리 기본값 사용 - 예: 2023-06-01)"
     },
     "GEMINI_API_KEY": "YOUR KEY",
     "GEMINI_MODEL": "YOUR MODEL",
     "OPENAI_API_KEY": "YOUR KEY",
     "OPENAI_ASSIST_ID": "YOUR ID",
-    "OPENAI_MODEL": "YOUR MODEL"
+    "OPENAI_MODEL": "YOUR MODEL",
+    "CLAUDE_API_KEY": "YOUR KEY",
+    "CLAUDE_MODEL": "YOUR MODEL",
+    "CLAUDE_API_VERSION": ""
 }

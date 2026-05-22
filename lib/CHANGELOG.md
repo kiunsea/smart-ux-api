@@ -9,6 +9,41 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.10.0] - 2026-05-23
+
+### Added
+- **Anthropic Claude provider** — 세 번째 LLM provider 추가 (`com.smartuxapi.ai.claude` 패키지)
+  - `ClaudeChatRoom` / `ClaudeChatting` / `ClaudeAPIConnection` / `ConversationHistory` —
+    Anthropic Messages API (`POST /v1/messages`) 기반, 기존 `ChatRoom` / `Chatting` 추상화 준수
+  - **chat** — `sendPrompt` 일반 대화
+  - **tool use** — `sendPromptWithTools` (auto-loop) / `sendPromptExpectingToolCalls` +
+    `continueWithToolResults` (manual). `tool_use` content 블록 ↔ `tool_result` user 메시지 매핑
+  - **structured output** — `sendPromptWithSchema`. Anthropic 은 네이티브 response schema 가
+    없어 스키마를 단일 tool 의 `input_schema` 로 등록하고 `tool_choice` 로 호출을 강제하는 방식
+  - **prompt caching** — `ClaudePromptCacheStrategy` (`cache/claude`). 캐시 힌트를 top-level
+    `system` 블록으로 배치하고 `cache_control: ephemeral` 부여, `cache_read_input_tokens` 로 히트 집계
+- `fallback.ClaudeSlot` — fallback chain 에 Claude provider 편입용 `ProviderSlot` 구현
+- `TokenUsageExtractor.fromClaude(JsonNode)` — Anthropic `usage` 파싱 (캐시 토큰을 input 에 합산)
+- `CostTable` — Claude 모델 단가 등록 (`claude-opus-4-7` / `claude-sonnet-4-6` / `claude-haiku-4-5`)
+- `ClaudeAPIConnection` 의 `anthropic-version` 헤더는 생성자 인자로 override 가능 (기본 `2023-06-01`),
+  `max_tokens` 기본값 `4096`
+
+### Fixed
+- **`GeminiAPIConnection.generateContent`** — 응답 방어적 파싱.
+  `finishReason=MAX_TOKENS/SAFETY/OTHER` 등에서 `content` 필드가 누락되면 `getJSONObject` 가
+  즉시 throw 하던 문제를 `optJSONObject`/`optJSONArray` 로 안전 조회 + `finishReason` /
+  `promptFeedback.blockReason` 진단 메시지 반환으로 해소
+
+### Tests
+- `claude` 패키지 단위 테스트 — `ConversationHistoryTest`, `ClaudeChatRoomTest`,
+  `ClaudeChattingToolUseTest`, `ClaudeChattingStructuredOutputTest` (Mockito), `ClaudeAPIConnectionTest` (opt-in)
+- `ClaudePromptCacheStrategyTest`, `TokenUsageExtractorTest` 에 Claude 케이스 추가
+
+### Notes
+- 하위 호환 — 기존 provider (OpenAI / Gemini) 동작 변경 없음. Claude 는 신규 추가만.
+- Claude 모델 단가는 2026-Q2 기준 추정치 — 변동 시 `CostTable.register()` 로 override.
+
+---
 ## [0.9.6] - 2026-04-25
 
 ### Added
