@@ -1,8 +1,12 @@
 # Tool Use Guide (v0.8.0+)
 
 smart-ux-api v0.8.0 은 **LLM Function Calling / Tool Use** 를 Provider 중립 API 로 제공합니다.
-OpenAI Responses API 의 `tools`, Gemini 의 `functionDeclarations` 를 단일 인터페이스로 감싸며,
-**자동 실행 루프**와 **수동 dispatch** 두 모드를 모두 지원합니다.
+OpenAI Responses API 의 `tools`, Gemini 의 `functionDeclarations`, Anthropic Claude(v0.10.0+)
+의 `tools` / `tool_use` 블록을 단일 인터페이스로 감싸며, **자동 실행 루프**와 **수동 dispatch**
+두 모드를 모두 지원합니다.
+
+> 💡 아래 예제는 `ResponsesChatRoom` 을 사용하지만, `GeminiChatRoom` / `ClaudeChatRoom` 으로
+> 교체해도 Tool Use API(`sendPromptWithTools` 등)는 동일하게 동작합니다.
 
 ---
 

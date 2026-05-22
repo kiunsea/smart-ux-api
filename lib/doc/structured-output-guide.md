@@ -3,6 +3,12 @@
 smart-ux-api v0.8.0 은 **JSON Schema 를 강제하는 구조화 응답 API** 를 제공합니다.
 LLM 응답을 항상 정해진 스키마의 JSON 으로 받아 파싱 오류·후처리 복잡도를 줄입니다.
 
+> 💡 **Provider 별 매핑** — OpenAI 는 `text.format.json_schema`, Gemini 는
+> `generationConfig.responseSchema` 로 매핑됩니다. Anthropic Claude(v0.10.0+) 는 네이티브
+> 구조화 응답 필드가 없어, 스키마를 단일 tool 의 `input_schema` 로 등록하고 `tool_choice` 로
+> 호출을 강제하는 방식으로 구현됩니다. 호출 측 API(`sendPromptWithSchema`)와 반환 포맷은
+> 세 provider 모두 동일합니다 — `ClaudeChatRoom` 으로 교체만 하면 됩니다.
+
 ---
 
 ## 1. 핵심 API

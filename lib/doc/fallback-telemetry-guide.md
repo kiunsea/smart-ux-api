@@ -81,6 +81,11 @@ ChatRoom chat = new FallbackChatRoom(policy);
 - `UNAUTHORIZED` — HTTP 401/403 (기본 trigger 미포함)
 - `UNKNOWN` — 분류 불가 (기본 trigger 미포함)
 
+> 💡 v0.10.0 부터 `ClaudeSlot` 이 추가되어 Anthropic Claude provider 도 fallback chain 에
+> 편입할 수 있습니다. `FallbackPolicies` 프리셋은 openai/gemini 조합만 제공하므로, Claude 를
+> 포함하려면 위와 같이 `FallbackPolicy.builder().addSlot(new ClaudeSlot(claude))` 형태의
+> builder 를 사용하세요. (예: `.addSlot(new OpenAiSlot(openai)).addSlot(new ClaudeSlot(claude))`)
+
 ---
 
 ## 4. Tool Use / Structured / Cache 와 통합
@@ -187,6 +192,9 @@ CostSummary visionOnly = CostTracker.INSTANCE.getSummary(
 | gemini-1.5-flash | 0.075 | 0.30 |
 | gemini-2.5-flash | 0.075 | 0.30 |
 | gemini-1.5-pro | 1.25 | 5.00 |
+| claude-opus-4-7 | 15.00 | 75.00 |
+| claude-sonnet-4-6 | 3.00 | 15.00 |
+| claude-haiku-4-5-20251001 | 1.00 | 5.00 |
 | text-embedding-3-small | 0.02 | 0 |
 | text-embedding-3-large | 0.13 | 0 |
 | text-embedding-004 | 0 | 0 |

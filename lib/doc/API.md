@@ -7,22 +7,23 @@
 3. [핵심 인터페이스](#핵심-인터페이스)
 4. [OpenAI Responses API](#openai-responses-api)
 5. [Google Gemini API](#google-gemini-api)
-6. [OpenAI Assistants API](#openai-assistants-api)
-7. [ActionQueueHandler](#actionqueuehandler)
-8. [ConfigLoader](#configloader)
-9. [JavaScript API](#javascript-api)
-10. [사용 예제](#사용-예제)
+6. [Anthropic Claude API](#anthropic-claude-api)
+7. [OpenAI Assistants API](#openai-assistants-api)
+8. [ActionQueueHandler](#actionqueuehandler)
+9. [ConfigLoader](#configloader)
+10. [JavaScript API](#javascript-api)
+11. [사용 예제](#사용-예제)
 
 ---
 
 ## 개요
 
-**Smart UX API**는 AI 모델을 활용하여 웹 애플리케이션의 UI를 제어할 수 있는 Java 기반 라이브러리입니다. OpenAI의 Responses/Assistants API와 Google Gemini API를 지원하며, 사용자의 자연어 명령을 UI 액션으로 변환하는 기능을 제공합니다.
+**Smart UX API**는 AI 모델을 활용하여 웹 애플리케이션의 UI를 제어할 수 있는 Java 기반 라이브러리입니다. OpenAI의 Responses/Assistants API, Google Gemini API, Anthropic Claude API를 지원하며, 사용자의 자연어 명령을 UI 액션으로 변환하는 기능을 제공합니다.
 
 ### 주요 기능
 
 - **대화 세션 관리**: `ChatRoom`을 통한 대화 컨텍스트 유지
-- **AI 모델 지원**: OpenAI Responses/Assistants API, Google Gemini API
+- **AI 모델 지원**: OpenAI Responses/Assistants API, Google Gemini API, Anthropic Claude API (v0.10.0+)
 - **Action Queue 생성**: 사용자 요청을 UI 액션으로 변환
 - **현재 화면 정보 처리**: JavaScript 클라이언트를 통한 UI 상태 수집
 
@@ -90,6 +91,7 @@ public interface ChatRoom {
 
 - `ResponsesChatRoom`: OpenAI Responses API용
 - `GeminiChatRoom`: Google Gemini API용
+- `ClaudeChatRoom`: Anthropic Claude API용
 - `AssistantsThread`: OpenAI Assistants API용
 
 ### Chatting
@@ -117,6 +119,7 @@ public interface Chatting {
 
 - `ResponsesChatting`: OpenAI Responses API용
 - `GeminiChatting`: Google Gemini API용
+- `ClaudeChatting`: Anthropic Claude API용
 - `AssistantsMessage`: OpenAI Assistants API용
 
 ---
@@ -220,6 +223,64 @@ Google Gemini API를 사용하는 Chatting 구현체입니다.
 #### 주의사항
 
 - `getMessageIdSet()` 메서드는 `null`을 반환합니다.
+
+---
+
+## Anthropic Claude API
+
+> v0.10.0 추가. Anthropic Messages API 기반 provider 입니다.
+
+### ClaudeChatRoom
+
+Anthropic Claude API를 사용하는 ChatRoom 구현체입니다.
+
+#### 생성자
+
+```java
+public ClaudeChatRoom(String apiKey, String modelName)
+public ClaudeChatRoom(String apiKey, String modelName, String anthropicVersion)
+```
+
+- `apiKey`: Anthropic Claude API Key (`sk-ant-...` 형식)
+- `modelName`: 사용할 모델 이름 (예: `"claude-sonnet-4-6"`, `"claude-opus-4-7"`, `"claude-haiku-4-5-20251001"`)
+- `anthropicVersion`: (선택) `anthropic-version` 헤더 값. 생략하거나 빈 문자열이면 기본값 `2023-06-01` 사용
+
+#### 사용 예제
+
+```java
+// API Key 및 모델 설정
+String apiKey = "your-anthropic-api-key";   // sk-ant-...
+String model = "claude-sonnet-4-6";
+
+// ChatRoom 생성
+ClaudeChatRoom chatRoom = new ClaudeChatRoom(apiKey, model);
+
+// Chatting 인스턴스 생성
+Chatting chatting = chatRoom.getChatting();
+
+// Action Queue Handler 설정 (선택사항)
+ActionQueueHandler aqHandler = new ActionQueueHandler();
+chatRoom.setActionQueueHandler(aqHandler);
+
+// 사용자 프롬프트 전송
+JSONObject response = chatting.sendPrompt("아이스 아메리카노 2잔 주문해줘");
+String message = (String) response.get("message");
+Object actionQueue = response.get("action_queue");
+
+// ChatRoom 종료
+chatRoom.close();
+```
+
+### ClaudeChatting
+
+Anthropic Claude API를 사용하는 Chatting 구현체입니다.
+
+#### 주의사항
+
+- `getMessageIdSet()` 메서드는 `null`을 반환합니다 (OpenAI Responses / Gemini API와 동일).
+- Tool Use(`sendPromptWithTools`), 구조화 응답(`sendPromptWithSchema`), 프롬프트 캐싱(`markAsCacheable`)을 OpenAI / Gemini provider 와 동일한 API 로 지원합니다.
+- 구조화 응답은 Anthropic 이 네이티브 JSON Schema 응답 필드를 제공하지 않으므로, 스키마를 단일 tool 의 `input_schema` 로 등록하고 `tool_choice` 로 호출을 강제하는 방식으로 구현됩니다.
+- 요청 시 `max_tokens` 는 기본값 `4096` 으로 전송됩니다.
 
 ---
 
@@ -464,7 +525,10 @@ API 키를 별도 파일로 관리할 때 사용합니다. 템플릿 파일 `def
     "GEMINI_MODEL": "gemini-pro",
     "OPENAI_API_KEY": "your-openai-api-key",
     "OPENAI_ASSIST_ID": "asst_xxxxxxxxxxxxx",
-    "OPENAI_MODEL": "gpt-4"
+    "OPENAI_MODEL": "gpt-4",
+    "CLAUDE_API_KEY": "your-anthropic-api-key",
+    "CLAUDE_MODEL": "claude-sonnet-4-6",
+    "CLAUDE_API_VERSION": ""
 }
 ```
 
@@ -477,6 +541,9 @@ API 키를 별도 파일로 관리할 때 사용합니다. 템플릿 파일 `def
 | `OPENAI_API_KEY` | string | OpenAI 사용 시 필수 | OpenAI API 키. [OpenAI Platform](https://platform.openai.com)에서 발급 가능 |
 | `OPENAI_ASSIST_ID` | string | Assistants API 사용 시 선택 | OpenAI Assistant ID. OpenAI Platform에서 Assistant를 생성하면 발급되는 ID |
 | `OPENAI_MODEL` | string | OpenAI 사용 시 필수 | OpenAI 모델명. 예: `gpt-4o-mini`, `gpt-4`, `gpt-4.1-mini`, `gpt-4.1` |
+| `CLAUDE_API_KEY` | string | Claude 사용 시 필수 | Anthropic Claude API 키. [Anthropic Console](https://console.anthropic.com)에서 발급 (`sk-ant-...`) |
+| `CLAUDE_MODEL` | string | Claude 사용 시 필수 | Claude 모델명. 예: `claude-sonnet-4-6`, `claude-opus-4-7`, `claude-haiku-4-5-20251001` |
+| `CLAUDE_API_VERSION` | string | 선택 | `anthropic-version` 헤더 값. 미지정/빈 문자열이면 라이브러리 기본값(`2023-06-01`) 사용 |
 
 **주의**: `apikey.json` 파일은 절대 버전 관리 시스템(Git 등)에 커밋하지 마세요. `.gitignore`에 추가하는 것을 권장합니다.
 

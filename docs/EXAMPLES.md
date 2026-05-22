@@ -9,6 +9,7 @@ Smart UX API를 사용하는 다양한 실전 예제 모음입니다.
 - [기본 사용법](#기본-사용법)
 - [OpenAI 예제](#openai-예제)
 - [Gemini 예제](#gemini-예제)
+- [Claude 예제](#claude-예제)
 - [고급 시나리오](#고급-시나리오)
 - [프레임워크 통합](#프레임워크-통합)
 - [에러 처리](#에러-처리)
@@ -239,6 +240,79 @@ public class AdvancedGeminiExample {
     }
 }
 ```
+
+---
+
+## Claude 예제
+
+> v0.10.0 추가. Anthropic Claude provider 는 OpenAI / Gemini 와 동일한 `ChatRoom` / `Chatting`
+> 인터페이스를 사용하므로, 클래스명만 `ClaudeChatRoom` 으로 바꾸면 됩니다.
+
+### 예제 1: Claude API 기본 사용
+
+```java
+public class ClaudeExample {
+
+    public void chatWithClaude() {
+        // ClaudeChatRoom 생성 (apiKey 는 sk-ant-... 형식)
+        ClaudeChatRoom chatRoom = new ClaudeChatRoom(
+            "sk-ant-...",
+            "claude-sonnet-4-6"
+        );
+
+        // Action Queue Handler 설정
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+
+        // 현재 화면 정보 설정
+        aqHandler.setCurrentViewInfo(getCurrentViewInfo());
+
+        // Chatting 생성
+        Chatting chatting = chatRoom.getChatting();
+
+        // 프롬프트 전송
+        JSONObject response = chatting.sendPrompt("아이스 아메리카노 한 잔 주문해줘");
+
+        System.out.println("Claude Response: " + response);
+    }
+
+    private String getCurrentViewInfo() {
+        return "{ \"elements\": [...] }";
+    }
+}
+```
+
+### 예제 2: anthropic-version 헤더 지정
+
+```java
+public class ClaudeVersionExample {
+
+    public void customApiVersion() {
+        // anthropic-version 헤더를 명시적으로 지정 (보통은 생략 — 기본값 2023-06-01)
+        ClaudeChatRoom chatRoom = new ClaudeChatRoom(
+            "sk-ant-...",
+            "claude-opus-4-7",
+            "2023-06-01"
+        );
+
+        ActionQueueHandler aqHandler = new ActionQueueHandler();
+        chatRoom.setActionQueueHandler(aqHandler);
+        aqHandler.setCurrentViewInfo(getView());
+
+        Chatting chatting = chatRoom.getChatting();
+        JSONObject response = chatting.sendPrompt("메뉴 추천해줘");
+
+        System.out.println(response);
+    }
+
+    private String getView() {
+        return "{ \"currentScreen\": \"menu\" }";
+    }
+}
+```
+
+> 💡 Tool Use(`sendPromptWithTools`) · 구조화 응답(`sendPromptWithSchema`) · 프롬프트 캐싱
+> (`markAsCacheable`) 사용법은 OpenAI / Gemini 예제와 동일합니다. `lib/doc/` 의 기능별 가이드를 참조하세요.
 
 ---
 
