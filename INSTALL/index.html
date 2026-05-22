@@ -640,6 +640,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. application.properties 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claudeanthropic-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude(Anthropic) 사용 예시 — Controller 주입
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1143,6 +1160,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. application.properties 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claudeanthropic-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude(Anthropic) 사용 예시 — Controller 주입
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1382,7 +1416,8 @@
 <h3 id="ai-api">AI API 키<a class="headerlink" href="#ai-api" title="Permanent link">&para;</a></h3>
 <p>다음 중 하나 이상 필요:
 - <strong>OpenAI API Key</strong>: <a href="https://platform.openai.com/api-keys">발급 받기</a>
-- <strong>Google Gemini API Key</strong>: <a href="https://aistudio.google.com/app/apikey">발급 받기</a></p>
+- <strong>Google Gemini API Key</strong>: <a href="https://aistudio.google.com/app/apikey">발급 받기</a>
+- <strong>Anthropic Claude API Key</strong>: <a href="https://console.anthropic.com">발급 받기</a> — <code>sk-ant-...</code> 형식. 발급 후 Billing 메뉴에서 결제 수단 등록 및 크레딧 충전 필요.</p>
 <hr />
 <h2 id="java">Java 웹 애플리케이션에 통합<a class="headerlink" href="#java" title="Permanent link">&para;</a></h2>
 <h3 id="_4">📁 프로젝트 구조 이해<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
@@ -1510,7 +1545,31 @@ gradlew.bat<span class="w"> </span>build
 <span class="c1"># Gemini API 설정 (선택)</span>
 <span class="na">gemini.api.key</span><span class="o">=</span><span class="s">${GEMINI_API_KEY}</span>
 <span class="na">gemini.model</span><span class="o">=</span><span class="s">gemini-pro</span>
+
+<span class="c1"># Anthropic Claude API 설정 (선택)</span>
+<span class="na">anthropic.api.key</span><span class="o">=</span><span class="s">${CLAUDE_API_KEY}</span>
+<span class="na">anthropic.model</span><span class="o">=</span><span class="s">claude-sonnet-4-6</span>
+<span class="c1"># anthropic.api.version=2023-06-01   # 선택: 미지정 시 라이브러리 기본값 사용</span>
 </code></pre></div>
+<h4 id="claudeanthropic-controller">Claude(Anthropic) 사용 예시 — Controller 주입<a class="headerlink" href="#claudeanthropic-controller" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/chat/claude&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ClaudeController</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ClaudeChatRoom</span><span class="w"> </span><span class="n">chatRoom</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ClaudeController</span><span class="p">(</span>
+<span class="w">            </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${anthropic.api.key}&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="p">,</span>
+<span class="w">            </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${anthropic.model}&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">model</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 키와 모델만 주입하면 됨 — 라이브러리는 키 저장 방식을 강제하지 않음</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">chatRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClaudeChatRoom</span><span class="p">(</span><span class="n">apiKey</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Claude API 버전 지정이 필요한 경우</strong> 3-인자 생성자 사용: <code>new ClaudeChatRoom(apiKey, model, "2023-06-01")</code>. 일반적으로는 2-인자 생성자로 충분합니다.</p>
+</blockquote>
 <hr />
 <h2 id="servlet">일반 Servlet 프로젝트에 통합<a class="headerlink" href="#servlet" title="Permanent link">&para;</a></h2>
 <h3 id="1-servlet">1. Servlet 생성<a class="headerlink" href="#1-servlet" title="Permanent link">&para;</a></h3>
@@ -1599,26 +1658,32 @@ gradlew.bat<span class="w"> </span>build
 <h4 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">set</span> <span class="nv">OPENAI_API_KEY</span><span class="p">=</span>sk-...
 <span class="k">set</span> <span class="nv">GEMINI_API_KEY</span><span class="p">=</span>...
+<span class="k">set</span> <span class="nv">CLAUDE_API_KEY</span><span class="p">=</span>sk-ant-...
 </code></pre></div>
 <h4 id="linuxmac">Linux/Mac<a class="headerlink" href="#linuxmac" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
 <span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span>...
+<span class="nb">export</span><span class="w"> </span><span class="nv">CLAUDE_API_KEY</span><span class="o">=</span>sk-ant-...
 </code></pre></div>
 <h3 id="_6">설정 파일 사용<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p><code>src/main/resources/apikey.json</code>:
+<p><code>src/main/resources/apikey.json</code> (lib 테스트 및 동일 패턴을 따르는 외부 프로젝트용):
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;openai&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;apiKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-...&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;assistantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asst_...&quot;</span><span class="w"> </span><span class="c1">// Assistants API 사용 시</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;gemini&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;apiKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gemini-pro&quot;</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">&quot;OPENAI_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;OPENAI_MODEL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;OPENAI_ASSIST_ID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asst_...&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;GEMINI_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;GEMINI_MODEL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gemini-2.5-flash&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;CLAUDE_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-ant-...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;CLAUDE_MODEL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-sonnet-4-6&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;CLAUDE_API_VERSION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>⚠️ <strong>주의</strong>: <code>apikey.json</code> 파일은 <code>.gitignore</code>에 반드시 추가하세요!</p>
+<blockquote>
+<p>💡 키 이름은 <code>lib/src/main/resources/def.apikey.json</code> 템플릿을 참고하세요. <code>ConfigLoader.loadConfigFromClasspath("apikey.json")</code> 으로 로드합니다.</p>
+</blockquote>
+<p>⚠️ <strong>주의</strong>: <code>apikey.json</code> 과 <code>dev.apikey.json</code> 파일은 절대 git에 커밋하지 마세요. 저장소의 <code>.gitignore</code> 에 이미 <code>**/apikey.json</code>, <code>**/dev.apikey.json</code> 패턴이 등록되어 있습니다.</p>
 <hr />
 <h2 id="_7">설치 확인<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="1">1. 빌드 테스트<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
