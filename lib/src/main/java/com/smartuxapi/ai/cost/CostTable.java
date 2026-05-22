@@ -54,6 +54,11 @@ public final class CostTable {
         // Gemini embeddings — 무료 tier 기본 0
         put("text-embedding-004",        0.00,  0.00);
         put("embedding-001",             0.00,  0.00);
+
+        // Anthropic Claude (2026-Q2 기준 공개 가격, 추정 — 변동 시 register() 로 override)
+        put("claude-opus-4-7",          15.00, 75.00);
+        put("claude-sonnet-4-6",         3.00, 15.00);
+        put("claude-haiku-4-5-20251001", 1.00,  5.00);
     }
 
     private CostTable() {}

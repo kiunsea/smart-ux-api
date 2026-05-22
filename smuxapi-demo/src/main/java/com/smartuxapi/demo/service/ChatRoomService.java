@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.smartuxapi.ai.ActionQueueHandler;
 import com.smartuxapi.ai.ChatRoom;
 import com.smartuxapi.ai.ConfigLoader;
+import com.smartuxapi.ai.claude.ClaudeChatRoom;
 import com.smartuxapi.ai.gemini.GeminiChatRoom;
 import com.smartuxapi.ai.openai.ResponsesChatRoom;
 import com.smartuxapi.ai.openai.assistants.Assistants;
@@ -136,6 +137,14 @@ public class ChatRoomService {
             String model = PropertiesUtil.get("GEMINI_MODEL");
             chatRoom = new GeminiChatRoom(apiKey, model);
             log.info("[" + chatRoom.getId() + "] Gemini API를 사용합니다");
+        } else if ("claude".equals(aiModel)) {
+            String apiKey = PropertiesUtil.get("CLAUDE_API_KEY");
+            String model = PropertiesUtil.get("CLAUDE_MODEL");
+            String version = PropertiesUtil.get("CLAUDE_API_VERSION");
+            chatRoom = (version != null && !version.trim().isEmpty())
+                    ? new ClaudeChatRoom(apiKey, model, version)
+                    : new ClaudeChatRoom(apiKey, model);
+            log.info("[" + chatRoom.getId() + "] Anthropic Claude API를 사용합니다");
         } else {
             String apiKey = PropertiesUtil.get("OPENAI_API_KEY");
             String assistId = PropertiesUtil.get("OPENAI_ASSIST_ID");

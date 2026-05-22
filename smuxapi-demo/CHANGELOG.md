@@ -9,6 +9,18 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.11.0] - 2026-05-23
+
+### Added
+- **Claude provider 연동** — lib 0.10.0 의 Anthropic Claude provider 를 demo 에서 선택 가능
+  - `ChatRoomService.createChatRoom` 에 `"claude"` 분기 추가 — `CLAUDE_API_KEY` / `CLAUDE_MODEL`
+    properties 키 사용, `CLAUDE_API_VERSION` 지정 시 `anthropic-version` 헤더 override
+  - `main.js` 시작 prompt 에 `4:Claude` 옵션 추가
+
+### Notes
+- lib 0.10.0 동반 릴리스. demo 단독 변경이 아님.
+
+---
 ## [0.10.2] - 2026-05-07
 
 ### Added
