@@ -116,7 +116,10 @@ smuxapi-demo/packaging/distribution/smuxapi-demo.yml
 smuxapi-demo/packaging/distribution/smuxapi-demo/
 smuxapi-demo/src/main/resources/smuxapi-demo.yml
 smuxapi-demo/src/main/resources/config.json
-.claude/settings.local.json
+
+# AI 코딩 에이전트 관련 파일 (Claude Code 등 — 로컬 운영 가이드 / 세션 상태, 공개 저장소 미커밋)
+/CLAUDE.md
+.claude/
 
 # Scenario Collector 출력 (smuxapi-demo v0.10.0+)
 # 실 환경 수집 결과물은 반복 실행 산출물이므로 커밋하지 않음.
