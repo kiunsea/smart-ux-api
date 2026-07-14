@@ -9,6 +9,20 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.11.1] - 2026-07-15
+
+### Changed
+- **lib 0.10.1 자동 픽업** (`implementation(project(":lib"))` 소스 의존) — Tool Use 멀티 라운드
+  루프의 OpenAI 400 `"No tool output found for function call"` (대응 출력이 없는 고아
+  `function_call`) 수정이 demo 의 `ToolUseController` / `ChattingCollector.sendPromptWithTools`
+  경로에 그대로 반영된다. 대형 페이지(elandmall 등) describe → 후속 tool 호출의 멀티 라운드
+  탐색이 400 없이 진행된다.
+
+### Notes
+- demo 코드 변경 없음 — lib 0.10.1 동반 반영. 소스(멀티프로젝트) 의존이라 빌드 시 자동 적용되며
+  별도 아티팩트 교체가 필요 없다.
+
+---
 ## [0.11.0] - 2026-05-23
 
 ### Added
