@@ -9,6 +9,33 @@
   - Patch: 기존 버전과 호환되면서 버그를 수정한 것일 때 증가
   
 ---
+## [0.10.1] - 2026-07-15
+
+### Fixed
+- **`ResponsesChatting` Tool Use 멀티 라운드 루프 — OpenAI 400 `"No tool output found for function call"` 해소**
+  - 증상: 대형 페이지(예: elandmall.co.kr)에서 `describe_current_page` 후 후속 tool(`click`)을
+    호출하는 멀티 라운드 tool 루프의 두 번째 라운드가 400 으로 실패 (5/5 재현). 소형 describe 나
+    단일 턴에서는 미발생.
+  - 원인: `ResponsesAPIConnection.generateContentWithTools` 는 `name`/`call_id` 가 비어
+    파싱되지 않는 형식 오류 `function_call` 을 실행 대상(`getToolCalls()`)에서 제외하지만 raw
+    output 은 그대로 히스토리에 보존한다. 그 결과 대응 `function_call_output` 이 없는 고아
+    `function_call` 이 남아 다음 요청이 400 으로 거절되었다.
+  - 수정: `ConversationHistory.reconcileMissingToolOutputs()` 추가 — 히스토리의 모든
+    `function_call` 에 대응 출력이 존재하도록 방어적으로 보정한다. `ResponsesChatting`
+    auto-loop(`sendPromptWithTools`) 및 manual(`continueWithToolResults`) 경로에서 다음 요청
+    직전에 호출. 모든 call 이 이미 출력을 가진 정상 흐름에서는 아무 것도 추가하지 않아 유효
+    대화를 훼손하지 않는다.
+
+### Tests
+- `ConversationHistoryTest` — `reconcileMissingToolOutputs` 보정/멱등/no-op 케이스
+- `ResponsesChattingToolUseTest` — 고아 `function_call` 이 auto-loop 에서 오류 출력으로 보정되는지 검증
+
+### Notes
+- 하위 호환 — 공개 API 변경 없음(추가 메서드 1개). OpenAI 경로 전용 방어 로직으로 Gemini/Claude 무영향.
+- doribox-studio 는 composite build(`includeBuild`)로 본 모듈을 소스에서 해석하므로(로컬 및 CI 동일),
+  본 수정은 별도 Maven 게시 없이 `main` 반영만으로 doribox-studio CI 에 전파된다.
+
+---
 ## [0.10.0] - 2026-05-23
 
 ### Added
