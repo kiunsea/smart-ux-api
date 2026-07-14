@@ -126,6 +126,48 @@ class ResponsesChattingToolUseTest {
     }
 
     @Test
+    @DisplayName("orphan function_call — 실행되지 않은 function_call 에 오류 출력 보정 (OpenAI 400 방지)")
+    void testOrphanFunctionCallGetsErrorOutput() throws Exception {
+        ResponsesAPIConnection mockConn = mock(ResponsesAPIConnection.class);
+        ToolCall valid = new ToolCall("call_ok", "echo", MAPPER.readTree("{\"value\":\"hi\"}"));
+        // rawOutput 에는 실행 대상 call_ok 외에, name 이 비어 파싱 단계에서 스킵된 call_orphan 도 포함.
+        // 이는 elandmall 대형 describe 출력에서 관측된 고아 function_call 을 재현한다.
+        String rawWithOrphan = "["
+                + "{\"type\":\"function_call\",\"call_id\":\"call_ok\",\"name\":\"echo\",\"arguments\":\"{\\\"value\\\":\\\"hi\\\"}\"},"
+                + "{\"type\":\"function_call\",\"call_id\":\"call_orphan\",\"name\":\"\",\"arguments\":\"{}\"}"
+                + "]";
+        when(mockConn.generateContentWithTools(any(JSONArray.class), any(CacheStrategy.class), any(ToolRegistry.class)))
+                .thenReturn(ToolTurnResult.toolCalls(Arrays.asList(valid), rawWithOrphan))
+                .thenReturn(ToolTurnResult.finalText("done", "[]"));
+
+        ToolRegistry tools = new ToolRegistry();
+        tools.register(simpleEchoTool("echo"));
+
+        ResponsesChatting chatting = new ResponsesChatting(mockConn);
+        JSONObject res = chatting.sendPromptWithTools("go", tools);
+
+        assertEquals("done", res.get("message"));
+        // 히스토리에 보존된 두 function_call 모두 대응 function_call_output 을 가져야 한다.
+        JSONArray history = chatting.getConversationHistory().getHistory();
+        assertTrue(hasToolOutput(history, "call_ok"), "정상 call 은 출력을 보유해야 함");
+        assertTrue(hasToolOutput(history, "call_orphan"),
+                "고아 call 도 오류 출력으로 보정되어 다음 요청의 400 을 방지해야 함");
+    }
+
+    /** 히스토리에 주어진 call_id 의 function_call_output 이 존재하는지 확인. */
+    private static boolean hasToolOutput(JSONArray history, String callId) {
+        for (int i = 0; i < history.length(); i++) {
+            org.json.JSONObject item = history.optJSONObject(i);
+            if (item == null) continue;
+            if ("function_call_output".equals(item.optString("type", ""))
+                    && callId.equals(item.optString("call_id", ""))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Test
     @DisplayName("Manual mode — sendPromptExpectingToolCalls 는 첫 라운드 tool_calls 그대로 반환")
     void testManualFirstRound() throws Exception {
         ResponsesAPIConnection mockConn = mock(ResponsesAPIConnection.class);

@@ -133,6 +133,56 @@ public class ConversationHistory {
     }
 
     /**
+     * 히스토리에 보존된 모든 {@code function_call} 아이템에 대해 대응하는
+     * {@code function_call_output}(동일 {@code call_id})이 존재하도록 방어적으로 보정한다.
+     *
+     * <p>Responses API 는 요청 {@code input} 에 남긴 {@code function_call} 마다 반드시
+     * 대응 출력을 요구한다 — 없으면 400 {@code "No tool output found for function call ..."}
+     * 로 거절한다. 응답 파싱 단계({@code ResponsesAPIConnection#generateContentWithTools})는
+     * {@code name} 또는 {@code call_id} 가 비어 있는 형식 오류 {@code function_call} 을
+     * 실행 대상({@code getToolCalls()})에서 제외하지만, raw output 은 그대로 히스토리에
+     * 보존하므로 대응 출력이 없는 고아 {@code function_call} 이 남을 수 있다. 이 메서드는
+     * 그러한 고아마다 오류 출력을 채워 다음 요청이 400 으로 실패하지 않도록 한다.
+     *
+     * <p>모든 {@code function_call} 이 이미 출력을 가진 정상 흐름에서는 아무것도 추가하지
+     * 않으므로({@code return 0}) 유효 대화를 훼손하지 않는다.
+     *
+     * @return 보정을 위해 추가한 오류 출력 개수
+     * @since 0.10.1
+     */
+    public int reconcileMissingToolOutputs() {
+        // 1) 이미 출력이 존재하는 call_id 수집
+        java.util.Set<String> haveOutput = new java.util.HashSet<>();
+        for (int i = 0; i < convHistory.length(); i++) {
+            JSONObject item = convHistory.optJSONObject(i);
+            if (item == null) continue;
+            if ("function_call_output".equals(item.optString("type", ""))) {
+                String cid = item.optString("call_id", "");
+                if (!cid.isEmpty()) haveOutput.add(cid);
+            }
+        }
+
+        // 2) 출력이 없는 function_call 의 call_id 수집 (순회 중 수정 방지 위해 분리)
+        java.util.List<String> missing = new java.util.ArrayList<>();
+        for (int i = 0; i < convHistory.length(); i++) {
+            JSONObject item = convHistory.optJSONObject(i);
+            if (item == null) continue;
+            if (!"function_call".equals(item.optString("type", ""))) continue;
+            // 파싱 단계와 동일하게 call_id → id 순으로 매칭 키를 정한다.
+            String cid = item.optString("call_id", item.optString("id", ""));
+            if (cid.isEmpty() || haveOutput.contains(cid)) continue;
+            missing.add(cid);
+            haveOutput.add(cid); // 동일 call_id 중복 추가 방지
+        }
+
+        // 3) 고아 function_call 마다 오류 출력 추가
+        for (String cid : missing) {
+            addToolResult(cid, "error: tool call was not executed (skipped, unregistered, or malformed)");
+        }
+        return missing.size();
+    }
+
+    /**
      * 대화 기록을 초기화합니다.
      * 
      * @param sessionId 초기화할 세션 ID

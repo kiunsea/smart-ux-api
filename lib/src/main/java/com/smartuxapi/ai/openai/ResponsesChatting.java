@@ -226,6 +226,13 @@ public class ResponsesChatting implements Chatting {
                 this.conversationHistory.addToolResult(call.getId(), outputStr);
                 executedCalls.add(toExecutedCallJson(call, result));
             }
+            // 방어적 보정 — 히스토리에 보존된 function_call 중 실행되지 않아(스킵/미등록/형식오류)
+            // 대응 출력이 없는 고아를 오류 출력으로 채워 다음 라운드 요청의 OpenAI 400
+            // "No tool output found for function call" 을 방지한다.
+            int patched = this.conversationHistory.reconcileMissingToolOutputs();
+            if (patched > 0) {
+                LOG.warn("대응 출력이 없는 function_call {} 건을 오류 출력으로 보정 (round={})", patched, round);
+            }
         }
 
         if (finalText == null) {
@@ -293,6 +300,9 @@ public class ResponsesChatting implements Chatting {
                 this.conversationHistory.addToolResult(r.getCallId(), serializeToolOutput(r));
             }
         }
+        // 방어적 보정 — 호출자가 결과를 제출하지 않은(또는 파싱 단계에서 스킵된) function_call
+        // 고아를 오류 출력으로 채워 다음 요청의 OpenAI 400 을 방지한다.
+        this.conversationHistory.reconcileMissingToolOutputs();
         ToolTurnResult turn = this.connApi.generateContentWithTools(
                 this.conversationHistory.getHistory(), this.cacheStrategy, tools);
         if (turn.isFinal()) {
